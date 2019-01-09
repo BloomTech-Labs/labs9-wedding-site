@@ -5,6 +5,8 @@ const KnexConfig = require('../knexfile');
 const db = knex(KnexConfig.development);
 const faker = require('faker')
 
+
+
 server.use(express.json())
 
 server.post('/registration', (req,res)=>{
@@ -23,6 +25,26 @@ server.get('/users', async (req, res) => {
 
     try{
         const users = await db('users');
+        if(users){
+            res.status(200).json(users)
+        }
+
+    }
+
+    catch(err){
+        res.status(500).json({message: 'An error occured while retrieving the data.'})
+    }
+});
+
+server.get('/dummydata', async (req, res) => {
+    let newUser = {firstname: faker.name.firstName(), lastname: faker.name.lastName()}
+    
+    
+
+    try{
+        
+        const users = await db.table('users').insert(newUser)
+        
         if(users){
             res.status(200).json(users)
         }
