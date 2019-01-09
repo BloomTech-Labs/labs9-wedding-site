@@ -9,6 +9,7 @@ const faker = require('faker')
 
 server.use(express.json())
 
+
 server.post('/registration', (req,res)=>{
     
     const newUser = req.body;
@@ -20,6 +21,7 @@ server.post('/registration', (req,res)=>{
     })
 
 })
+
 
 server.get('/users', async (req, res) => {
 
@@ -35,6 +37,7 @@ server.get('/users', async (req, res) => {
         res.status(500).json({message: 'An error occured while retrieving the data.'})
     }
 });
+
 
 server.get('/dummydata', async (req, res) => {
     let newUser = {firstname: faker.name.firstName(), lastname: faker.name.lastName()}
