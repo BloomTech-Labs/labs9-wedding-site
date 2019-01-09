@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Payment from './Client/billing';
 import Settings from './Client/settings';
 import Design from './Main/designs';
+import Prices from './Main/pricing';
 
 
 class App extends Component {
@@ -12,6 +13,7 @@ class App extends Component {
         <Payment />
         <Settings />
         <Design />
+        <Prices />
       </div>
     );
   }

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 
 const SettingsContainer = styled.div`
-margin: 20px;
+margin: auto;
 margin-top: 200px;
 border: 1px solid black;
 background-color: white;

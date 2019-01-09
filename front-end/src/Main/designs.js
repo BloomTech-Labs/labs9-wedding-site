@@ -3,20 +3,20 @@ import styled from 'styled-components';
 
 
 const Designs = styled.div`
-margin: 20px;
+margin: auto;
 margin-top: 200px;
 border: 1px solid black;
 background-color: white;
-width: 100%;
+width: 80%;
 display:flex;
 flex-wrap: wrap;
 align-items: center;
 justify-content: center;
-height: 650px;
+height: 850px;
 `
 
 const DesignContainer = styled.div`
-margin: 50px;
+margin: 40px;
 border: 1px solid black;
 background-color: white;
 display: flex;
