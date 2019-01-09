@@ -2,11 +2,15 @@
   "name": "y",
   "version": "y",
   "description": "y",
-  "main": "y",
+  "main": "index.js",
   "repository": "y",
   "author": "y",
   "license": "y",
   "private": true,
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.3",
@@ -14,6 +18,8 @@
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
+    "faker": "^4.1.0",
+    "knex": "^0.16.3",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0",
     "pg": "^7.7.1",
