@@ -7,6 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 
 const GuestListContainer = styled.div`
 margin: 50px auto 50px;
@@ -24,6 +25,20 @@ const styles = {
   };
 
 class GuestList extends Component {
+    // constructor(props) {
+    //     super(props);
+
+    //   }
+
+    componentDidMount() {
+        axios
+            //.get('http://localhost:8888/users')
+            .get('https://vbeloved.now.sh/users')
+            .then(response => {
+                console.log(response);
+        })
+    }
+
     render() {
       return (
       <GuestListContainer>
