@@ -25,17 +25,20 @@ const styles = {
   };
 
 class GuestList extends Component {
-    // constructor(props) {
-    //     super(props);
-
-    //   }
+    constructor(props) {
+        super(props);
+            this.state = {
+                guests: [],
+            }
+      }
 
     componentDidMount() {
         axios
-            //.get('http://localhost:8888/users')
             .get('https://vbeloved.now.sh/users')
             .then(response => {
-                console.log(response);
+                this.setState(() => ({
+                    guests: response.data
+                }))
         })
     }
 
@@ -58,22 +61,18 @@ class GuestList extends Component {
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                    <TableRow>
-                        <TableCell align="right">Jesse</TableCell>
-                        <TableCell align="right">Grossman</TableCell>
-                        <TableCell align="right">jesse.grossman@gmail.com</TableCell>
-                        <TableCell align="right">attending</TableCell>
-                        <TableCell align="right">101 Lambda Rd</TableCell>
-                        <TableCell align="right">bride</TableCell>
+                {this.state.guests.map(guest => {
+                    return (
+                    <TableRow key={guest.id}>
+                        <TableCell align="right">{guest.firstname}</TableCell>
+                        <TableCell align="right">{guest.lastname}</TableCell>
+                        <TableCell align="right">{}</TableCell>
+                        <TableCell align="right">{}</TableCell>
+                        <TableCell align="right">{}</TableCell>
+                        <TableCell align="right">{}</TableCell>
                     </TableRow>
-                    <TableRow>
-                        <TableCell align="right">Paige</TableCell>
-                        <TableCell align="right">Grossman</TableCell>
-                        <TableCell align="right">paige.grossman@gmail.com</TableCell>
-                        <TableCell align="right">attending</TableCell>
-                        <TableCell align="right">101 Lambda Rd</TableCell>
-                        <TableCell align="right">bride</TableCell>
-                    </TableRow>
+                    );
+                })}
                 </TableBody>
             </Table>
             </Paper>
