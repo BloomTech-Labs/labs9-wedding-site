@@ -6,12 +6,14 @@ const SignupLogin = () => {
     <div>
       <nav>
         <ul>
+          <div className='move'>
           <li class="">
             <a href="#">Signup</a>
           </li>
           <li class="">
             <a href="#">Login</a>
           </li>
+          </div>
         </ul>
       </nav>
     </div>

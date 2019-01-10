@@ -10,6 +10,8 @@ import Navigation from './Nav'; // this is the profile image import, it's workin
 import ProfilePic from './Nav';
 import LandingPageButtons from './LandingPageButtons';
 import SignupLogin from './SignupLoginButtons';
+import StickyTop from './topBar';
+import DropDownMenu from './dropDown';
 
 class App extends Component {
 
@@ -27,6 +29,9 @@ class App extends Component {
         <ProfilePic />
         <LandingPageButtons />
         <SignupLogin />
+      <div>
+      <StickyTop />
+        {/* <DropDownMenu /> */}
      </div>
     );
   }

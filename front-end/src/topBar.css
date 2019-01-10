@@ -1,0 +1,13 @@
+.overall{
+    height: 90px;
+    width: 1536px;
+    background-color:white;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid grey;
+}
+
+
+
+
+

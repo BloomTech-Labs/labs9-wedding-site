@@ -24,6 +24,14 @@ a {
   transition: color 0.1s, background-color 0.1s;
   color: #000;
 }
+.move{
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  left:1200px;
+  top:-1px;
+}
+
 a:hover {
   color: lightpink;
 }
