@@ -1,13 +1,15 @@
 const express = require('express');
+const cors = require('cors');
 const server = express();
 const knex = require('knex');
 const KnexConfig = require('../knexfile');
 const db = knex(KnexConfig.development);
-const faker = require('faker')
+const faker = require('faker');
 
 
+server.use(express.json());
+server.use(cors());
 
-server.use(express.json())
 
 
 server.post('/registration', (req,res)=>{

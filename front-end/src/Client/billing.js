@@ -16,7 +16,7 @@ function Payment() {
     return (
         <PaymentContainer>
             <h1>Billing</h1>
-            <form name="payment-form" onsubmit="handleSubmit()">
+            <form name="payment-form" onSubmit={() => console.log()}>
                 <div className="Payment-info">
                     <h3>Payment Info</h3>
                     <input type="text" name="CC#" placeholder="CC#" /><br />
