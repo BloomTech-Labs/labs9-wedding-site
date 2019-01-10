@@ -10,7 +10,17 @@ const faker = require('faker');
 server.use(express.json());
 server.use(cors());
 
-
+server.use(function (req, res, next){
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+    next();
+})
+// // eventually want to restrict cors access
+// const corsOptions = {
+//     origin: "https://sad-roentgen-8a7ea1.netlify.com"
+//   };
+// server.use(cors(corsOptions));
 
 server.get('/', (req, res)=>{
     res.send('Server Root.')
