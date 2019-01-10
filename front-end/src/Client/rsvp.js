@@ -24,8 +24,8 @@ class Rsvp extends Component {
             <Card style={styles.card}>
             <CardContent>
                 Guest Name
-                <TextField fullWidth="true" label="First Name"></TextField>
-                <TextField fullWidth="true" label="Last Name"></TextField>
+                <TextField fullWidth={true} label="First Name"></TextField>
+                <TextField fullWidth={true} label="Last Name"></TextField>
             </CardContent>
             </Card>
             <Card style={styles.card}>
@@ -49,7 +49,7 @@ class Rsvp extends Component {
             </CardContent>
             <CardContent>
                 What is your mailing address?
-                <TextField fullWidth="true"></TextField>
+                <TextField fullWidth={true}></TextField>
             </CardContent>
             </Card>
             <Card style={styles.card}>
