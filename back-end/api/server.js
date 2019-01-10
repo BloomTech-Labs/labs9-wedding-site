@@ -10,6 +10,30 @@ const faker = require('faker')
 server.use(express.json())
 
 
+server.get('/', (req, res)=>{
+    res.send('Server Root.')
+})
+
+
+//RETURNS ALL USER DATA IN THE DATABASE
+server.get('/users', async (req, res) => {
+
+    try{
+        
+        const users = await db('users');
+        if(users){
+            res.status(200).json(users)
+        }
+
+    }
+
+    catch(err){
+        res.status(500).json({message: 'An error occured while retrieving the data.', err})
+    }
+});
+
+
+//TAKES ENTERED USER INFORMATION AND SAVES THEM TO DATABASE; CURRENT ONLY ACCEPTS OBJECTS FORMATTED AS FOLLOWS: {firstname: 'data', lastname: 'data'}
 server.post('/registration', (req,res)=>{
     
     const newUser = req.body;
@@ -23,22 +47,7 @@ server.post('/registration', (req,res)=>{
 })
 
 
-server.get('/users', async (req, res) => {
-
-    try{
-        const users = await db('users');
-        if(users){
-            res.status(200).json(users)
-        }
-
-    }
-
-    catch(err){
-        res.status(500).json({message: 'An error occured while retrieving the data.'})
-    }
-});
-
-
+//A FUNCTION TO POPULATE THE DATABASE WITH DUMMY DATA
 server.get('/dummydata', async (req, res) => {
     let newUser = {firstname: faker.name.firstName(), lastname: faker.name.lastName()}
     
