@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Payment from './Client/billing';
 import Settings from './Client/settings';
 import GuestList from './Client/guestList';
+import Rsvp from './Client/rsvp';
 import Design from './Main/designs';
 import Prices from './Main/pricing';
 
@@ -16,6 +17,7 @@ class App extends Component {
         <Design />
         <Prices />
         <GuestList />
+        <Rsvp />
       </div>
     );
   }
