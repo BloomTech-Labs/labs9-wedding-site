@@ -1,69 +1,99 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+// import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+// import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
+import grey from '@material-ui/core/colors/grey';
 
 
-const Packages = styled.div`
+const PackageContainer = styled.div`
+padding:20px 0 20px 0;
 margin: auto;
-margin-top: 200px;
-border: 1px solid black;
-background-color: white;
-width: 1150px;
+width: 60%;
 display:flex;
-flex-wrap: wrap;
+justify-content: space-around;
 align-items: center;
-justify-content: center;
-height: 650px;
 `
 
-const PkgsContainer = styled.div`
-margin: 50px;
-margin-bottom: 0;
-border: 1px solid black;
-background-color: white;
-display: flex;
-align-items:Center;
-justify-content: center;
-width: 200px;
-height: 90px;
-`
 
-const Description = styled.div`
-margin: 50px;
-margin-top: 0;
-border: 1px solid black;
-background-color: white;
-display: flex;
-align-items:Center;
-justify-content: center;
-width: 200px;
-height: 380px;
-`
+const styles = {
+    card: {
+        maxWidth: 345,
+        backgroundColor: grey[50],
 
-function Prices() {
+    },
+    media: {
+        height: 500,
+    },
+};
+
+function Prices(props) {
+    const { classes } = props;
     return (
-
-        <Packages>
-            <PkgsContainer>
-                <h1>Package 1</h1>
-            </PkgsContainer>
-            <PkgsContainer>
-                <h1>Package 2</h1>
-            </PkgsContainer>
-            <PkgsContainer>
-                <h1>Package 3</h1>
-            </PkgsContainer>
-            <Description>
-                <h1>Package 1</h1>
-            </Description>
-            <Description>
-                <h1>Package 2</h1>
-            </Description>
-            <Description>
-                <h1>Package 3</h1>
-            </Description>
-        </Packages>
-
+        <PackageContainer>
+            <Card className={classes.card}>
+                <CardActionArea>
+                    <CardMedia
+                        className={classes.media}
+                    />
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                            Package 1
+                        </Typography>
+                        <Typography component="p">
+                            Here is a brief description of what this package offers
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+                {/* <CardActions>
+                </CardActions> */}
+            </Card>
+            <Card className={classes.card}>
+                <CardActionArea>
+                    <CardMedia
+                        className={classes.media}
+                    />
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                            Package 2
+              </Typography>
+                        <Typography component="p">
+                            Here is a brief description of what this package offers
+              </Typography>
+                    </CardContent>
+                </CardActionArea>
+                {/* <CardActions>
+                </CardActions> */}
+            </Card>
+            <Card className={classes.card}>
+                <CardActionArea>
+                    <CardMedia
+                        className={classes.media}
+                    />
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                            Package 3
+                  </Typography>
+                        <Typography component="p">
+                            Here is a brief description of what this package offers
+                  </Typography>
+                    </CardContent>
+                </CardActionArea>
+                {/* <CardActions>
+                </CardActions> */}
+            </Card>
+        </PackageContainer>
     );
 }
 
-export default Prices;
+Prices.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Prices);
