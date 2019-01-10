@@ -1,0 +1,4 @@
+[build]
+    base = './front-end'
+    publish = './front-end/build'
+    command = 'yarn build'
