@@ -6,11 +6,13 @@ const KnexConfig = require('../knexfile');
 const db = knex(KnexConfig.development);
 const faker = require('faker');
 
+// restrict cors access to our netlify
+const corsOptions = {
+    origin: "https://sad-roentgen-8a7ea1.netlify.com"
+  };
 
 server.use(express.json());
-server.use(cors());
-
-
+server.use(cors(corsOptions));
 
 server.get('/', (req, res)=>{
     res.send('Server Root.')
