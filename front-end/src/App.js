@@ -6,6 +6,10 @@ import Rsvp from './Client/rsvp';
 import Design from './Main/designs';
 import Prices from './Main/pricing';
 
+import Navigation from './Nav'; // this is the profile image import, it's working don't touch it
+import ProfilePic from './Nav';
+import LandingPageButtons from './LandingPageButtons';
+import SignupLogin from './SignupLoginButtons';
 
 class App extends Component {
 
@@ -19,6 +23,11 @@ class App extends Component {
         <GuestList />
         <Rsvp />
       </div>
+     <div>
+        <ProfilePic />
+        <LandingPageButtons />
+        <SignupLogin />
+     </div>
     );
   }
 }
