@@ -28,6 +28,7 @@ class App extends Component {
 
   render() {
     return (
+      <div>
       <div className="App">
         <Payment />
         <Settings />
@@ -40,7 +41,7 @@ class App extends Component {
         <ProfilePic />
         <LandingPageButtons />
         <SignupLogin />
-      <div>
+      </div>
       <div>
         <PerfectScrollbar>
           <LandingPage />
