@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import "./topBar.css";
 
-import ProfilePic from './Nav';
+import ProfilePic from './nav';
 import LandingPageButtons from './LandingPageButtons';
 import SignupLogin from './SignupLoginButtons';
 
