@@ -13,6 +13,8 @@ import SignupLogin from './SignupLoginButtons';
 import StickyTop from './topBar';
 import DropDownMenu from './dropDown';
 
+import PerfectScrollbar from 'react-perfect-scrollbar';
+
 class App extends Component {
 
   render() {
@@ -30,8 +32,10 @@ class App extends Component {
         <LandingPageButtons />
         <SignupLogin />
       <div>
+        <PerfectScrollbar>
       <StickyTop />
         {/* <DropDownMenu /> */}
+        </PerfectScrollbar>
      </div>
     );
   }
