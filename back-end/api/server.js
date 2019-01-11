@@ -8,7 +8,7 @@ const faker = require('faker');
 
 // restrict cors access to our netlify
 const corsOptions = {
-    origin: "https://sad-roentgen-8a7ea1.netlify.com"
+    origin: "https://www.vbeloved.com"
   };
 
 server.use(express.json());
