@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import { makeStyles } from '@material-ui/styles';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
@@ -8,7 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -19,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   textField: {
     flexBasis: 200,
   },
-}));
+});
 
 const ranges = [
   {
@@ -36,46 +37,56 @@ const ranges = [
   },
 ];
 
-function OutlinedInputAdornments() {
-  const classes = useStyles();
-  const [values, setValues] = React.useState({
+class OutlinedInputAdornments extends React.Component {
+  state = {
     amount: '',
     password: '',
     weight: '',
     weightRange: '',
     showPassword: false,
-  });
-
-  const handleChange = prop => event => {
-    setValues({ ...values, [prop]: event.target.value });
   };
 
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+  handleChange = prop => event => {
+    this.setState({ [prop]: event.target.value });
   };
 
-  return (
-    <div className={classes.root}>
-      <TextField
-        id="outlined-adornment-password"
-        className={classNames(classes.margin, classes.textField)}
-        variant="outlined"
-        type={values.showPassword ? 'text' : 'password'}
-        label="Password"
-        value={values.password}
-        onChange={handleChange('password')}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton aria-label="Toggle password visibility" onClick={handleClickShowPassword}>
-                {values.showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-      />
-    </div>
-  );
+  handleClickShowPassword = () => {
+    this.setState(state => ({ showPassword: !state.showPassword }));
+  };
+
+  render() {
+    const { classes } = this.props;
+
+    return (
+      <div className={classes.root}>
+        <TextField
+          id="outlined-adornment-password"
+          className={classNames(classes.margin, classes.textField)}
+          variant="outlined"
+          type={this.state.showPassword ? 'text' : 'password'}
+          label="Password"
+          value={this.state.password}
+          onChange={this.handleChange('password')}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="Toggle password visibility"
+                  onClick={this.handleClickShowPassword}
+                >
+                  {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+      </div>
+    );
+  }
 }
 
-export default OutlinedInputAdornments;
+OutlinedInputAdornments.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(OutlinedInputAdornments);
