@@ -3,14 +3,15 @@ const server = express();
 const knex = require('knex');
 const KnexConfig = require('../knexfile');
 const db = knex(KnexConfig.development);
-const faker = require('faker')
+const faker = require('faker');
+const passport = require('passport');
 
 
 
 server.use(express.json())
 
 
-server.get('/', (req, res)=>{
+server.get('/', (req, res) => {
     res.send('Server Root.')
 })
 
@@ -18,30 +19,30 @@ server.get('/', (req, res)=>{
 //RETURNS ALL USER DATA IN THE DATABASE
 server.get('/users', async (req, res) => {
 
-    try{
-        
+    try {
+
         const users = await db('users');
-        if(users){
+        if (users) {
             res.status(200).json(users)
         }
 
     }
 
-    catch(err){
-        res.status(500).json({message: 'An error occured while retrieving the data.', err})
+    catch (err) {
+        res.status(500).json({ message: 'An error occured while retrieving the data.', err })
     }
 });
 
 
 //TAKES ENTERED USER INFORMATION AND SAVES THEM TO DATABASE; CURRENT ONLY ACCEPTS OBJECTS FORMATTED AS FOLLOWS: {firstname: 'data', lastname: 'data'}
-server.post('/registration', (req,res)=>{
-    
+server.post('/registration', (req, res) => {
+
     const newUser = req.body;
 
-    db.table('users').insert(newUser).then(user =>{
-        res.status(200).json({message: 'User Successfully Registered'})
+    db.table('users').insert(newUser).then(user => {
+        res.status(200).json({ message: 'User Successfully Registered' })
     }).catch(err => {
-        res.status(500).json({message: "An error occured while processing data."})
+        res.status(500).json({ message: "An error occured while processing data." })
     })
 
 })
@@ -49,22 +50,22 @@ server.post('/registration', (req,res)=>{
 
 //A FUNCTION TO POPULATE THE DATABASE WITH DUMMY DATA
 server.get('/dummydata', async (req, res) => {
-    let newUser = {firstname: faker.name.firstName(), lastname: faker.name.lastName()}
-    
-    
+    let newUser = { firstname: faker.name.firstName(), lastname: faker.name.lastName() }
 
-    try{
-        
+
+
+    try {
+
         const users = await db.table('users').insert(newUser)
-        
-        if(users){
+
+        if (users) {
             res.status(200).json(users)
         }
 
     }
 
-    catch(err){
-        res.status(500).json({message: 'An error occured while retrieving the data.'})
+    catch (err) {
+        res.status(500).json({ message: 'An error occured while retrieving the data.' })
     }
 });
 
