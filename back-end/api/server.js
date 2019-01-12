@@ -72,4 +72,29 @@ server.get('/dummydata', async (req, res) => {
     }
 });
 
+
+//A FUNCTION TO RETRIEVE GUESTS 
+server.get('/guests', (req, res) => {
+    db('guests')
+    .then(note => {
+        res.status(200).json(note);
+    })
+    .catch(err => {
+        res.status(500).json({error:'database cannot retrieve information'});
+    })
+});
+// A FUNCTION TO DELETE USERS FROM THE USER TABLE
+server.delete('/users/:id', (req,res) => {
+    const {id} = req.params;
+    db('users')
+    .where({id})
+    .del()
+    .then(note => {
+        res.status(200).json(note);
+    })
+    .catch(err => {
+        res.status(500).json({error:'database cannot delete information'});
+    })
+})
+
 module.exports = server
