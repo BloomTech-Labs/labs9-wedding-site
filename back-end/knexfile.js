@@ -1,4 +1,6 @@
 // Update with your config settings.
+const AWS_DBendpoint = 'beloved2.coooh5m7ic7b.us-east-2.rds.amazonaws.com';
+
 
 module.exports = {
 
@@ -7,7 +9,7 @@ module.exports = {
     version: '5.6.41',
     connection: {
 
-      host: 'beloved2.coooh5m7ic7b.us-east-2.rds.amazonaws.com',
+      host: AWS_DBendpoint,
       port: '3306',
       user: 'belovedapp',   //master username as listed in the AWS Console,
       password: 'belovedapp',
@@ -27,7 +29,7 @@ module.exports = {
     version: '5.6.41',
     connection: {
 
-      host: 'beloved2.coooh5m7ic7b.us-east-2.rds.amazonaws.com',
+      host: AWS_DBendpoint,
       port: '3306',
       user: 'belovedapp',   //master username as listed in the AWS Console,
       password: 'belovedapp',
