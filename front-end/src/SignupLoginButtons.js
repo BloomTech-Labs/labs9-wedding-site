@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 import './SignupLoginButtons.css';
 
 const SignupLogin = () => {
@@ -8,10 +9,14 @@ const SignupLogin = () => {
         <ul>
           <div className='move'>
           <li class="">
-            <a href="#">Signup</a>
+            <Link to='signup'>
+            <a>Signup</a>
+            </Link>
           </li>
           <li class="">
-            <a href="#">Login</a>
+            <Link to='login'>
+            <a>Login</a>
+            </Link>
           </li>
           </div>
         </ul>

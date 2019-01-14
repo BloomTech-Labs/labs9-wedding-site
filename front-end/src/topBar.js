@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import "./topBar.css";
 
 import ProfilePic from './nav';
-import LandingPageButtons from './LandingPageButtons';
+import LandingPageButtons from './LandingButtons';
 import SignupLogin from './SignupLoginButtons';
 
 
