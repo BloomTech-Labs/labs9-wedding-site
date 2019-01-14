@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import OutlinedInput from "@material-ui/core/OutlinedInput";
@@ -33,6 +34,7 @@ function OutlinedChips(props) {
   const { classes } = props;
   return (
     <div className={classes.root}>
+    <Link to='/'>
      <Chip
         label="Home"
         className={classes.chip}
@@ -41,7 +43,9 @@ function OutlinedChips(props) {
         clickable
         variant="outlined"
       />
-      
+      </Link>
+
+      <Link to='/designs'>
      <Chip
         label="Designs"
         className={classes.chip}
@@ -50,6 +54,9 @@ function OutlinedChips(props) {
         clickable
         variant="outlined"
       />
+      </Link>
+
+      <Link to='pricing'>
        <Chip
         label="Pricing"
         className={classes.chip}
@@ -58,6 +65,7 @@ function OutlinedChips(props) {
         clickable
         variant="outlined"
       />
+      </Link>
     </div>
     );
   }
