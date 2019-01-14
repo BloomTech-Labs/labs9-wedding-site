@@ -15,7 +15,7 @@ server.use(express.json());
 server.use(cors(corsOptions));
 
 server.get('/', (req, res)=>{
-    res.send('Server Root.')
+    res.send(`Server root.`)
 })
 
 
@@ -53,7 +53,7 @@ server.post('/registration', (req,res)=>{
 
 //A FUNCTION TO POPULATE THE DATABASE WITH DUMMY DATA
 server.get('/dummydata', async (req, res) => {
-    let newUser = {firstname: faker.name.firstName(), lastname: faker.name.lastName()}
+    let newUser = {firstname: faker.name.firstName(), lastname: faker.name.lastName(), address: `${faker.address.streetAddress()}, ${faker.address.city()}, ${faker.address.stateAbbr()} ${faker.address.zipCode()}`}
     
     
 
