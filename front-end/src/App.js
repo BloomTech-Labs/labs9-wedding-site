@@ -15,6 +15,8 @@ import Payment from './Client/billing';
 import Settings from './Client/settings';
 import GuestList from './Client/guestList';
 import Rsvp from './Client/rsvp';
+
+import SignupPage from './Main/signup';
 import Design from './Main/designs';
 import Prices from './Main/pricing';
 
@@ -26,6 +28,7 @@ class App extends Component {
       <div>
       <div>
         <PerfectScrollbar>
+          <SignupPage />
           <LandingPage />
           <CollagePage />
         {/* <DropDownMenu /> */}
