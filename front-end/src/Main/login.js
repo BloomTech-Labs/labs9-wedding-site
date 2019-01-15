@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import Form from '../form';
+
 
 const LoginPage = () => {
     return ( 
-        <div>
+        <div className='container'>
             LoginPage
         </div>
     );

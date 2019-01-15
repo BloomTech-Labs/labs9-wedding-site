@@ -14,7 +14,7 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     flexWrap: 'no-wrap',
-    marginTop:20,
+    marginTop:10,
     marginLeft:15,
   },
   chip: {

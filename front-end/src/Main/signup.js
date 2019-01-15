@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import Password from '../password';
+import Form from '../form';
+
 
 const SignupPage = () => {
     return ( 
         <div>
-            <Password />
+            <Form />
         </div>
      );
 }
