@@ -5,9 +5,11 @@ exports.up = function(knex, Promise) {
 
         tbl.integer('wedding_id').unsigned().notNullable().references('weddings.id');
         
-        tbl.string('category');
+        tbl.boolean('multiple_choice');
 
         tbl.string('question');
+
+        tbl.text('answer');
     });
 };
 
