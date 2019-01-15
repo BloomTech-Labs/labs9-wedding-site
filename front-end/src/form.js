@@ -79,8 +79,8 @@ const styles = theme => ({
   },
   wholegroup: {
     position:'absolute',
-    left: 500,
-    top:100,
+    left: 550, //was 500 before adjustment
+    top:200, //was 100 before adjustment
   },
   lasttwo:{
     width:690,

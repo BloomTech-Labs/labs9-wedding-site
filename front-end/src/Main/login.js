@@ -76,7 +76,7 @@ export default class Login extends React.Component {
           : 'close'
     const icon = this.state.open ? 'fold' : 'unfold'
     return (
-      <div style={{ background: 'lightblue', width: '100%', height: '800px' }}>
+      <div style={{ background: '#AFD4E1', width: '100%', height: '800px' }}>
         <Icon
           type={`menu-${icon}`}
           className="sidebar-toggle"
