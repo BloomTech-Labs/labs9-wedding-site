@@ -1,0 +1,2 @@
+# Redirect default Netlify subdomain to primary domain
+http://sad-roentgen-8a7ea1.netlify.com/* http://www.vbeloved.com/:splat 301!
