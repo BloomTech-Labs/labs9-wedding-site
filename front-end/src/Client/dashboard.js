@@ -51,32 +51,38 @@ const styles = {
     },
   };
 
-const data = {
-    labels: [
-        'Red',
-        'Green',
-        'Yellow'
-    ],
-    datasets: [{
-        data: [300, 50, 100],
-        backgroundColor: [
-        '#FF6384',
-        '#36A2EB',
-        '#FFCE56'
-        ],
-        hoverBackgroundColor: [
-        '#FF6384',
-        '#36A2EB',
-        '#FFCE56'
-        ]
-    }]
-};
-
 
 class Dashboard extends Component {
     constructor() {
         super();
-            
+
+        this.state = {
+            attending: 300,
+            notAttending: 50,
+            maybe: 100,
+        }
+
+        this.chartData = {
+            labels: [
+                'Attending',
+                'Not Attending',
+                'Maybe'
+            ],
+            datasets: [{
+                data: [this.state.attending, this.state.notAttending, this.state.maybe],
+                backgroundColor: [
+                '#FF6384',
+                '#36A2EB',
+                '#FFCE56'
+                ],
+                hoverBackgroundColor: [
+                '#FF6384',
+                '#36A2EB',
+                '#FFCE56'
+                ]
+            }]
+        }
+
     }
 
     render() {
@@ -101,8 +107,7 @@ class Dashboard extends Component {
                 </Card>
                 <Card style={styles.cardTopRight}>
                     RSVP
-                    <Pie
-                        data={data}
+                    <Pie data={this.chartData}
                         width={100}
                         height={50}
                         options={{ maintainAspectRatio: false}}
