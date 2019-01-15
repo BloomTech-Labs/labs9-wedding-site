@@ -14,6 +14,7 @@ import Payment from './Client/billing';
 import Settings from './Client/settings';
 import GuestList from './Client/guestList';
 import Rsvp from './Client/rsvp';
+import Dashboard from './Client/dashboard';
 
 
 //misc. components go here
@@ -39,6 +40,7 @@ class MainContent extends Component {
                     <Route path='/settings' exact component={Settings} />
                     <Route path='/guestlist' exact component={GuestList} />
                     <Route path='/rsvp' exact component={Rsvp} />
+                    <Route path='/dashboard' exact component={Dashboard} />
                 </div> 
             </div>
          );
