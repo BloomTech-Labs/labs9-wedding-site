@@ -6,7 +6,7 @@ import LandingPage from './Main/landing';
 import Design from './Main/designs';
 import Prices from './Main/pricing';
 import SignupPage from './Main/signup';
-import LoginPage from './Main/login';
+import Login from './Main/login';
 
 
 //these are client views after login
@@ -14,6 +14,7 @@ import Payment from './Client/billing';
 import Settings from './Client/settings';
 import GuestList from './Client/guestList';
 import Rsvp from './Client/rsvp';
+import Experiment from './Main/login';
 
 
 //misc. components go here
@@ -34,7 +35,7 @@ class MainContent extends Component {
                     <Route path='/designs' exact component={Design} />
                     <Route path='/pricing' exact component={Prices} />
                     <Route path='/signup' exact component={SignupPage} />
-                    <Route path='/login' exact component={LoginPage} />
+                    <Route path='/login' exact component={Login} />
                     <Route path='/payment' exact component={Payment} />
                     <Route path='/settings' exact component={Settings} />
                     <Route path='/guestlist' exact component={GuestList} />
