@@ -26,7 +26,7 @@ const styles = {
         width: '50%',
         marginLeft: '10px',
         height: '200px',
-        padding: '15px'
+        padding: '15px 15px 30px'
       },
     cardBottom: {
         marginTop: '30px',
@@ -101,7 +101,12 @@ class Dashboard extends Component {
                 </Card>
                 <Card style={styles.cardTopRight}>
                     RSVP
-                    <Pie data={data} />
+                    <Pie
+                        data={data}
+                        width={100}
+                        height={50}
+                        options={{ maintainAspectRatio: false}}
+                        />
                 </Card>
             </div>
 
