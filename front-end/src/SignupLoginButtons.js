@@ -10,12 +10,12 @@ const SignupLogin = () => {
           <div className='move'>
           <li class="">
             <Link to='signup'>
-            <a>Signup</a>
+              Signup
             </Link>
           </li>
           <li class="">
             <Link to='login'>
-            <a>Login</a>
+             Login
             </Link>
           </li>
           </div>

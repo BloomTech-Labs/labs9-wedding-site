@@ -5,8 +5,8 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import LandingPage from './Main/landing';
 import Design from './Main/designs';
 import Prices from './Main/pricing';
-import SignupPage from './Main/signup';
-import LoginPage from './Main/login';
+import Signup from './Main/signup';
+import Login from './Main/login';
 
 
 //these are client views after login
@@ -33,8 +33,8 @@ class MainContent extends Component {
                     <Route path='/' exact component={LandingPage} />
                     <Route path='/designs' exact component={Design} />
                     <Route path='/pricing' exact component={Prices} />
-                    <Route path='/signup' exact component={SignupPage} />
-                    <Route path='/login' exact component={LoginPage} />
+                    <Route path='/signup' exact component={Signup} />
+                    <Route path='/login' exact component={Login} />
                     <Route path='/payment' exact component={Payment} />
                     <Route path='/settings' exact component={Settings} />
                     <Route path='/guestlist' exact component={GuestList} />
