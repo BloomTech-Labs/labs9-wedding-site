@@ -90,7 +90,6 @@ class Dashboard extends Component {
         }
 
     }
-
     componentDidMount(){
         let wedding_id = localStorage.getItem('weddingID');
         let userdata = cookies.get('USERDATA')
