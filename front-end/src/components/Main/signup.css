@@ -45,18 +45,3 @@
   .sidebar .ant-form-item-control {
     line-height: 29px;
   }
-
-  .btn{
-    cursor: pointer;
-  }
-
-  .btn:hover{
-    background: white;
-  }
-
-  #loginbtns{
-
-  }
-  #loginbtns::before{
-    display: none;
-  }
