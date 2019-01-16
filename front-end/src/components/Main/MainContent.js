@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 //these are the initial views available
-import LandingPage from './Main/landing';
-import Design from './Main/designs';
-import Prices from './Main/pricing';
-import Signup from './Main/signup';
-import Login from './Main/login';
+import LandingPage from './landing';
+import Design from './designs';
+import Prices from './pricing';
+import Signup from './signup';
+import Login from './login';
 
 
 //these are client views after login
-import Payment from './Client/billing';
-import Settings from './Client/settings';
-import GuestList from './Client/guestList';
-import Rsvp from './Client/rsvp';
+import Payment from '../Client/billing';
+import Settings from '../Client/settings';
+import GuestList from '../Client/guestList';
+import Rsvp from '../Client/rsvp';
 
 
 //misc. components go here

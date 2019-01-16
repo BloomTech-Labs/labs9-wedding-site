@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import StickyTop from '../topBar';
+import StickyTop from '../Navigation/topBar';
 
 const LandingPage = () => {
     return ( 

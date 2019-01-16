@@ -1,15 +1,15 @@
 // import 'antd/dist/antd.css'
 import './login.css'
-import '../SingleSignup.css';
+import './SingleSignup.css';
 import React, { Fragment } from 'react'
 import { Keyframes, animated } from 'react-spring'
 import { Avatar, Form, Icon, Input, Button, Checkbox } from 'antd'
 import delay from 'delay'
-import Form2 from '../form';
-import SingleSignup from '../SingleSignup';
+import Form2 from './form';
+import SingleSignup from './SingleSignup';
 import Facebook from  '../Assets/icons/Facebook.png';
 import google from '../Assets/icons/google.png';
-import ProfilePic from '../secondPic';
+import ProfilePic from './secondPic';
 
 // Creates a spring with predefined animation slots
 const Sidebar = Keyframes.Spring({
