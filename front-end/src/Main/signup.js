@@ -115,7 +115,7 @@ export default class SignupExp extends React.Component {
       
     ]
     return (
-      <div style={{ background: '#AFD4E1', width: '100%', height: '800px' }}>
+      <div style={{ background: '#AFD4E1', width: '100%', height: '800px', marginTop: '90px' }}>
         <Icon
           type={`menu-${icon}`}
           className="sidebar-toggle"

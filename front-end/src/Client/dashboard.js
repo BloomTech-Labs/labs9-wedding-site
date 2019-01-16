@@ -7,6 +7,11 @@ import Button from '@material-ui/core/Button';
 import Share from '@material-ui/icons/Share';
 import Add from '@material-ui/icons/Add';
 
+import Cookies from 'universal-cookie';
+import axios from 'axios';
+
+const cookies = new Cookies()
+
 const styles = {
     dashboardContainer: {
         margin: '50px auto 50px',
@@ -60,6 +65,7 @@ class Dashboard extends Component {
             attending: 300,
             notAttending: 50,
             maybe: 100,
+            userLoaded: false
         }
 
         this.chartData = {
@@ -85,8 +91,30 @@ class Dashboard extends Component {
 
     }
 
+    componentDidMount(){
+        let wedding_id = localStorage.getItem('weddingID');
+        let userdata = cookies.get('USERDATA')
+        let oauth_id = cookies.get('userID')
+        console.log('userdata:', userdata)
+        if(wedding_id){
+            axios.post('http://localhost:8888/loaduser', {...userdata, wedding_id, oauth_id})
+            .then(res => {
+                console.log(res)
+                this.setState({
+                   userLoaded: true 
+                })
+            })
+            .catch(err => console.log(err))
+        }
+
+    }
+
     render() {
       return (
+
+        <div>
+          
+          { !this.state.userLoaded ? <div>Loading...</div> :
           <div style={styles.dashboardContainer}>
             <Button>
                 Change Design
@@ -127,7 +155,10 @@ class Dashboard extends Component {
                         </Button>
                     </CardContent>
                 </Card>
-          </div>
+            </div>    
+                }
+          
+        </div>
       );
     }
   }

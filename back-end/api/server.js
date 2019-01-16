@@ -80,9 +80,9 @@ server.get('/google/redirect', passport.authenticate('google'), (req, res) => {
     console.log('REDIRECT SUCCESS-REQCOOKIES:', req.cookies);
     console.log('REDIRECT SUCCESS-PASSPORTREQ:', req._passport.session.user);
     
-    let token = generateToken(req._passport.session.user)
-            res.cookie('jwt', token) 
-    res.redirect('http://localhost:3000/signup');
+    
+            res.cookie('userID', req._passport.session.user.id);  
+    res.redirect('http://localhost:3000/vb/dashboard');
   
 })
 //--- END:PASSPORT DECLARATIONS
@@ -108,31 +108,80 @@ server.get('/', (req, res)=>{
 })
 
 server.post('/signin/google', async (req, res)=>{
-
+ 
     let {first_name, last_name, p_firstname, p_lastname, event_date, event_address} = req.body;
 
     try{
-
-            const wedding_id = await db.table('weddings').insert({event_date, event_address}); //design template must be added later
-                console.log('weddingID:', wedding_id)
+            //design template must be added later
+            /* const wedding_id = await db.table('weddings').insert({event_date, event_address}); 
+                console.log('weddingID:', wedding_id) */
             
-            const user1 = await db.table('users').insert({first_name, last_name, wedding_id}) //email must be added in OAuth
+            /* const user1 = await db.table('users').insert({first_name, last_name, wedding_id}) //email must be added in OAuth
             const user2 = await db.table('users').insert({first_name: p_firstname, last_name: p_lastname, wedding_id})
                 console.log('user1:', user1)
             
             const coupleID1 = await db.table('couples').insert({user_id: user1, dashboard_access: true})
             const coupleID2 = await db.table('couples').insert({user_id: user2, dashboard_access: true})
-                console.log('coupleID:', coupleID1)
+                console.log('coupleID:', coupleID1) */
 
-            res.status(200).json({id: wedding_id})
+            res.status(200).json({id: 3})
 
     }
     catch(err){
             res.status(500).json(err)
-    }
+    } 
 
 
     
+    
+})
+
+server.post('/loaduser',  async (req,res) =>{
+    let {first_name, last_name, p_firstname, p_lastname, event_date, event_address, oauth_id, wedding_id} = req.body;
+    
+    try{
+        const userExists = await db.table('oauth_ids').where({oauth_id}).first()
+        const allusers = await db.table('users');
+        console.log("allusers:",allusers)
+        if(!userExists){ 
+            console.log('NOUSER')
+            const user1 = await db('users').insert({first_name, last_name, wedding_id}) //email must be added in OAuth
+            const user2 = await db('users').insert({first_name: p_firstname, last_name: p_lastname, wedding_id})
+            console.log('users',user1,user2)
+            const oauth = await db('oauth_ids').insert({oauth_id, user_id: user1[0]})        
+                
+            const coupleID1 = await db('couples').insert({user_id: user1[0], dashboard_access: true})
+            const coupleID2 = await db('couples').insert({user_id: user2[0], dashboard_access: true})
+            console.log('C',coupleID1,coupleID2)
+            let couple = await db('users').join('couples', {'users.id': 'couples.user_id'}).where({wedding_id});
+            let guests = await db('users').where({wedding_id, guest: true});
+            console.log('CG',couple,guests)
+            res.status(200).json({
+                couple,
+                guests
+            })
+
+        }
+
+        else {
+            console.log('else')
+            let couple = await db('users').join('couples', {'users.id': 'couples.user_id'}).where({wedding_id});
+            let guests = await db('users').where({wedding_id, guest: true});
+           /*  let attending = await db('users').join('answers', {'users.id': 'answers.guest_id'}).where({wedding_id, guest: true, attending});
+            let notAttending = 
+            let maybe = */ 
+            console.log('CG',couple,guests)
+            res.status(200).json({
+                couple,
+                guests
+            })
+        }
+            
+    }
+    catch(err){
+        console.log(err)
+        res.json(err)
+    }
     
 })
 
