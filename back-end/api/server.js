@@ -9,6 +9,7 @@ const passport = require('passport');
 const cookieSession = require('cookie-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('../config/keys');
+const sendSMS = require('./send_sms');
 
 
 // restrict cors access to our netlify
@@ -18,6 +19,7 @@ const corsOptions = {
 
 server.use(express.json());
 server.use(cors(corsOptions));
+server.use('/sms', sendSMS);
 
 
 //COOKIES
@@ -247,7 +249,7 @@ server.get('/dummyguests', async (req,res)=>{
         last_name: faker.name.lastName(),
         email: faker.internet.email(),
         address: `${faker.address.streetAddress()}, ${faker.address.city()}, ${faker.address.stateAbbr()} ${faker.address.zipCode()}`,
-        wedding_id: wedding_i,
+        wedding_id: wedding_id,
         guest: true
     }) 
         console.log('userID:', userID)
