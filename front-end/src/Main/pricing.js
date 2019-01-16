@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-import Prices from '../prices';
+import Prices from '../Prices';
 import StickyTop from '../topBar';
 
 
