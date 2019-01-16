@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import MainContent from './components/Main/MainContent';
-import {withRouter} from 'react-router';
-
-
+import { withRouter } from 'react-router';
 
 
 class App extends Component {
