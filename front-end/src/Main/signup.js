@@ -1,10 +1,12 @@
 import 'antd/dist/antd.css'
 import './signup.css'
+import '../SingleLogin.css';
 import React, { Fragment } from 'react'
 import { Keyframes, animated } from 'react-spring'
 import { Avatar, Form, Icon, Input, Button, Checkbox } from 'antd'
 import delay from 'delay'
 import Form2 from '../form';
+import SingleLogin from '../SingleLogin';
 import Facebook from  '../Assets/icons/Facebook.png';
 import google from '../Assets/icons/google.png';
 import ProfilePic from '../secondPic';
@@ -83,6 +85,8 @@ export default class SignupExp extends React.Component {
           onClick={this.toggle}
         />
         <span style={{position:'absolute', left:550, top:180, fontSize:13}}>*Required</span>
+        <span className='alone single'>Already have an account?</span>
+        <SingleLogin />
         <Form2 />
         <Sidebar native state={state}>
           {({ x }) => (
