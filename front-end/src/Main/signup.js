@@ -1,4 +1,4 @@
-// import 'antd/dist/antd.css'
+import 'antd/dist/antd.css'
 import './signup.css'
 import React, { Fragment } from 'react'
 import { Keyframes, animated } from 'react-spring'

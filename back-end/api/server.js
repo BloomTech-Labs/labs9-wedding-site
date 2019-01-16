@@ -140,22 +140,23 @@ server.post('/signin/google', async (req, res)=>{
 //RETURNS ALL USER DATA IN THE DATABASE
 server.get('/users', async (req, res) => {
 
-    try{
-        
+    try {
+
         const users = await db('users');
-        if(users){
+        if (users) {
             res.status(200).json(users)
         }
 
     }
 
-    catch(err){
-        res.status(500).json({message: 'An error occured while retrieving the data.', err})
+    catch (err) {
+        res.status(500).json({ message: 'An error occured while retrieving the data.', err })
     }
 });
 
 
 //TAKES ENTERED USER INFORMATION AND SAVES THEM TO DATABASE; CURRENT ONLY ACCEPTS OBJECTS FORMATTED AS FOLLOWS: {firstname: 'data', lastname: 'data'}
+
 server.post('/registration', async (req,res)=>{
     const {
         firstname, lastname,      // add to user and couples
@@ -172,10 +173,10 @@ server.post('/registration', async (req,res)=>{
         
     }
 
-    db.table('users').insert(newUser).then(user =>{
-        res.status(200).json({message: 'User Successfully Registered'})
+    db.table('users').insert(newUser).then(user => {
+        res.status(200).json({ message: 'User Successfully Registered' })
     }).catch(err => {
-        res.status(500).json({message: "An error occured while processing data."})
+        res.status(500).json({ message: "An error occured while processing data." })
     })
 
 })
