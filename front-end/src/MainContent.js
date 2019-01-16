@@ -58,7 +58,7 @@ class MainContent extends Component {
                     <Route path='/rsvp' component={Rsvp} />
                     <Route path='/dashboard' component={Dashboard} />
                     <Route path="/vb" render={props => <UserAccess {...props} />} />
-
+                
                 </Switch>
                 </div> 
             </div>
