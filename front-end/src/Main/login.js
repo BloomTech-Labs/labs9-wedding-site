@@ -7,8 +7,8 @@ import { Avatar, Form, Icon, Input, Button, Checkbox } from 'antd'
 import delay from 'delay'
 import Form2 from '../form';
 import SingleSignup from '../SingleSignup';
-import Facebook from  '../assets/icons/Facebook.png';
-import google from '../assets/icons/google.png';
+import Facebook from  '../Assets/icons/Facebook.png';
+import google from '../Assets/icons/google.png';
 import ProfilePic from '../secondPic';
 
 // Creates a spring with predefined animation slots
