@@ -15,9 +15,9 @@ import styled from "styled-components";
 import grey from "@material-ui/core/colors/grey";
 
 //images for pricing packages
-import couple5 from "./Main/images/couple5.png";
-import couple3 from "./Main/images/couple3.png";
-import couple1 from "./Main/images/couple1.png";
+import couple5 from "./images/couple5.png";
+import couple3 from "./images/couple3.png";
+import couple1 from "./images/couple1.png";
 
 const PackageContainer = styled.div`
   display: flex;

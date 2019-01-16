@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MainContent from './MainContent';
+import MainContent from './components/Main/MainContent';
 import {withRouter} from 'react-router';
 
 
