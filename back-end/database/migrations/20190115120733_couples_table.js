@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
 
         tbl.integer('user_id').unsigned().notNullable().references('id').inTable('users');
 
-        tbl.string('spouse');
+        tbl.string('bride_groom');
 
         tbl.boolean('email_permission');
 

@@ -14,6 +14,8 @@ exports.up = function(knex, Promise) {
         tbl.string('address');
 
         tbl.integer('wedding_id').unsigned().notNullable().references('weddings.id');
+
+        tbl.boolean('guest');
     });
 };
 

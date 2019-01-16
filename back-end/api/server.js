@@ -5,17 +5,135 @@ const knex = require('knex');
 const KnexConfig = require('../knexfile');
 const db = knex(KnexConfig.development);
 const faker = require('faker');
+const passport = require('passport');
+const cookieSession = require('cookie-session');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const keys = require('../config/keys');
+
 
 // restrict cors access to our netlify
 const corsOptions = {
-    origin: "https://www.vbeloved.com"
+    origin: ["http://localhost:3000","https://www.vbeloved.com"]
   };
 
 server.use(express.json());
 server.use(cors(corsOptions));
 
+
+//COOKIES
+server.use(cookieSession({
+    maxAge: '1hr',
+    secret: 'hello.dello'
+}))
+
+//--BEGIN::PASSPORT DECLARATIONS
+
+//PASSPORT INITIALIZATION
+server.use(passport.initialize())
+server.use(passport.session())
+
+//SERIALIZE&DESERIALIZE USER
+passport.serializeUser((userID, done)=>{ //this will take a user object from the database. 
+    console.log("SERIALIZE-USER:", userID)
+    done(null, userID) //this should grab one piece of unique data from the user obj to be encrypted and add it to a cookie. 
+});
+
+passport.deserializeUser((id, done)=>{
+    console.log('DESERIALIZE-ID:',id)
+    done(null, id)
+});
+
+
+//GOOGLE PASSPORT STRATEGY
+
+passport.use(new GoogleStrategy({
+    callbackURL: 'http://localhost:8888/google/redirect',
+    clientID: `${keys.google.clientId}`,
+    clientSecret: keys.google.clientSecret,
+    scope: ['profile']
+},
+(accessToken, refreshToken, profile, done)=>{
+    console.log('PROFILE-STRATEGY:', profile)
+    db('oauth_ids').where({oauth_id: profile.id }).first()
+.then(user => { 
+    if(user){ console.log('find user success')
+        done(null, user)
+    }
+    else{
+        console.log('User Not In DB')
+        done(null, profile)
+        /* db('users').insert({first_name: profile.name.givenName, last_name: profile.name.familyName})
+        .then(newUser =>{ console.log('add new user success', newUser)
+            done(null, newUser )
+        }).catch(err => console.log('insertUserError', err))   */
+    }
+}).catch(err => { console.log('find user error', err)})
+                    
+}
+))
+
+//GOOGLE AUTHENTICATE
+server.get('/signin/google', passport.authenticate('google', {scope: ['profile']}))
+
+server.get('/google/redirect', passport.authenticate('google'), (req, res) => {
+    
+    console.log('REDIRECT SUCCESS-REQCOOKIES:', req.cookies);
+    console.log('REDIRECT SUCCESS-PASSPORTREQ:', req._passport.session.user);
+    
+    let token = generateToken(req._passport.session.user)
+            res.cookie('jwt', token) 
+    res.redirect('http://localhost:3000/signup');
+  
+})
+//--- END:PASSPORT DECLARATIONS
+
+const generateToken = (user) =>{
+    const payload = {
+            email: user.email
+        }
+    const options = {
+        expiresIn: '20m'
+    }
+    
+    return jwt.sign(payload, jwtSecret, options)
+
+}
+
+
+//REGULAR ENDPOINTS BEGINNING
+
 server.get('/', (req, res)=>{
-    res.send(`Server root.`)
+    console.log('Root hit.')
+    res.json(`Server root.`)
+})
+
+server.post('/signin/google', async (req, res)=>{
+
+    let {first_name, last_name, p_firstname, p_lastname, event_date, event_address} = req.body;
+
+    try{
+
+            const wedding_id = await db.table('weddings').insert({event_date, event_address}); //design template must be added later
+                console.log('weddingID:', wedding_id)
+            
+            const user1 = await db.table('users').insert({first_name, last_name, wedding_id}) //email must be added in OAuth
+            const user2 = await db.table('users').insert({first_name: p_firstname, last_name: p_lastname, wedding_id})
+                console.log('user1:', user1)
+            
+            const coupleID1 = await db.table('couples').insert({user_id: user1, dashboard_access: true})
+            const coupleID2 = await db.table('couples').insert({user_id: user2, dashboard_access: true})
+                console.log('coupleID:', coupleID1)
+
+            res.status(200).json({id: wedding_id})
+
+    }
+    catch(err){
+            res.status(500).json(err)
+    }
+
+
+    
+    
 })
 
 
@@ -129,7 +247,8 @@ server.get('/dummyguests', async (req,res)=>{
         last_name: faker.name.lastName(),
         email: faker.internet.email(),
         address: `${faker.address.streetAddress()}, ${faker.address.city()}, ${faker.address.stateAbbr()} ${faker.address.zipCode()}`,
-        wedding_id: wedding_id
+        wedding_id: wedding_i,
+        guest: true
     }) 
         console.log('userID:', userID)
 
