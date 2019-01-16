@@ -3,8 +3,9 @@ import React, { Component } from "react";
 import "./topBar.css";
 
 import ProfilePic from './nav';
-import LandingPageButtons from './LandingButtons';
+// import LandingPageButtons from './LandingButtons';
 import SignupLogin from './SignupLoginButtons';
+import LandingButtonsExp from './LandingButtonsExp';
 
 
 const StickyTop = () => {
@@ -12,7 +13,8 @@ const StickyTop = () => {
     <div className="overall">
       <div className="overall">
         <ProfilePic  />
-        <LandingPageButtons />
+        {/* <LandingPageButtons /> */}
+        <LandingButtonsExp />
         <SignupLogin />
       </div>
     </div>

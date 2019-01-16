@@ -7,12 +7,12 @@ module.exports = {
   development: {
     client: 'sqlite3',
     connection: {
-      filename: './database/migrations/beloveddb.sqlite3',
+      filename: './database/beloveddb.sqlite3'
 
     },
     useNullAsDefault: true,
     migrations: {
-      directory: './database/migrations'
+      directory: './database/migrations_2'
     }
   },
   production: {
