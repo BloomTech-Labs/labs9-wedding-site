@@ -36,8 +36,10 @@ class GuestList extends Component {
 
     componentDidMount() {
         axios
-            .get('https://vbeloved.now.sh/users')
+            //.get('https://vbeloved.now.sh/users')
+            .get('http://localhost:8888/guests')
             .then(response => {
+                console.log(response.data)
                 this.setState(() => ({
                     guests: response.data
                 }))
@@ -66,9 +68,9 @@ class GuestList extends Component {
                 {this.state.guests.map(guest => {
                     return (
                     <TableRow key={guest.id}>
-                        <TableCell align="right">{guest.firstname}</TableCell>
-                        <TableCell align="right">{guest.lastname}</TableCell>
-                        <TableCell align="right">{}</TableCell>
+                        <TableCell align="right">{guest.first_name}</TableCell>
+                        <TableCell align="right">{guest.last_name}</TableCell>
+                        <TableCell align="right">{guest.email}</TableCell>
                         <TableCell align="right">{}</TableCell>
                         <TableCell align="right">{}</TableCell>
                         <TableCell align="right">{}</TableCell>
