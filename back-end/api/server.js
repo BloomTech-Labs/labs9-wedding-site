@@ -77,21 +77,63 @@ server.get('/signin/google', passport.authenticate('google', {scope: ['profile']
 
 server.get('/google/redirect', passport.authenticate('google'), (req, res) => {
     
-    console.log('REDIRECT SUCCESS-REQBODY:', req.body)
-    res.redirect('http://localhost:8888');
+    console.log('REDIRECT SUCCESS-REQCOOKIES:', req.cookies);
+    console.log('REDIRECT SUCCESS-PASSPORTREQ:', req._passport.session.user);
     
-    
-    res.status(200).json({message: req}) 
+    let token = generateToken(req._passport.session.user)
+            res.cookie('jwt', token) 
+    res.redirect('http://localhost:3000/signup');
+  
 })
 //--- END:PASSPORT DECLARATIONS
 
+const generateToken = (user) =>{
+    const payload = {
+            email: user.email
+        }
+    const options = {
+        expiresIn: '20m'
+    }
+    
+    return jwt.sign(payload, jwtSecret, options)
 
+}
 
 
 //REGULAR ENDPOINTS BEGINNING
 
 server.get('/', (req, res)=>{
-    res.send(`Server root.`)
+    console.log('Root hit.')
+    res.json(`Server root.`)
+})
+
+server.post('/signin/google', async (req, res)=>{
+
+    let {first_name, last_name, p_firstname, p_lastname, event_date, event_address} = req.body;
+
+    try{
+
+            const wedding_id = await db.table('weddings').insert({event_date, event_address}); //design template must be added later
+                console.log('weddingID:', wedding_id)
+            
+            const user1 = await db.table('users').insert({first_name, last_name, wedding_id}) //email must be added in OAuth
+            const user2 = await db.table('users').insert({first_name: p_firstname, last_name: p_lastname, wedding_id})
+                console.log('user1:', user1)
+            
+            const coupleID1 = await db.table('couples').insert({user_id: user1, dashboard_access: true})
+            const coupleID2 = await db.table('couples').insert({user_id: user2, dashboard_access: true})
+                console.log('coupleID:', coupleID1)
+
+            res.status(200).json({id: wedding_id})
+
+    }
+    catch(err){
+            res.status(500).json(err)
+    }
+
+
+    
+    
 })
 
 
