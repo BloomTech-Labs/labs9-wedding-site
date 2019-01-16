@@ -25,7 +25,7 @@ const styles = theme => ({
     fontSize:17,
     fontFamily: 'Montserrat',
     fontWeight: 600,
-    color:'navy',
+    color:'#AFD4E1',
     textTransform:'none',  
 },
 });
