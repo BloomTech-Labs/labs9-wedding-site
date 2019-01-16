@@ -6,14 +6,9 @@ import { Keyframes, animated } from 'react-spring'
 import { Avatar, Form, Icon, Input, Button, Checkbox } from 'antd'
 import delay from 'delay'
 import Form2 from '../form';
-<<<<<<< HEAD
-import Facebook from  '../assets/icons/Facebook.png';
-import google from '../assets/icons/google.png';
-=======
 import SingleLogin from '../SingleLogin';
 import Facebook from  '../Assets/icons/Facebook.png';
 import google from '../Assets/icons/google.png';
->>>>>>> a245803b863a2e64d5b5a05a5df7f474fcaa5047
 import ProfilePic from '../secondPic';
 import axios from 'axios';
 import Cookies from 'universal-cookie';

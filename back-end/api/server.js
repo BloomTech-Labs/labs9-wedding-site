@@ -115,18 +115,10 @@ server.post('/signin/google', async (req, res)=>{
 
     try{
             //design template must be added later
-            /* const wedding_id = await db.table('weddings').insert({event_date, event_address}); 
-                console.log('weddingID:', wedding_id) */
-            
-            /* const user1 = await db.table('users').insert({first_name, last_name, wedding_id}) //email must be added in OAuth
-            const user2 = await db.table('users').insert({first_name: p_firstname, last_name: p_lastname, wedding_id})
-                console.log('user1:', user1)
-            
-            const coupleID1 = await db.table('couples').insert({user_id: user1, dashboard_access: true})
-            const coupleID2 = await db.table('couples').insert({user_id: user2, dashboard_access: true})
-                console.log('coupleID:', coupleID1) */
+             const wedding_id = await db.table('weddings').insert({event_date, event_address}); 
+                console.log('weddingID:', wedding_id) 
 
-            res.status(200).json({id: 3})
+            res.status(200).json({id: wedding_id})
 
     }
     catch(err){
@@ -139,12 +131,11 @@ server.post('/signin/google', async (req, res)=>{
 })
 
 server.post('/loaduser',  async (req,res) =>{
+    // userdata sent from cookie
     let {first_name, last_name, p_firstname, p_lastname, event_date, event_address, oauth_id, wedding_id} = req.body;
     
-    try{
+    try{    
         const userExists = await db.table('oauth_ids').where({oauth_id}).first()
-        const allusers = await db.table('users');
-        console.log("allusers:",allusers)
         if(!userExists){ 
             console.log('NOUSER')
             const user1 = await db('users').insert({first_name, last_name, wedding_id}) //email must be added in OAuth
@@ -283,22 +274,17 @@ server.get('/dummyguests', async (req,res)=>{
         last_name: faker.name.lastName(),
         email: faker.internet.email(),
         address: `${faker.address.streetAddress()}, ${faker.address.city()}, ${faker.address.stateAbbr()} ${faker.address.zipCode()}`,
-        wedding_id: Math.floor(Math.random() * 8)
+        wedding_id: 1
     }
 
-    let attendArr = ['Not Attending', 'Attending', 'TBD']
-
     try {
-        let wedding_id = Math.ceil(Math.random() * 7)
-        let attendIndex = Math.floor(Math.random() * 3)
-        let coupleIndex = Math.floor(Math.random() * 2)
-        
+        let wedding_id = 1;
         let userID = await db.table('users').insert({
         first_name: faker.name.firstName(), 
         last_name: faker.name.lastName(),
         email: faker.internet.email(),
         address: `${faker.address.streetAddress()}, ${faker.address.city()}, ${faker.address.stateAbbr()} ${faker.address.zipCode()}`,
-        wedding_id: wedding_id,
+        wedding_id: 1,
         guest: true
     }) 
         console.log('userID:', userID)
@@ -306,17 +292,9 @@ server.get('/dummyguests', async (req,res)=>{
         let couple = await db.table('users').join('couples', {'users.id': 'couples.user_id'}).where({wedding_id})
         console.log('couple', couple, wedding_id)
         
-        let related_spouse = couple[coupleIndex].first_name
-        console.log('relatedspouse:', related_spouse)
-        console.log('attendingArray:', attendArr[attendIndex], attendIndex)
-        let guestID = await db.table('guests').insert({
-            user_id: userID[0],
-            attending: attendArr[attendIndex],
-            related_spouse: related_spouse
-        })
-        console.log('guestID:', guestID)
+        let related_spouse = couple[0].first_name
 
-        let guests = await db.table('users').join('guests', {'users.id': 'guests.user_id'}).where({wedding_id: 3})
+        let guests = await db.table('users').where({wedding_id, guest: true})
 
         res.status(200).json(guests)
     } 
@@ -332,7 +310,8 @@ server.get('/dummyguests', async (req,res)=>{
 
 //A FUNCTION TO RETRIEVE GUESTS 
 server.get('/guests', (req, res) => {
-    db('guests')
+    db('users')
+    .where({guest: true, wedding_id: 1})
     .then(note => {
         res.status(200).json(note);
     })
