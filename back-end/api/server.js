@@ -337,9 +337,11 @@ server.get('/dummyguests', async (req,res)=>{
 
 //A FUNCTION TO RETRIEVE GUESTS 
 server.get('/guests', (req, res) => {
-    db('users').where({guest: true})
-    .then(note => {
-        res.status(200).json(note);
+
+    db('users')
+    .where({guest: true})
+    .then(user => {
+        res.status(200).json(user);
     })
     .catch(err => {
         res.status(500).json({error:'database cannot retrieve information'});

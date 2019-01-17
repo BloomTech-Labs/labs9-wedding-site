@@ -89,7 +89,7 @@ class Settings extends React.Component {
                     <div>
                         <TextField
                             id="datetime-local"
-                            label="Wedding Date & Time"
+                            label="Wedding Date &amp; Time"
                             type="datetime-local"
                             defaultValue="2019-01-15T10:30"
                             InputLabelProps={{
