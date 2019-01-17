@@ -52,11 +52,6 @@ class MainContent extends Component {
                    <Route path='/pricing' component={Prices} />
                    <Route path='/signup' render={props => <Signup {...props} toggleLoggedIn={this.toggleLoggedIn}/>} />
                    <Route path='/login' component={Login} />
-                   <Route path='/payment' component={Payment} />
-                   <Route path='/settings' component={Settings} />
-                   <Route path='/guestlist' component={GuestList} />
-                   <Route path='/rsvp' component={Rsvp} />
-                   <Route path='/dashboard' component={Dashboard} />
                    <Route path="/vb" render={props => <UserAccess {...props} />} />
 
                </Switch>
