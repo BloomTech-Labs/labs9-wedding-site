@@ -1,6 +1,6 @@
 // Update with your config settings.
-const AWS_DBendpoint = 'beloved2.coooh5m7ic7b.us-east-2.rds.amazonaws.com';
-
+const AWS_DBendpoint = 'myvbeloveddb.coooh5m7ic7b.us-east-2.rds.amazonaws.com';
+require('dotenv').config();
 
 module.exports = {
 
@@ -22,9 +22,9 @@ module.exports = {
 
       host: AWS_DBendpoint,
       port: '3306',
-      user: 'belovedapp',   //master username as listed in the AWS Console,
-      password: 'belovedapp',
-      database: 'belovedDB2',  
+      user: 'vbelovedDB',   //master username as listed in the AWS Console,
+      password: 'vbelovedDB',
+      database: 'vbeloveddb',  
     },
     pool: {
     min: 1,
@@ -32,7 +32,7 @@ module.exports = {
     },
     useNullAsDefault: true,
     migrations: {
-      directory: './database/migrations'
+      directory: './database/migrations_aws'
     }
   }
 
