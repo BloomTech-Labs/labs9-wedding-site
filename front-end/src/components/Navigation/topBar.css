@@ -7,8 +7,9 @@
     /* border-bottom: 1px solid grey; */
     position:fixed;
     z-index: 1000;
-    margin-top: -5px;
+    /* margin-top: -5px; */
     padding-top: 0%;
+    top:0;
 }
 
 

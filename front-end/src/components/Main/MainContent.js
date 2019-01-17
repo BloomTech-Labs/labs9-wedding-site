@@ -3,23 +3,23 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 
 
 //these are the initial views available
-import LandingPage from './Main/landing';
-import Design from './Main/designs';
-import Prices from './Main/pricing';
-import Signup from './Main/signup';
-import Login from './Main/login';
+import LandingPage from './landing';
+import Design from './designs';
+import Prices from './pricing';
+import Signup from './signup';
+import Login from './login';
 
 
 //these are client views after login
-import Payment from './Client/billing';
-import Settings from './Client/settings';
-import GuestList from './Client/guestList';
-import Rsvp from './Client/rsvp';
-import Dashboard from './Client/dashboard';
-import UserAccess from './components/UserAccess/UserAccess.js'
+import Payment from '../Client/billing';
+import Settings from '../Client/settings';
+import GuestList from '../Client/guestList';
+import Rsvp from '../Client/rsvp';
+import Dashboard from '../Client/dashboard';
+import UserAccess from '../UserAccess/UserAccess.js'
 
 //misc. components go here
-import StickyTop from './topBar'; //NavBar
+import StickyTop from '../Navigation/topBar'; //NavBar
 
 
 
@@ -65,3 +65,5 @@ class MainContent extends Component {
         );
    }
 }
+
+export default MainContent;
