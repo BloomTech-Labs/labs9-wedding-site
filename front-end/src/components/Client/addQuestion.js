@@ -5,11 +5,9 @@ import TextField from '@material-ui/core/TextField';
 class addQuestion extends React.Component {
     constructor(props) {
         super(props);
-       
     }
 
   render() {
-
     return (
       <Card>
         <div className="delete-modal">
