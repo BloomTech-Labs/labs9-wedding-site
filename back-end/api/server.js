@@ -9,7 +9,12 @@ const passport = require('passport');
 const cookieSession = require('cookie-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('../config/keys');
+
 require('dotenv').config();
+
+//const sendSMS = require('./send_sms');
+
+
 
 // restrict cors access to our netlify
 const corsOptions = {
@@ -18,6 +23,7 @@ const corsOptions = {
 
 server.use(express.json());
 server.use(cors(corsOptions));
+//server.use('/sms', sendSMS); //endpoint to send a text message
 
 
 //COOKIES
