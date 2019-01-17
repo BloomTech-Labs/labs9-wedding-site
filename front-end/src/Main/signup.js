@@ -7,8 +7,8 @@ import { Avatar, Form, Icon, Input, Button, Checkbox } from 'antd'
 import delay from 'delay'
 import Form2 from '../form';
 import SingleLogin from '../SingleLogin';
-import Facebook from  '../Assets/icons/Facebook.png';
-import google from '../Assets/icons/google.png';
+import Facebook from  '../assets/icons/Facebook.png';
+import google from '../assets/icons/google.png';
 import ProfilePic from '../secondPic';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
