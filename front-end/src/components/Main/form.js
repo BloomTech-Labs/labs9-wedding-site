@@ -108,6 +108,8 @@ function CustomizedInputs(props) {
 
         <Input
           id="custom-css-standard-input"
+          onChange={props.inputHandler}
+          name="first_name"
           classes={{
             underline: classes.cssUnderline
           }}
@@ -128,6 +130,8 @@ function CustomizedInputs(props) {
 
         <Input
           id="custom-css-standard-input"
+          onChange={props.inputHandler}
+          name="last_name"
           classes={{
             underline: classes.cssUnderline
           }}
@@ -151,6 +155,9 @@ function CustomizedInputs(props) {
 
           <Input
             id="custom-css-standard-input"
+
+            onChange={props.inputHandler}
+            name="p_firstname"
             classes={{
               underline: classes.cssUnderline
             }}
@@ -171,6 +178,9 @@ function CustomizedInputs(props) {
 
           <Input
             id="custom-css-standard-input"
+
+            onChange={props.inputHandler}
+            name="p_lastname"
             classes={{
               underline: classes.cssUnderline
             }}
@@ -194,6 +204,9 @@ function CustomizedInputs(props) {
 
           <Input
             id="custom-css-standard-input"
+
+            onChange={props.inputHandler}
+            name="event_date"
             classes={{
               underline: classes.cssUnderline
             }}
@@ -216,6 +229,9 @@ function CustomizedInputs(props) {
 
           <Input
             id="custom-css-standard-input"
+
+            onChange={props.inputHandler}
+            name="event_address"
             classes={{
               underline: classes.cssUnderline
             }}

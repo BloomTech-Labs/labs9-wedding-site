@@ -8,12 +8,12 @@ const SignupLogin = () => {
       <nav>
         <ul>
           <div className='move'>
-          <li class="">
+          <li>
             <Link to='signup'>
               Signup
             </Link>
           </li>
-          <li class="">
+          <li>
             <Link to='login'>
              Login
             </Link>

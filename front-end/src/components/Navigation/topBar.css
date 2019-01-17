@@ -1,11 +1,15 @@
 .overall{
     height: 90px;
-    width: 1536px;
+    width: 100%;
     background-color:white;
     display: flex;
     flex-direction: row;
-    border-bottom: 1px solid grey;
+    /* border-bottom: 1px solid grey; */
     position:fixed;
+    z-index: 1000;
+    /* margin-top: -5px; */
+    padding-top: 0%;
+    top:0;
 }
 
 
