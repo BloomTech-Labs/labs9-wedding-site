@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AddQuestion from './addQuestion';
+import AddQuestion from '../Client/addQuestion';
 import axios from 'axios';
 
 import Card from '@material-ui/core/Card';
@@ -32,8 +32,10 @@ class Rsvp extends Component {
         this.state = {
            category: '',
            question: '',
-           modalOpen: false,
-           questions: [
+           modalOpen: false
+        }
+        // array of default questions that every couple must include
+        this.questions = [
             {
                 wedding_id: localStorage.getItem('weddingID'),
                 category: 'Guest Name',
@@ -62,13 +64,9 @@ class Rsvp extends Component {
                 question: 'Are you a friend or family of... ?',
                 answer: 'Bride,Groom,Both'
             },
-            ]
-        }
+        ]
     }
 
-    // componentDidMount(){
-    //    
-    // }
 
     inputHandler = e => {
         this.setState({ [e.target.name]: e.target.value });
@@ -83,62 +81,21 @@ class Rsvp extends Component {
             question: this.state.question,
             answer: ''
         }
-        this.state.questions.push(newQuestion);
+        this.questions.push(newQuestion);
+        console.log(this.questions);
         this.handleClose();
     };
 
     // save all the questions to the database
     saveQuestions = () => {
         axios
-        .post('http://localhost:8888/questions', {questions: this.state.questions})
+        .post('http://localhost:8888/questions', {questions: this.questions})
         .then(res => {
             console.log(res);
         })
         .catch(err => console.log(err));
     };
 
-    // function to conditionally render cards based on the type of card
-    renderCards = (q, i) => {
-        if (q.category === 'Guest Name') {
-            return  <Card style={styles.card} key={i}>
-            <CardContent>
-                {q.category}
-            </CardContent>
-            <CardContent>
-                {q.question}
-                <TextField fullWidth={true} label="First Name"></TextField>
-                <TextField fullWidth={true} label="Last Name"></TextField>
-            </CardContent>
-            </Card>
-        } else if (q.multiple_choice === true) {
-            return <Card style={styles.card} key={i}>
-            <CardContent>
-                {q.category}
-            </CardContent>
-            <CardContent>
-                <FormControl component="fieldset">
-                <FormLabel component="legend">{q.question}</FormLabel>
-                <RadioGroup>
-                    {q.answer.split(",").map(option =>  
-                        <FormControlLabel value={option} control={<Radio />} label={option} 
-                    />)}
-                </RadioGroup>
-                </FormControl>
-            </CardContent>
-            </Card>
-        } 
-        else {
-            return <Card style={styles.card} key={i}>
-                <CardContent>
-                    {q.category}
-                </CardContent>
-                <CardContent>
-                    {q.question}
-                    <TextField fullWidth={true}></TextField>
-                </CardContent>
-                </Card>
-        }
-    }
 
     // functions to open and close modal
     handleOpen = () => {
@@ -149,12 +106,65 @@ class Rsvp extends Component {
         this.setState({ modalOpen: false });
     };
 
-
     render() {
       return (
         <div style={styles.rsvpContainer}>
-            {this.state.questions.map((q, i) => 
-                this.renderCards(q, i)
+            <Card style={styles.card}>
+            <CardContent>
+                Guest Name
+                <TextField fullWidth={true} label="First Name"></TextField>
+                <TextField fullWidth={true} label="Last Name"></TextField>
+            </CardContent>
+            </Card>
+            <Card style={styles.card}>
+            <CardContent>
+                Attendance
+            </CardContent>
+            <CardContent>
+                <FormControl component="fieldset">
+                <FormLabel component="legend">Will you be attending our wedding?</FormLabel>
+                <RadioGroup>
+                    <FormControlLabel value="attending" control={<Radio />} label="Attending" />
+                    <FormControlLabel value="notAttending" control={<Radio />} label="Not attending" />
+                    <FormControlLabel value="maybe" control={<Radio />} label="Maybe" />
+                </RadioGroup>
+                </FormControl>
+            </CardContent>
+            </Card>
+            <Card style={styles.card}>
+            <CardContent>
+                Address
+            </CardContent>
+            <CardContent>
+                What is your mailing address?
+                <TextField fullWidth={true}></TextField>
+            </CardContent>
+            </Card>
+            <Card style={styles.card}>
+            <CardContent>
+                Wedding Team
+            </CardContent>
+            <CardContent>
+                <FormControl component="fieldset">
+                <FormLabel component="legend">Are you a friend or family of... ?</FormLabel>
+                <RadioGroup>
+                    <FormControlLabel value="bride" control={<Radio />} label="Bride" />
+                    <FormControlLabel value="groom" control={<Radio />} label="Groom" />
+                    <FormControlLabel value="both" control={<Radio />} label="Both" />
+                </RadioGroup>
+                </FormControl>
+            </CardContent>
+            </Card>
+            {this.questions.slice(4).map(q => 
+                <Card style={styles.card} key={q.question}>
+                <CardContent>
+                    {q.category}
+                </CardContent>
+                <CardContent>
+                    {q.question}
+                    <TextField fullWidth={true}></TextField>
+                </CardContent>
+                </Card>
             )}
             <Button variant="outlined" onClick={this.handleOpen}>Add Question</Button>
             <Button variant="outlined" onClick={this.saveQuestions}>Save</Button>
