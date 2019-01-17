@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
+import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 class addQuestion extends React.Component {
@@ -24,8 +25,8 @@ class addQuestion extends React.Component {
         type="text"
         name="question"/>
           <div>
-            <button onClick={this.props.addQuestion}>Add Question</button>
-            <button onClick={this.props.handleClose}>Cancel</button>
+            <Button variant="outlined" onClick={this.props.addQuestion}>Add Question</Button>
+            <Button variant="outlined" onClick={this.props.handleClose}>Cancel</Button>
           </div>
           </div>
       </Card>
