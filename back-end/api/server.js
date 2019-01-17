@@ -9,7 +9,6 @@ const passport = require('passport');
 const cookieSession = require('cookie-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('../config/keys');
-const sendSMS = require('./send_sms');
 
 
 // restrict cors access to our netlify
@@ -19,7 +18,6 @@ const corsOptions = {
 
 server.use(express.json());
 server.use(cors(corsOptions));
-server.use('/sms', sendSMS);
 
 
 //COOKIES
@@ -115,10 +113,18 @@ server.post('/signin/google', async (req, res)=>{
 
     try{
             //design template must be added later
-             const wedding_id = await db.table('weddings').insert({event_date, event_address}); 
-                console.log('weddingID:', wedding_id) 
+            /* const wedding_id = await db.table('weddings').insert({event_date, event_address}); 
+                console.log('weddingID:', wedding_id) */
+            
+            /* const user1 = await db.table('users').insert({first_name, last_name, wedding_id}) //email must be added in OAuth
+            const user2 = await db.table('users').insert({first_name: p_firstname, last_name: p_lastname, wedding_id})
+                console.log('user1:', user1)
+            
+            const coupleID1 = await db.table('couples').insert({user_id: user1, dashboard_access: true})
+            const coupleID2 = await db.table('couples').insert({user_id: user2, dashboard_access: true})
+                console.log('coupleID:', coupleID1) */
 
-            res.status(200).json({id: wedding_id})
+            res.status(200).json({id: 3})
 
     }
     catch(err){
@@ -131,11 +137,12 @@ server.post('/signin/google', async (req, res)=>{
 })
 
 server.post('/loaduser',  async (req,res) =>{
-    // userdata sent from cookie
     let {first_name, last_name, p_firstname, p_lastname, event_date, event_address, oauth_id, wedding_id} = req.body;
     
-    try{    
+    try{
         const userExists = await db.table('oauth_ids').where({oauth_id}).first()
+        const allusers = await db.table('users');
+        console.log("allusers:",allusers)
         if(!userExists){ 
             console.log('NOUSER')
             const user1 = await db('users').insert({first_name, last_name, wedding_id}) //email must be added in OAuth
@@ -274,17 +281,23 @@ server.get('/dummyguests', async (req,res)=>{
         last_name: faker.name.lastName(),
         email: faker.internet.email(),
         address: `${faker.address.streetAddress()}, ${faker.address.city()}, ${faker.address.stateAbbr()} ${faker.address.zipCode()}`,
-        wedding_id: 1
+        wedding_id: Math.floor(Math.random() * 8)
     }
 
+    let attendArr = ['Not Attending', 'Attending', 'TBD']
+
     try {
-        let wedding_id = 1;
+        let wedding_id = Math.ceil(Math.random() * 7)
+        let attendIndex = Math.floor(Math.random() * 3)
+        let coupleIndex = Math.floor(Math.random() * 2)
+        
         let userID = await db.table('users').insert({
         first_name: faker.name.firstName(), 
         last_name: faker.name.lastName(),
         email: faker.internet.email(),
         address: `${faker.address.streetAddress()}, ${faker.address.city()}, ${faker.address.stateAbbr()} ${faker.address.zipCode()}`,
-        wedding_id: 1,
+
+        wedding_id: wedding_id,
         guest: true
     }) 
         console.log('userID:', userID)
@@ -292,9 +305,17 @@ server.get('/dummyguests', async (req,res)=>{
         let couple = await db.table('users').join('couples', {'users.id': 'couples.user_id'}).where({wedding_id})
         console.log('couple', couple, wedding_id)
         
-        let related_spouse = couple[0].first_name
+        let related_spouse = couple[coupleIndex].first_name
+        console.log('relatedspouse:', related_spouse)
+        console.log('attendingArray:', attendArr[attendIndex], attendIndex)
+        let guestID = await db.table('guests').insert({
+            user_id: userID[0],
+            attending: attendArr[attendIndex],
+            related_spouse: related_spouse
+        })
+        console.log('guestID:', guestID)
 
-        let guests = await db.table('users').where({wedding_id, guest: true})
+        let guests = await db.table('users').join('guests', {'users.id': 'guests.user_id'}).where({wedding_id: 3})
 
         res.status(200).json(guests)
     } 
@@ -310,8 +331,7 @@ server.get('/dummyguests', async (req,res)=>{
 
 //A FUNCTION TO RETRIEVE GUESTS 
 server.get('/guests', (req, res) => {
-    db('users')
-    .where({guest: true, wedding_id: 1})
+    db('guests')
     .then(note => {
         res.status(200).json(note);
     })
@@ -336,5 +356,59 @@ server.delete('/users/:id', (req,res) => {
 server.get('/createcouple', (req, res)=>{
     
 })
+
+//A FUNCTION TO POST QUESTIONS::LINE 360
+server.post('/questions', (req, res)=>{
+    let { questions } = req.body;
+
+    questions.forEach(qData => {
+        db.table('questions').where({question: qData.question, wedding_id: qData.wedding_id})
+        .then(res => {
+            console.log("DBQuery",res)
+            if(!res.length){console.log('NoRes')
+                db.table('questions').insert(qData).then(res =>console.log(res)).catch(err => console.log(err))
+            }
+            else {
+                console.log('ResExists')
+            }
+
+        })
+        .catch(err=>{console.log(err)})
+    })
+    
+    res.status(200).json({message: 'Data Posted Successfully.'})
+
+
+})
+
+//A FUNCTION TO RETRIEVE QUESTIONS OF A USER::LINE 384
+server.get('/:id/allquestions', (req,res)=>{
+    let { id } = req.params;
+
+    db.table('questions').where({wedding_id: id}).then(response => res.json(response)).catch(err =>{
+        res.json(err)
+    })
+})
+
+//A FUNCTION TO DELETE QUESTIONS OF A USER::LINE 393
+server.delete('/:questionID/deletequestion', async (req, res) => {
+    let { questionID } = req.params;
+    console.log('qID', questionID)
+    
+    try{
+        let deletedQ = await db('questions').where({id: questionID}).del()
+        console.log(deletedQ)
+        
+        res.status(200).json({message: 'Deleted Successfully.'})
+
+    }
+
+    catch(err){console.log(err)
+        res.status(500).json({message: 'Server Error.'})
+    }
+
+    
+})
+
 
 module.exports = server; 

@@ -1,15 +1,15 @@
-import 'antd/dist/antd.css'
-import './login.css'
-import '../SingleSignup.css';
+// import 'antd/dist/antd.css'
+import './signup.css'
+import './SingleLogin.css';
 import React, { Fragment } from 'react'
 import { Keyframes, animated } from 'react-spring'
 import { Avatar, Form, Icon, Input, Button, Checkbox } from 'antd'
 import delay from 'delay'
-import Form2 from '../form';
-import SingleSignup from '../SingleSignup';
-import Facebook from  '../assets/icons/Facebook.png';
-import google from '../assets/icons/google.png';
-import ProfilePic from '../secondPic';
+import Form2 from './form';
+import SingleLogin from './SingleLogin';
+import Facebook from  '../Assets/icons/Facebook.png';
+import google from '../Assets/icons/google.png';
+import ProfilePic from './secondPic';
 
 // Creates a spring with predefined animation slots
 const Sidebar = Keyframes.Spring({
@@ -66,7 +66,7 @@ const items = [
   
 ]
 
-export default class Login extends React.Component {
+export default class SignupExp extends React.Component {
   state = { open: undefined }
   toggle = () => this.setState(state => ({ open: !state.open }))
   render() {
@@ -84,8 +84,10 @@ export default class Login extends React.Component {
           className="sidebar-toggle"
           onClick={this.toggle}
         />
-        <span className='alone2 single2'>Haven't registered before?</span>
-        <SingleSignup />
+        <span style={{position:'absolute', left:550, top:180, fontSize:13}}>*Required</span>
+        <span className='alone single'>Already have an account?</span>
+        <SingleLogin />
+        <Form2 />
         <Sidebar native state={state}>
           {({ x }) => (
             <animated.div
