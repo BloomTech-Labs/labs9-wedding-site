@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AddQuestion from '../../Client/addQuestion';
+import AddQuestion from './addQuestion';
 import axios from 'axios';
 
 import Card from '@material-ui/core/Card';
