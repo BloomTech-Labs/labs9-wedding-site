@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { StripeProvider } from 'react-stripe-elements';
+import Checkout from './checkout/stripeCheckout';
 
 
 const PaymentContainer = styled.div`
@@ -15,16 +17,9 @@ height: 250px;
 function Payment() {
     return (
         <PaymentContainer>
-            <h1>Billing</h1>
-            <form name="payment-form" onSubmit={() => console.log()}>
-                <div className="Payment-info">
-                    <h3>Payment Info</h3>
-                    <input type="text" name="CC#" placeholder="CC#" /><br />
-                    <input type="text" name="EXP" placeholder="EXP" /><br />
-                    <input type="text" name="CVV" placeholder="CVV" />
-                </div>
-                <button tupe="submit">Buy Now</button>
-            </form>
+            <StripeProvider apiKey="pk_test_M1Y5kyDDSB7dOAWXIhzOOqMV">
+                <Checkout />
+            </StripeProvider>
         </PaymentContainer>
     );
 }
