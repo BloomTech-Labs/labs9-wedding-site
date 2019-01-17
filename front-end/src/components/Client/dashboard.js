@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import {Pie} from 'react-chartjs-2';
 
 import Card from '@material-ui/core/Card';
@@ -14,9 +15,9 @@ const cookies = new Cookies()
 
 const styles = {
     dashboardContainer: {
-        margin: '50px auto 50px',
+        margin: '150px auto 50px',
         width: '80%',
-        position: 'relative',
+        position: 'relative'
     },
     cardDivTop: {
         display: 'flex',
@@ -25,13 +26,13 @@ const styles = {
       width: '50%',
       marginRight: '10px',
       height: '200px',
-      padding: '15px'
+      padding: '5px 15px 30px'
     },
     cardTopRight: {
         width: '50%',
         marginLeft: '10px',
         height: '200px',
-        padding: '15px 15px 30px'
+        padding: '5px 15px 30px'
       },
     cardBottom: {
         marginTop: '30px',
@@ -96,7 +97,7 @@ class Dashboard extends Component {
         let oauth_id = cookies.get('userID')
         console.log('userdata:', userdata)
         if(wedding_id){
-            axios.post('http://localhost:8888/loaduser', {...userdata, wedding_id, oauth_id})
+            axios.post('https://vbeloved.now.sh/loaduser', {...userdata, wedding_id, oauth_id})
             .then(res => {
                 console.log(res)
                 this.setState({
@@ -127,16 +128,17 @@ class Dashboard extends Component {
             
             <div style={styles.cardDivTop}>
                 <Card style={styles.cardTopLeft}>
-                    Guest List
+                <Link to={`/vb/guestlist`}>Guest List</Link>
+                    
                     <Button variant="outlined" style={styles.buttonTop}>
                         Import CSV
                     </Button>
                 </Card>
                 <Card style={styles.cardTopRight}>
-                    RSVP
+                <Link to={`/vb/rsvp`}>RSVP</Link>
+
                     <Pie data={this.chartData}
-                        width={100}
-                        height={50}
+                        style={styles.pieChart}
                         options={{ maintainAspectRatio: false}}
                         />
                 </Card>
