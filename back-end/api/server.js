@@ -53,7 +53,7 @@ passport.deserializeUser((id, done)=>{
 //GOOGLE PASSPORT STRATEGY
 
 passport.use(new GoogleStrategy({
-    callbackURL: 'http://localhost:8888/google/redirect',
+    callbackURL: 'https://vbeloved.now.sh/google/redirect',
     clientID: `${keys.google.clientId}`,
     clientSecret: keys.google.clientSecret,
     scope: ['profile']
