@@ -9,7 +9,7 @@ const passport = require('passport');
 const cookieSession = require('cookie-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('../config/keys');
-
+require('dotenv').config();
 
 // restrict cors access to our netlify
 const corsOptions = {
@@ -82,7 +82,7 @@ server.get('/google/redirect', passport.authenticate('google'), (req, res) => {
     
     
             res.cookie('userID', req._passport.session.user.id);  
-    res.redirect('http://localhost:3000/vb/dashboard');
+    res.redirect('http://www.vbeloved.com/vb/dashboard');
   
 })
 //--- END:PASSPORT DECLARATIONS
@@ -331,7 +331,7 @@ server.get('/dummyguests', async (req,res)=>{
 
 //A FUNCTION TO RETRIEVE GUESTS 
 server.get('/guests', (req, res) => {
-    db('guests')
+    db('users').where({guest: true})
     .then(note => {
         res.status(200).json(note);
     })
@@ -381,6 +381,7 @@ server.post('/questions', (req, res)=>{
 
 })
 
+axios.get()
 //A FUNCTION TO RETRIEVE QUESTIONS OF A USER::LINE 384
 server.get('/:id/allquestions', (req,res)=>{
     let { id } = req.params;
