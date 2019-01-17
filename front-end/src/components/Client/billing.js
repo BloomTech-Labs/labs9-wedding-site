@@ -5,7 +5,7 @@ import Checkout from './checkout/stripeCheckout';
 
 
 const PaymentContainer = styled.div`
-margin auto;
+margin: auto;
 border: 1px solid black;
 background-color: white;
 width: 500px;

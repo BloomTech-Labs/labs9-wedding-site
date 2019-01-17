@@ -26,6 +26,7 @@ const PackageContainer = styled.div`
   margin-left: 800px;
   height: 500px;
   width: 40%;
+  z-index:500;
   /* margin: auto; */
   /* width: 40%;
 height: 400px;

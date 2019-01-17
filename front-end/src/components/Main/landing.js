@@ -5,7 +5,6 @@ const LandingPage = () => {
     return ( 
         <div>
             <StickyTop />
-            <div>hello</div>
         </div>
      );
 }
