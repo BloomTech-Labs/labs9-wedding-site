@@ -1,13 +1,19 @@
 import 'antd/dist/antd.css'
 import './signup.css'
+import '../SingleLogin.css';
 import React, { Fragment } from 'react'
 import { Keyframes, animated } from 'react-spring'
 import { Avatar, Form, Icon, Input, Button, Checkbox } from 'antd'
 import delay from 'delay'
 import Form2 from '../form';
-import Facebook from  '../Assets/icons/Facebook.png';
-import google from '../Assets/icons/google.png';
+import SingleLogin from '../SingleLogin';
+import Facebook from  '../assets/icons/Facebook.png';
+import google from '../assets/icons/google.png';
 import ProfilePic from '../secondPic';
+import axios from 'axios';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies()
 
 // Creates a spring with predefined animation slots
 const Sidebar = Keyframes.Spring({
@@ -56,17 +62,45 @@ left:20,
 top:160,
 }
 
-const items = [
-  // <Avatar src="https://semantic-ui.com/images/avatar2/large/elyse.png" />,
-  <ProfilePic />,
-  <img src={Facebook} alt='Facebook' style={facebook} />,
-  <img src={google} alt='Google' style={google2} />,
-  
-]
+
 
 export default class SignupExp extends React.Component {
-  state = { open: undefined }
+  state = { 
+            open: undefined, 
+            first_name: '',
+            last_name: '',
+            p_firstname: '',
+            p_lastname: '',
+            event_date: '',
+            event_address: ''
+  }
   toggle = () => this.setState(state => ({ open: !state.open }))
+
+  
+  inputHandler = (e) => {
+
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+
+  }
+
+  registerUser = () =>{
+    const {first_name, last_name, p_firstname, p_lastname, event_date, event_address} = this.state
+
+    cookies.set('USERDATA', {first_name: this.state.first_name, last_name, p_firstname, p_lastname, event_date, event_address}, {maxAge: 60} )
+
+    
+    axios.post('http://localhost:8888/signin/google', {first_name, last_name, p_firstname, p_lastname, event_date, event_address})
+    .then(res => {
+      console.log(res)
+      localStorage.setItem('weddingID', `${res.data.id}`)
+    })
+    .catch(err => console.log(err)) 
+
+  }
+
+
   render() {
     const state =
       this.state.open === undefined
@@ -74,16 +108,25 @@ export default class SignupExp extends React.Component {
         : this.state.open
           ? 'open'
           : 'close'
-    const icon = this.state.open ? 'fold' : 'unfold'
+    const icon = this.state.open ? 'fold' : 'unfold';
+    const items = [
+      // <Avatar src="https://semantic-ui.com/images/avatar2/large/elyse.png" />,
+      <ProfilePic />,
+      <img src={Facebook} className='fb-button btn' name='fb-login' alt='Facebook' style={facebook} />,
+      <img src={google} className='ggl-button btn'onClick={this.registerUser} alt='Google' style={google2} />
+      
+    ]
     return (
-      <div style={{ background: '#AFD4E1', width: '100%', height: '800px' }}>
+      <div style={{ background: '#AFD4E1', width: '100%', height: '800px', marginTop: '90px' }}>
         <Icon
           type={`menu-${icon}`}
           className="sidebar-toggle"
           onClick={this.toggle}
         />
         <span style={{position:'absolute', left:550, top:180, fontSize:13}}>*Required</span>
-        <Form2 />
+        <span className='alone single'>Already have an account?</span>
+        <SingleLogin />
+        <Form2 inputHandler={this.inputHandler}/>
         <Sidebar native state={state}>
           {({ x }) => (
             <animated.div
@@ -97,14 +140,14 @@ export default class SignupExp extends React.Component {
                 keys={items.map((_, i) => i)}
                 reverse={!this.state.open}
                 state={state}>
-                {(item, i) => ({ x, ...props }) => (
+                {(item, i) => ({ x, ...props }) => ( 
                   <animated.div
                     style={{
                       transform: x.interpolate(x => `translate3d(${x}%,0,0)`),
                       ...props,
                     }}>
-                    <Form.Item className={i === 0 ? 'middle' : ''}>
-                      {item}
+                    <Form.Item className={i === 0 ? 'middle' : ''} >
+                    <a id="loginbtns" href="http://localhost:8888/signin/google" >{item}</a>
                     </Form.Item>
                   </animated.div>
                 )}
@@ -116,3 +159,4 @@ export default class SignupExp extends React.Component {
     )
   }
 }
+

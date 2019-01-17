@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import MainContent from './MainContent';
-
-
-
+import MainContent from './components/Main/MainContent';
+import { withRouter } from 'react-router';
 
 
 class App extends Component {
@@ -16,4 +14,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
