@@ -1,5 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
 
 
 const SettingsContainer = styled.div`
@@ -14,86 +19,110 @@ width: 700px;
 height: 450px;
 `
 
-function Settings() {
-    return (
-        <SettingsContainer>
-            <form>
-                <div className="Payment-info">
-                    <label>Email
-                    <input
-                            type="text"
-                            name="Email"
-                        />
-                    </label><br />
-                    <label>Phone
-                    <input
-                            type="number"
-                            name="Phone"
-                        />
-                    </label>
-                </div>
+class Settings extends React.Component {
+    state = {
+        checkedEmail: false,
+        checkedText: false,
+    };
 
-                <div className="Payment-info">
-                    <input
-                        type="text"
-                        name="Partner Name"
-                        placeholder="Partner Name"
-                    /><br />
-                    <input
-                        type="text"
-                        name="Partner Name"
-                        placeholder="Partner Name"
+    handleChange = name => event => {
+        this.setState({ [name]: event.target.checked });
+    };
+
+    render() {
+
+        return (
+            <SettingsContainer>
+                <form>
+                    <TextField
+                        id="outlined-email"
+                        label="Email"
+                        margin="normal"
+                        variant="outlined"
                     />
-                </div>
-
-                <div>
-                    <label>
-                        Email?
-                    <input
-                            name='Email?'
-                            type="checkbox" />
-                    </label>
-                    <label>
-                        Text?
-                    <input
-                            name='Text?'
-                            type="checkbox" />
-                    </label>
-                </div>
-                <div>
-                    <label>Wedding Date
-                    <input
-                            name="Wedding Date"
-                            type="date"
+                    <TextField
+                        id="outlined-phone"
+                        label="Phone"
+                        margin="normal"
+                        variant="outlined"
+                    />
+                    <div className="Payment-info">
+                        <TextField
+                            id="standard-name"
+                            label="Partner Name"
+                            margin="normal"
                         />
-                    </label>
-                </div>
-
-                <div className="Payment-info">
-                    <label>Old Password
-                    <input
-                            type="old password"
-                            name="password"
+                        <TextField
+                            id="standard-name"
+                            label="Partner Name"
+                            margin="normal"
                         />
-                    </label><br />
-                    <label>New Password
-                    <input
-                            type="new password"
-                            name="passworde"
+                    </div>
+                    <div>
+                        <FormGroup row>
+                            <FormControlLabel
+                                label="Email?"
+                                labelPlacement="start"
+                                control={
+                                    <Checkbox
+                                        checked={this.state.checkedEmail}
+                                        onChange={this.handleChange('checkedEmail')}
+                                        value="checkedEmail"
+                                        color="primary"
+                                    />
+                                }
+                            />
+                            <FormControlLabel
+                                label="Text?"
+                                labelPlacement="start"
+                                control={
+                                    <Checkbox
+                                        checked={this.state.checkedText}
+                                        onChange={this.handleChange('checkedText')}
+                                        value="checkedText"
+                                        color="primary"
+                                    />
+                                }
+                            />
+                        </FormGroup>
+                    </div>
+                    <div>
+                        <TextField
+                            id="datetime-local"
+                            label="Wedding Date & Time"
+                            type="datetime-local"
+                            defaultValue="2019-01-15T10:30"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
                         />
-                    </label><br />
-                </div>
-                <input
-                    type="text"
-                    name="Wedding Location"
-                    placeholder="Wedding Location"
-                /><br />
-                <button>
-                    Save
-                </button>
-            </form>
-        </SettingsContainer>
-    );
+                    </div>
+                    <div className="Payment-info">
+                        <TextField
+                            id="outlined-password"
+                            variant="outlined"
+                            type="password"
+                            label="Old Password"
+                        />
+                        <TextField
+                            id="outlined-password"
+                            variant="outlined"
+                            type="password"
+                            label="New Password"
+                        />
+                    </div>
+                    <TextField
+                        id="standard-location"
+                        label="Wedding Location"
+                        margin="normal"
+                    />
+                    <Button variant="contained" size="large" color="primary">
+                        Save
+                    </Button>
+                </form>
+            </SettingsContainer >
+        );
+    }
 }
 
 export default Settings;
