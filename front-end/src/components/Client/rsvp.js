@@ -90,7 +90,7 @@ class Rsvp extends Component {
     // save all the questions to the database
     saveQuestions = () => {
         axios
-        .post('http://localhost:8888/questions', {questions: this.state.questions})
+        .post('https://vbeloved.now.sh/questions', {questions: this.state.questions})
         .then(res => {
             console.log(res);
         })
@@ -126,8 +126,7 @@ class Rsvp extends Component {
                 </FormControl>
             </CardContent>
             </Card>
-        } 
-        else {
+        } else {
             return <Card style={styles.card} key={i}>
                 <CardContent>
                     {q.category}

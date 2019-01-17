@@ -34,8 +34,7 @@ class GuestList extends Component {
 
     componentDidMount() {
         axios
-            //.get('https://vbeloved.now.sh/users')
-            .get('http://localhost:8888/guests')
+            .get('https://vbeloved.now.sh/guests')
             .then(response => {
                 console.log(response.data)
                 this.setState(() => ({

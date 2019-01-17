@@ -93,7 +93,7 @@ const {first_name, last_name, p_firstname, p_lastname, event_date, event_address
 cookies.set('USERDATA', {first_name: this.state.first_name, last_name, p_firstname, p_lastname, event_date, event_address}, {maxAge: 60} )
 
 
-axios.post('http://localhost:8888/signin/google', {first_name, last_name, p_firstname, p_lastname, event_date, event_address})
+axios.post('https://vbeloved.now.sh/signin/google', {first_name, last_name, p_firstname, p_lastname, event_date, event_address})
 .then(res => {
 console.log(res)
 localStorage.setItem('weddingID', `${res.data.id}`)
@@ -147,7 +147,7 @@ localStorage.setItem('weddingID', `${res.data.id}`)
                       ...props,
                     }}>
                     <Form.Item className={i === 0 ? 'middle' : ''}>
-                    <a id="loginbtns" href="http://localhost:8888/signin/google" >{item}</a>
+                    <a id="loginbtns" href="https://vbeloved.now.sh/signin/google" >{item}</a>
                     </Form.Item>
                   </animated.div>
                 )}
