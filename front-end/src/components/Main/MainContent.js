@@ -52,13 +52,13 @@ class MainContent extends Component {
                    <Route path='/pricing' component={Prices} />
                    <Route path='/signup' render={props => <Signup {...props} toggleLoggedIn={this.toggleLoggedIn}/>} />
                    <Route path='/login' component={Login} />
-
                    {/* <Route path="/vb" render={props => <UserAccess {...props} />} /> */}
                     <Route path='/vb/dashboard'  render={props => < Dashboard {...props} />} />
                     <Route path='/vb/payment'  render={props => < Payment {...props} />} />
                     <Route path='/vb/settings'  render={props => < Settings {...props} />} />
                     <Route path='/vb/guestlist'  render={props => < GuestList {...props} />} />
                     <Route path='/vb/rsvp'  render={props => < Rsvp {...props} />}/>
+                    <Route path='/vb/billing' component={Payment} />
 
                    
                    
