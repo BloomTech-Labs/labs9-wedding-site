@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css?family=Pinyon+Script');
+
+.font {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Pinyon Script', cursive;
+    color: '#AFD4E1';
+    position: absolute;
+    top:120px;
+    left:250px;
+    font-size: 60px;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .font2 {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Pinyon Script', cursive;
+    color: '#AFD4E1';
+    position: absolute;
+    top:180px;
+    left:355px;
+    font-size: 110px;
+    font-weight: 600;
+  }
+
+  .font3 {
+    display: flex;
+    flex-direction: column;
+    color: '#AFD4E1';
+    position: absolute;
+    top:315px;
+    left:245px;
+    font-size: 23px;
+    font-weight: 400;
+  }
+
+  .color{
+      color:'#AFD4E1';
+  }

@@ -4,8 +4,11 @@
     background-color:white;
     display: flex;
     flex-direction: row;
-    border-bottom: 1px solid grey;
+    /* border-bottom: 1px solid grey; */
     position:fixed;
+    z-index: 1000;
+    margin-top: -5px;
+    padding-top: 0%;
 }
 
 
