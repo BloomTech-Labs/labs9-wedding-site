@@ -11,6 +11,9 @@ import flower3 from "./images/flower3.png";
 import flower4 from "./images/flower4.png";
 import flower5 from "./images/flower5.png";
 
+//font
+// import './SnellBTRegulear.otf';
+import './fonts.css';
 
 
 const Pricing = () => {
@@ -19,6 +22,11 @@ const Pricing = () => {
             <StickyTop />
             <Prices />
             <div>
+                <span className='font'>Watch your <br/>invite</span>
+                <span className='font2'>Bloom</span>
+                <span className='font3'>Choose any package that<br/>fits your invitation needs</span>
+            </div>
+            <div>
             <img src={flower1} alt='yellow flower' style={yellow3} />
             <img src={flower2} alt='pink flowers' style={pinks1} />
             <img src={flower4} alt='red flower' style={red1} />
@@ -26,7 +34,7 @@ const Pricing = () => {
             <img src={flower3} alt='blue flower' style={blue} />
             <img src={flower5} alt='lavender flower' style={purple} />
             </div>
-            <div>
+            <div className='color'>
             <img src={flower2} alt='pink flowers' style={pinks2} />
             <img src={flower3} alt='blue flower' style={blue2} />
             <img src={flower1} alt='yellow flower' style={yellow2} />
@@ -34,6 +42,7 @@ const Pricing = () => {
             <img src={flower4} alt='red flower' style={red3} />
             {/* <img src={flower1} alt='yellow flower' style={yellow1} /> */}
             </div>
+            
         </div>
      );
 }
@@ -175,5 +184,6 @@ const yellow1={
                                                 top:460,
                                                 zIndex:400,
                                             }
- 
+
+
 export default Pricing;
