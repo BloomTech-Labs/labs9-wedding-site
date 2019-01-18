@@ -27,7 +27,12 @@ class MainContent extends Component {
    constructor(props) {
        super(props);
        this.state = {
-           loggedIn: false
+           loggedIn: false,
+           weddingID: '',
+           userName: '',
+           partnerName: ''
+
+           
         }
    }
 
@@ -37,6 +42,14 @@ class MainContent extends Component {
            loggedIn: !this.state.loggedIn
        })
 
+   }
+
+   setUser = (weddingID, userName, partnerNameame) => {
+        this.setState({
+            weddingID, 
+            userName,
+            partnerName
+        })
    }
 
 
