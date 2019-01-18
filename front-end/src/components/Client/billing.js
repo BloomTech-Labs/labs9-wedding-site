@@ -18,7 +18,7 @@ height: 250px;
 function Payment() {
     return (
         <PaymentContainer>
-            <StripeProvider apiKey="sk_test_4eC39HqLyjWDarjtT1zdp7dc">
+            <StripeProvider apiKey="pk_test_M1Y5kyDDSB7dOAWXIhzOOqMV">
                 <Checkout />
             </StripeProvider>
         </PaymentContainer>
