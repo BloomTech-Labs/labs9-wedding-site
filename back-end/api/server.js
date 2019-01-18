@@ -390,7 +390,7 @@ server.post('/questions', (req, res)=>{
 
 })
 
-axios.get()
+
 //A FUNCTION TO RETRIEVE QUESTIONS OF A USER::LINE 384
 server.get('/:id/allquestions', (req,res)=>{
     let { id } = req.params;
