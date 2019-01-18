@@ -55,7 +55,7 @@ passport.deserializeUser((id, done)=>{
 passport.use(new GoogleStrategy({
 
     callbackURL: 'http://vbeloved.now.sh/google/redirect',
-=======
+
     
 
     clientID: `${keys.google.clientId}`,
@@ -114,7 +114,7 @@ const generateToken = (user) =>{
 
 server.get('/', (req, res)=>{
     console.log('Root hit.')
-    res.json(`Server poot.`)
+    res.json(`Server root.`)
 })
 
 server.post('/signin/google', async (req, res)=>{
