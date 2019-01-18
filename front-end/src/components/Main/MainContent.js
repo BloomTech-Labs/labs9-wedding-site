@@ -44,7 +44,7 @@ class MainContent extends Component {
 
    }
 
-   setUser = (weddingID, userName, partnerNameame) => {
+   setUser = (weddingID, userName, partnerName) => {
         this.setState({
             weddingID, 
             userName,
