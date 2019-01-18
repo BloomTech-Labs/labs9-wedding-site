@@ -44,7 +44,7 @@ class MainContent extends Component {
 
    }
 
-   setUser = (weddingID, userName, partnerNameame) => {
+   setUser = (weddingID, userName, partnerName) => {
         this.setState({
             weddingID, 
             userName,
@@ -57,7 +57,7 @@ class MainContent extends Component {
        return (
            <div>
                 <div className='main_container'>
-               <StickyTop/>
+               <StickyTop loggedIn={this.state.loggedIn} />
                 <Switch>
 
                    <Route path='/' exact render={props => this.state.loggedIn ? <Redirect to="/vb/dashboard"/> : <LandingPage {...props} />} />
@@ -67,15 +67,11 @@ class MainContent extends Component {
                    <Route path='/login' component={Login} />
 
                    {/* <Route path="/vb" render={props => <UserAccess {...props} />} /> */}
-                    <Route path='/vb/dashboard'  render={props => < Dashboard {...props} />} />
+                    <Route path='/vb/dashboard'  render={props => < Dashboard {...props} toggleLoggedIn={this.toggleLoggedIn}/>} />
                     <Route path='/vb/payment'  render={props => < Payment {...props} />} />
                     <Route path='/vb/settings'  render={props => < Settings {...props} />} />
                     <Route path='/vb/guestlist'  render={props => < GuestList {...props} />} />
                     <Route path='/vb/rsvp'  render={props => < Rsvp {...props} />}/>
-
-                   
-                   
-
 
 
                </Switch>

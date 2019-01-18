@@ -53,7 +53,7 @@ passport.deserializeUser((id, done)=>{
 //GOOGLE PASSPORT STRATEGY
 
 passport.use(new GoogleStrategy({
-    callbackURL: 'http://vbeloved.now.sh/google/redirect',
+    callbackURL: 'http://localhost:8888/google/redirect',
     clientID: `${keys.google.clientId}`,
     clientSecret: keys.google.clientSecret,
     scope: ['profile']
@@ -88,7 +88,7 @@ server.get('/google/redirect', passport.authenticate('google'), (req, res) => {
     
     
             res.cookie('userID', req._passport.session.user.id);  
-    res.redirect('http://www.vbeloved.com/vb/dashboard');
+    res.redirect('http://localhost:3000/vb/dashboard');
   
 })
 //--- END:PASSPORT DECLARATIONS
@@ -110,7 +110,7 @@ const generateToken = (user) =>{
 
 server.get('/', (req, res)=>{
     console.log('Root hit.')
-    res.json(`Server poot.`)
+    res.json(`Server root.`)
 })
 
 server.post('/signin/google', async (req, res)=>{

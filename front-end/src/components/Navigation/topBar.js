@@ -8,14 +8,14 @@ import SignupLogin from '../Buttons/SignupLoginButtons';
 import LandingButtonsExp from '../Buttons/LandingButtonsExp';
 
 
-const StickyTop = () => {
+const StickyTop = (props) => {
   return (
     <div className="overall">
       <div className="overall">
         <ProfilePic  />
         {/* <LandingPageButtons /> */}
         <LandingButtonsExp />
-        <SignupLogin />
+        <SignupLogin loggedIn={props.loggedIn}/>
       </div>
     </div>
   );
