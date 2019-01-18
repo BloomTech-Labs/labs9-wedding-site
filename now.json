@@ -7,7 +7,7 @@
         { "src": "/.*", "dest": "/back-end/index.js" }
     ],
     "env": {
-        "NODE_ENV": "production"
+        "NODE_ENV": "development"
       },
       "github": {
         "enabled": true
