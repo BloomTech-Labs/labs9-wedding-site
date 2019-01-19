@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import {Pie} from 'react-chartjs-2';
 
 import Card from '@material-ui/core/Card';
@@ -21,19 +20,19 @@ const styles = {
     },
     cardDivTop: {
         display: 'flex',
-      },
+    },
     cardTopLeft: {
       width: '50%',
       marginRight: '10px',
       height: '200px',
-      padding: '5px 15px 30px'
+      padding: '15px 15px 30px'
     },
     cardTopRight: {
         width: '50%',
         marginLeft: '10px',
         height: '200px',
-        padding: '5px 15px 30px'
-      },
+        padding: '15px 15px 30px'
+    },
     cardBottom: {
         marginTop: '30px',
         height: '200px',
@@ -111,9 +110,7 @@ class Dashboard extends Component {
 
     render() {
       return (
-
         <div>
-          
           { !this.state.userLoaded ? <div>Loading...</div> :
           <div style={styles.dashboardContainer}>
             <Button>
@@ -128,15 +125,13 @@ class Dashboard extends Component {
             
             <div style={styles.cardDivTop}>
                 <Card style={styles.cardTopLeft}>
-                <Link to={`/vb/guestlist`}>Guest List</Link>
-                    
+                    Guest List
                     <Button variant="outlined" style={styles.buttonTop}>
                         Import CSV
                     </Button>
                 </Card>
                 <Card style={styles.cardTopRight}>
-                <Link to={`/vb/rsvp`}>RSVP</Link>
-
+                    RSVP
                     <Pie data={this.chartData}
                         style={styles.pieChart}
                         options={{ maintainAspectRatio: false}}
@@ -158,7 +153,6 @@ class Dashboard extends Component {
                 </Card>
             </div>    
                 }
-          
         </div>
       );
     }

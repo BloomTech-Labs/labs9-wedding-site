@@ -66,9 +66,20 @@ class Rsvp extends Component {
         }
     }
 
-    // componentDidMount(){
-    //    
-    // }
+    componentDidMount() {
+        const id = localStorage.getItem('weddingID');
+        axios
+       .get(`https://vbeloved.now.sh/${id}/allquestions`)
+       .then(res => {
+           if (res.data.length > 0) {
+               this.setState({ questions: res.data })
+               console.log(this.state.questions)
+           }
+       })
+       .catch(err => {
+           console.log(err)
+       })
+    }
 
     inputHandler = e => {
         this.setState({ [e.target.name]: e.target.value });

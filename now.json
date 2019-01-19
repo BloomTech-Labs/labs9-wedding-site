@@ -6,9 +6,6 @@
     "routes": [
         { "src": "/.*", "dest": "/back-end/index.js" }
     ],
-    "env": {
-        "NODE_ENV": "production"
-      },
       "github": {
         "enabled": true
       }
