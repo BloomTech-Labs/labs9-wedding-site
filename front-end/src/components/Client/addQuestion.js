@@ -3,6 +3,23 @@ import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
+const styles = {
+  card: {
+    width: '45%',
+    margin: '150px auto 30px',
+    padding: '20px'
+  },
+  buttonDiv: {
+    marginTop: '30px',
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  button: {
+      width: '30%',
+      margin: '0 15px'
+  }
+};
+
 class addQuestion extends React.Component {
   constructor(props) {
     super(props);
@@ -11,10 +28,11 @@ class addQuestion extends React.Component {
 
   render() {
     return (
-      <Card>
+      <Card style={styles.card}>
         <div className="delete-modal">
         Category (Required)
         <TextField
+        style={{marginBottom: '30px'}}
         fullWidth={true}
         onChange={this.props.handleInputChange}
         type="text"
@@ -25,9 +43,9 @@ class addQuestion extends React.Component {
         onChange={this.props.handleInputChange}
         type="text"
         name="question"/>
-          <div>
-            <Button variant="outlined" onClick={this.props.addQuestion}>Add Question</Button>
-            <Button variant="outlined" onClick={this.props.handleClose}>Cancel</Button>
+          <div style={styles.buttonDiv}>
+            <Button variant="outlined" onClick={this.props.addQuestion} style={styles.button}>Add Question</Button>
+            <Button variant="outlined" onClick={this.props.handleClose} style={styles.button}>Cancel</Button>
           </div>
           </div>
       </Card>
