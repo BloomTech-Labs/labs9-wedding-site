@@ -33,6 +33,12 @@ a {
   top:-1px;
 }
 
+@media (max-width: 500px) {
+  .move {
+    flex-direction: column;
+  }
+}
+
 a:hover {
   color: lightpink;
 }
