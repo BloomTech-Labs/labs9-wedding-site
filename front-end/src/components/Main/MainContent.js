@@ -29,8 +29,13 @@ class MainContent extends Component {
        this.state = {
            loggedIn: false,
            weddingID: '',
-           userName: '',
-           partnerName: ''
+           first_name: '',
+           last_name: '',
+           p_firstname: '',
+           p_lastname: '',
+           guests: [],
+           event_date: '',
+           event_address: ''
 
            
         }
@@ -44,11 +49,15 @@ class MainContent extends Component {
 
    }
 
-   setUser = (weddingID, userName, partnerName) => {
-        this.setState({
-            weddingID, 
-            userName,
-            partnerName
+   setUser = (partner1, partner2, guests) => {
+        
+    this.setState({
+           weddingID: partner1.wedding_id,
+           first_name: partner1.first_name,
+           last_name: partner1.last_name,
+           p_firstname: partner2.first_name,
+           p_lastname: partner2.last_name,
+           guests
         })
    }
 
@@ -57,7 +66,7 @@ class MainContent extends Component {
        return (
            <div>
                 <div className='main_container'>
-               <StickyTop/>
+               <StickyTop loggedIn={this.state.loggedIn} toggleLoggedIn={this.toggleLoggedIn}/>
                 <Switch>
 
                    <Route path='/' exact render={props => this.state.loggedIn ? <Redirect to="/vb/dashboard"/> : <LandingPage {...props} />} />
@@ -66,16 +75,12 @@ class MainContent extends Component {
                    <Route path='/signup' render={props => <Signup {...props} toggleLoggedIn={this.toggleLoggedIn}/>} />
                    <Route path='/login' component={Login} />
                    {/* <Route path="/vb" render={props => <UserAccess {...props} />} /> */}
-                    <Route path='/vb/dashboard'  render={props => < Dashboard {...props} />} />
+                    <Route path='/vb/dashboard'  render={props => < Dashboard {...props} toggleLoggedIn={this.toggleLoggedIn} setUser={this.setUser}/>} />
                     <Route path='/vb/payment'  render={props => < Payment {...props} />} />
                     <Route path='/vb/settings'  render={props => < Settings {...props} />} />
                     <Route path='/vb/guestlist'  render={props => < GuestList {...props} />} />
                     <Route path='/vb/rsvp'  render={props => < Rsvp {...props} />}/>
                     <Route path='/vb/billing' component={Payment} />
-
-                   
-                   
-
 
 
                </Switch>

@@ -66,13 +66,14 @@ passport.deserializeUser((id, done)=>{
 //GOOGLE PASSPORT STRATEGY
 
 passport.use(new GoogleStrategy({
-    callbackURL: 'https://vbeloved.now.sh/google/redirect',
+    callbackURL: `http://${process.env.LOCAL_URL || 'vbeloved.now.sh'}/google/redirect`,
     clientID: `${keys.google.clientId}`,
     clientSecret: keys.google.clientSecret,
-    scope: ['profile']
+    scope: ['profile'],
+    passReqToCallback: true
 },
-(accessToken, refreshToken, profile, done)=>{
-    console.log('PROFILE-STRATEGY:', profile)
+(req, accessToken, refreshToken, profile, done)=>{
+    console.log("Strategy Body:",req.body)
     db('oauth_ids').where({oauth_id: profile.id }).first()
 .then(user => { 
     if(user){ console.log('find user success')
@@ -81,7 +82,7 @@ passport.use(new GoogleStrategy({
     else{
         console.log('User Not In DB')
         done(null, profile)
-        /* db('users').insert({first_name: profile.name.givenName, last_name: profile.name.familyName})
+        /* db('user').insert({first_name: profile.name.givenName, last_name: profile.name.familyName})
         .then(newUser =>{ console.log('add new user success', newUser)
             done(null, newUser )
         }).catch(err => console.log('insertUserError', err))   */
@@ -96,14 +97,16 @@ server.get('/signin/google', passport.authenticate('google', {scope: ['profile']
 
 server.get('/google/redirect', passport.authenticate('google'), (req, res) => {
     
-    console.log('REDIRECT SUCCESS-REQCOOKIES:', req.cookies);
+    
     console.log('REDIRECT SUCCESS-PASSPORTREQ:', req._passport.session.user);
     
     
             res.cookie('userID', req._passport.session.user.id);  
-    res.redirect('http://www.vbeloved.com/vb/dashboard');
+    res.redirect(`http://${process.env.LOCAL_CLIENT || 'vbeloved.com'}/vb/dashboard`);
   
 })
+
+
 //--- END:PASSPORT DECLARATIONS
 
 const generateToken = (user) =>{
@@ -122,83 +125,58 @@ const generateToken = (user) =>{
 //REGULAR ENDPOINTS BEGINNING
 
 server.get('/', (req, res)=>{
-    console.log('Root hit.')
+    
     res.json(`Server root.`)
 })
 
-server.post('/signin/google', async (req, res)=>{
- 
-    let {first_name, last_name, p_firstname, p_lastname, event_date, event_address} = req.body;
 
-    try{
-            //design template must be added later
-            /* const wedding_id = await db.table('weddings').insert({event_date, event_address}); 
-                console.log('weddingID:', wedding_id) */
-            
-            /* const user1 = await db.table('users').insert({first_name, last_name, wedding_id}) //email must be added in OAuth
-            const user2 = await db.table('users').insert({first_name: p_firstname, last_name: p_lastname, wedding_id})
-                console.log('user1:', user1)
-            
-            const coupleID1 = await db.table('couples').insert({user_id: user1, dashboard_access: true})
-            const coupleID2 = await db.table('couples').insert({user_id: user2, dashboard_access: true})
-                console.log('coupleID:', coupleID1) */
-
-            res.status(200).json({id: 3})
-
-    }
-    catch(err){
-            res.status(500).json(err)
-    } 
-
-
-    
-    
-})
-
-server.post('/loaduser',  async (req,res) =>{
+server.post('/loaduser', async (req,res) =>{
     let {first_name, last_name, p_firstname, p_lastname, event_date, event_address, oauth_id, wedding_id} = req.body;
     
+   
     try{
-        const userExists = await db.table('oauth_ids').where({oauth_id}).first()
-        const allusers = await db.table('users');
-        console.log("allusers:",allusers)
-        if(!userExists){ 
-            console.log('NOUSER')
-            const user1 = await db('users').insert({first_name, last_name, wedding_id}) //email must be added in OAuth
-            const user2 = await db('users').insert({first_name: p_firstname, last_name: p_lastname, wedding_id})
-            console.log('users',user1,user2)
+
+        const wedding_id = await db.table('weddings').insert({event_date, event_address}); 
+        const oauthtable = await db.table('oauth_ids'); 
+        const userOAuthID = await db.table('oauth_ids').where({oauth_id}).first();
+        const user = await db.table('user').where({id: userOAuthID.user_id}).first();
+        
+        if(!user){ 
+            
+            const user1 = await db('user').insert({first_name, last_name, wedding_id}) //email must be added in OAuth
+            const user2 = await db('user').insert({first_name: p_firstname, last_name: p_lastname, wedding_id})
+            
             const oauth = await db('oauth_ids').insert({oauth_id, user_id: user1[0]})        
                 
             const coupleID1 = await db('couples').insert({user_id: user1[0], dashboard_access: true})
             const coupleID2 = await db('couples').insert({user_id: user2[0], dashboard_access: true})
-            console.log('C',coupleID1,coupleID2)
-            let couple = await db('users').join('couples', {'users.id': 'couples.user_id'}).where({wedding_id});
-            let guests = await db('users').where({wedding_id, guest: true});
-            console.log('CG',couple,guests)
+            
+            let newCouple = await db('user').join('couples', {'user.id': 'couples.user_id'}).where({wedding_id});
+            let guests = await db('user').where({wedding_id, guest: true});
+            
             res.status(200).json({
-                couple,
+                newCouple,
                 guests
             })
 
         }
 
         else {
-            console.log('else')
-            let couple = await db('users').join('couples', {'users.id': 'couples.user_id'}).where({wedding_id});
-            let guests = await db('users').where({wedding_id, guest: true});
-           /*  let attending = await db('users').join('answers', {'users.id': 'answers.guest_id'}).where({wedding_id, guest: true, attending});
-            let notAttending = 
-            let maybe = */ 
-            console.log('CG',couple,guests)
+            
+            let couple = await db('user').join('couples', {'user.id': 'couples.user_id'}).where({wedding_id: user.wedding_id});
+            let guests = await db('user').where({wedding_id: user.wedding_id, guest: true});
+            let questions = await db('questions').where({wedding_id: user.wedding_id })
+            
             res.status(200).json({
                 couple,
-                guests
+                guests,
+                questions
             })
         }
             
     }
     catch(err){
-        console.log(err)
+        console.log('/LOADUSERERROR:',err)
         res.json(err)
     }
   
@@ -210,7 +188,7 @@ server.get('/users', async (req, res) => {
 
     try {
 
-        const users = await db('users');
+        const users = await db('user');
         if (users) {
             res.status(200).json(users)
         }
@@ -234,14 +212,14 @@ server.post('/registration', async (req,res)=>{
     
     try {
         const weddingID = await db.table('weddings').insert({event_date, event_address})
-        const userID1 = await db.table('users').insert({firstname, lastname })
+        const userID1 = await db.table('user').insert({firstname, lastname })
     } 
     
     catch (err) {
         
     }
 
-    db.table('users').insert(newUser).then(user => {
+    db.table('user').insert(newUser).then(user => {
         res.status(200).json({ message: 'User Successfully Registered' })
     }).catch(err => {
         res.status(500).json({ message: "An error occured while processing data." })
@@ -274,8 +252,8 @@ server.get('/dummydata', async (req, res) => {
         design_template: Math.floor(Math.random() * 4)});
             console.log('weddingID:', wedding_id)
         
-        const user1 = await db.table('users').insert({first_name: userData.firstname, last_name: userData.lastname, email: userData.email, wedding_id: wedding_id[0]})
-        const user2 = await db.table('users').insert({first_name: userData.p_firstname, last_name: userData.p_lastname, wedding_id: wedding_id[0]})
+        const user1 = await db.table('user').insert({first_name: userData.firstname, last_name: userData.lastname, email: userData.email, wedding_id: wedding_id[0]})
+        const user2 = await db.table('user').insert({first_name: userData.p_firstname, last_name: userData.p_lastname, wedding_id: wedding_id[0]})
             console.log('user1:', user1)
         
         const coupleID1 = await db.table('couples').insert({user_id: user1[0], dashboard_access: true})
@@ -310,7 +288,7 @@ server.get('/dummyguests', async (req,res)=>{
         let attendIndex = Math.floor(Math.random() * 3)
         let coupleIndex = Math.floor(Math.random() * 2)
         
-        let userID = await db.table('users').insert({
+        let userID = await db.table('user').insert({
         first_name: faker.name.firstName(), 
         last_name: faker.name.lastName(),
         email: faker.internet.email(),
@@ -321,7 +299,7 @@ server.get('/dummyguests', async (req,res)=>{
     }) 
         console.log('userID:', userID)
 
-        let couple = await db.table('users').join('couples', {'users.id': 'couples.user_id'}).where({wedding_id})
+        let couple = await db.table('user').join('couples', {'users.id': 'couples.user_id'}).where({wedding_id})
         console.log('couple', couple, wedding_id)
         
         let related_spouse = couple[coupleIndex].first_name
@@ -334,7 +312,48 @@ server.get('/dummyguests', async (req,res)=>{
         })
         console.log('guestID:', guestID)
 
-        let guests = await db.table('users').join('guests', {'users.id': 'guests.user_id'}).where({wedding_id: 3})
+        let guests = await db.table('user').join('guests', {'users.id': 'guests.user_id'}).where({wedding_id: 3})
+
+        res.status(200).json(guests)
+    } 
+    
+    catch (err) {
+        console.log(err)
+       res.status(500).json({message: 'An error occured while retrieving the data.'})
+    
+    } 
+
+})
+
+//A FUNCTION TO CREATE ADD A GUEST TO A USER PROFILE
+
+server.post('/addguest', async (req, res) => {
+
+    const {
+        first_name, 
+        last_name,
+        email,
+        address,
+        wedding_id
+    } = req.body
+
+    let attendArr = ['Not Attending', 'Attending', 'TBD']
+
+    try {
+        
+        let userID = await db.table('user')
+                             .insert({
+                                    first_name, 
+                                    last_name,
+                                    email,
+                                    address,
+                                    wedding_id,
+                                    guest: true
+                                }) 
+        console.log('userID:', userID)
+ 
+
+        let guests = await db.table('user').join('guests', {'users.id': 'guests.user_id'}).where({wedding_id: 3})
 
         res.status(200).json(guests)
     } 
@@ -351,7 +370,7 @@ server.get('/dummyguests', async (req,res)=>{
 //A FUNCTION TO RETRIEVE GUESTS 
 server.get('/guests', (req, res) => {
 
-    db('users')
+    db('user')
     .where({guest: true})
     .then(user => {
         res.status(200).json(user);
@@ -363,7 +382,7 @@ server.get('/guests', (req, res) => {
 // A FUNCTION TO DELETE USERS FROM THE USER TABLE
 server.delete('/users/:id', (req,res) => {
     const {id} = req.params;
-    db('users')
+    db('user')
     .where({id})
     .del()
     .then(note => {
