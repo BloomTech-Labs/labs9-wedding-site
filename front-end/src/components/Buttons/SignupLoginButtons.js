@@ -4,7 +4,7 @@ import './SignupLoginButtons.css';
 
 const SignupLogin = () => {
   return (
-    <div>
+    <div className="SignupLogin-container">
       <nav>
         <ul>
           <div className='move'>

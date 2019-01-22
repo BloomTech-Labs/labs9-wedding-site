@@ -11,13 +11,13 @@ import LandingButtonsExp from '../Buttons/LandingButtonsExp';
 const StickyTop = () => {
   return (
     <div className="overall">
-      <div className="overall">
+    { /*<div className="overall"> */ }
         <ProfilePic  />
         {/* <LandingPageButtons /> */}
         <LandingButtonsExp />
         <SignupLogin />
+        { /* </div> */ }
       </div>
-    </div>
   );
 };
 

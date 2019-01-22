@@ -8,7 +8,7 @@ ul {
   list-style: none;
 }
 
-li {
+.SignupLogin-container li {
   display: inline-block;
   padding: 20px 0 20px;
 }
@@ -29,7 +29,7 @@ a {
   display: flex;
   flex-direction: row;
   position: absolute;
-  left:1200px;
+  left: 1200px;
   top:-1px;
 }
 
