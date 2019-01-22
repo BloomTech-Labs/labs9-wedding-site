@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import {Pie} from 'react-chartjs-2';
+import ReactDropzone from "react-dropzone";
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -21,19 +21,19 @@ const styles = {
     },
     cardDivTop: {
         display: 'flex',
-      },
+    },
     cardTopLeft: {
       width: '50%',
       marginRight: '10px',
       height: '200px',
-      padding: '5px 15px 30px'
+      padding: '15px 15px 30px'
     },
     cardTopRight: {
         width: '50%',
         marginLeft: '10px',
         height: '200px',
-        padding: '5px 15px 30px'
-      },
+        padding: '15px 15px 30px'
+    },
     cardBottom: {
         marginTop: '30px',
         height: '200px',
@@ -55,6 +55,17 @@ const styles = {
         height: '100px',
         margin: '5px 15px 0 0'
     },
+    dropZone: {
+        width: '60%',
+        height: '60%',
+        margin: '20px auto auto',
+        borderWidth: 2,
+        borderColor: '#bdbdbd',
+        borderStyle: 'dashed',
+        borderRadius: 5,
+        textAlign: 'center',
+        padding: '15px'
+    }
   };
 
 
@@ -89,31 +100,50 @@ class Dashboard extends Component {
                 ]
             }]
         }
-
     }
-    componentDidMount(){
+
+    componentDidMount() {
         let wedding_id = localStorage.getItem('weddingID');
         let userdata = cookies.get('USERDATA')
         let oauth_id = cookies.get('userID')
         console.log('userdata:', userdata)
-        if(wedding_id){
-            axios.post('https://vbeloved.now.sh/loaduser', {...userdata, wedding_id, oauth_id})
+        if(userdata || oauth_id){
+            axios.post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/loaduser`, {...userdata, wedding_id, oauth_id})
             .then(res => {
                 console.log(res)
+                this.props.toggleLoggedIn() //toggles the state of the user to loggedIn (in MainContent component)
+                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests)
                 this.setState({
                    userLoaded: true 
                 })
             })
             .catch(err => console.log(err))
+        } else {
+            this.props.history.push('/')
         }
-
+    }
+    
+    
+    handleonDrop = (files, rejectedFiles) => {
+        files.forEach(file => {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('filename', file.name);
+            axios.post('http://localhost:8888/upload', formData)
+            //axios.post('https://vbeloved.now.sh/upload', formData)
+            .then((res => {
+                console.log(res)
+            }))
+            .catch(err => {
+                console.log(err)
+            })
+        });
     }
 
+      
     render() {
       return (
-
         <div>
-          
           { !this.state.userLoaded ? <div>Loading...</div> :
           <div style={styles.dashboardContainer}>
             <Button>
@@ -128,15 +158,20 @@ class Dashboard extends Component {
             
             <div style={styles.cardDivTop}>
                 <Card style={styles.cardTopLeft}>
-                <Link to={`/vb/guestlist`}>Guest List</Link>
-                    
-                    <Button variant="outlined" style={styles.buttonTop}>
-                        Import CSV
-                    </Button>
+                    Guest List 
+                    <ReactDropzone
+                        accept=".csv"
+                        onDrop={this.handleonDrop}>
+                        {({getRootProps, getInputProps}) => (
+                            <div {...getRootProps()} style={styles.dropZone}>
+                            <input {...getInputProps()} />
+                                Drag and drop files or click here to import CSV
+                            </div>
+                        )}
+                    </ReactDropzone>
                 </Card>
                 <Card style={styles.cardTopRight}>
-                <Link to={`/vb/rsvp`}>RSVP</Link>
-
+                    RSVP
                     <Pie data={this.chartData}
                         style={styles.pieChart}
                         options={{ maintainAspectRatio: false}}
@@ -158,7 +193,6 @@ class Dashboard extends Component {
                 </Card>
             </div>    
                 }
-          
         </div>
       );
     }

@@ -9,7 +9,7 @@ import SignupLogin from '../Buttons/SignupLoginButtons';
 import LandingButtonsExp from '../Buttons/LandingButtonsExp';
 
 
-const StickyTop = () => {
+const StickyTop = (props) => {
   return (
     <div className="overall">
       <div className="leftNav">
@@ -23,7 +23,7 @@ const StickyTop = () => {
         </Link>
       </div>
       <div className="rightNav">
-        <SignupLogin />
+        <SignupLogin loggedIn={props.loggedIn} toggleLoggedIn={props.toggleLoggedIn}/>
       </div>
     </div>
   );
