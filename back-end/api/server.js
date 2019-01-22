@@ -16,16 +16,16 @@ require('dotenv').config();
 
 //const sendSMS = require('./send_sms');
 
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, './csv-uploads')
     },
     filename: function (req, file, cb) {
       cb(null, Date.now() + '-' + file.originalname)
     }
-  })
+  });
   
-  var upload = multer({ storage: storage });
+const upload = multer({ storage: storage });
 
 // restrict cors access to our netlify
 const corsOptions = {
@@ -432,7 +432,11 @@ server.delete('/:questionID/deletequestion', async (req, res) => {
 server.post('/upload', upload.single('file'), (req, res) => {
     console.log("req.file", req.file)
     console.log("req.body", req.body)
-    res.status(200).json({ message: "CSV successfully posted" })
+    if (!req.file) {
+        res.status(400).json({error: "No file received"});
+    } else {
+        res.status(200).json({ message: "CSV successfully posted" });
+    }
 })
 
 stripe.charges.retrieve("ch_1DswKX2eZvKYlo2CYqqd3tgH", {
