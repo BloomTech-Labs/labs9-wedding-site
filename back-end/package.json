@@ -25,6 +25,7 @@
     "passport-google-oauth20": "^1.0.0",
     "pg": "^7.7.1",
     "sqlite3": "^4.0.4",
+    "stripe": "^6.20.1",
     "twilio": "^3.27.1"
   },
   "devDependencies": {

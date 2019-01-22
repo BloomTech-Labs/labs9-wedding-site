@@ -1,0 +1,12 @@
+{
+    "version": 2,
+    "builds": [
+        { "src": "/back-end/index.js", "use": "@now/node-server" }
+    ],
+    "routes": [
+        { "src": "/.*", "dest": "/back-end/index.js" }
+    ],
+      "github": {
+        "enabled": true
+      }
+} 
