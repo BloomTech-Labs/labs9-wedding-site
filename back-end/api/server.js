@@ -10,6 +10,7 @@ const cookieSession = require('cookie-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('../config/keys');
 const multer = require('multer');
+const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
 
 require('dotenv').config();
 
@@ -434,5 +435,8 @@ server.post('/upload', upload.single('file'), (req, res) => {
     res.status(200).json({ message: "CSV successfully posted" })
 })
 
+stripe.charges.retrieve("ch_1DswKX2eZvKYlo2CYqqd3tgH", {
+    api_key: "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
+  });
 
 module.exports = server; 
