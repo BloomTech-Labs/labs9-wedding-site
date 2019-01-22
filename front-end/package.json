@@ -17,6 +17,7 @@
     "react-bootstrap": "^0.32.4",
     "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.7.0",
+    "react-dropzone": "^8.0.3",
     "react-images": "^0.5.19",
     "react-materialize": "^2.6.0",
     "react-perfect-scrollbar": "^1.4.4",

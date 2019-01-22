@@ -12,6 +12,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
+import { Close } from '@material-ui/icons';
 
 // define styles for material-ui components
 const styles = {
@@ -23,6 +24,22 @@ const styles = {
       margin: '0 auto 30px',
       padding: '0 20px 20px'
     },
+    topDiv: {
+        display: 'flex',
+        justifyContent: 'space-between'
+    },
+    closeIcon: {
+        cursor: 'pointer'
+    },
+    buttonDiv: {
+        margin: '60px auto 30px',
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    button: {
+        width: '20%',
+        margin: '0 auto 30px'
+    }
   };
 
 class Rsvp extends Component {
@@ -66,13 +83,25 @@ class Rsvp extends Component {
         }
     }
 
-    // componentDidMount(){
-    //    
-    // }
-
     inputHandler = e => {
         this.setState({ [e.target.name]: e.target.value });
     };
+
+    // load user questions when component mounts
+    componentDidMount() {
+        const w_id = localStorage.getItem('weddingID');
+        axios
+       .get(`https://vbeloved.now.sh/${w_id}/allquestions`)
+       .then(res => {
+           if (res.data.length > 0) {
+               this.setState({ questions: res.data })
+               //console.log(this.state.questions)
+           }
+       })
+       .catch(err => {
+           console.log(err)
+       })
+    }
 
     // adds a question to the default question array
     addQuestion = () => {
@@ -83,9 +112,32 @@ class Rsvp extends Component {
             question: this.state.question,
             answer: ''
         }
-        this.state.questions.push(newQuestion);
+        let arrCopy = this.state.questions.slice();
+        arrCopy.push(newQuestion);
+        this.setState({ questions: arrCopy });
         this.handleClose();
+        //console.log(this.state.questions)
     };
+
+    // delete a question
+    deleteQuestion = (q_id, i) => {
+        if (q_id) {
+            axios
+            .delete(`https://vbeloved.now.sh/${q_id}/deletequestion`)
+            .then(res => {
+                console.log(res)
+                //this.setState({ questions: res.data })
+                //need to update server.delete to return questions
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        } else {
+            let arrCopy = this.state.questions.slice();
+            arrCopy.splice(i, 1);
+            this.setState({ questions: arrCopy });
+        }
+    }
 
     // save all the questions to the database
     saveQuestions = () => {
@@ -110,10 +162,11 @@ class Rsvp extends Component {
                 <TextField fullWidth={true} label="Last Name"></TextField>
             </CardContent>
             </Card>
-        } else if (q.multiple_choice === true) {
+        } else if (q.multiple_choice === 1) {
             return <Card style={styles.card} key={i}>
-            <CardContent>
+            <CardContent style={styles.topDiv}>
                 {q.category}
+                <Close onClick={() => this.deleteQuestion(q.id, i)} color="disabled" style={styles.closeIcon}/>
             </CardContent>
             <CardContent>
                 <FormControl component="fieldset">
@@ -128,8 +181,9 @@ class Rsvp extends Component {
             </Card>
         } else {
             return <Card style={styles.card} key={i}>
-                <CardContent>
+                <CardContent style={styles.topDiv}>
                     {q.category}
+                    <Close onClick={() => this.deleteQuestion(q.id, i)} color="disabled" style={styles.closeIcon}/>
                 </CardContent>
                 <CardContent>
                     {q.question}
@@ -155,8 +209,10 @@ class Rsvp extends Component {
             {this.state.questions.map((q, i) => 
                 this.renderCards(q, i)
             )}
-            <Button variant="outlined" onClick={this.handleOpen}>Add Question</Button>
-            <Button variant="outlined" onClick={this.saveQuestions}>Save</Button>
+            <div style={styles.buttonDiv}>
+                <Button variant="outlined" onClick={this.handleOpen} style={styles.button}>Add Question</Button>
+                <Button variant="outlined" onClick={this.saveQuestions} style={styles.button}>Save</Button>
+            </div>
             <Modal
                 open={this.state.modalOpen}
                 onClose={this.handleClose}>
