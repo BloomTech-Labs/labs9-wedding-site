@@ -138,6 +138,7 @@ class Dashboard extends Component {
                 console.log(err)
             })
         });
+    }
 
       
     render() {
