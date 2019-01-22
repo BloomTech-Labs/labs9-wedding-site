@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 
 import Prices from './Prices';
-import StickyTop from '../Navigation/topBar';
+// import StickyTop from '../Navigation/topBar';
 
 //images
 import flower1 from "./images/flower1.png";
@@ -19,7 +19,7 @@ import './fonts.css';
 const Pricing = () => {
     return ( 
         <div>
-            <StickyTop />
+            {/* <StickyTop /> */}
             <Prices />
             <div>
                 <span className='font'>Watch your <br/>invite</span>
