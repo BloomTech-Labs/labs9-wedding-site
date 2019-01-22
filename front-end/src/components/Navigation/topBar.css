@@ -13,14 +13,35 @@
     top:0;
 }
 
+.navSections {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+}
+
 .leftNav {
     display: flex;
     flex-direction: row;
-    align-self: flex-start;
+    align-self: center;
+    align-content: center;
 }
 
 .rightNav {
     display: flex;
     flex-direction: row;
-    align-self: flex-end;
+    align-self: center;
+}
+
+@media (max-width: 500px) {
+    .overall {
+        flex-direction: column;
+    }
+
+    .rightNav {
+        flex-direction: column;
+    }
+
+    .leftNav {
+        flex-direction: column;
+    }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import Grid from '@material-ui/core/Grid';
 import "./topBar.css";
 
 import ProfilePic from './nav';
@@ -11,13 +11,17 @@ import LandingButtonsExp from '../Buttons/LandingButtonsExp';
 const StickyTop = () => {
   return (
     <div className="overall">
-    { /*<div className="overall"> */ }
-        <ProfilePic  />
+      { /*<div className="overall"> */}
+      <div className="leftNav">
+        <ProfilePic />
         {/* <LandingPageButtons /> */}
         <LandingButtonsExp />
-        <SignupLogin />
-        { /* </div> */ }
       </div>
+      <div className="rightNav">
+        <SignupLogin />
+        { /* </div> */}
+      </div>
+    </div>
   );
 };
 
