@@ -51,7 +51,7 @@ const styles = {
         height: '30%',
     },
     buttonBottom: {
-        width: '25%',
+        width: '23%',
         height: '100px',
         margin: '5px 15px 0 0'
     },
@@ -119,13 +119,14 @@ class Dashboard extends Component {
         }
     }
 
+    // must use "multipart/form-data" when including a file in the body of a POST request
     handleonDrop = (files, rejectedFiles) => {
         files.forEach(file => {
             const formData = new FormData();
             formData.append('file', file);
             formData.append('filename', file.name);
-            axios.post('http://localhost:8888/upload', formData)
-            //axios.post('https://vbeloved.now.sh/upload', formData)
+            //axios.post('http://localhost:8888/upload', formData)
+            axios.post('https://vbeloved.now.sh/upload', formData)
             .then((res => {
                 console.log(res)
             }))
@@ -176,8 +177,11 @@ class Dashboard extends Component {
                 <Card style={styles.cardBottom}>
                     Registry
                     <CardContent>
-                        <Button variant="outlined" style={styles.buttonBottom}>
-                            Amazon Registry
+                        <Button variant="outlined" style={styles.buttonBottom} href="https://www.amazon.com/wedding/home" target="_blank">
+                            Amazon
+                        </Button>
+                        <Button variant="outlined" style={styles.buttonBottom} href="https://www.target.com/gift-registry/wedding-registry" target="_blank">
+                            Target
                         </Button>
                         <Button variant="outlined" style={styles.buttonBottom}>
                             <Add/>

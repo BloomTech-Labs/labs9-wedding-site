@@ -18,6 +18,7 @@ require('dotenv').config();
 
 //const sendSMS = require('./send_sms');
 
+//multer middleware saves uploads to the csv-uploads folder
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, './csv-uploads')
@@ -431,13 +432,14 @@ server.delete('/:questionID/deletequestion', async (req, res) => {
     
 })
 
+//A FUNCTION TO POST CSV FILES
 server.post('/upload', upload.single('file'), (req, res) => {
-    // console.log(req.file)
+    // console.log(req.file) // --> file info saved to req.file
     if (!req.file) {
         res.status(400).json({error: "No file received"});
     } else {
         let csvData=[];
-
+        //parse the csv file that was just saved to the uploads folder
         fs.createReadStream(req.file.path)
             .pipe(parse({ quote: '"', ltrim: true, rtrim: true, delimiter: ',' }))
             .on('data', function(csvrow) {
