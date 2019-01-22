@@ -18,7 +18,7 @@ const StickyTop = () => {
         {/* <LandingPageButtons /> */}
         <LandingButtonsExp />
       </div>
-      <div>
+      <div className="centerNav">
         <Link to='/'>
           <h1 className="siteName">Be loved</h1> 
         </Link>
