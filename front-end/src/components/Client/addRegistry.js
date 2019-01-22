@@ -17,10 +17,15 @@ const styles = {
   button: {
       width: '30%',
       margin: '0 15px'
+  },
+  header: {
+      //border: '1px solid red',
+      marginTop: '0',
+      marginBottom: '30px'
   }
 };
 
-class addQuestion extends React.Component {
+class AddRegistry extends React.Component {
   constructor(props) {
     super(props);
         
@@ -29,22 +34,23 @@ class addQuestion extends React.Component {
   render() {
     return (
       <Card style={styles.card}>
+        <h4 style={styles.header}>Whenever you create an online registry, you can save the link here.</h4>
         <div>
-        Category (Required)
+        Registry Link (Required)
         <TextField
         style={{marginBottom: '30px'}}
         fullWidth={true}
         onChange={this.props.handleInputChange}
         type="text"
-        name="category"/>
-        Question (Required)
+        name="registryLink"/>
+        Display Name (Required)
         <TextField
         fullWidth={true}
         onChange={this.props.handleInputChange}
         type="text"
-        name="question"/>
+        name="displayName"/>
           <div style={styles.buttonDiv}>
-            <Button variant="outlined" onClick={this.props.addQuestion} style={styles.button}>Add Question</Button>
+            <Button variant="outlined" onClick={this.props.addRegistry} style={styles.button}>Add Registry</Button>
             <Button variant="outlined" onClick={this.props.handleClose} style={styles.button}>Cancel</Button>
           </div>
           </div>
@@ -53,4 +59,4 @@ class addQuestion extends React.Component {
   }
 }
 
-export default addQuestion;
+export default AddRegistry;
