@@ -93,12 +93,15 @@ const {first_name, last_name, p_firstname, p_lastname, event_date, event_address
 cookies.set('USERDATA', {first_name: this.state.first_name, last_name, p_firstname, p_lastname, event_date, event_address}, {maxAge: 60} )
 
 
-axios.post('https://localhost:8888/signin/google', {first_name, last_name, p_firstname, p_lastname, event_date, event_address})
+
+/* THIS WAS ORIGINALLY A POST METHOD MEANT TO STORE THE REGISTRATION DATA IN MEMORY WHILE GOOGLE SIGN-IN LOADS. FOR NOW IT'S NOT NEEDED (COOKIES ABOVE ARE BEING USED INSTEAD) BUT IS BEING KEPT IN CASE NEEDED LATER.
+
+axios.post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/signin/google`, {first_name, last_name, p_firstname, p_lastname, event_date, event_address})
 .then(res => {
 console.log(res)
 localStorage.setItem('weddingID', `${res.data.id}`)
 })
-.catch(err => console.log(err)) 
+.catch(err => console.log(err))  */
 
 }
   render() {
@@ -147,7 +150,7 @@ localStorage.setItem('weddingID', `${res.data.id}`)
                       ...props,
                     }}>
                     <Form.Item className={i === 0 ? 'middle' : ''}>
-                    <a id="loginbtns" href="http://localhost:8888/signin/google" >{item}</a>
+                    <a id="loginbtns" href={`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/signin/google`} >{item}</a>
                     </Form.Item>
                   </animated.div>
                 )}

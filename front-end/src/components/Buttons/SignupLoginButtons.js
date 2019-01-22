@@ -17,14 +17,14 @@ const SignupLogin = (props) => {
           </li>
 
           <li>
-            <Link to='login'>
+            <Link to='/login'>
              Login
             </Link>
           </li>
           </Fragment>
           : 
           <li>
-            <a href="">
+            <a href={`http://${process.env.LOCAL_URL || 'vbeloved.com'}`} onClick={props.toggleLoggedIn}>
              Logout
              </a>
             

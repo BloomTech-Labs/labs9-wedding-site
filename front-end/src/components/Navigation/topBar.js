@@ -15,7 +15,7 @@ const StickyTop = (props) => {
         <ProfilePic  />
         {/* <LandingPageButtons /> */}
         <LandingButtonsExp />
-        <SignupLogin loggedIn={props.loggedIn}/>
+        <SignupLogin loggedIn={props.loggedIn} toggleLoggedIn={props.toggleLoggedIn}/>
       </div>
     </div>
   );
