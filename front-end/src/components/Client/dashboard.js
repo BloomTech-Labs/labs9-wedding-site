@@ -124,8 +124,8 @@ class Dashboard extends Component {
             const formData = new FormData();
             formData.append('file', file);
             formData.append('filename', file.name);
-            
-            axios.post('https://vbeloved.now.sh/upload', formData)
+            axios.post('http://localhost:8888/upload', formData)
+            //axios.post('https://vbeloved.now.sh/upload', formData)
             .then((res => {
                 console.log(res)
             }))
