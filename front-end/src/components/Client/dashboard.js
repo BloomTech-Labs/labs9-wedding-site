@@ -118,9 +118,7 @@ class Dashboard extends Component {
                 })
             })
             .catch(err => console.log(err))
-        }
-    }
-        else{
+        } else {
             this.props.history.push('/')
         }
     }
