@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import Grid from '@material-ui/core/Grid';
+import { Link } from 'react-router-dom';
+
 import "./topBar.css";
 
 import ProfilePic from './nav';
@@ -16,6 +17,11 @@ const StickyTop = () => {
         <ProfilePic />
         {/* <LandingPageButtons /> */}
         <LandingButtonsExp />
+      </div>
+      <div>
+        <Link to='/'>
+          <h1 className="siteName">Be loved</h1> 
+        </Link>
       </div>
       <div className="rightNav">
         <SignupLogin />
