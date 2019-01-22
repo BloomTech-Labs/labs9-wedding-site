@@ -9,7 +9,7 @@ import { pink } from '@material-ui/core/colors';
 const styles = {
   bigAvatar: {
     display:'flex',
-    marginTop:20,
+    marginTop:36,
     marginLeft:150,
     width: 50,
     height: 50,
