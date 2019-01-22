@@ -11,6 +11,8 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('../config/keys');
 const multer = require('multer');
 const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
+const fs = require('fs');
+const parse = require('csv-parse');
 
 require('dotenv').config();
 
@@ -430,11 +432,24 @@ server.delete('/:questionID/deletequestion', async (req, res) => {
 })
 
 server.post('/upload', upload.single('file'), (req, res) => {
-    console.log("req.file", req.file)
-    console.log("req.body", req.body)
+    // console.log(req.file)
     if (!req.file) {
         res.status(400).json({error: "No file received"});
     } else {
+        let csvData=[];
+
+        fs.createReadStream(req.file.path)
+            .pipe(parse({ quote: '"', ltrim: true, rtrim: true, delimiter: ',' }))
+            .on('data', function(csvrow) {
+                console.log("row", csvrow);
+                //do something with csvrow
+                csvData.push(csvrow);        
+            })
+            .on('end',function() {
+            //do something with csvData
+            console.log("csvData", csvData);
+            });
+
         res.status(200).json({ message: "CSV successfully posted" });
     }
 })
