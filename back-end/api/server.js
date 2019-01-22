@@ -9,12 +9,22 @@ const passport = require('passport');
 const cookieSession = require('cookie-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('../config/keys');
+const multer = require('multer');
 
 require('dotenv').config();
 
 //const sendSMS = require('./send_sms');
 
-
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './csv-uploads')
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + '-' + file.originalname)
+    }
+  })
+  
+  var upload = multer({ storage: storage });
 
 // restrict cors access to our netlify
 const corsOptions = {
@@ -24,7 +34,6 @@ const corsOptions = {
 server.use(express.json());
 server.use(cors(corsOptions));
 //server.use('/sms', sendSMS); //endpoint to send a text message
-
 
 //COOKIES
 server.use(cookieSession({
@@ -417,6 +426,12 @@ server.delete('/:questionID/deletequestion', async (req, res) => {
     }
 
     
+})
+
+server.post('/upload', upload.single('file'), (req, res) => {
+    console.log("req.file", req.file)
+    console.log("req.body", req.body)
+    res.status(200).json({ message: "CSV successfully posted" })
 })
 
 

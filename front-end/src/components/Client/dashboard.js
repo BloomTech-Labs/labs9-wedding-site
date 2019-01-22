@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Pie} from 'react-chartjs-2';
+import ReactDropzone from "react-dropzone";
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -54,6 +55,17 @@ const styles = {
         height: '100px',
         margin: '5px 15px 0 0'
     },
+    dropZone: {
+        width: '60%',
+        height: '60%',
+        margin: '20px auto auto',
+        borderWidth: 2,
+        borderColor: '#bdbdbd',
+        borderStyle: 'dashed',
+        borderRadius: 5,
+        textAlign: 'center',
+        padding: '15px'
+    }
   };
 
 
@@ -88,13 +100,13 @@ class Dashboard extends Component {
                 ]
             }]
         }
-
     }
-    componentDidMount(){
+
+    componentDidMount() {
         let wedding_id = localStorage.getItem('weddingID');
         let userdata = cookies.get('USERDATA')
         let oauth_id = cookies.get('userID')
-        console.log('userdata:', userdata)
+        //console.log('userdata:', userdata)
         if(wedding_id){
             axios.post('https://vbeloved.now.sh/loaduser', {...userdata, wedding_id, oauth_id})
             .then(res => {
@@ -105,7 +117,22 @@ class Dashboard extends Component {
             })
             .catch(err => console.log(err))
         }
+    }
 
+    handleonDrop = (files, rejectedFiles) => {
+        files.forEach(file => {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('filename', file.name);
+            
+            axios.post('https://vbeloved.now.sh/upload', formData)
+            .then((res => {
+                console.log(res)
+            }))
+            .catch(err => {
+                console.log(err)
+            })
+        });
     }
 
     render() {
@@ -125,10 +152,17 @@ class Dashboard extends Component {
             
             <div style={styles.cardDivTop}>
                 <Card style={styles.cardTopLeft}>
-                    Guest List
-                    <Button variant="outlined" style={styles.buttonTop}>
-                        Import CSV
-                    </Button>
+                    Guest List 
+                    <ReactDropzone
+                        accept=".csv"
+                        onDrop={this.handleonDrop}>
+                        {({getRootProps, getInputProps}) => (
+                            <div {...getRootProps()} style={styles.dropZone}>
+                            <input {...getInputProps()} />
+                                Drag and drop files or click here to import CSV
+                            </div>
+                        )}
+                    </ReactDropzone>
                 </Card>
                 <Card style={styles.cardTopRight}>
                     RSVP
