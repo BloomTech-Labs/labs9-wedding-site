@@ -5,14 +5,23 @@ require('dotenv').config();
 module.exports = {
 
   development: {
-    client: 'sqlite3',
+    client: 'mysql',
+    version: '5.6.41',
     connection: {
-      filename: './database/beloveddb.sqlite3'
 
+      host: AWS_DBendpoint,
+      port: '3306',
+      user: 'vbelovedDB',   //master username as listed in the AWS Console,
+      password: 'vbelovedDB',
+      database: 'vbeloveddb',  
+    },
+    pool: {
+    min: 1,
+    max: 10,
     },
     useNullAsDefault: true,
     migrations: {
-      directory: './database/migrations'
+      directory: './database/migrations_aws'
     }
   },
   production: {
@@ -37,3 +46,15 @@ module.exports = {
   }
 
 };
+
+/*  development: {
+    client: 'sqlite3',
+    connection: {
+      filename: './database/beloveddb.sqlite3'
+
+    },
+    useNullAsDefault: true,
+    migrations: {
+      directory: './database/migrations'
+    }
+  } */
