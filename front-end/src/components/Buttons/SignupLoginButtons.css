@@ -28,7 +28,7 @@ a {
 .move{
   display: flex;
   flex-direction: row;
-  position: absolute;
+  /* position: absolute; */
   left: 1200px;
   top:-1px;
 }
