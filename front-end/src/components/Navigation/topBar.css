@@ -46,6 +46,9 @@
 }
 
 @media (max-width: 500px) {
+    .centerNav {
+        order: -1;
+    }
     .overall {
         flex-direction: column;
     }
