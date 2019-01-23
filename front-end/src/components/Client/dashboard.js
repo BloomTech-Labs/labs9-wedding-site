@@ -92,19 +92,19 @@ class Dashboard extends Component {
 
     }
     componentDidMount(){
-        let wedding_id = localStorage.getItem('weddingID');
-        let userdata = cookies.get('USERDATA')
-        let oauth_id = cookies.get('userID')
+        
+        let userdata = cookies.get('USERDATA');
+        let oauth_id = cookies.get('userID');
 
         
         
         console.log('userdata:', userdata)
         if(userdata || oauth_id){
-            axios.post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/loaduser`, {...userdata, wedding_id, oauth_id})
+            axios.post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/loaduser`, {...userdata, oauth_id})
             .then(res => {
                 console.log(res)
                 this.props.toggleLoggedIn() //toggles the state of the user to loggedIn (in MainContent component)
-                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests)
+                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ])
                 this.setState({
                    userLoaded: true 
                 })

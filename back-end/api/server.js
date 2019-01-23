@@ -61,7 +61,7 @@ passport.use(new GoogleStrategy({
     passReqToCallback: true
 },
 (req, accessToken, refreshToken, profile, done)=>{
-    console.log("Strategy Body:",req.body)
+    
     db('oauth_ids').where({oauth_id: profile.id }).first()
 .then(user => { 
     if(user){ console.log('find user success')
@@ -125,10 +125,12 @@ server.post('/loaduser', async (req,res) =>{
     try{
 
         const wedding_id = await db.table('weddings').insert({event_date, event_address}); 
+        
         const oauthtable = await db.table('oauth_ids'); 
         const userOAuthID = await db.table('oauth_ids').where({oauth_id}).first();
-        const user = await db.table('user').where({id: userOAuthID.user_id}).first();
-        
+        const user = await db.table('user').join('oauth_ids', {'user.id': "oauth_ids.user_id"}).first();
+        console.log("Loaduser-USER",user);
+
         if(!user){ 
             
             const user1 = await db('user').insert({first_name, last_name, wedding_id}) //email must be added in OAuth
@@ -152,7 +154,7 @@ server.post('/loaduser', async (req,res) =>{
         else {
             
             let couple = await db('user').join('couples', {'user.id': 'couples.user_id'}).where({wedding_id: user.wedding_id});
-            let guests = await db('user').where({wedding_id: user.wedding_id, guest: true});
+            let guests = await db('user').join('guests', {'user.id': 'guests.guest_id'}).where({wedding_id: user.wedding_id, guest: true});
             let questions = await db('questions').where({wedding_id: user.wedding_id })
             
             res.status(200).json({
@@ -322,7 +324,8 @@ server.post('/addguest', async (req, res) => {
         last_name,
         email,
         address,
-        wedding_id
+        wedding_id,
+        related_spouse
     } = req.body
 
     let attendArr = ['Not Attending', 'Attending', 'TBD']
@@ -337,11 +340,17 @@ server.post('/addguest', async (req, res) => {
                                     address,
                                     wedding_id,
                                     guest: true
-                                }) 
-        console.log('userID:', userID)
+                                }).first()
+
+        let guestID = await db.table('guests')
+                              .insert({
+                                  guest_id: userID,
+                                  related_spouse
+                              })
+        
  
 
-        let guests = await db.table('user').join('guests', {'users.id': 'guests.user_id'}).where({wedding_id: 3})
+        let guests = await db('user').join('guests', {'user.id': 'guests.guest_id'}).where({wedding_id, guest: true})
 
         res.status(200).json(guests)
     } 
@@ -367,6 +376,8 @@ server.get('/guests', (req, res) => {
         res.status(500).json({error:'database cannot retrieve information'});
     })
 });
+
+
 // A FUNCTION TO DELETE USERS FROM THE USER TABLE
 server.delete('/users/:id', (req,res) => {
     const {id} = req.params;
