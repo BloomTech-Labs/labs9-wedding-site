@@ -26,18 +26,18 @@ const styles = {
     cardDivTop: {
         display: 'flex',
     },
-    cardTopLeft: {
-        width: '50%',
-        marginRight: '10px',
-        height: '200px',
-        padding: '15px 15px 30px'
-    },
-    cardTopRight: {
-        width: '50%',
-        marginLeft: '10px',
-        height: '200px',
-        padding: '15px 15px 30px'
-    },
+    // cardTopLeft: {
+    //     width: '50%',
+    //     marginRight: '10px',
+    //     height: '200px',
+    //     padding: '15px 15px 30px'
+    // },
+    // cardTopRight: {
+    //     width: '50%',
+    //     marginLeft: '10px',
+    //     height: '200px',
+    //     padding: '15px 15px 30px'
+    // },
     cardBottom: {
         marginTop: '30px',
         minHeight: '200px',
@@ -213,7 +213,7 @@ class Dashboard extends Component {
                                     )}
                     </ReactDropzone>
                             </Card>
-                            <Card style={styles.cardTopRight}>
+                            <Card className="cardTopRight" style={styles.cardTopRight}>
                                 RSVP
                     <Pie data={this.chartData}
                                     style={styles.pieChart}
