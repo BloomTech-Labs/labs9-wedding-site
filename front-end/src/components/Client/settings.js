@@ -24,6 +24,7 @@ const EmailPassword = styled.div`
 display:flex;
 flex-wrap: wrap;
 justify-content: center;
+align-items: center;
 width: 50%;
 `
 const NameLocation = styled.div`
@@ -87,18 +88,6 @@ class Settings extends React.Component {
                                 }
                             />
                         </FormGroup>
-                        <TextField
-                            id="outlined-password"
-                            variant="outlined"
-                            type="password"
-                            label="Old Password"
-                        />
-                        <TextField
-                            id="outlined-password"
-                            variant="outlined"
-                            type="password"
-                            label="New Password"
-                        />
                     </EmailPassword>
                     <NameLocation>
                         <TextField
