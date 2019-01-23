@@ -117,9 +117,6 @@ class Dashboard extends Component {
         let wedding_id = localStorage.getItem('weddingID');
         let userdata = cookies.get('USERDATA')
         let oauth_id = cookies.get('userID')
-
-        
-        
         console.log('userdata:', userdata)
         if(userdata || oauth_id){
             axios.post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/loaduser`, {...userdata, wedding_id, oauth_id})
