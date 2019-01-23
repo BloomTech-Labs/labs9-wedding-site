@@ -83,8 +83,9 @@ class GuestList extends Component {
         axios
             .post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/addguest`, {first_name, last_name, email, address, wedding_id, related_spouse})
             .then(res => {
+                this.props.setGuests(res.data)
                 this.setState({
-                    guests: res.data.guests,
+                    
                     first_name: '',
                     last_name: '',
                     email: '',
