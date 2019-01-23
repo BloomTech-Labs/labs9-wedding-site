@@ -16,9 +16,9 @@ width: 750px;
 height: 450px;
 `
 const InputFields = styled.div`
-width: 100%;
 display: flex;
-flex-wrap:wrap;
+flex-wrap: wrap;
+justify-content:center;
 `
 const EmailPassword = styled.div`
 display:flex;
@@ -128,10 +128,12 @@ class Settings extends React.Component {
                             margin="normal"
                         />
                     </NameLocation>
-                </InputFields>
-                <Button variant="contained" size="large" color="primary">
-                    Save
+                    <div>
+                    <Button variant="contained" size="large" color="primary">
+                        Save
                     </Button>
+                    </div>
+                </InputFields>
             </SettingsContainer >
         );
     }
