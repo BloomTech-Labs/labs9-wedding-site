@@ -58,7 +58,7 @@ class LandingPage extends React.Component {
         <ParallaxLayer offset={0} speed={0} onClick={() => this.parallax.scrollTo(1)}>
         <div onClick={() => this.parallax.scrollTo(1)}>  
         <img src={wallflower} alt='wallflower' style={{ width: '66.3%', height:850, position:'absolute', right:0, top:0,}} />
-        <span className='firstfont'>Helping you <br/></span>
+        <span className='firstfont'> Helping you <br/></span>
         <span className='secondfont'> Tie the Knot </span>
         </div>
         </ParallaxLayer>
