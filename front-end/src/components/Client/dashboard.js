@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import {Pie} from 'react-chartjs-2';
 import ReactDropzone from "react-dropzone";
+import AddRegistry from './addRegistry';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Share from '@material-ui/icons/Share';
 import Add from '@material-ui/icons/Add';
+import Modal from '@material-ui/core/Modal';
 
 import Cookies from 'universal-cookie';
 import axios from 'axios';
@@ -36,8 +38,9 @@ const styles = {
     },
     cardBottom: {
         marginTop: '30px',
-        height: '200px',
-        padding: '15px'
+        minHeight: '200px',
+        padding: '15px',
+        display: 'flex'
     },
     location: {
         position: 'absolute',
@@ -51,9 +54,10 @@ const styles = {
         height: '30%',
     },
     buttonBottom: {
-        width: '25%',
+        width: '23%',
+        minWidth: '200px',
         height: '100px',
-        margin: '5px 15px 0 0'
+        margin: '15px 10px'
     },
     dropZone: {
         width: '60%',
@@ -77,7 +81,10 @@ class Dashboard extends Component {
             attending: 300,
             notAttending: 50,
             maybe: 100,
-            userLoaded: false
+            modalOpen: false,
+            userLoaded: false,
+            registryLink: "",
+            displayName: ""
         }
 
         this.chartData = {
@@ -102,6 +109,10 @@ class Dashboard extends Component {
         }
     }
 
+    inputHandler = e => {
+        this.setState({ [e.target.name]: e.target.value });
+    };
+
     componentDidMount() {
         let wedding_id = localStorage.getItem('weddingID');
         let userdata = cookies.get('USERDATA')
@@ -122,15 +133,31 @@ class Dashboard extends Component {
             this.props.history.push('/')
         }
     }
-    
-    
+
+    // add a registry to the database
+    addRegistry = () => {
+        axios
+        .post('https://vbeloved.now.sh/registry', {
+            wedding_id: localStorage.getItem('weddingID'),
+            link: this.state.registryLink,
+            name: this.state.displayName
+        })
+        .then(res => {
+            console.log(res);
+            //this.setState({ registry: res.data })
+            //need to update server to return registry items
+        })
+        .catch(err => console.log(err));
+    };
+
+    // must use "multipart/form-data" when including a file in the body of a POST request
     handleonDrop = (files, rejectedFiles) => {
         files.forEach(file => {
             const formData = new FormData();
             formData.append('file', file);
             formData.append('filename', file.name);
-            axios.post('http://localhost:8888/upload', formData)
-            //axios.post('https://vbeloved.now.sh/upload', formData)
+            //axios.post('http://localhost:8888/upload', formData)
+            axios.post('https://vbeloved.now.sh/upload', formData)
             .then((res => {
                 console.log(res)
             }))
@@ -140,7 +167,15 @@ class Dashboard extends Component {
         });
     }
 
-      
+    // functions to open and close modal
+    handleOpen = () => {
+        this.setState({ modalOpen: true });
+    };
+    
+    handleClose = () => {
+        this.setState({ modalOpen: false });
+    };
+
     render() {
       return (
         <div>
@@ -182,17 +217,28 @@ class Dashboard extends Component {
                 <Card style={styles.cardBottom}>
                     Registry
                     <CardContent>
-                        <Button variant="outlined" style={styles.buttonBottom}>
-                            Amazon Registry
+                        <Button variant="outlined" style={styles.buttonBottom} href="https://www.amazon.com/wedding/home" target="_blank">
+                            Amazon
                         </Button>
-                        <Button variant="outlined" style={styles.buttonBottom}>
+                        <Button variant="outlined" style={styles.buttonBottom} href="https://www.target.com/gift-registry/wedding-registry" target="_blank">
+                            Target
+                        </Button>
+                        <Button variant="outlined" style={styles.buttonBottom} onClick={this.handleOpen}>
                             <Add/>
                             Add Registry
                         </Button>
                     </CardContent>
                 </Card>
+                <Modal
+                    open={this.state.modalOpen}
+                    onClose={this.handleClose}>
+                    <AddRegistry
+                    addRegistry={this.addRegistry}
+                    handleClose={this.handleClose}
+                    handleInputChange={this.inputHandler}/>
+                </Modal>
             </div>    
-                }
+            }
         </div>
       );
     }
