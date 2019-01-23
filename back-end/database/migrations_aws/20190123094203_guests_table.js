@@ -7,7 +7,7 @@ exports.up = function(knex, Promise) {
         
         tbl.string('attending');
 
-        tbl.integer('related_spouse').unsigned().notNullable().references('user.id');;
+        tbl.string('related_spouse');
     });
 };
 
