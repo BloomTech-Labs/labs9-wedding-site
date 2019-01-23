@@ -23,7 +23,7 @@ const StickyTop = (props) => {
         </Link>
       </div>
       <div className="rightNav">
-        <SignupLogin loggedIn={props.loggedIn} toggleLoggedIn={props.toggleLoggedIn}/>
+        <SignupLogin loggedIn={props.loggedIn} logout={props.logout}/>
       </div>
     </div>
   );
