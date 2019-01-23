@@ -28,9 +28,15 @@ a {
 .moving{
   display: flex;
   flex-direction: row;
-  position: absolute;
-  left:320px;
-  top:-1px;
+  /* position: absolute; */
+  /* left:320px; */
+  /* top:-1px; */
+}
+
+@media (max-width: 500px) {
+  .moving {
+    flex-direction: column
+  }
 }
 
 a:hover {
