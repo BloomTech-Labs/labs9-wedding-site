@@ -368,7 +368,7 @@ server.post('/addguest', async (req, res) => {
                                     address,
                                     wedding_id,
                                     guest: true
-                                }).first()
+                                })
 
         let guestID = await db.table('guests')
                               .insert({
@@ -412,7 +412,7 @@ server.post('/adddummyguest', async (req, res) => {
                                     address: `${faker.address.streetAddress()}, ${faker.address.city()}, ${faker.address.stateAbbr()} ${faker.address.zipCode()}`,
                                     wedding_id,
                                     guest: true
-                                }).first()
+                                })
 
         let guestID = await db.table('guests')
                               .insert({
