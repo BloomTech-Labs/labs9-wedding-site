@@ -7,7 +7,9 @@ containbody{
 }
 
 .separate{
-  padding-top:100px;
+  position: relative;
+  height:1100px;
+  margin-top: 800px;
 }
 
 .bontent {
