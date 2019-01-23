@@ -397,7 +397,7 @@ server.post('/adddummyguest', async (req, res) => {
         wedding_id,
         couple
     } = req.body
-
+    console.log(req.body)
     let attendArr = ['Not Attending', 'Attending', 'Maybe']
 
     try {

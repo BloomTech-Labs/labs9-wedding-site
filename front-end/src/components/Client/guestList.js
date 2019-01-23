@@ -81,7 +81,7 @@ class GuestList extends Component {
         let wedding_id = this.props.wedding_id;
 
         axios
-            .post(`https://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/addguest`, {first_name, last_name, email, address, wedding_id, related_spouse})
+            .post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/addguest`, {first_name, last_name, email, address, wedding_id, related_spouse})
             .then(res => {
                 this.setState({
                     guests: res.data.guests,
@@ -100,9 +100,9 @@ class GuestList extends Component {
         
 
         let wedding_id = this.props.wedding_id;
-
+        console.log(wedding_id)
         axios
-            .post(`https://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/adddummyguest`, {wedding_id, couple: this.props.couple})
+            .post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/adddummyguest`, {wedding_id, couple: this.props.couple})
             .then(res => {
                 this.setState({
                     guests: res.data.guests
@@ -122,6 +122,7 @@ class GuestList extends Component {
             .then(res => {
                 console.log(res)
                 this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ])
+                this.props.login()
                 this.setState({
                    userLoaded: true 
                 })

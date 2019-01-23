@@ -50,6 +50,7 @@ class MainContent extends Component {
         this.setState({
             loggedIn: true
         })
+        cookies.remove('userID')
 
     }
 
@@ -110,7 +111,7 @@ class MainContent extends Component {
                     <Route path='/vb/dashboard'  render={props => < Dashboard {...props} login={this.login} setUser={this.setUser}/>} />
                     <Route path='/vb/payment'  render={props => < Payment {...props} />} />
                     <Route path='/vb/settings'  render={props => < Settings {...props} />} />
-                    <Route path='/vb/guestlist'  render={props => < GuestList {...props} guests={this.state.guests} weddingID={this.state.weddingID} couple={this.state.couple} setUser={this.setUser} />} />
+                    <Route path='/vb/guestlist'  render={props => < GuestList {...props} login={this.login} guests={this.state.guests} weddingID={this.state.weddingID} couple={this.state.couple} setUser={this.setUser} />} />
                     <Route path='/vb/rsvp'  render={props => < Rsvp {...props} />}/>
                     <Route path='/vb/billing' component={Payment} />
 
