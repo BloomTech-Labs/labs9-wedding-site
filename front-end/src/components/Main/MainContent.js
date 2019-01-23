@@ -61,7 +61,7 @@ class MainContent extends Component {
    }
 
    setUser = (partner1, partner2, guests, couple) => {
-        
+        console.log('guests:', guests)
     this.setState({
            weddingID: partner1.wedding_id,
            first_name: partner1.first_name,
@@ -71,6 +71,14 @@ class MainContent extends Component {
            guests,
            couple
         })
+    }
+
+    setGuests = (guests) =>{
+
+        this.setState({
+            guests
+        })
+
     }
 
     componentDidMount(){
@@ -111,7 +119,13 @@ class MainContent extends Component {
                     <Route path='/vb/dashboard'  render={props => < Dashboard {...props} login={this.login} setUser={this.setUser}/>} />
                     <Route path='/vb/payment'  render={props => < Payment {...props} />} />
                     <Route path='/vb/settings'  render={props => < Settings {...props} />} />
-                    <Route path='/vb/guestlist'  render={props => < GuestList {...props} login={this.login} guests={this.state.guests} weddingID={this.state.weddingID} couple={this.state.couple} setUser={this.setUser} />} />
+                    <Route path='/vb/guestlist'  render={props => < GuestList {...props} 
+                                                                              login={this.login} 
+                                                                              guests={this.state.guests} 
+                                                                              wedding_id={this.state.weddingID} 
+                                                                              couple={this.state.couple} 
+                                                                              setUser={this.setUser}
+                                                                              setGuests={this.setGuests} />} />
                     <Route path='/vb/rsvp'  render={props => < Rsvp {...props} />}/>
                     <Route path='/vb/billing' component={Payment} />
 
