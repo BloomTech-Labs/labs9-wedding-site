@@ -1,9 +1,13 @@
+@font-face {
+    font-family: 'Snell Bold'
+}
 .overall{
     height: 90px;
     width: 100%;
     background-color:white;
     display: flex;
     flex-direction: row;
+    justify-content: center;
     /* border-bottom: 1px solid grey; */
     position:fixed;
     z-index: 1000;
@@ -12,7 +16,48 @@
     top:0;
 }
 
+.navSections {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+}
 
+.siteName {
+    font-size: 2.4rem;
+    font-weight: bold;
+    font-family: serif;
+}
 
+.centerNav {
+    margin: -1.5% 5% 0% 5%;
+}
 
+.leftNav {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    align-content: center;
+}
 
+.rightNav {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+}
+
+@media (max-width: 500px) {
+    .centerNav {
+        order: -1;
+    }
+    .overall {
+        flex-direction: column;
+    }
+
+    .rightNav {
+        flex-direction: column;
+    }
+
+    .leftNav {
+        flex-direction: column;
+    }
+}
