@@ -1,0 +1,53 @@
+/* using these styles in css will
+cause the cards to expand 
+offscreen forever */
+.dashboard .cardTopLeft {
+  width: 50%;
+  margin-right: 10px;
+  height: 200px;
+  padding: 15px 15px 30px;
+}
+
+.dashboard .cardTopRight {
+  width: 50%;
+  margin-left: 10px;
+  height: 200px;
+  padding: 15px 15px 30px;
+} 
+
+.dashboard .weddingInfo {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 600px) {
+  .dashboard .cardDivTop {
+    flex-direction: column;
+  }
+
+  .dashboard .Registry {
+    flex-direction: column;
+  }
+  .dashboard .weddingInfo {
+    flex-direction: column;
+  }
+  .dashboard .cardTopLeft  {
+    width: 90%;
+    margin-top: 30px ;
+    margin-right: 0px ;
+    min-height: 200px ;
+    padding: 15px ;
+    display: flex ;
+  }
+
+  .dashboard .cardTopRight {
+    width: 90%;
+    margin-top: 30px ;
+    margin-left: 0px ;
+    height: 200px ;
+    padding: 15px ;
+    display: flex ;
+  }
+
+
+}

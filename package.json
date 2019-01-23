@@ -7,7 +7,5 @@
   "author": "y",
   "license": "y",
   "private": true,
-  "dependencies": {
-    "axios": "^0.18.0"
-  }
+  "dependencies": {}
 }
