@@ -40,15 +40,15 @@ class MainContent extends Component {
 
            
         }
-   }
+    }
 
-   toggleLoggedIn = () =>{
+    toggleLoggedIn = () => {
 
-       this.setState({
-           loggedIn: !this.state.loggedIn
-       })
+        this.setState({
+            loggedIn: !this.state.loggedIn
+        })
 
-   }
+    }
 
    logout = () => {
        this.setState({
@@ -67,12 +67,12 @@ class MainContent extends Component {
            guests,
            couple
         })
-   }
+    }
 
 
-   render() {
-       return (
-           <div>
+    render() {
+        return (
+            <div>
                 <div className='main_container'>
                <StickyTop loggedIn={this.state.loggedIn} toggleLoggedIn={this.logout}/>
                 <Switch>
@@ -95,7 +95,7 @@ class MainContent extends Component {
                </div>
            </div>
         );
-   }
+    }
 }
 
 export default MainContent;
