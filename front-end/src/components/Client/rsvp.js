@@ -14,6 +14,7 @@ import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import { Close } from '@material-ui/icons';
 
+
 // define styles for material-ui components
 const styles = {
     rsvpContainer: {
@@ -95,7 +96,7 @@ class Rsvp extends Component {
        .then(res => {
            if (res.data.length > 0) {
                this.setState({ questions: res.data })
-               //console.log(this.state.questions)
+               console.log(this.state.questions)
            }
        })
        .catch(err => {
