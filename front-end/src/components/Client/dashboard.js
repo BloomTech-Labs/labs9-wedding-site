@@ -119,8 +119,8 @@ class Dashboard extends Component {
                 this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ])
                 this.setState({
                    userLoaded: true 
-                }).catch(err => console.log(err))
-            })
+                })
+            }).catch(err => console.log(err))
         } else {
             this.props.history.push('/signup')
         }
