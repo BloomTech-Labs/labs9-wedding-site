@@ -18,7 +18,7 @@ import './fonts.css';
 
 const Pricing = () => {
     return ( 
-        <div>
+        <div className="separate">
             {/* <StickyTop /> */}
             <Prices />
             <div>

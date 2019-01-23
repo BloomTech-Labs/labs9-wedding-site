@@ -6,7 +6,9 @@ containbody{
   font-family: 'Raleway', sans-serif;
 }
 
-
+.separate{
+  padding-top:100px;
+}
 
 .bontent {
   position: relative;

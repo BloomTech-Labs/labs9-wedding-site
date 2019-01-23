@@ -1,3 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Pinyon+Script');
+.firstfont{
+  display: flex;
+  flex-direction: column;
+  font-family: 'Pinyon Script', cursive;
+  color: '#AFD4E1';
+  position: absolute;
+  top:220px;
+  left:45px;
+  font-size: 80px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.secondfont{
+  display: flex;
+  flex-direction: column;
+  font-family: 'Pinyon Script', cursive;
+  color: '#AFD4E1';
+  position: absolute;
+  top:320px;
+  left:45px;
+  font-size: 80px;
+  font-weight: 500;
+  line-height: 1;
+}
+
 .container > div > div {
     display: flex;
     align-items: center;
