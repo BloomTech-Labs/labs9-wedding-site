@@ -19,38 +19,51 @@ import Design from './designs';
 import Pricing from './pricing';
 import Scrollbar from 'react-perfect-scrollbar';
 import wallflower from './images/wallflower.jpg';
+import { Parallax, ParallaxLayer } from 'react-spring/addons'
 
 
 
 class LandingPage extends React.Component {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    this.LearnMoreTarget = React.createRef();
-  }
+    // this.GetStartedTarget = React.createRef();
+  // }
 
-  learnMore = () => {
-    this.LearnMoreTarget.current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'end',
-      inline: 'nearest'
-    });
-  };
-
+  // getStarted = () => {
+  //   console.log(this.GetStartedTarget);
+  //   this.GetStartedTarget.current.scrollIntoView({
+  //     behavior: 'smooth',
+  //     block: 'end',
+  //     inline: 'nearest'
+  //   });
+  // };
+  // innerRef={this.GetStartedTarget}
+  // <button dark onClick={this.getStarted}style={{position:"absolute", left:'15%', top:'70%',}}>
+  //             Get Started
+  //           </button>
   render() {
     return (
-      <div>
+      <div className='scrollview'>
+        <Parallax ref={ref => this.parallax = ref} pages={3} vertical scrolling={true}>
+          <ParallaxLayer offset={0} speed={0} onClick={() => this.parallax.scrollTo(1)}>
           <div className='containerLanding'>
-            <img src={wallflower} alt='wallflower' style={{ width: '66.3%', height:850, position:'absolute', right:0, top:0,}} />
+            <img src={wallflower} alt='wallflower' style={{ width: '66.3%', height:753, position:'absolute', right:0, top:0,}} />
             <span className='firstfont'> Helping you <br/></span>
             <span className='secondfont'> Tie the Knot </span>
           </div>
+          </ParallaxLayer>
+          <ParallaxLayer offset={1} speed={0} onClick={() => this.parallax.scrollTo(2)}>
           <div className='containerDesign'>
-            <Design />
-          </div>
-          <div className='containerPricing'>
             <Pricing />
           </div>
+          </ParallaxLayer>
+          <ParallaxLayer offset={2} speed={0} onClick={() => this.parallax.scrollTo(0)}>
+          <div className='containerPricing'>
+            <Design />
+          </div>
+          </ParallaxLayer>
+        </Parallax>
       </div>
     )
   }

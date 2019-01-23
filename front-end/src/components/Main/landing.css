@@ -26,13 +26,14 @@
 }
 
 .containerLanding{
-  height:1100px;
+  height:900px;
 }
 
 .containerDesign{
-  height:1100px;
+  height:1500px;
+  margin-top:50px;
 }
 
-.containerPricing{
-  height:1100px;
-}
+/* .containerPricing{
+  height:800px;
+} */
