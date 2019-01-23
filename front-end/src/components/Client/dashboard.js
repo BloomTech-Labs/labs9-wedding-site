@@ -26,18 +26,6 @@ const styles = {
     cardDivTop: {
         display: 'flex',
     },
-    // cardTopLeft: {
-    //     width: '50%',
-    //     marginRight: '10px',
-    //     height: '200px',
-    //     padding: '15px 15px 30px'
-    // },
-    // cardTopRight: {
-    //     width: '50%',
-    //     marginLeft: '10px',
-    //     height: '200px',
-    //     padding: '15px 15px 30px'
-    // },
     cardBottom: {
         marginTop: '30px',
         minHeight: '200px',
@@ -190,8 +178,9 @@ class Dashboard extends Component {
                             Change Design
                         </Button>
                         <div className="weddingInfo" style={styles.weddingInfo}>
-                            <h1>Bri &amp; Ryan's Wedding</h1>
-                            <h1>June 4, 2019</h1>
+                            <div className="userInfo">
+                                <h1>Bri &amp; Ryan's Wedding<br />June 4, 2019</h1>
+                            </div>
                             <div className="location" style={styles.location}>
                                 <Share />
                                 <p>Wedding Reception Hall<br />San Diego, CA</p>
@@ -202,20 +191,20 @@ class Dashboard extends Component {
                         <div className="cardDivTop" style={styles.cardDivTop}>
                             <Card className="cardTopLeft" style={styles.cardTopLeft}>
                                 Guest List
-                    <ReactDropzone
+                                <ReactDropzone
                                     accept=".csv"
                                     onDrop={this.handleonDrop}>
                                     {({ getRootProps, getInputProps }) => (
                                         <div {...getRootProps()} style={styles.dropZone}>
                                             <input {...getInputProps()} />
                                             Drag and drop files or click here to import CSV
-                            </div>
+                                        </div>
                                     )}
-                    </ReactDropzone>
+                                </ReactDropzone>
                             </Card>
                             <Card className="cardTopRight" style={styles.cardTopRight}>
                                 RSVP
-                    <Pie data={this.chartData}
+                                <Pie data={this.chartData}
                                     style={styles.pieChart}
                                     options={{ maintainAspectRatio: false }}
                                 />
@@ -224,17 +213,17 @@ class Dashboard extends Component {
 
                         <Card className="Registry" style={styles.cardBottom}>
                             Registry
-                    <CardContent>
+                            <CardContent>
                                 <Button variant="outlined" style={styles.buttonBottom} href="https://www.amazon.com/wedding/home" target="_blank">
                                     Amazon
-                        </Button>
+                                </Button>
                                 <Button variant="outlined" style={styles.buttonBottom} href="https://www.target.com/gift-registry/wedding-registry" target="_blank">
                                     Target
-                        </Button>
+                                </Button>
                                 <Button variant="outlined" style={styles.buttonBottom} onClick={this.handleOpen}>
                                     <Add />
                                     Add Registry
-                        </Button>
+                                </Button>
                             </CardContent>
                         </Card>
                         <Modal

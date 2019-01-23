@@ -15,6 +15,11 @@ offscreen forever */
   padding: 15px 15px 30px;
 } 
 
+.dashboard .weddingInfo {
+  display: flex;
+  justify-content: space-between;
+}
+
 @media (max-width: 500px) {
   .dashboard .cardDivTop {
     flex-direction: column;
