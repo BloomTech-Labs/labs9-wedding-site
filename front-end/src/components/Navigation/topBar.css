@@ -12,8 +12,8 @@
     position:fixed;
     z-index: 1000;
     /* margin-top: -5px; */
-    padding-top: 0%;
-    top:0;
+    /* padding-top: 0%; */
+    /* top:0; */
 }
 
 .navSections {
@@ -50,6 +50,7 @@
         order: -1;
     }
     .overall {
+        margin-top: 340px;
         flex-direction: column;
     }
 
