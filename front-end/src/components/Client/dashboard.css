@@ -1,0 +1,14 @@
+
+@media (max-width: 500px) {
+  .dashboard .cardDivTop {
+    flex-direction: column;
+  }
+
+  .dashboard .Registry {
+    flex-direction: column;
+  }
+  .dashboard .weddingInfo {
+    flex-direction: column;
+  }
+
+}
