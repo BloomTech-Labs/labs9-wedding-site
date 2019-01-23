@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 
 class PublicInvite extends Component {
         state = {
-            
+
         }
   render() {
     return (
@@ -16,4 +16,4 @@ class PublicInvite extends Component {
   }
 }
 
-export default withRouter(App);
+export default PublicInvite;
