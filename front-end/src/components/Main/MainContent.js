@@ -20,7 +20,10 @@ import UserAccess from '../UserAccess/UserAccess.js'
 
 //misc. components go here
 import StickyTop from '../Navigation/topBar'; //NavBar
+import Cookies from 'universal-cookie';
+import axios from 'axios';
 
+const cookies = new Cookies()
 
 
 class MainContent extends Component {
@@ -42,10 +45,10 @@ class MainContent extends Component {
         }
     }
 
-    toggleLoggedIn = () => {
+    login = () => {
 
         this.setState({
-            loggedIn: !this.state.loggedIn
+            loggedIn: true
         })
 
     }
@@ -69,12 +72,33 @@ class MainContent extends Component {
         })
     }
 
+    componentDidMount(){
+        let oauth_id = cookies.get('userID')
+
+        /* if(oauth_id){
+            axios.post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/loaduser`, {...userdata, oauth_id})
+            .then(res => {
+                console.log(res)
+                this.props.toggleLoggedIn() //toggles the state of the user to loggedIn (in MainContent component)
+                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ])
+                this.setState({
+                   userLoaded: true 
+                })
+            })
+            .catch(err => console.log(err))
+        } else {
+            this.props.history.push('/')
+        } */
+
+
+    }
+
 
     render() {
         return (
             <div>
                 <div className='main_container'>
-               <StickyTop loggedIn={this.state.loggedIn} toggleLoggedIn={this.logout}/>
+               <StickyTop loggedIn={this.state.loggedIn} logout={this.logout}/>
                 <Switch>
 
                    <Route path='/' exact render={props => this.state.loggedIn ? <Redirect to="/vb/dashboard"/> : <LandingPage {...props} />} />
@@ -83,10 +107,10 @@ class MainContent extends Component {
                    <Route path='/signup' render={props => <Signup {...props} toggleLoggedIn={this.toggleLoggedIn}/>} />
                    <Route path='/login' component={Login} />
                    {/* <Route path="/vb" render={props => <UserAccess {...props} />} /> */}
-                    <Route path='/vb/dashboard'  render={props => < Dashboard {...props} toggleLoggedIn={this.toggleLoggedIn} setUser={this.setUser}/>} />
+                    <Route path='/vb/dashboard'  render={props => < Dashboard {...props} login={this.login} setUser={this.setUser}/>} />
                     <Route path='/vb/payment'  render={props => < Payment {...props} />} />
                     <Route path='/vb/settings'  render={props => < Settings {...props} />} />
-                    <Route path='/vb/guestlist'  render={props => < GuestList {...props} guests={this.state.guests} weddingID={this.state.weddingID} couple={this.state.couple} />} />
+                    <Route path='/vb/guestlist'  render={props => < GuestList {...props} guests={this.state.guests} weddingID={this.state.weddingID} couple={this.state.couple} setUser={this.setUser} />} />
                     <Route path='/vb/rsvp'  render={props => < Rsvp {...props} />}/>
                     <Route path='/vb/billing' component={Payment} />
 

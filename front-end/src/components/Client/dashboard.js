@@ -117,12 +117,12 @@ class Dashboard extends Component {
         let wedding_id = localStorage.getItem('weddingID');
         let userdata = cookies.get('USERDATA')
         let oauth_id = cookies.get('userID')
-        console.log('userdata:', userdata)
-        if(userdata || oauth_id){
+        console.log('userdata:', oauth_id)
+        if(oauth_id){
             axios.post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/loaduser`, {...userdata, oauth_id})
             .then(res => {
                 console.log(res)
-                this.props.toggleLoggedIn() //toggles the state of the user to loggedIn (in MainContent component)
+                this.props.login() //toggles the state of the user to loggedIn (in MainContent component)
                 this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ])
                 this.setState({
                    userLoaded: true 
@@ -130,7 +130,7 @@ class Dashboard extends Component {
             })
             .catch(err => console.log(err))
         } else {
-            this.props.history.push('/')
+            this.props.history.push('/signup')
         }
     }
 
