@@ -531,7 +531,9 @@ server.delete('/:questionID/deletequestion', async (req, res) => {
 
 //A FUNCTION TO POST CSV FILES
 server.post('/upload', upload.single('file'), (req, res) => {
-    // console.log(req.file) // --> file info saved to req.file
+     // console.log(req.file) // --> file info saved to req.file
+     console.log("File:",req.file,"Body:", req.body)
+     let wedding_id = req.body.wedding_id;
     if (!req.file) {
         res.status(400).json({error: "No file received"});
     } else {
@@ -546,8 +548,28 @@ server.post('/upload', upload.single('file'), (req, res) => {
             })
             .on('end',function() {
             //do something with csvData
-            console.log("csvData", csvData);
+           // console.log("csvData", csvData);
+            for(let i = 1; i < csvData.length -1; i++){
+
+                let first_name = csvData[i][0];
+                let last_name = csvData[i][1]
+                let email = csvData[i][2]
+                let address = csvData[i][3]
+                let related_spouse = csvData[i][4]
+
+                console.log(`Person${i}`,{first_name, last_name, email, address, related_spouse, wedding_id})
+
+                db.table('users').insert({first_name, last_name, email, address, wedding_id, guest: true})
+                .then(guest_id => { console.log(`Users${i}ID`, guest_id[0])
+                    db.table('guests')
+                      .insert({guest_id: guest_id[0], related_spouse})
+                      .then(guestID => console.log(`Users${i}GuestID:`,guestID)).catch(err => console.log(err))
+                })
+                .catch(err => console.log(err))
+
+            }
             });
+            
 
         res.status(200).json({ message: "CSV successfully posted" });
     }

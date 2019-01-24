@@ -153,12 +153,15 @@ class Dashboard extends Component {
 
     // must use "multipart/form-data" when including a file in the body of a POST request
     handleonDrop = (files, rejectedFiles) => {
+       let wedding_id = localStorage.getItem('weddingID');
+       
         files.forEach(file => {
             const formData = new FormData();
             formData.append('file', file);
             formData.append('filename', file.name);
-            //axios.post('http://localhost:8888/upload', formData)
-            axios.post('https://vbeloved.now.sh/upload', formData)
+            formData.append('wedding_id', wedding_id);
+            axios.post('http://localhost:8888/upload', formData )
+           // axios.post('https://vbeloved.now.sh/upload', formData)
                 .then((res => {
                     console.log(res)
                 }))
