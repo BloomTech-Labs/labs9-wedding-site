@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css?family=Pinyon+Script');
 .firstfont{
   display: flex;
@@ -65,3 +66,43 @@
 /* .containerPricing{
   height:800px
 } */
+=======
+@import url('https://fonts.googleapis.com/css?family=Pinyon+Script');
+.firstfont{
+  display: flex;
+  flex-direction: column;
+  font-family: 'Pinyon Script', cursive;
+  color: '#AFD4E1';
+  position: absolute;
+  top:220px;
+  left:4.5%;
+  font-size: 80px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.secondfont{
+  display: flex;
+  flex-direction: column;
+  font-family: 'Pinyon Script', cursive;
+  color: '#AFD4E1';
+  position: absolute;
+  top:320px;
+  left:4.5%;
+  font-size: 80px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.containerLanding{
+  height:1100px;
+}
+
+.containerDesign{
+  height:1100px;
+}
+
+.containerPricing{
+  height:1100px;
+}
+>>>>>>> 3745c6d215594e635b0323aaff53d8a8c0afb8a9

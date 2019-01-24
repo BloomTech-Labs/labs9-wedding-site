@@ -18,12 +18,17 @@ const StickyTop = (props) => {
         <LandingButtonsExp />
       </div>
       <div className="centerNav">
+<<<<<<< HEAD
         <Link style={{textDecoration:'none !important'}} to='/'>
           <h1 className="siteName">Beloved</h1> 
+=======
+        <Link to='/'>
+          <h1 className="siteName">Beloved</h1>
+>>>>>>> 3745c6d215594e635b0323aaff53d8a8c0afb8a9
         </Link>
       </div>
       <div className="rightNav">
-        <SignupLogin loggedIn={props.loggedIn} toggleLoggedIn={props.toggleLoggedIn}/>
+        <SignupLogin loggedIn={props.loggedIn} logout={props.logout} />
       </div>
     </div>
   );

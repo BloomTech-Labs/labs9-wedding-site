@@ -18,9 +18,15 @@ padding-top:0px;
 `
 
 const photos = [
+<<<<<<< HEAD
     { src: 'https://cdn.freshdesignweb.com/wp-content/uploads/glanz-html-wedding-template.jpg', width: 1 },
     { src: 'https://cdn.freshdesignweb.com/wp-content/uploads/belle-responsive-wedding-template.jpg', width: 1 },
     { src: 'https://cdn.freshdesignweb.com/wp-content/uploads/site/newlyweds-html-wedding-template.jpg', width: 1 },
+=======
+    { src: 'https://cdn.freshdesignweb.com/wp-content/uploads/glanz-html-wedding-template.jpg'},
+    { src: 'https://cdn.freshdesignweb.com/wp-content/uploads/belle-responsive-wedding-template.jpg'},
+    { src: 'https://cdn.freshdesignweb.com/wp-content/uploads/site/newlyweds-html-wedding-template.jpg'},
+>>>>>>> 3745c6d215594e635b0323aaff53d8a8c0afb8a9
 ];
 
 
