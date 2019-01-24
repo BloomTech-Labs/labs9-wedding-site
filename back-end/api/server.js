@@ -266,7 +266,6 @@ server.put('/user/:id', (req, res) => {
         });
 });
 
-
 //A FUNCTION TO POPULATE THE DATABASE WITH COUPLES DUMMY DATA
 server.get('/dummydata', async (req, res) => {
     let userData = {

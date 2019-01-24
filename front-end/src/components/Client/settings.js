@@ -21,13 +21,25 @@ height: 450px;
 
 class Settings extends React.Component {
     state = {
+
         checkedEmail: false,
         checkedText: false,
+        first_name: "",
+        last_name: "",
+        p_first_name: "",
+        p_last_name: "",
+        email: "",
+        phone: "",
+        address: "",
     };
 
-    handleChange = name => event => {
+    handleChecked = name => event => {
         this.setState({ [name]: event.target.checked });
     };
+
+    handleInputChange = event => {
+        this.setState({ [event.target.name]: event.target.value })
+    }
 
     render() {
 
@@ -35,12 +47,14 @@ class Settings extends React.Component {
             <SettingsContainer>
                 <form>
                     <TextField
+                        name="email"
                         id="outlined-email"
                         label="Email"
                         margin="normal"
                         variant="outlined"
                     />
                     <TextField
+                        name="phone"
                         id="outlined-phone"
                         label="Phone"
                         margin="normal"
@@ -48,11 +62,25 @@ class Settings extends React.Component {
                     />
                     <div className="Payment-info">
                         <TextField
+                            name="first_name"
                             id="standard-name"
                             label="Partner Name"
                             margin="normal"
                         />
                         <TextField
+                            name="last_name"
+                            id="standard-name"
+                            label="Partner Name"
+                            margin="normal"
+                        />
+                        <TextField
+                            name="p_first_name"
+                            id="standard-name"
+                            label="Partner Name"
+                            margin="normal"
+                        />
+                        <TextField
+                            name="p_last_name"
                             id="standard-name"
                             label="Partner Name"
                             margin="normal"
@@ -66,7 +94,7 @@ class Settings extends React.Component {
                                 control={
                                     <Checkbox
                                         checked={this.state.checkedEmail}
-                                        onChange={this.handleChange('checkedEmail')}
+                                        onChange={this.handleChecked('checkedEmail')}
                                         value="checkedEmail"
                                         color="primary"
                                     />
@@ -78,7 +106,7 @@ class Settings extends React.Component {
                                 control={
                                     <Checkbox
                                         checked={this.state.checkedText}
-                                        onChange={this.handleChange('checkedText')}
+                                        onChange={this.handleChecked('checkedText')}
                                         value="checkedText"
                                         color="primary"
                                     />
@@ -97,21 +125,8 @@ class Settings extends React.Component {
                             }}
                         />
                     </div>
-                    <div className="Payment-info">
-                        <TextField
-                            id="outlined-password"
-                            variant="outlined"
-                            type="password"
-                            label="Old Password"
-                        />
-                        <TextField
-                            id="outlined-password"
-                            variant="outlined"
-                            type="password"
-                            label="New Password"
-                        />
-                    </div>
                     <TextField
+                        name="address"
                         id="standard-location"
                         label="Wedding Location"
                         margin="normal"
