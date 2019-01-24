@@ -114,12 +114,15 @@ class Dashboard extends Component {
     componentDidMount() {
         let wedding_id = localStorage.getItem('weddingID');
         let userdata = cookies.get('USERDATA')
-        let oauth_id = cookies.get('userID')
+        let oauth_id = '117923096476841958425'
         console.log('userdata:', oauth_id)
+
         if(oauth_id){
             axios.post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/loaduser`, {...userdata, oauth_id})
             .then(res => {
                 console.log(res)
+                cookies.set('userID', '117923096476841958425')
+                localStorage.setItem('weddingID', res.data.couple[0].wedding_id)
                 this.props.login() //toggles the state of the user to loggedIn (in MainContent component)
                 this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ])
                 this.setState({
@@ -150,12 +153,15 @@ class Dashboard extends Component {
 
     // must use "multipart/form-data" when including a file in the body of a POST request
     handleonDrop = (files, rejectedFiles) => {
+       let wedding_id = localStorage.getItem('weddingID');
+       
         files.forEach(file => {
             const formData = new FormData();
             formData.append('file', file);
             formData.append('filename', file.name);
-            //axios.post('http://localhost:8888/upload', formData)
-            axios.post('https://vbeloved.now.sh/upload', formData)
+            formData.append('wedding_id', wedding_id);
+            axios.post('http://localhost:8888/upload', formData )
+           // axios.post('https://vbeloved.now.sh/upload', formData)
                 .then((res => {
                     console.log(res)
                 }))
