@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from 'react-router';
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -43,6 +44,7 @@ const styles = {
     objectFit: "cover"
   }
 };
+
 
 function Prices(props) {
   const { classes } = props;

@@ -18,7 +18,7 @@ const StickyTop = (props) => {
         <LandingButtonsExp />
       </div>
       <div className="centerNav">
-        <Link to='/'>
+        <Link style={{textDecoration:'none !important'}} to='/'>
           <h1 className="siteName">Beloved</h1> 
         </Link>
       </div>
