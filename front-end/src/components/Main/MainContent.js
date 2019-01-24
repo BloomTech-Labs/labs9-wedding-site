@@ -102,7 +102,7 @@ class MainContent extends Component {
                <StickyTop loggedIn={this.state.loggedIn} logout={this.logout}/>
                 <Switch>
 
-                   <Route path='/' exact render={props => this.state.loggedIn ? <Redirect to="/vb/dashboard"/> : <LandingPage {...props} />} />
+                   <Route path='/' exact render={props => this.state.loggedIn ? <Redirect to="/vb/dashboard"/> : <LandingPage {...this.props} />} />
                    {/* <Route path='/designs' component={Design} />
                    <Route path='/pricing' component={Prices} /> */}
                    <Route path='/signup' render={props => <Signup {...props} toggleLoggedIn={this.toggleLoggedIn}/>} />

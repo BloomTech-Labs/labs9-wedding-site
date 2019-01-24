@@ -10,7 +10,7 @@
 //         </div>
 //      );
 // }
- 
+
 // export default LandingPage;
 import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
@@ -40,17 +40,17 @@ class LandingPage extends React.Component {
   render() {
     return (
       <div>
-          <div className='containerLanding'>
-            <img src={wallflower} alt='wallflower' style={{ width: '66.3%', height:850, position:'absolute', right:0, top:0,}} />
-            <span className='firstfont'> Helping you <br/></span>
-            <span className='secondfont'> Tie the Knot </span>
-          </div>
-          <div className='containerDesign'>
-            <Design />
-          </div>
-          <div className='containerPricing'>
-            <Pricing />
-          </div>
+        <div className='containerLanding'>
+          <img src={wallflower} alt='wallflower' style={{ width: '66.3%', height: 850, position: 'absolute', right: 0, top: 0, }} />
+          <span className='firstfont'> Helping you <br /></span>
+          <span className='secondfont'> Tie the Knot </span>
+        </div>
+        <div className='containerDesign'>
+          <Design {...this.props} />
+        </div>
+        <div className='containerPricing'>
+          <Pricing />
+        </div>
       </div>
     )
   }
