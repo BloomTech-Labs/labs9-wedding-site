@@ -480,7 +480,8 @@ server.post('/questions', (req, res)=>{
         db.table('questions').where({question: qData.question, wedding_id: qData.wedding_id})
         .then(res => {
             console.log("DBQuery",res)
-            if(!res.length){console.log('NoRes')
+            if(!res.length){
+                console.log('NoRes')
                 db.table('questions').insert(qData).then(res =>console.log(res)).catch(err => console.log(err))
             }
             else {
@@ -492,8 +493,6 @@ server.post('/questions', (req, res)=>{
     })
     
     res.status(200).json({message: 'Data Posted Successfully.'})
-
-
 })
 
 

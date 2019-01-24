@@ -212,12 +212,12 @@ class Rsvp extends Component {
       ))
       // get rest of questions
       let questions = this.state.questions.filter(q => q.category !== guestName.category);
-        console.log(questions)
+    console.log(questions)
       return (
         <div style={styles.rsvpContainer}>
-            {this.renderCards(guestName) /* render "Guest Name" question*/} 
+            {this.renderCards(guestName, 0) /* render "Guest Name" question*/} 
                 {questions.map((q, i) => /* render the remaining questions */
-                    this.renderCards(q, i)
+                    this.renderCards(q, i+1)
             )}
             <div style={styles.buttonDiv}>
                 <Button variant="outlined" onClick={this.handleOpen} style={styles.button}>Add Question</Button>
