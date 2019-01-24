@@ -51,7 +51,7 @@ class MainContent extends Component {
         this.setState({
             loggedIn: true
         })
-        cookies.remove('userID')
+        
 
     }
 
@@ -59,6 +59,7 @@ class MainContent extends Component {
        this.setState({
            loggedIn: false
        })
+       cookies.remove('userID')
    }
 
    setUser = (partner1, partner2, guests, couple) => {

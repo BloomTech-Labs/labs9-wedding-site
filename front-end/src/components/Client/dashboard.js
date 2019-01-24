@@ -129,9 +129,7 @@ class Dashboard extends Component {
                 })
             })
             .catch(err => console.log(err))
-        } else {
-            this.props.history.push('/signup')
-        }
+        } 
     }
 
     // add a registry to the database

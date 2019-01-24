@@ -101,7 +101,7 @@ server.get('/google/redirect', passport.authenticate('google'), (req, res) => {
     console.log('REDIRECT SUCCESS-PASSPORTREQ:', req._passport.session.user);
     
     
-            res.cookie('userID', req._passport.session.user.oauth_id);  
+    res.cookie('userID', req._passport.session.user.oauth_id);  
     res.redirect(`http://${ process.env.LOCAL_CLIENT || 'vbeloved.com'}/vb/dashboard`);
   
 })
