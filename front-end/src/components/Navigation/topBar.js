@@ -19,7 +19,7 @@ const StickyTop = (props) => {
       </div>
       <div className="centerNav">
         <Link to='/'>
-          <h1 className="siteName">Be loved</h1> 
+          <h1 className="siteName">Beloved</h1> 
         </Link>
       </div>
       <div className="rightNav">
