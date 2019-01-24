@@ -44,46 +44,51 @@ const styles = {
   };
 
 class PublicRsvp extends Component {
-    constructor() {
-        super();
-
+    constructor(props) {
+        super(props);
+        const { pathname } = props.location;
+        const w_id = pathname.substr(pathname.lastIndexOf('/') + 1);
         this.state = {
            category: '',
            question: '',
            modalOpen: false,
-           loading: true,
-           weddingExists: false,
+           weddingId: w_id,
+           loading: false,
+           weddingExists: true,
            questions: [
-            {
+              {
                 wedding_id: localStorage.getItem('weddingID'),
                 category: 'Guest Name',
                 multiple_choice: false,
                 question: '',
                 answer: ''
-            },
-            {
-                wedding_id: localStorage.getItem('weddingID'),
-                category: 'Attendance',
-                multiple_choice: true,
-                question: 'Will you be attending our wedding?',
-                answer: 'Attending,Not attending,Maybe'
-            },
-            {
-                wedding_id: localStorage.getItem('weddingID'),
-                category: 'Address',
-                multiple_choice: false,
-                question: 'What is your mailing address?',
-                answer: ''
-            },
-            {
-                wedding_id: localStorage.getItem('weddingID'),
-                category: 'Wedding Team',
-                multiple_choice: true,
-                question: 'Are you a friend or family of... ?',
-                answer: 'Bride,Groom,Both'
-            },
-            ]
-        }
+              }
+           ]
+          }
+            //  questions: [
+
+            //   {
+            //       wedding_id: localStorage.getItem('weddingID'),
+            //       category: 'Attendance',
+            //       multiple_choice: true,
+            //       question: 'Will you be attending our wedding?',
+            //       answer: 'Attending,Not attending,Maybe'
+            //   },
+            //   {
+            //       wedding_id: localStorage.getItem('weddingID'),
+            //       category: 'Address',
+            //       multiple_choice: false,
+            //       question: 'What is your mailing address?',
+            //       answer: ''
+            //   },
+            //   {
+            //       wedding_id: localStorage.getItem('weddingID'),
+            //       category: 'Wedding Team',
+            //       multiple_choice: true,
+            //       question: 'Are you a friend or family of... ?',
+            //       answer: 'Bride,Groom,Both'
+            //   },
+            //   ]
     }
 
     inputHandler = (e, key) => {
@@ -118,10 +123,17 @@ class PublicRsvp extends Component {
         let questionVar;
 
         axios.get(question_url)
-          .then(questions => {
-            questionVar = questions 
-            console.log(questions)
-            this.setState({ questions: questionVar.res.data })
+          .then(qs => {
+            questionVar = qs 
+            console.log(qs)
+            this.setState(prevState => {
+              
+              const newQuestions =  ([...prevState.questions, ...qs.data])//Object.assign({}, prevState.questions, qs.data )  
+              console.log(newQuestions)
+              return ({ 
+              "questions": newQuestions,
+                weddingExists: false
+              })})
           }).catch(error => { console.log(error) })
           
         console.log(questionVar)
@@ -231,16 +243,16 @@ class PublicRsvp extends Component {
         ) 
       } else {
 
-        let guestName = this.state.questions.find((q, i) => (
-          q.category === "Guest Name"
-        ))
+        // let guestName = this.state.questions.find((q, i) => (
+        //   q.category === "Guest Name"
+        // ))
         // get rest of questions
-        let questions = this.state.questions.filter(q => q.category !== guestName.category);
+        // let questions = this.state.questions.filter(q => q.category !== guestName.category);
           // console.log(questions)
         return (
           <div className="public-rsvp" style={styles.rsvpContainer}>
-              {this.renderCards(guestName, 0) /* render "Guest Name" question*/} 
-                  {questions.map((q, i) => /* render the remaining questions */
+              {/*this.renderCards(guestName, 0) /* render "Guest Name" question*/} 
+                  {this.state.questions.map((q, i) => /* render the remaining questions */
                       this.renderCards(q, i+1)
               )}
               <div style={styles.buttonDiv}>
