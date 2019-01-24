@@ -86,6 +86,8 @@ class MainContent extends Component {
     componentDidMount(){
         let oauth_id = cookies.get('userID')
 
+        
+
         /* if(oauth_id){
             axios.post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/loaduser`, {...userdata, oauth_id})
             .then(res => {
