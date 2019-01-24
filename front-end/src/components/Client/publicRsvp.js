@@ -87,7 +87,14 @@ class PublicRsvp extends Component {
     }
 
     inputHandler = e => {
-        this.setState({ [e.target.name]: e.target.value });
+      this.setState( prevState => {
+        prevState.questions[key].answer = e.target.value
+        const newQuestions = prevState.questions
+        return ({ 
+            [e.target.name]: e.target.value,
+            questions: newQuestions
+        });
+    })
     };
 
     // load user questions when component mounts
@@ -98,7 +105,7 @@ class PublicRsvp extends Component {
       console.log('wedding pathname', w_id)
       console.log('before everything')
 
-      this.doesWeddingExist(w_id)
+      // this.doesWeddingExist(w_id)
 
       this.getQuestions()
 
@@ -106,34 +113,37 @@ class PublicRsvp extends Component {
     }
 
     getQuestions = () => {
-
-        const question_url = 'localhost:8888/weddings/4'
+        const wed_id = 3;
+        const question_url = `http://localhost:8888/${wed_id}/allquestions`
         let questionVar;
 
         axios.get(question_url)
           .then(questions => {
             questionVar = questions 
+            console.log(questions)
+            this.setState({ questions: questionVar.res.data })
           }).catch(error => { console.log(error) })
           
         console.log(questionVar)
 
-        if (questionVar.data.length > 0) {
-            this.setState({ questions: questionVar.res.data })
-            console.log(this.state.questions)
-          } else {
-            console.log('Question array is empty')
-          }
+        // if (questionVar.data.length > 0) {
+        //     // this.setState({ questions: questionVar.res.data })
+        //     console.log(this.state.questions)
+        //   } else {
+        //     console.log('Question array is empty')
+        //   }
     }
 
     doesWeddingExist = (w_id) => {
         // const url = (process.env.REACT_APP_LOCAL_URL ? process.env.REACT_APP_LOCAL_URL : `https://vbeloved.now.sh`) + `/weddings/${w_id}`
         const url = `localhost:8888`
 
-        const postmanURL = 'localhost:8888/weddings/3'
+        const postmanURL = 'http://localhost:8888/weddings/3'
         let weddingExists;
         axios.get(postmanURL).then(weddings => {
+          console.log(weddings)
           weddingExists = weddings
-          this.setState({ weddingExists: true })
+          this.setState({ weddingExists: true , loading: false})
         }).catch(error => { console.log(error) })
 
         console.log('weddingData', weddingExists)
@@ -208,7 +218,7 @@ class PublicRsvp extends Component {
             return <Card style={styles.card} key={i}>
             <CardContent style={styles.topDiv}>
                 {q.category}
-                <Close onClick={() => this.deleteQuestion(q.id, i)} color="disabled" style={styles.closeIcon}/>
+
             </CardContent>
             <CardContent>
                 <FormControl component="fieldset">
@@ -225,7 +235,7 @@ class PublicRsvp extends Component {
             return <Card style={styles.card} key={i}>
                 <CardContent style={styles.topDiv}>
                     {q.category}
-                    <Close onClick={() => this.deleteQuestion(q.id, i)} color="disabled" style={styles.closeIcon}/>
+
                 </CardContent>
                 <CardContent>
                     {q.question}
@@ -248,14 +258,19 @@ class PublicRsvp extends Component {
     render() {
       // find "Guest Name" questions
 
-
-
-      if (!this.state.weddingExists) {
+      if (this.state.loading) {
         return (
-          <div className="loading-rsvp">
+          <div className="loading-rsvp" style={styles.rsvpContainer}>
             <h1>loading</h1> 
           </div>
         )
+      } else if (!this.state.weddingExists) {
+        return (
+          <div className="wedding-not-exists" style={styles.rsvpContainer}>
+            <h1>This wedding is not present in our database.</h1> 
+            <p>If you would like to orginize a wedding please login</p>
+          </div>
+        ) 
       } else {
 
         let guestName = this.state.questions.find((q, i) => (
@@ -265,14 +280,14 @@ class PublicRsvp extends Component {
         let questions = this.state.questions.filter(q => q.category !== guestName.category);
           // console.log(questions)
         return (
-          <div style={styles.rsvpContainer}>
+          <div className="public-rsvp" style={styles.rsvpContainer}>
               {this.renderCards(guestName) /* render "Guest Name" question*/} 
                   {questions.map((q, i) => /* render the remaining questions */
                       this.renderCards(q, i)
               )}
               <div style={styles.buttonDiv}>
                   <Button variant="outlined" onClick={this.handleOpen} style={styles.button}>Add Question</Button>
-                  <Button variant="outlined" onClick={this.saveQuestions} style={styles.button}>Save</Button>
+                  <Button variant="outlined" onClick={this.saveQuestions} style={styles.button}>submit</Button>
               </div>
               <Modal
                   open={this.state.modalOpen}
