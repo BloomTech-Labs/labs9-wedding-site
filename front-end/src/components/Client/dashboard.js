@@ -47,10 +47,10 @@ const styles = {
         height: '30%',
     },
     buttonBottom: {
-        width: '23%',
+        width: '20%',
         minWidth: '200px',
         height: '100px',
-        margin: '15px 10px'
+        margin: '15px 5px'
     },
     dropZone: {
         width: '60%',
@@ -77,7 +77,12 @@ class Dashboard extends Component {
             modalOpen: false,
             userLoaded: false,
             registryLink: "",
-            displayName: ""
+            displayName: "",
+            registry: [
+                {link: "a", name: "amazon"},
+                {link: "b", name: "target"},
+                {link: "e", name: "williams-sonoma"},
+            ]
         }
 
         this.chartData = {
@@ -211,12 +216,11 @@ class Dashboard extends Component {
                         <Card className="Registry" style={styles.cardBottom}>
                             Registry
                             <CardContent>
-                                <Button variant="outlined" style={styles.buttonBottom} href="https://www.amazon.com/wedding/home" target="_blank">
-                                    Amazon
-                                </Button>
-                                <Button variant="outlined" style={styles.buttonBottom} href="https://www.target.com/gift-registry/wedding-registry" target="_blank">
-                                    Target
-                                </Button>
+                                {this.state.registry.map((r, i) => {
+                                    <Button key={i} variant="outlined" style={styles.buttonBottom} href={r.link} target="_blank">
+                                        {r.name}
+                                    </Button>
+                                })}
                                 <Button variant="outlined" style={styles.buttonBottom} onClick={this.handleOpen}>
                                     <Add />
                                     Add Registry
