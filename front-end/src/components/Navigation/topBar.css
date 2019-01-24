@@ -1,13 +1,13 @@
 @font-face {
-    font-family: 'Snell Bold'
+    font-family: 'Snell Bold';
 }
 .overall{
     height: 90px;
     width: 100%;
-    background-color:white;
+    background-color:none;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     /* border-bottom: 1px solid grey; */
     position:fixed;
     z-index: 1000;
@@ -30,6 +30,8 @@
 
 .centerNav {
     margin: -1.5% 5% 0% 5%;
+    position: absolute;
+    left:40%;
 }
 
 .leftNav {
@@ -37,12 +39,18 @@
     flex-direction: row;
     align-self: center;
     align-content: center;
+    position: absolute;
+    right:70%;
+    font-weight: 600;
 }
 
 .rightNav {
     display: flex;
     flex-direction: row;
     align-self: center;
+    position:absolute;
+    left:80%;
+    font-weight: 600;
 }
 
 @media (max-width: 500px) {
