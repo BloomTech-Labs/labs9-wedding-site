@@ -90,11 +90,23 @@ class PublicRsvp extends Component {
 
     // load user questions when component mounts
     componentDidMount() {
+
         const { pathname } = this.props.location;
         const w_id = pathname.substr(pathname.lastIndexOf('/') + 1);
-        console.log(w_id)
+        console.log('wedding id', w_id)
+
+        const url = (process.env.REACT_APP_LOCAL_URL ? process.env.REACT_APP_LOCAL_URL : `https://vbeloved.now.sh`) + `/${w_id}/allquestions`
+        
+
+        let theWeddingExists;
+        this.doesWeddingExist(w_id).then(wedding => {
+          theWeddingExists = wedding;
+          console.log('theWeddingExists in promise', theWeddingExists)
+        }).catch(error => console.log(error))
+        console.log('theWeddingExists', theWeddingExists)
+
         axios
-       .get(`https://vbeloved.now.sh/${w_id}/allquestions`)
+       .get(url)
        .then(res => {
                console.log(this.state.questions)
            if (res.data.length > 0) {
@@ -105,6 +117,17 @@ class PublicRsvp extends Component {
        .catch(err => {
            console.log(err)
        })
+    }
+
+    doesWeddingExist = async (w_id) => {
+      try {
+
+        const weddingExists = await axios.get(`/wedding/${w_id}`)
+        console.log('weddingData', weddingExists)
+        return weddingExists;
+      } catch (error) {
+        console.log('doesWeddingExist', error)
+      }
     }
 
     // adds a question to the default question array
