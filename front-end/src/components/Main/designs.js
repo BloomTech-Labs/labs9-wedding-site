@@ -4,19 +4,23 @@ import Lightbox from 'react-images';
 import styled from 'styled-components';
 
 const DesignsContainer = styled.div`
-margin: auto;
-margin-top: 200px;
-margin-bottom: 80px;
+/* margin: auto; */
+/* margin-top: 200px;
+margin-bottom: 80px; */
 background-color: white;
-width: 87.4%;
+width: 200%;
 display:flex;
-justify-content: space-between;
+flex-wrap:nowrap;
+height: 1700px;
+margin:0;
+padding-top:0px;
+/* justify-content: space-between; */
 `
 
 const photos = [
-    { src: 'https://cdn.freshdesignweb.com/wp-content/uploads/glanz-html-wedding-template.jpg', width: 4 },
-    { src: 'https://cdn.freshdesignweb.com/wp-content/uploads/belle-responsive-wedding-template.jpg', width: 4 },
-    { src: 'https://cdn.freshdesignweb.com/wp-content/uploads/site/newlyweds-html-wedding-template.jpg', width: 4 },
+    { src: 'https://cdn.freshdesignweb.com/wp-content/uploads/glanz-html-wedding-template.jpg'},
+    { src: 'https://cdn.freshdesignweb.com/wp-content/uploads/belle-responsive-wedding-template.jpg'},
+    { src: 'https://cdn.freshdesignweb.com/wp-content/uploads/site/newlyweds-html-wedding-template.jpg'},
 ];
 
 
