@@ -8,6 +8,7 @@ import Design from './designs';
 import Prices from './pricing';
 import Signup from './signup';
 import Login from './login';
+import PublicRsvp from '../Client/publicRsvp';
 
 
 //these are client views after login
@@ -107,6 +108,7 @@ class MainContent extends Component {
                    <Route path='/pricing' component={Prices} />
                    <Route path='/signup' render={props => <Signup {...props} toggleLoggedIn={this.toggleLoggedIn}/>} />
                    <Route path='/login' component={Login} />
+                   <Route path={`/rsvp`} render={props => <PublicRsvp {...props} state={this.state}/> }/>
                    {/* <Route path="/vb" render={props => <UserAccess {...props} />} /> */}
                     <Route path='/vb/dashboard'  render={props => < Dashboard {...props} login={this.login} setUser={this.setUser}/>} />
                     <Route path='/vb/payment'  render={props => < Payment {...props} />} />

@@ -549,4 +549,6 @@ stripe.charges.retrieve("ch_1DswKX2eZvKYlo2CYqqd3tgH", {
     api_key: "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
   });
 
+server.use('/weddings', require('./weddingId'))
+
 module.exports = server; 
