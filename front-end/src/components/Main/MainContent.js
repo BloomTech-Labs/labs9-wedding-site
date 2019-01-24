@@ -17,6 +17,7 @@ import GuestList from '../Client/guestList';
 import Rsvp from '../Client/rsvp';
 import Dashboard from '../Client/dashboard';
 import UserAccess from '../UserAccess/UserAccess.js'
+import PublicInvite from '../Client/PublicInvite'
 
 //misc. components go here
 import StickyTop from '../Navigation/topBar'; //NavBar
@@ -50,7 +51,7 @@ class MainContent extends Component {
         this.setState({
             loggedIn: true
         })
-        cookies.remove('userID')
+        
 
     }
 
@@ -58,10 +59,11 @@ class MainContent extends Component {
        this.setState({
            loggedIn: false
        })
+       cookies.remove('userID')
    }
 
    setUser = (partner1, partner2, guests, couple) => {
-        
+        console.log('guests:', guests)
     this.setState({
            weddingID: partner1.wedding_id,
            first_name: partner1.first_name,
@@ -73,8 +75,18 @@ class MainContent extends Component {
         })
     }
 
+    setGuests = (guests) =>{
+
+        this.setState({
+            guests
+        })
+
+    }
+
     componentDidMount(){
         let oauth_id = cookies.get('userID')
+
+        
 
         /* if(oauth_id){
             axios.post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/loaduser`, {...userdata, oauth_id})
@@ -111,10 +123,18 @@ class MainContent extends Component {
                     <Route path='/vb/dashboard'  render={props => < Dashboard {...props} login={this.login} setUser={this.setUser}/>} />
                     <Route path='/vb/payment'  render={props => < Payment {...props} />} />
                     <Route path='/vb/settings'  render={props => < Settings {...props} />} />
-                    <Route path='/vb/guestlist'  render={props => < GuestList {...props} login={this.login} guests={this.state.guests} weddingID={this.state.weddingID} couple={this.state.couple} setUser={this.setUser} />} />
+                    <Route path='/vb/guestlist'  render={props => < GuestList {...props} 
+                                                                              login={this.login} 
+                                                                              guests={this.state.guests} 
+                                                                              wedding_id={this.state.weddingID} 
+                                                                              couple={this.state.couple} 
+                                                                              setUser={this.setUser}
+                                                                              setGuests={this.setGuests} />} />
                     <Route path='/vb/rsvp'  render={props => < Rsvp {...props} />}/>
                     <Route path='/vb/billing' component={Payment} />
-
+                    <Route path=':id/invite/:name' render={props => < PublicInvite {...props} 
+                                                                          coupleData={this.state}
+                                                                          setUser={this.setUser} />} />
 
                </Switch>
                </div>

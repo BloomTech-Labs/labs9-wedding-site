@@ -13,6 +13,7 @@ const multer = require('multer');
 const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
 const fs = require('fs');
 const parse = require('csv-parse');
+const cookieParser = require('cookie-parser');
 
 require('dotenv').config();
 
@@ -40,6 +41,7 @@ server.use(cors(corsOptions));
 //server.use('/sms', sendSMS); //endpoint to send a text message
 
 //COOKIES
+server.use(cookieParser())
 server.use(cookieSession({
     maxAge: '1hr',
     secret: 'hello.dello'
@@ -101,7 +103,10 @@ server.get('/google/redirect', passport.authenticate('google'), (req, res) => {
     console.log('REDIRECT SUCCESS-PASSPORTREQ:', req._passport.session.user);
     
     
-            res.cookie('userID', req._passport.session.user.oauth_id);  
+    console.log('session:', req._passport.session.user.oauth_id)
+    req.session.token = 'EXPRESS' //testing if a token can be accessed on the front end
+    res.cookie('userID', req._passport.session.user.oauth_id, {httpOnly: false}); 
+
     res.redirect(`http://${ process.env.LOCAL_CLIENT || 'vbeloved.com'}/vb/dashboard`);
   
 })
