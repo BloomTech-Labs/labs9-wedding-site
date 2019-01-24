@@ -33,7 +33,7 @@ const upload = multer({ storage: storage });
 
 // restrict cors access to our netlify
 const corsOptions = {
-    origin: ["http://localhost:3000","https://www.vbeloved.com"]
+    origin: ["http://localhost:3000","https://www.vbeloved.com", "http://www.vbeloved.com"]
   };
 
 server.use(express.json());
@@ -43,6 +43,7 @@ server.use(cors(corsOptions));
 //COOKIES
 server.use(cookieParser())
 server.use(cookieSession({
+    domain: 'https://www.vbeloved.com',
     maxAge: '1hr',
     secret: 'hello.dello'
 }))
@@ -104,11 +105,13 @@ server.get('/google/redirect', passport.authenticate('google'), (req, res) => {
     
     
     console.log('session:', req._passport.session.user.oauth_id)
-    req.session.token = 'EXPRESS' //testing if a token can be accessed on the front end
-    res.cookie('userID', req._passport.session.user.oauth_id, {httpOnly: false}); 
-
-    res.redirect(`http://${ process.env.LOCAL_CLIENT || 'vbeloved.com'}/vb/dashboard`);
-  
+    res.append('Set-Cookie', 'foo=bar;')
+    
+    req.session.user_id = req._passport.session.user.oauth_id;
+    console.log("REQSESSION:",req.session)
+    res.cookie('userID', `${req._passport.session.user.oauth_id}`)
+    res.redirect(`http://${ process.env.LOCAL_CLIENT || 'vbeloved.com' }/vb/dashboard`);
+    res.cookie('user', `${req._passport.session.user.oauth_id}`)
 })
 
 
