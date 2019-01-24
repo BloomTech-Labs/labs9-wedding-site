@@ -10,6 +10,7 @@ const getWedding = async (req, res) => {
     // get wedding data
     const weddingId = await db('weddings').where('id', id)
 
+    console.log(weddingId)
     // if wedding exists
     if(weddingId.length >= 1) {
       // send it out

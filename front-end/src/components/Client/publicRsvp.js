@@ -51,6 +51,8 @@ class PublicRsvp extends Component {
            category: '',
            question: '',
            modalOpen: false,
+           loading: true,
+           weddingExists: false,
            questions: [
             {
                 wedding_id: localStorage.getItem('weddingID'),
@@ -89,41 +91,57 @@ class PublicRsvp extends Component {
     };
 
     // load user questions when component mounts
-    componentDidMount() {
+    async componentDidMount() {
 
-        const { pathname } = this.props.location;
-        const w_id = pathname.substr(pathname.lastIndexOf('/') + 1);
-        console.log('wedding id', w_id)
+      const { pathname } = this.props.location;
+      const w_id = pathname.substr(pathname.lastIndexOf('/') + 1);
+      console.log('wedding pathname', w_id)
+      try {
 
-        const url = (process.env.REACT_APP_LOCAL_URL ? process.env.REACT_APP_LOCAL_URL : `https://vbeloved.now.sh`) + `/${w_id}/allquestions`
         
+        console.log('before everything')
+          const weddingData = await this.doesWeddingExist(w_id)
+          if(weddingData) {
+            this.setState({
+              weddingExists: true
+            })
+          }
+          console.log('theWeddingExists in promise', weddingData)
+        }
+        catch(error) {
+          console.log(error)
+        } 
 
-        let theWeddingExists;
-        this.doesWeddingExist(w_id).then(wedding => {
-          theWeddingExists = wedding;
-          console.log('theWeddingExists in promise', theWeddingExists)
-        }).catch(error => console.log(error))
-        console.log('theWeddingExists', theWeddingExists)
+        try {
 
-        axios
-       .get(url)
-       .then(res => {
-               console.log(this.state.questions)
-           if (res.data.length > 0) {
-               this.setState({ questions: res.data })
-               console.log(this.state.questions)
-           }
-       })
-       .catch(err => {
-           console.log(err)
-       })
+        const question_url = (process.env.REACT_APP_LOCAL_URL ? process.env.REACT_APP_LOCAL_URL : `https://vbeloved.now.sh`) + `/${w_id}/allquestions`
+          const questions = await axios
+            .get(question_url)
+            
+            console.log(questions)
+
+            if (questions.data.length > 0) {
+              this.setState({ questions: questions.res.data })
+              console.log(this.state.questions)
+            }
+          }
+          catch(err) {
+              console.log(err)
+          }
     }
 
     doesWeddingExist = async (w_id) => {
       try {
+        // const url = (process.env.REACT_APP_LOCAL_URL ? process.env.REACT_APP_LOCAL_URL : `https://vbeloved.now.sh`) + `/weddings/${w_id}`
+        const url = `localhost:8888`
 
-        const weddingExists = await axios.get(`/wedding/${w_id}`)
+        const postmanURL = 'localhost:8888/weddings/3'
+        const weddingExists = await axios.get(postmanURL)
         console.log('weddingData', weddingExists)
+        if (weddingExists) {
+          this.setState({weddingExits: true})
+
+        }
         return weddingExists;
       } catch (error) {
         console.log('doesWeddingExist', error)
@@ -232,34 +250,46 @@ class PublicRsvp extends Component {
 
     render() {
       // find "Guest Name" questions
-      let guestName = this.state.questions.find((q, i) => (
-        q.category === "Guest Name"
-      ))
-      // get rest of questions
-      let questions = this.state.questions.filter(q => q.category !== guestName.category);
-        console.log(questions)
-      return (
-        <div style={styles.rsvpContainer}>
-            {this.renderCards(guestName) /* render "Guest Name" question*/} 
-                {questions.map((q, i) => /* render the remaining questions */
-                    this.renderCards(q, i)
-            )}
-            <div style={styles.buttonDiv}>
-                <Button variant="outlined" onClick={this.handleOpen} style={styles.button}>Add Question</Button>
-                <Button variant="outlined" onClick={this.saveQuestions} style={styles.button}>Save</Button>
-            </div>
-            <Modal
-                open={this.state.modalOpen}
-                onClose={this.handleClose}>
-                <AddQuestion
-                category={this.state.category}
-                question={this.state.question}
-                addQuestion={this.addQuestion}
-                handleClose={this.handleClose}
-                handleInputChange={this.inputHandler}/>
-            </Modal>
-        </div>
-      );
+
+
+
+      if (!this.state.weddingExists) {
+        return (
+          <div className="loading-rsvp">
+            <h1>loading</h1> 
+          </div>
+        )
+      } else {
+
+        let guestName = this.state.questions.find((q, i) => (
+          q.category === "Guest Name"
+        ))
+        // get rest of questions
+        let questions = this.state.questions.filter(q => q.category !== guestName.category);
+          // console.log(questions)
+        return (
+          <div style={styles.rsvpContainer}>
+              {this.renderCards(guestName) /* render "Guest Name" question*/} 
+                  {questions.map((q, i) => /* render the remaining questions */
+                      this.renderCards(q, i)
+              )}
+              <div style={styles.buttonDiv}>
+                  <Button variant="outlined" onClick={this.handleOpen} style={styles.button}>Add Question</Button>
+                  <Button variant="outlined" onClick={this.saveQuestions} style={styles.button}>Save</Button>
+              </div>
+              <Modal
+                  open={this.state.modalOpen}
+                  onClose={this.handleClose}>
+                  <AddQuestion
+                  category={this.state.category}
+                  question={this.state.question}
+                  addQuestion={this.addQuestion}
+                  handleClose={this.handleClose}
+                  handleInputChange={this.inputHandler}/>
+              </Modal>
+          </div>
+        );
+      }
     }
   }
   
