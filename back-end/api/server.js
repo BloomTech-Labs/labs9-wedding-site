@@ -559,7 +559,7 @@ server.post('/upload', upload.single('file'), (req, res) => {
 
                 console.log(`Person${i}`,{first_name, last_name, email, address, related_spouse, wedding_id})
 
-                db.table('users').insert({first_name, last_name, email, address, wedding_id, guest: true})
+                db.table('user').insert({first_name, last_name, email, address, wedding_id, guest: true})
                 .then(guest_id => { console.log(`Users${i}ID`, guest_id[0])
                     db.table('guests')
                       .insert({guest_id: guest_id[0], related_spouse})

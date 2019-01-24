@@ -121,7 +121,7 @@ class GuestList extends Component {
         if(oauth_id){
             axios.post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/loaduser`, {oauth_id})
             .then(res => {
-                console.log(this.props.guests)
+                console.log(res)
                 this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ])
                 this.props.login()
                 this.setState({
