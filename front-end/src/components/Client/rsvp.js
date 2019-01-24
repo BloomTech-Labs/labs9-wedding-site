@@ -162,7 +162,7 @@ class Rsvp extends Component {
                 <TextField fullWidth={true} label="Last Name"></TextField>
             </CardContent>
             </Card>
-        } else if (q.multiple_choice === 1) {
+        } else if (q.multiple_choice === 1 || q.multiple_choice === true) {
             return <Card style={styles.card} key={i}>
             <CardContent style={styles.topDiv}>
                 {q.category}

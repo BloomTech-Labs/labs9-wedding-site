@@ -14,13 +14,13 @@ const LandingButtonsExp = () => {
             </Link>
           </li>
           <li>
-            <Link to='/designs'>
-             Designs
-            </Link>
+          <Link to='/pricing'>
+             Pricing
+          </Link>
           </li>
           <li>
-            <Link to='/pricing'>
-             Pricing
+            <Link to='/designs'>
+             Designs
             </Link>
           </li>
           </div>
