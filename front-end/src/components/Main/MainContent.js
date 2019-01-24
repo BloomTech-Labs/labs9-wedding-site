@@ -17,6 +17,7 @@ import GuestList from '../Client/guestList';
 import Rsvp from '../Client/rsvp';
 import Dashboard from '../Client/dashboard';
 import UserAccess from '../UserAccess/UserAccess.js'
+import PublicInvite from '../Client/PublicInvite'
 
 //misc. components go here
 import StickyTop from '../Navigation/topBar'; //NavBar
@@ -128,7 +129,9 @@ class MainContent extends Component {
                                                                               setGuests={this.setGuests} />} />
                     <Route path='/vb/rsvp'  render={props => < Rsvp {...props} />}/>
                     <Route path='/vb/billing' component={Payment} />
-
+                    <Route path=':id/invite/:name' render={props => < PublicInvite {...props} 
+                                                                          coupleData={this.state}
+                                                                          setUser={this.setUser} />} />
 
                </Switch>
                </div>

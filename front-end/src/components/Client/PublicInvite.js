@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import MainContent from './components/Main/MainContent';
-import { withRouter } from 'react-router';
+import MainContent from './PublicInvite.css';
+
 
 
 class PublicInvite extends Component {
@@ -10,7 +10,7 @@ class PublicInvite extends Component {
   render() {
     return (
       <div>
-        <MainContent {...this.props}/>
+              
       </div>
     );
   }
