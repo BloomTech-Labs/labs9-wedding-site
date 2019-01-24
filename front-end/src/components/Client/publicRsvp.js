@@ -86,7 +86,7 @@ class PublicRsvp extends Component {
         }
     }
 
-    inputHandler = e => {
+    inputHandler = (e, key) => {
       this.setState( prevState => {
         prevState.questions[key].answer = e.target.value
         const newQuestions = prevState.questions
@@ -155,51 +155,7 @@ class PublicRsvp extends Component {
 
     }
 
-    // adds a question to the default question array
-    addQuestion = () => {
-        let newQuestion = {
-            wedding_id: localStorage.getItem('weddingID'),
-            category: this.state.category,
-            multiple_choice: false,
-            question: this.state.question,
-            answer: ''
-        }
-        let arrCopy = this.state.questions.slice();
-        arrCopy.push(newQuestion);
-        this.setState({ questions: arrCopy });
-        this.handleClose();
-        //console.log(this.state.questions)
-    };
 
-    // delete a question
-    deleteQuestion = (q_id, i) => {
-        if (q_id) {
-            axios
-            .delete(`https://vbeloved.now.sh/${q_id}/deletequestion`)
-            .then(res => {
-                console.log(res)
-                //this.setState({ questions: res.data })
-                //need to update server.delete to return questions
-            })
-            .catch(err => {
-                console.log(err)
-            })
-        } else {
-            let arrCopy = this.state.questions.slice();
-            arrCopy.splice(i, 1);
-            this.setState({ questions: arrCopy });
-        }
-    }
-
-    // save all the questions to the database
-    saveQuestions = () => {
-        axios
-        .post('https://vbeloved.now.sh/questions', {questions: this.state.questions})
-        .then(res => {
-            console.log(res);
-        })
-        .catch(err => console.log(err));
-    };
 
     // function to conditionally render cards based on the type of card
     renderCards = (q, i) => {
@@ -210,7 +166,9 @@ class PublicRsvp extends Component {
             </CardContent>
             <CardContent>
                 {q.question}
-                <TextField fullWidth={true} label="First Name"></TextField>
+                <TextField fullWidth={true} label="First Name" onChange={e => {
+                  this.inputHandler(e, i)
+                }}></TextField>
                 <TextField fullWidth={true} label="Last Name"></TextField>
             </CardContent>
             </Card>
@@ -281,9 +239,9 @@ class PublicRsvp extends Component {
           // console.log(questions)
         return (
           <div className="public-rsvp" style={styles.rsvpContainer}>
-              {this.renderCards(guestName) /* render "Guest Name" question*/} 
+              {this.renderCards(guestName, 0) /* render "Guest Name" question*/} 
                   {questions.map((q, i) => /* render the remaining questions */
-                      this.renderCards(q, i)
+                      this.renderCards(q, i+1)
               )}
               <div style={styles.buttonDiv}>
                   <Button variant="outlined" onClick={this.handleOpen} style={styles.button}>Add Question</Button>

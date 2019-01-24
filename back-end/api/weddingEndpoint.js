@@ -4,6 +4,8 @@ const KnexConfig = require('../knexfile');
 const db = knex(KnexConfig.testing);
 const router = express()
 
+
+
 const getWedding = async (req, res) => {
   try {
     const { id } = req.params

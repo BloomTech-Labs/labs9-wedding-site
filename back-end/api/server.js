@@ -496,9 +496,24 @@ server.post('/questions', (req, res)=>{
 server.get('/:id/allquestions', (req,res)=>{
     let { id } = req.params;
 
-    db.table('questions').where({wedding_id: id}).then(response => res.json(response)).catch(err =>{
-        res.json(err)
-    })
+    console.log(id)
+    db('questions')
+        .where({wedding_id: id})
+        .then(response => {
+            console.log(response)
+            res.json(response)
+        }).catch(err => {
+            res.json(err)
+        })
+})
+
+server.post('/answer', (req, res) => {
+    let { id } = req.params;
+    console.log(id)
+    const { answers } = req.body
+    console.log(req.body)
+    db('users').where('email', req.body.email)
+    db('answers').insert()
 })
 
 //A FUNCTION TO DELETE QUESTIONS OF A USER::LINE 393
