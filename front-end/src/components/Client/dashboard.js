@@ -217,11 +217,13 @@ class Dashboard extends Component {
             <Card className="Registry" style={styles.cardBottom}>
                 Registry
                 <CardContent>
-                    {/* {this.state.registry.map((r, i) => {
-                        <Button key={i} variant="outlined" style={styles.buttonBottom} href={r.link} target="_blank">
-                            {r.name}
-                        </Button>
-                    })} */}
+                    {this.state.registry.map((r, i) => {
+                        return(
+                            <Button key={i} variant="outlined" style={styles.buttonBottom} href={r.link} target="_blank">
+                                {r.name}
+                            </Button>
+                        )
+                    })}
                     <Button variant="outlined" style={styles.buttonBottom} onClick={this.handleOpen}>
                         <Add />
                         Add Registry
