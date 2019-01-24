@@ -512,12 +512,47 @@ server.get('/:id/allquestions', (req,res)=>{
 })
 
 server.post('/answer', (req, res) => {
-    let { id } = req.params;
-    console.log(id)
-    const { answers } = req.body
+    // let { id } = req.params;
+    // console.log(id)
+    let { guestObj, answers, wedding_id } = req.body
     console.log(req.body)
-    db('users').where('email', req.body.email)
-    db('answers').insert()
+    let message = ''
+    db('users').where('email', guestObj.email).then(user => {
+        console.log(user)
+        // if users does not exists in database
+        if (user.length < 1 || user[0].email !== guestObj.email) {
+            // add the user
+            db('users').insert(guestObj).then(success => {
+                message = 'You have been added to the rsvp list'
+                console.log('success', success)
+                guestObj = Object.assign({}, guestObj, {guest_id: success[0]})
+                console.log('guestObj', guestObj)
+                user = Object.assign(guestObj, {id: success[0]})
+                console.log('user', user)
+            }).catch(error => {
+                console.log(error)
+                message = 'can not add user'
+                res.status(500).json(error)
+             } )
+        }
+        console.log('user.id', user)
+        const newAnswers = answers.map(answer => Object.assign( answer, {"guest_id": user[0]['id'] } )  )
+        console.log(newAnswers )
+
+        db('answers').insert(newAnswers).then(success => {
+            res.status(200).json({success, message})
+        }).catch(error => {
+            console.log(error)
+            message = 'can not add answer'
+            res.status(500).json({error, message})
+        } )
+    })
+    .catch(error => {
+        message = 'can not find user'
+        res.status(500).json({error: error, message: message})
+        console.log(error)
+    })
+    // db('answers').insert()
 })
 
 //A FUNCTION TO DELETE QUESTIONS OF A USER::LINE 393
