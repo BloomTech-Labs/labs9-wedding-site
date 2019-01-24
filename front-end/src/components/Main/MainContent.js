@@ -103,8 +103,8 @@ class MainContent extends Component {
                 <Switch>
 
                    <Route path='/' exact render={props => this.state.loggedIn ? <Redirect to="/vb/dashboard"/> : <LandingPage {...props} />} />
-                   <Route path='/designs' component={Design} />
-                   <Route path='/pricing' component={Prices} />
+                   {/* <Route path='/designs' component={Design} />
+                   <Route path='/pricing' component={Prices} /> */}
                    <Route path='/signup' render={props => <Signup {...props} toggleLoggedIn={this.toggleLoggedIn}/>} />
                    <Route path='/login' component={Login} />
                    {/* <Route path="/vb" render={props => <UserAccess {...props} />} /> */}
