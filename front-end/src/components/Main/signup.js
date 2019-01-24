@@ -91,7 +91,7 @@ registerUser = () =>{
 const {first_name, last_name, p_firstname, p_lastname, event_date, event_address} = this.state
 
 cookies.set('USERDATA', {first_name: this.state.first_name, last_name, p_firstname, p_lastname, event_date, event_address}, {maxAge: 600} )
-
+cookies.set('userID', '??')
 
 
 

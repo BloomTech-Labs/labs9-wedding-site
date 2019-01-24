@@ -40,11 +40,17 @@ const styles = {
         // right: '0px',
         // top: '25px',
     },
+    buttonTop: {
+        display: 'block',
+        margin: '10% auto',
+        width: '50%',
+        height: '30%',
+    },
     buttonBottom: {
-        width: '20%',
+        width: '23%',
         minWidth: '200px',
         height: '100px',
-        margin: '15px 5px'
+        margin: '15px 10px'
     },
     dropZone: {
         width: '60%',
@@ -71,12 +77,7 @@ class Dashboard extends Component {
             modalOpen: false,
             userLoaded: false,
             registryLink: "",
-            displayName: "",
-            registry: [
-                {link: "a", name: "amazon"},
-                {link: "b", name: "target"},
-                {link: "e", name: "williams-sonoma"},
-            ]
+            displayName: ""
         }
 
         this.chartData = {
@@ -185,34 +186,55 @@ class Dashboard extends Component {
                                 <p>Wedding Reception Hall<br />San Diego, CA</p>
                             </div>
                         </div>
-
-                <Card style={styles.cardBottom}>
-                    Registry
-                    <CardContent>
-                        {this.state.registry.map((r, i) => 
-                            <Button key={i} variant="outlined" style={styles.buttonBottom} href={r.link} target="_blank">
-                                {r.name}
-                            </Button>
-                        )}
-                        <Button variant="outlined" style={styles.buttonBottom} onClick={this.handleOpen}>
-                            <Add/>
-                            Add Registry
-                        </Button>
-                    </CardContent>
-                </Card>
-                <Modal
-                    open={this.state.modalOpen}
-                    onClose={this.handleClose}>
-                    <AddRegistry
-                    addRegistry={this.addRegistry}
-                    handleClose={this.handleClose}
-                    handleInputChange={this.inputHandler}/>
-                </Modal>
-            </div>    
-            }
-        </div>
-      );
+                        <div className="cardDivTop" style={styles.cardDivTop}>
+                            <Card className="cardTopLeft" style={styles.cardTopLeft}>
+                                Guest List
+                                <ReactDropzone
+                                    accept=".csv"
+                                    onDrop={this.handleonDrop}>
+                                    {({ getRootProps, getInputProps }) => (
+                                        <div {...getRootProps()} style={styles.dropZone}>
+                                            <input {...getInputProps()} />
+                                            Drag and drop files or click here to import CSV
+                                        </div>
+                                    )}
+                                </ReactDropzone>
+                            </Card>
+                            <Card className="cardTopRight" style={styles.cardTopRight}>
+                                RSVP
+                                <Pie data={this.chartData}
+                                    style={styles.pieChart}
+                                    options={{ maintainAspectRatio: false }}
+                                />
+                            </Card>
+                        </div>
+                        <Card className="Registry" style={styles.cardBottom}>
+                            Registry
+                            <CardContent>
+                                <Button variant="outlined" style={styles.buttonBottom} href="https://www.amazon.com/wedding/home" target="_blank">
+                                    Amazon
+                                </Button>
+                                <Button variant="outlined" style={styles.buttonBottom} href="https://www.target.com/gift-registry/wedding-registry" target="_blank">
+                                    Target
+                                </Button>
+                                <Button variant="outlined" style={styles.buttonBottom} onClick={this.handleOpen}>
+                                    <Add />
+                                    Add Registry
+                                </Button>
+                            </CardContent>
+                        </Card>
+                        <Modal
+                            open={this.state.modalOpen}
+                            onClose={this.handleClose}>
+                            <AddRegistry
+                                addRegistry={this.addRegistry}
+                                handleClose={this.handleClose}
+                                handleInputChange={this.inputHandler} />
+                        </Modal>
+                    </div>
+                }
+            </div>
+        );
     }
 }
-
 export default Dashboard;
