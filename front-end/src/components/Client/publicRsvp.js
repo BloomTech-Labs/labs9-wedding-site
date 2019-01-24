@@ -91,61 +91,58 @@ class PublicRsvp extends Component {
     };
 
     // load user questions when component mounts
-    async componentDidMount() {
+    componentDidMount() {
 
       const { pathname } = this.props.location;
       const w_id = pathname.substr(pathname.lastIndexOf('/') + 1);
       console.log('wedding pathname', w_id)
-      try {
+      console.log('before everything')
 
-        
-        console.log('before everything')
-          const weddingData = await this.doesWeddingExist(w_id)
-          if(weddingData) {
-            this.setState({
-              weddingExists: true
-            })
-          }
-          console.log('theWeddingExists in promise', weddingData)
-        }
-        catch(error) {
-          console.log(error)
-        } 
+      this.doesWeddingExist(w_id)
 
-        try {
+      this.getQuestions()
 
-        const question_url = (process.env.REACT_APP_LOCAL_URL ? process.env.REACT_APP_LOCAL_URL : `https://vbeloved.now.sh`) + `/${w_id}/allquestions`
-          const questions = await axios
-            .get(question_url)
-            
-            console.log(questions)
+        // const question_url = (process.env.REACT_APP_LOCAL_URL ? process.env.REACT_APP_LOCAL_URL : `https://vbeloved.now.sh`) + `/${w_id}/allquestions`
+    }
 
-            if (questions.data.length > 0) {
-              this.setState({ questions: questions.res.data })
-              console.log(this.state.questions)
-            }
-          }
-          catch(err) {
-              console.log(err)
+    getQuestions = () => {
+
+        const question_url = 'localhost:8888/weddings/4'
+        let questionVar;
+
+        axios.get(question_url)
+          .then(questions => {
+            questionVar = questions 
+          }).catch(error => { console.log(error) })
+          
+        console.log(questionVar)
+
+        if (questionVar.data.length > 0) {
+            this.setState({ questions: questionVar.res.data })
+            console.log(this.state.questions)
+          } else {
+            console.log('Question array is empty')
           }
     }
 
-    doesWeddingExist = async (w_id) => {
-      try {
+    doesWeddingExist = (w_id) => {
         // const url = (process.env.REACT_APP_LOCAL_URL ? process.env.REACT_APP_LOCAL_URL : `https://vbeloved.now.sh`) + `/weddings/${w_id}`
         const url = `localhost:8888`
 
         const postmanURL = 'localhost:8888/weddings/3'
-        const weddingExists = await axios.get(postmanURL)
+        let weddingExists;
+        axios.get(postmanURL).then(weddings => {
+          weddingExists = weddings
+          this.setState({ weddingExists: true })
+        }).catch(error => { console.log(error) })
+
         console.log('weddingData', weddingExists)
         if (weddingExists) {
-          this.setState({weddingExits: true})
-
+          console.log('Wedding exists!')
+        } else {
+          console.log('doesWeddingExist', weddingExists)
         }
-        return weddingExists;
-      } catch (error) {
-        console.log('doesWeddingExist', error)
-      }
+
     }
 
     // adds a question to the default question array
