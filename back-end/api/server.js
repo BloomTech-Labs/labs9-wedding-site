@@ -33,7 +33,7 @@ const upload = multer({ storage: storage });
 
 // restrict cors access to our netlify
 const corsOptions = {
-    origin: ["http://localhost:3000","https://www.vbeloved.com"]
+    origin: ["http://localhost:3000","https://www.vbeloved.com", "http://www.vbeloved.com"]
   };
 
 server.use(express.json());
@@ -43,6 +43,7 @@ server.use('/sms', sendSMS); //endpoint to send a text message
 //COOKIES
 server.use(cookieParser())
 server.use(cookieSession({
+    domain: 'https://www.vbeloved.com',
     maxAge: '1hr',
     secret: 'hello.dello'
 }))
@@ -104,11 +105,13 @@ server.get('/google/redirect', passport.authenticate('google'), (req, res) => {
     
     
     console.log('session:', req._passport.session.user.oauth_id)
-    req.session.token = 'EXPRESS' //testing if a token can be accessed on the front end
-    res.cookie('userID', req._passport.session.user.oauth_id, {httpOnly: false}); 
-
-    res.redirect(`http://${ process.env.LOCAL_CLIENT || 'vbeloved.com'}/vb/dashboard`);
-  
+    res.append('Set-Cookie', 'foo=bar;')
+    
+    req.session.user_id = req._passport.session.user.oauth_id;
+    console.log("REQSESSION:",req.session)
+    res.cookie('userID', `${req._passport.session.user.oauth_id}`)
+    res.redirect(`http://${ process.env.LOCAL_CLIENT || 'vbeloved.com' }/vb/dashboard`);
+    res.cookie('user', `${req._passport.session.user.oauth_id}`)
 })
 
 
@@ -576,7 +579,9 @@ server.delete('/:id/registry', (req, res) => {
 
 //A FUNCTION TO POST CSV FILES
 server.post('/upload', upload.single('file'), (req, res) => {
-    // console.log(req.file) // --> file info saved to req.file
+     // console.log(req.file) // --> file info saved to req.file
+     console.log("File:",req.file,"Body:", req.body)
+     let wedding_id = req.body.wedding_id;
     if (!req.file) {
         res.status(400).json({error: "No file received"});
     } else {
@@ -591,8 +596,28 @@ server.post('/upload', upload.single('file'), (req, res) => {
             })
             .on('end',function() {
             //do something with csvData
-            console.log("csvData", csvData);
+           // console.log("csvData", csvData);
+            for(let i = 1; i < csvData.length -1; i++){
+
+                let first_name = csvData[i][0];
+                let last_name = csvData[i][1]
+                let email = csvData[i][2]
+                let address = csvData[i][3]
+                let related_spouse = csvData[i][4]
+
+                console.log(`Person${i}`,{first_name, last_name, email, address, related_spouse, wedding_id})
+
+                db.table('users').insert({first_name, last_name, email, address, wedding_id, guest: true})
+                .then(guest_id => { console.log(`Users${i}ID`, guest_id[0])
+                    db.table('guests')
+                      .insert({guest_id: guest_id[0], related_spouse})
+                      .then(guestID => console.log(`Users${i}GuestID:`,guestID)).catch(err => console.log(err))
+                })
+                .catch(err => console.log(err))
+
+            }
             });
+            
 
         res.status(200).json({ message: "CSV successfully posted" });
     }
