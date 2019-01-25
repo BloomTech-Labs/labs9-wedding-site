@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from 'react-router';
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -6,11 +7,9 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import "./pricing.css";
 
 // import CardActions from '@material-ui/core/CardActions';
-import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 
 // import Button from '@material-ui/core/Button';
-import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
 import grey from "@material-ui/core/colors/grey";
 
@@ -46,6 +45,7 @@ const styles = {
   }
 };
 
+
 function Prices(props) {
   const { classes } = props;
   return (
@@ -68,17 +68,7 @@ function Prices(props) {
               <p>This is a short description</p>
               </div>
           </div>
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              Package 1
-            </Typography>
-            <Typography component="p">
-              Here is a brief description of what this package offers
-            </Typography>
-          </CardContent>
         </CardActionArea>
-        {/* <CardActions>
-                </CardActions> */}
       </Card>
       <Card className={classes.card}>
         <CardActionArea>
@@ -98,18 +88,7 @@ function Prices(props) {
               <p>This is a short description</p>
               </div>
           </div>
-
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              Package 2
-            </Typography>
-            <Typography component="p">
-              Here is a brief description of what this package offers
-            </Typography>
-          </CardContent>
         </CardActionArea>
-        {/* <CardActions>
-                </CardActions> */}
       </Card>
       <Card className={classes.card}>
         <CardActionArea>
@@ -129,17 +108,7 @@ function Prices(props) {
               <p>This is a short description</p>
               </div>
           </div>
-          {/* <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
-                            Package 3
-                  </Typography>
-                        <Typography component="p">
-                            Here is a brief description of what this package offers
-                  </Typography>
-                    </CardContent> */}
         </CardActionArea>
-        {/* <CardActions>
-                </CardActions> */}
       </Card>
     </PackageContainer>
   );

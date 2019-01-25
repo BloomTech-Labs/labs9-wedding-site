@@ -83,8 +83,9 @@ class GuestList extends Component {
         axios
             .post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/addguest`, {first_name, last_name, email, address, wedding_id, related_spouse})
             .then(res => {
+                this.props.setGuests(res.data)
                 this.setState({
-                    guests: res.data.guests,
+                    
                     first_name: '',
                     last_name: '',
                     email: '',
@@ -104,10 +105,10 @@ class GuestList extends Component {
         axios
             .post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/adddummyguest`, {wedding_id, couple: this.props.couple})
             .then(res => {
-                this.setState({
-                    guests: res.data.guests
+                    console.log(res.data)
+                    this.props.setGuests(res.data)
                     
-                })
+                
             })
             .catch(err => console.log(err))
 
@@ -120,7 +121,7 @@ class GuestList extends Component {
         if(oauth_id){
             axios.post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/loaduser`, {oauth_id})
             .then(res => {
-                console.log(res)
+                console.log(this.props.guests)
                 this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ])
                 this.props.login()
                 this.setState({
@@ -153,15 +154,15 @@ class GuestList extends Component {
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                {this.state.guests.map(guest => {
+                {this.props.guests.map(guest => {
                     return (
                     <TableRow key={guest.id}>
                         <TableCell align="right">{guest.first_name}</TableCell>
                         <TableCell align="right">{guest.last_name}</TableCell>
                         <TableCell align="right">{guest.email}</TableCell>
                         <TableCell align="right">{}</TableCell>
-                        <TableCell align="right">{}</TableCell>
-                        <TableCell align="right">{}</TableCell>
+                        <TableCell align="right">{guest.address}</TableCell>
+                        <TableCell align="right">{guest.related_spouse}</TableCell>
                     </TableRow>
                     );
                 })}
