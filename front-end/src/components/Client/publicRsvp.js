@@ -47,7 +47,9 @@ class PublicRsvp extends Component {
     constructor(props) {
         super(props);
         const { pathname } = props.location;
+        // get last part of url (wedding_id)
         const w_id = pathname.substr(pathname.lastIndexOf('/') + 1);
+
         this.state = {
            category: '',
            question: '',
@@ -91,16 +93,7 @@ class PublicRsvp extends Component {
             //   ]
     }
 
-    inputHandler = (e, key) => {
-      this.setState( prevState => {
-        prevState.questions[key].answer = e.target.value
-        // const newQuestions = prevState.questions
-        return ({ 
-            [e.target.name]: e.target.value,
-            // questions: newQuestions
-        });
-    })
-    };
+
 
     // load user questions when component mounts
     componentDidMount() {
@@ -147,9 +140,26 @@ class PublicRsvp extends Component {
         //   }
     }
 
-
-
-
+    // inputHandler = (e, key) => {
+    //     this.setState( prevState => {
+    //       prevState.questions[key].answer = e.target.value
+    //       // const newQuestions = prevState.questions
+    //       return ({ 
+    //           [e.target.name]: e.target.value,
+    //           // questions: newQuestions
+    //       });
+    //     })
+    //   };
+      handleChange = (name, key) => event => {
+        this.setState(prevState => {
+            
+            return ({ 
+                questions[key]: { 
+                    [name]: event.target.checked 
+                }
+            })
+        });
+    };
 
     // function to conditionally render cards based on the type of card
     renderCards = (q, i) => {
@@ -165,7 +175,7 @@ class PublicRsvp extends Component {
                   label="First Name" 
                   value={this.state.value}
                   onChange={e => {
-                  this.inputHandler(e, i)
+                    this.inputHandler(e, i)
                 }}></TextField>
                 <TextField fullWidth={true} label="Last Name"></TextField>
             </CardContent>
