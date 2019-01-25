@@ -95,9 +95,10 @@ class Rsvp extends Component {
         axios
        .get(`${serverURL}/${w_id}/allquestions`)
        .then(res => {
+               console.log(this.state.questions)
            if (res.data.length > 0) {
                this.setState({ questions: res.data })
-               //console.log(this.state.questions)
+               console.log(this.state.questions)
            }
        })
        .catch(err => {
@@ -206,10 +207,18 @@ class Rsvp extends Component {
 
 
     render() {
+      // find "Guest Name" questions
+      let guestName = this.state.questions.find((q, i) => (
+        q.category === "Guest Name"
+      ))
+      // get rest of questions
+      let questions = this.state.questions.filter(q => q.category !== guestName.category);
+    console.log(questions)
       return (
         <div style={styles.rsvpContainer}>
-            {this.state.questions.map((q, i) => 
-                this.renderCards(q, i)
+            {this.renderCards(guestName, 0) /* render "Guest Name" question*/} 
+                {questions.map((q, i) => /* render the remaining questions */
+                    this.renderCards(q, i+1)
             )}
             <div style={styles.buttonDiv}>
                 <Button variant="outlined" onClick={this.handleOpen} style={styles.button}>Add Question</Button>
@@ -230,4 +239,4 @@ class Rsvp extends Component {
     }
   }
   
-  export default Rsvp;
+export default Rsvp;
