@@ -63,7 +63,7 @@ class Design extends React.Component {
     render() {
         return (
             <DesignsContainer>
-                <Gallery photos={photos} onClick={this.openLightbox} />
+                <Gallery photos={photos} onClick={this.openLightbox} style={{height:800}}/>
                 <Lightbox images={photos}
                     onClose={this.closeLightbox}
                     onClickPrev={this.gotoPrevious}

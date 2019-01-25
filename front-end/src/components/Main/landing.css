@@ -25,13 +25,42 @@
   line-height: 1;
 }
 
-.containerLanding{
-  height:900px;
+.arrow{
+  position: absolute;
+  left:35%;
+  top:670px;
+  height:35px;
+  width:35px;
+}
+
+.arrow:hover{
+  opacity:.6;
+  cursor: pointer;
+  color:red;
+}
+/* .containerLanding{
+
 }
 
 .containerDesign{
-  height:1500px;
-  margin-top:50px;
+
+}
+
+.containerPricing{
+
+} */
+
+.checkoutdesigns{
+  position: absolute;
+  left:23%;
+  top:640px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.checkoutdesigns:hover{
+  opacity:.6;
+  cursor:pointer;
 }
 
 .hover{
@@ -51,17 +80,3 @@
   filter: brightness(150%);
 }
 
-/* .bg{
-  transition:0.3s;
-} */
-.bg:hover{
-  /* filter: brightness(65%); */
-  cursor: pointer;
-  opacity: .6;
-  font-weight: 800;
-  color:red;
-}
-
-/* .containerPricing{
-  height:800px
-} */
