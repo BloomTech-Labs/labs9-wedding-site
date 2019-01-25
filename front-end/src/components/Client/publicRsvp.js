@@ -67,30 +67,6 @@ class PublicRsvp extends Component {
               }
            ]
           }
-            //  questions: [
-
-            //   {
-            //       wedding_id: localStorage.getItem('weddingID'),
-            //       category: 'Attendance',
-            //       multiple_choice: true,
-            //       question: 'Will you be attending our wedding?',
-            //       answer: 'Attending,Not attending,Maybe'
-            //   },
-            //   {
-            //       wedding_id: localStorage.getItem('weddingID'),
-            //       category: 'Address',
-            //       multiple_choice: false,
-            //       question: 'What is your mailing address?',
-            //       answer: ''
-            //   },
-            //   {
-            //       wedding_id: localStorage.getItem('weddingID'),
-            //       category: 'Wedding Team',
-            //       multiple_choice: true,
-            //       question: 'Are you a friend or family of... ?',
-            //       answer: 'Bride,Groom,Both'
-            //   },
-            //   ]
     }
 
 
@@ -102,8 +78,6 @@ class PublicRsvp extends Component {
       const w_id = pathname.substr(pathname.lastIndexOf('/') + 1);
       console.log('wedding pathname', w_id)
       console.log('before everything')
-
-      // this.doesWeddingExist(w_id)
 
       this.getQuestions()
 
@@ -154,7 +128,7 @@ class PublicRsvp extends Component {
         this.setState(prevState => {
             
             // return ({ 
-            //     questions[key]: { 
+            //     prevState.questions[key]: { 
             //         [name]: event.target.checked 
             //     }
             // })
