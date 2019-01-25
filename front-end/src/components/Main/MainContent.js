@@ -90,7 +90,7 @@ class MainContent extends Component {
         
 
         /* if(oauth_id){
-            axios.post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/loaduser`, {...userdata, oauth_id})
+            axios.post(`${process.env.REACT_APP_LOCAL_URL}/loaduser`, {...userdata, oauth_id})
             .then(res => {
                 console.log(res)
                 this.props.toggleLoggedIn() //toggles the state of the user to loggedIn (in MainContent component)
