@@ -153,11 +153,11 @@ class PublicRsvp extends Component {
       handleChange = (name, key) => event => {
         this.setState(prevState => {
             
-            return ({ 
-                questions[key]: { 
-                    [name]: event.target.checked 
-                }
-            })
+            // return ({ 
+            //     questions[key]: { 
+            //         [name]: event.target.checked 
+            //     }
+            // })
         });
     };
 
