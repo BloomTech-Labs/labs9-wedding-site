@@ -483,7 +483,8 @@ server.post('/questions', (req, res)=>{
         db.table('questions').where({question: qData.question, wedding_id: qData.wedding_id})
         .then(res => {
             console.log("DBQuery",res)
-            if(!res.length){console.log('NoRes')
+            if(!res.length){
+                console.log('NoRes')
                 db.table('questions').insert(qData).then(res =>console.log(res)).catch(err => console.log(err))
             }
             else {
@@ -495,8 +496,6 @@ server.post('/questions', (req, res)=>{
     })
     
     res.status(200).json({message: 'Data Posted Successfully.'})
-
-
 })
 
 
@@ -504,9 +503,59 @@ server.post('/questions', (req, res)=>{
 server.get('/:id/allquestions', (req,res)=>{
     let { id } = req.params;
 
-    db.table('questions').where({wedding_id: id}).then(response => res.json(response)).catch(err =>{
-        res.json(err)
+    console.log(id)
+    db('questions')
+        .where({wedding_id: id})
+        .then(response => {
+            console.log(response)
+            res.json(response)
+        }).catch(err => {
+            res.json(err)
+        })
+})
+
+server.post('/answer', (req, res) => {
+    // let { id } = req.params;
+    // console.log(id)
+    let { guestObj, answers, wedding_id } = req.body
+    console.log(req.body)
+    let message = ''
+    db('users').where('email', guestObj.email).then(user => {
+        console.log(user)
+        // if users does not exists in database
+        if (user.length < 1 || user[0].email !== guestObj.email) {
+            // add the user
+            db('users').insert(guestObj).then(success => {
+                message = 'You have been added to the rsvp list'
+                console.log('success', success)
+                guestObj = Object.assign({}, guestObj, {guest_id: success[0]})
+                console.log('guestObj', guestObj)
+                user = Object.assign(guestObj, {id: success[0]})
+                console.log('user', user)
+            }).catch(error => {
+                console.log(error)
+                message = 'can not add user'
+                res.status(500).json(error)
+             } )
+        }
+        console.log('user.id', user)
+        const newAnswers = answers.map(answer => Object.assign( answer, {"guest_id": user[0]['id'] } )  )
+        console.log(newAnswers )
+
+        db('answers').insert(newAnswers).then(success => {
+            res.status(200).json({success, message})
+        }).catch(error => {
+            console.log(error)
+            message = 'can not add answer'
+            res.status(500).json({error, message})
+        } )
     })
+    .catch(error => {
+        message = 'can not find user'
+        res.status(500).json({error: error, message: message})
+        console.log(error)
+    })
+    // db('answers').insert()
 })
 
 //A FUNCTION TO DELETE QUESTIONS OF A USER::LINE 393
@@ -528,6 +577,54 @@ server.delete('/:questionID/deletequestion', async (req, res) => {
 
     
 })
+
+//A FUNCTION TO RETRIEVE REGISTRIES OF A USER
+server.get('/:id/registries', (req, res) => {
+    let { id } = req.params;
+
+    db.table('registry').where({wedding_id: id})
+        .then((registries) => {
+            res.status(200).json(registries);
+        })
+        .catch(err=>{
+            console.log(err)
+            res.status(500).json({message: "server error"})
+        })
+})
+
+//A FUNCTION TO POST REGISTRIES
+server.post('/registry', (req, res) => {
+    let { wedding_id, link, name } = req.body;
+    console.log("req.body", req.body);
+
+    db.table('registry').insert({ wedding_id, link, name })
+        .then(() => {
+            db.table('registry').where({wedding_id: wedding_id})
+           .then((registries) => {
+                res.status(200).json(registries);
+           })
+
+        })
+        .catch(err=>{
+            console.log(err)
+            res.status(500).json({message: "server error"})
+        })
+})
+
+//A FUNCTION TO DELETE REGISTRIES
+server.delete('/:id/registry', (req, res) => {
+    let { id } = req.params;
+
+    db.table('registry').where({id: id}).del()
+        .then(() => {
+            res.status(200).json({message: "registry deleted"});
+        })
+        .catch(err=>{
+            console.log(err)
+            res.status(500).json({message: "server error"})
+        })
+})
+
 
 //A FUNCTION TO POST CSV FILES
 server.post('/upload', upload.single('file'), (req, res) => {
@@ -578,5 +675,7 @@ server.post('/upload', upload.single('file'), (req, res) => {
 stripe.charges.retrieve("ch_1DswKX2eZvKYlo2CYqqd3tgH", {
     api_key: "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
   });
+
+server.use('/weddings', require('./weddingEndpoint'))
 
 module.exports = server; 
