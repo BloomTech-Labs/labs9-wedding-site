@@ -121,16 +121,22 @@ class PublicRsvp extends Component {
     //     })
     //   };
       handleChange = (name, key) => event => {
+
+        console.log(event)
+        name = name ? name : 'answer' 
         this.setState(prevState => {
             const newValue = event.target.value;
-            const answer = prevState[name][key].answer
-            prevState[name][key].answer = newValue
-            return (prevState)
+            // const answer = prevState['questions'][key][name]
+            // prevState['questions'][key][name] = newValue
+            console.log(prevState)
+            // return (prevState)
+            return ({ [name]: event.target.value })
         });
     };
 
     // function to conditionally render cards based on the type of card
     renderCards = (q, i) => {
+        console.log(this.state.questions[i])
         if (q.category === 'Guest Name') {
             return  <Card style={styles.card} key={i}>
             <CardContent>
@@ -143,12 +149,13 @@ class PublicRsvp extends Component {
                   label="First Name" 
                   value={this.state.questions[i]}
                   onChange={e => {
-                    this.handleChange('questions', i)
+                      console.log(e, e.target.value)
+                    this.handleChange(q/*false*/, i)(e)
                 }}  ></TextField>
                 <TextField fullWidth={true} label="Last Name"></TextField>
             </CardContent>
             </Card>
-        } else if (q.multiple_choice === 1) {
+        } else if (q.multiple_choice > 0) {
             return <Card style={styles.card} key={i}>
             <CardContent style={styles.topDiv}>
                 {q.category}
@@ -159,10 +166,10 @@ class PublicRsvp extends Component {
                 <FormLabel component="legend">{q.question}</FormLabel>
                 <RadioGroup>
                     {q.answer.split(",").map(option =>  
-                        <FormControlLabel value={option} control={<Radio />} label={option} 
-                        value={this.state.questions[i]}
+                        <FormControlLabel value={option} control={<Radio />} label={option}
                         onChange={e => {
-                            this.handleChange('questions', i)
+                      console.log(e, e.target.value)
+                            this.handleChange(q/*false*/, i)(e)
                         }}  
                     />)}
                 </RadioGroup>
@@ -178,9 +185,10 @@ class PublicRsvp extends Component {
                 <CardContent>
                     {q.question}
                     <TextField fullWidth={true}
-                      value={this.state.questions[i]}
+                      value={this.state.questions[i]['answer']}
                       onChange={e => {
-                        this.handleChange('questions', i)
+                      console.log(e, e.target.value)
+                        this.handleChange(q/*false*/, i)(e)
                       }}  
                     ></TextField>
                 </CardContent>
@@ -226,7 +234,7 @@ class PublicRsvp extends Component {
           <div className="public-rsvp" style={styles.rsvpContainer}>
               {/*this.renderCards(guestName, 0) /* render "Guest Name" question*/} 
                   {this.state.questions.map((q, i) => /* render the remaining questions */
-                      this.renderCards(q, i+1)
+                      this.renderCards(q, i)
               )}
               <div style={styles.buttonDiv}>
                   <Button variant="outlined" onClick={this.handleOpen} style={styles.button}>Add Question</Button>
