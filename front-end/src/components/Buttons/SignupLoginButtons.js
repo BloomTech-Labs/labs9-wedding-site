@@ -24,7 +24,7 @@ const SignupLogin = (props) => {
           </Fragment>
           : 
           <li>
-            <a href={`http://${process.env.REACT_APP_LOCAL_CLIENT || 'vbeloved.com'}`} onClick={props.logout}>
+            <a href={`${process.env.REACT_APP_LOCAL_CLIENT}`} onClick={props.logout}>
              Logout
              </a>
             

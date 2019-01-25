@@ -112,7 +112,7 @@ class PublicRsvp extends Component {
 
     getQuestions = () => {
         const wed_id = 3;
-        const question_url = `http://localhost:8888/${wed_id}/allquestions`
+        const question_url = `${process.env.REACT_APP_LOCAL_URL}/${wed_id}/allquestions`
         let questionVar;
 
         axios.get(question_url)
