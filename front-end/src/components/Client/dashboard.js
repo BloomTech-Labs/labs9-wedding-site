@@ -113,20 +113,31 @@ class Dashboard extends Component {
     };
 
     componentDidMount() {
-        let wedding_id = localStorage.getItem('weddingID');
         const userdata = cookies.get('USERDATA')
+        //const oauth_id = '117923096476841958425'
         const oauth_id = cookies.get('userID')
         console.log('userdata:', oauth_id)
         if(oauth_id){
             axios.post(`${serverURL}/loaduser`, {...userdata, oauth_id})
             .then(res => {
                 console.log(res)
+                //cookies.set('userID', '117923096476841958425')
+                localStorage.setItem('weddingID', res.data.couple[0].wedding_id)
                 this.props.login() //toggles the state of the user to loggedIn (in MainContent component)
                 this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ])
                 this.setState({
                    userLoaded: true 
                 })
-            }).catch(err => console.log(err))
+            })
+            .then(() => {
+                const w_id = localStorage.getItem('weddingID');
+                axios
+                .get(`${serverURL}/${w_id}/registries`)
+                .then(res => {
+                        this.setState({ registry: res.data })
+                })
+            })
+            .catch(err => console.log(err))
         } else {
             this.props.history.push('/signup')
         }
@@ -143,8 +154,8 @@ class Dashboard extends Component {
             })
             .then(res => {
                 console.log(res);
-                //this.setState({ registry: res.data })
-                //need to update server to return registry items
+                this.setState({ registry: res.data });
+                this.handleClose();
             })
             .catch(err => console.log(err));
     };

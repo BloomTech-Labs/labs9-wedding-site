@@ -526,6 +526,54 @@ server.delete('/:questionID/deletequestion', async (req, res) => {
     
 })
 
+//A FUNCTION TO RETRIEVE REGISTRIES OF A USER
+server.get('/:id/registries', (req, res) => {
+    let { id } = req.params;
+
+    db.table('registry').where({wedding_id: id})
+        .then((registries) => {
+            res.status(200).json(registries);
+        })
+        .catch(err=>{
+            console.log(err)
+            res.status(500).json({message: "server error"})
+        })
+})
+
+//A FUNCTION TO POST REGISTRIES
+server.post('/registry', (req, res) => {
+    let { wedding_id, link, name } = req.body;
+    console.log("req.body", req.body);
+
+    db.table('registry').insert({ wedding_id, link, name })
+        .then(() => {
+            db.table('registry').where({wedding_id: wedding_id})
+           .then((registries) => {
+                res.status(200).json(registries);
+           })
+
+        })
+        .catch(err=>{
+            console.log(err)
+            res.status(500).json({message: "server error"})
+        })
+})
+
+//A FUNCTION TO DELETE REGISTRIES
+server.delete('/:id/registry', (req, res) => {
+    let { id } = req.params;
+
+    db.table('registry').where({id: id}).del()
+        .then(() => {
+            res.status(200).json({message: "registry deleted"});
+        })
+        .catch(err=>{
+            console.log(err)
+            res.status(500).json({message: "server error"})
+        })
+})
+
+
 //A FUNCTION TO POST CSV FILES
 server.post('/upload', upload.single('file'), (req, res) => {
     // console.log(req.file) // --> file info saved to req.file
