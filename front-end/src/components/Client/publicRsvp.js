@@ -94,10 +94,10 @@ class PublicRsvp extends Component {
     inputHandler = (e, key) => {
       this.setState( prevState => {
         prevState.questions[key].answer = e.target.value
-        const newQuestions = prevState.questions
+        // const newQuestions = prevState.questions
         return ({ 
             [e.target.name]: e.target.value,
-            questions: newQuestions
+            // questions: newQuestions
         });
     })
     };
@@ -132,7 +132,8 @@ class PublicRsvp extends Component {
               console.log(newQuestions)
               return ({ 
               "questions": newQuestions,
-                weddingExists: false
+                weddingExists: true,
+                loading: false
               })})
           }).catch(error => { console.log(error) })
           
@@ -146,26 +147,7 @@ class PublicRsvp extends Component {
         //   }
     }
 
-    doesWeddingExist = (w_id) => {
-        // const url = (process.env.REACT_APP_LOCAL_URL ? process.env.REACT_APP_LOCAL_URL : `https://vbeloved.now.sh`) + `/weddings/${w_id}`
-        const url = `localhost:8888`
 
-        const postmanURL = 'http://localhost:8888/weddings/3'
-        let weddingExists;
-        axios.get(postmanURL).then(weddings => {
-          console.log(weddings)
-          weddingExists = weddings
-          this.setState({ weddingExists: true , loading: false})
-        }).catch(error => { console.log(error) })
-
-        console.log('weddingData', weddingExists)
-        if (weddingExists) {
-          console.log('Wedding exists!')
-        } else {
-          console.log('doesWeddingExist', weddingExists)
-        }
-
-    }
 
 
 
@@ -178,7 +160,11 @@ class PublicRsvp extends Component {
             </CardContent>
             <CardContent>
                 {q.question}
-                <TextField fullWidth={true} label="First Name" onChange={e => {
+                <TextField 
+                  fullWidth={true} 
+                  label="First Name" 
+                  value={this.state.value}
+                  onChange={e => {
                   this.inputHandler(e, i)
                 }}></TextField>
                 <TextField fullWidth={true} label="Last Name"></TextField>
