@@ -41,7 +41,7 @@ const styles = {
         width: '20%',
         margin: '0 auto 30px'
     }
-  };
+};
 
 class PublicRsvp extends Component {
     constructor(props) {
@@ -59,17 +59,15 @@ class PublicRsvp extends Component {
            weddingExists: true,
            questions: [
               {
-                wedding_id: localStorage.getItem('weddingID'),
+                wedding_id: w_id,
                 category: 'Guest Name',
                 multiple_choice: false,
                 question: '',
                 answer: ''
               }
            ]
-          }
+        }
     }
-
-
 
     // load user questions when component mounts
     componentDidMount() {
@@ -79,14 +77,12 @@ class PublicRsvp extends Component {
       console.log('wedding pathname', w_id)
       console.log('before everything')
 
-      this.getQuestions()
-
-        // const question_url = (process.env.REACT_APP_LOCAL_URL ? process.env.REACT_APP_LOCAL_URL : `https://vbeloved.now.sh`) + `/${w_id}/allquestions`
+      this.getQuestions(w_id)
     }
 
-    getQuestions = () => {
-        const wed_id = 3;
-        const question_url = `http://localhost:8888/${wed_id}/allquestions`
+    getQuestions = (wed_id) => {
+        //http://localhost:8888/${wed_id}/allquestions`
+        const question_url = `${process.env.REACT_APP_LOCAL_URL}/${wed_id}/allquestions`
         let questionVar;
 
         axios.get(question_url)
@@ -126,12 +122,10 @@ class PublicRsvp extends Component {
     //   };
       handleChange = (name, key) => event => {
         this.setState(prevState => {
-            
-            // return ({ 
-            //     prevState.questions[key]: { 
-            //         [name]: event.target.checked 
-            //     }
-            // })
+            const newValue = event.target.value;
+            const answer = prevState[name][key].answer
+            prevState[name][key].answer = newValue
+            return (prevState)
         });
     };
 
@@ -147,10 +141,10 @@ class PublicRsvp extends Component {
                 <TextField 
                   fullWidth={true} 
                   label="First Name" 
-                  value={this.state.value}
+                  value={this.state.questions[i]}
                   onChange={e => {
-                    this.inputHandler(e, i)
-                }}></TextField>
+                    this.handleChange('questions', i)
+                }}  ></TextField>
                 <TextField fullWidth={true} label="Last Name"></TextField>
             </CardContent>
             </Card>
@@ -166,6 +160,10 @@ class PublicRsvp extends Component {
                 <RadioGroup>
                     {q.answer.split(",").map(option =>  
                         <FormControlLabel value={option} control={<Radio />} label={option} 
+                        value={this.state.questions[i]}
+                        onChange={e => {
+                            this.handleChange('questions', i)
+                        }}  
                     />)}
                 </RadioGroup>
                 </FormControl>
@@ -179,7 +177,12 @@ class PublicRsvp extends Component {
                 </CardContent>
                 <CardContent>
                     {q.question}
-                    <TextField fullWidth={true}></TextField>
+                    <TextField fullWidth={true}
+                      value={this.state.questions[i]}
+                      onChange={e => {
+                        this.handleChange('questions', i)
+                      }}  
+                    ></TextField>
                 </CardContent>
                 </Card>
         }
