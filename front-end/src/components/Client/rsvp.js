@@ -24,7 +24,7 @@ const styles = {
     card: {
       width: '30%',
       margin: '0 auto 30px',
-      padding: '0 20px 20px'
+      padding: '0 20px 20px',
     },
     topDiv: {
         display: 'flex',
@@ -129,8 +129,7 @@ class Rsvp extends Component {
             .delete(`${serverURL}/${q_id}/deletequestion`)
             .then(res => {
                 console.log(res)
-                //this.setState({ questions: res.data })
-                //need to update server.delete to return questions
+                window.location.reload();
             })
             .catch(err => {
                 console.log(err)
@@ -148,6 +147,7 @@ class Rsvp extends Component {
         .post(`${serverURL}/questions`, {questions: this.state.questions})
         .then(res => {
             console.log(res);
+            window.location.reload();
         })
         .catch(err => console.log(err));
     };
@@ -169,7 +169,9 @@ class Rsvp extends Component {
             return <Card style={styles.card} key={i}>
             <CardContent style={styles.topDiv}>
                 {q.category}
+                {q.category === 'Attendance' ? <p></p> :
                 <Close onClick={() => this.deleteQuestion(q.id, i)} color="disabled" style={styles.closeIcon}/>
+                }
             </CardContent>
             <CardContent>
                 <FormControl component="fieldset">
