@@ -24,7 +24,7 @@ const styles = {
     card: {
       width: '30%',
       margin: '0 auto 30px',
-      padding: '0 20px 20px'
+      padding: '0 20px 20px',
     },
     topDiv: {
         display: 'flex',
@@ -95,9 +95,10 @@ class Rsvp extends Component {
         axios
        .get(`${serverURL}/${w_id}/allquestions`)
        .then(res => {
+               console.log(this.state.questions)
            if (res.data.length > 0) {
                this.setState({ questions: res.data })
-               //console.log(this.state.questions)
+               console.log(this.state.questions)
            }
        })
        .catch(err => {
@@ -128,8 +129,7 @@ class Rsvp extends Component {
             .delete(`${serverURL}/${q_id}/deletequestion`)
             .then(res => {
                 console.log(res)
-                //this.setState({ questions: res.data })
-                //need to update server.delete to return questions
+                window.location.reload();
             })
             .catch(err => {
                 console.log(err)
@@ -147,6 +147,7 @@ class Rsvp extends Component {
         .post(`${serverURL}/questions`, {questions: this.state.questions})
         .then(res => {
             console.log(res);
+            window.location.reload();
         })
         .catch(err => console.log(err));
     };
@@ -168,7 +169,9 @@ class Rsvp extends Component {
             return <Card style={styles.card} key={i}>
             <CardContent style={styles.topDiv}>
                 {q.category}
+                {q.category === 'Attendance' ? <p></p> :
                 <Close onClick={() => this.deleteQuestion(q.id, i)} color="disabled" style={styles.closeIcon}/>
+                }
             </CardContent>
             <CardContent>
                 <FormControl component="fieldset">
@@ -206,10 +209,18 @@ class Rsvp extends Component {
 
 
     render() {
+      // find "Guest Name" questions
+      let guestName = this.state.questions.find((q, i) => (
+        q.category === "Guest Name"
+      ))
+      // get rest of questions
+      let questions = this.state.questions.filter(q => q.category !== guestName.category);
+    console.log(questions)
       return (
         <div style={styles.rsvpContainer}>
-            {this.state.questions.map((q, i) => 
-                this.renderCards(q, i)
+            {this.renderCards(guestName, 0) /* render "Guest Name" question*/} 
+                {questions.map((q, i) => /* render the remaining questions */
+                    this.renderCards(q, i+1)
             )}
             <div style={styles.buttonDiv}>
                 <Button variant="outlined" onClick={this.handleOpen} style={styles.button}>Add Question</Button>
@@ -230,4 +241,4 @@ class Rsvp extends Component {
     }
   }
   
-  export default Rsvp;
+export default Rsvp;
