@@ -14,6 +14,7 @@ import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import { Close } from '@material-ui/icons';
 
+const serverURL = process.env.REACT_APP_LOCAL_URL
 
 // define styles for material-ui components
 const styles = {
@@ -92,7 +93,7 @@ class Rsvp extends Component {
     componentDidMount() {
         const w_id = localStorage.getItem('weddingID');
         axios
-       .get(`https://vbeloved.now.sh/${w_id}/allquestions`)
+       .get(`${serverURL}/${w_id}/allquestions`)
        .then(res => {
                console.log(this.state.questions)
            if (res.data.length > 0) {
@@ -125,7 +126,7 @@ class Rsvp extends Component {
     deleteQuestion = (q_id, i) => {
         if (q_id) {
             axios
-            .delete(`https://vbeloved.now.sh/${q_id}/deletequestion`)
+            .delete(`${serverURL}/${q_id}/deletequestion`)
             .then(res => {
                 console.log(res)
                 //this.setState({ questions: res.data })
@@ -144,7 +145,7 @@ class Rsvp extends Component {
     // save all the questions to the database
     saveQuestions = () => {
         axios
-        .post('https://vbeloved.now.sh/questions', {questions: this.state.questions})
+        .post(`${serverURL}/questions`, {questions: this.state.questions})
         .then(res => {
             console.log(res);
         })
