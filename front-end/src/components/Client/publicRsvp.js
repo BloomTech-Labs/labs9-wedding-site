@@ -115,51 +115,7 @@ class PublicRsvp extends Component {
           }).catch(error => { console.log(error) })
           
         console.log(questionVar)
-
-        // if (questionVar.data.length > 0) {
-        //     // this.setState({ questions: questionVar.res.data })
-        //     console.log(this.state.questions)
-        //   } else {
-        //     console.log('Question array is empty')
-        //   }
     }
-
-    // inputHandler = (e, key) => {
-    //     this.setState( prevState => {
-    //       prevState.questions[key].answer = e.target.value
-    //       // const newQuestions = prevState.questions
-    //       return ({ 
-    //           [e.target.name]: e.target.value,
-    //           // questions: newQuestions
-    //       });
-    //     })
-    //   };
-    //   handleChange = (name, key) => event => {
-
-    //     console.log(event)
-    //     name = name ? name : 'answer' 
-    //     this.setState(prevState => {
-    //         const newValue = event.target.value;
-    //         // const answer = prevState['questions'][key][name]
-    //         // prevState['questions'][key][name] = newValue
-    //         console.log(prevState)
-    //         // return (prevState)
-    //         return ({ [name]: event.target.value })
-    //     });
-    // };
-
-    // handleChange = event => {
-
-    //     console.log(event)
-    //     this.setState(prevState => {
-    //         const newValue = event.target.value;
-    //         // const answer = prevState['questions'][key][name]
-    //         // prevState['questions'][key][name] = newValue
-    //         console.log(prevState)
-    //         // return (prevState)
-    //         return ({ answers: event.target.value })
-    //     });
-    // };
 
     // function to conditionally render cards based on the type of card
     renderCards = (q, i) => {
@@ -229,23 +185,11 @@ class PublicRsvp extends Component {
         this.setState({ modalOpen: false });
     };
 
-    // handleChange = index => event => {
-    //     this.setState(prevState => {
-    //         let { questions } = prevState;
-    //         console.log(event.target, event)
-    //         questions[parseInt(index)].answer = event.target.value 
-    //         return ({
-    //             "questions": questions,
-    //         })
-    //     });
-    //   };
-
       handleChange = name => event => {
         this.setState({
           [name]: event.target.value,
         });
       };
-
 
       sendAnswers = () => {
         let answersArr = this.state.questions.map( (e, i) => {
@@ -265,15 +209,14 @@ class PublicRsvp extends Component {
             }
           }
         console.log(responseObj)
-          axios.post(`${process.env.REACT_APP_LOCAL_URL}/answer`, responseObj).then(success => {
+          axios.post(`${process.env.REACT_APP_LOCAL_URL}/answer`, responseObj)
+          .then(success => {
               console.log('data successfuly recorded in server', success)
               this.setState({success: true})
           }).catch(error => console.log(error))
       }
 
     render() {
-
-
 
         return (
             <div className="publicRsvp">
