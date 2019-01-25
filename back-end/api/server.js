@@ -18,7 +18,7 @@ const cookieParser = require('cookie-parser');
 
 require('dotenv').config();
 
-// const sendSMS = require('./send_sms');
+const sendSMS = require('./send_sms');
 
 //multer middleware saves uploads to the csv-uploads folder
 const storage = multer.diskStorage({
@@ -39,7 +39,7 @@ const corsOptions = {
 
 server.use(express.json());
 server.use(cors(corsOptions));
-// server.use('/sms', sendSMS); //endpoint to send a text message
+server.use('/sms', sendSMS); //endpoint to send a text message
 
 //COOKIES
 server.use(cookieParser())
