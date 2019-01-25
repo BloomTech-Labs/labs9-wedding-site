@@ -116,8 +116,8 @@ class GuestList extends Component {
 
     componentDidMount() {
 
-        let oauth_id = cookies.get('userID')
-
+        
+        let oauth_id = '117923096476841958425';
         if(oauth_id){
             axios.post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/loaduser`, {oauth_id})
             .then(res => {
