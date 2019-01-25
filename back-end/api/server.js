@@ -484,24 +484,22 @@ server.post('/questions', (req, res) => {
     let { questions } = req.body;
 
     questions.forEach(qData => {
-        db.table('questions').where({ question: qData.question, wedding_id: qData.wedding_id })
-            .then(res => {
-                console.log("DBQuery", res)
-                if (!res.length) {
-                    console.log('NoRes')
-                    db.table('questions').insert(qData).then(res => console.log(res)).catch(err => console.log(err))
-                }
-                else {
-                    console.log('ResExists')
-                }
+        db.table('questions').where({question: qData.question, wedding_id: qData.wedding_id})
+        .then(res => {
+            console.log("DBQuery",res)
+            if(!res.length){
+                console.log('NoRes')
+                db.table('questions').insert(qData).then(res =>console.log(res)).catch(err => console.log(err))
+            }
+            else {
+                console.log('ResExists')
+            }
 
             })
             .catch(err => { console.log(err) })
     })
-
-    res.status(200).json({ message: 'Data Posted Successfully.' })
-
-
+    
+    res.status(200).json({message: 'Data Posted Successfully.'})
 })
 
 
@@ -509,9 +507,15 @@ server.post('/questions', (req, res) => {
 server.get('/:id/allquestions', (req, res) => {
     let { id } = req.params;
 
-    db.table('questions').where({ wedding_id: id }).then(response => res.json(response)).catch(err => {
-        res.json(err)
-    })
+    console.log(id)
+    db('questions')
+        .where({wedding_id: id})
+        .then(response => {
+            console.log(response)
+            res.json(response)
+        }).catch(err => {
+            res.json(err)
+        })
 })
 
 //A FUNCTION TO DELETE QUESTIONS OF A USER::LINE 393
@@ -534,6 +538,54 @@ server.delete('/:questionID/deletequestion', async (req, res) => {
 
 
 })
+
+//A FUNCTION TO RETRIEVE REGISTRIES OF A USER
+server.get('/:id/registries', (req, res) => {
+    let { id } = req.params;
+
+    db.table('registry').where({wedding_id: id})
+        .then((registries) => {
+            res.status(200).json(registries);
+        })
+        .catch(err=>{
+            console.log(err)
+            res.status(500).json({message: "server error"})
+        })
+})
+
+//A FUNCTION TO POST REGISTRIES
+server.post('/registry', (req, res) => {
+    let { wedding_id, link, name } = req.body;
+    console.log("req.body", req.body);
+
+    db.table('registry').insert({ wedding_id, link, name })
+        .then(() => {
+            db.table('registry').where({wedding_id: wedding_id})
+           .then((registries) => {
+                res.status(200).json(registries);
+           })
+
+        })
+        .catch(err=>{
+            console.log(err)
+            res.status(500).json({message: "server error"})
+        })
+})
+
+//A FUNCTION TO DELETE REGISTRIES
+server.delete('/:id/registry', (req, res) => {
+    let { id } = req.params;
+
+    db.table('registry').where({id: id}).del()
+        .then(() => {
+            res.status(200).json({message: "registry deleted"});
+        })
+        .catch(err=>{
+            console.log(err)
+            res.status(500).json({message: "server error"})
+        })
+})
+
 
 //A FUNCTION TO POST CSV FILES
 server.post('/upload', upload.single('file'), (req, res) => {
@@ -624,5 +676,7 @@ server.post("/vb/billing", async (req, res) => {
 //     // asynchronously called
 //   }
 // );
+
+server.use('/weddings', require('./weddingEndpoint'))
 
 module.exports = server; 
