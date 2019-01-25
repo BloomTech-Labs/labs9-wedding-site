@@ -132,7 +132,7 @@ class MainContent extends Component {
                                                                               setGuests={this.setGuests} />} />
                     <Route path='/vb/rsvp'  render={props => < Rsvp {...props} />}/>
                     <Route path='/vb/billing' component={Payment} />
-                    <Route path=':id/invite/:name' render={props => < PublicInvite {...props} 
+                    <Route path='/:id/invite/:name' render={props => < PublicInvite {...props} 
                                                                           coupleData={this.state}
                                                                           setUser={this.setUser} />} />
 

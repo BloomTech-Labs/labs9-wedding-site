@@ -9,8 +9,8 @@ class PublicInvite extends Component {
         }
   render() {
     return (
-      <div>
-              
+      <div className="invite-cont">
+            HI  
       </div>
     );
   }
