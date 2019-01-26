@@ -58,9 +58,9 @@ request body data schema
 		}
 	],
 	"guestObj": {
+		"wedding_id": 3,
 		"first_name": "hargobind",
 		"last_name": "atwal",
-		"wedding_id": 3,
 		"email": "Ola.Jakubowski65@yahoo.com",
 		"address": "123 street",
 		"phone": "123-456-7890"
