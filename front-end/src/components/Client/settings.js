@@ -35,18 +35,20 @@ width: 50%;
 `
 
 class Settings extends React.Component {
-    state = {
-
-        checkedEmail: false,
-        checkedText: false,
-        first_name: "",
-        last_name: "",
-        p_first_name: "",
-        p_last_name: "",
-        email: "",
-        phone: "",
-        address: "",
-    };
+    constructor() {
+        super();
+        state = {
+            checkedEmail: false,
+            checkedText: false,
+            first_name: "",
+            last_name: "",
+            p_first_name: "",
+            p_last_name: "",
+            email: "",
+            phone: "",
+            address: "",
+        };
+    }
 
     handleChecked = name => event => {
         this.setState({ [name]: event.target.checked });
@@ -75,7 +77,6 @@ class Settings extends React.Component {
                         margin="normal"
                         variant="outlined"
                     />
-                    <div className="Payment-info">
                         <TextField
                             name="first_name"
                             id="standard-name"
@@ -100,7 +101,8 @@ class Settings extends React.Component {
                             label="Partner Name"
                             margin="normal"
                         />
-                        <FormGroup row>
+                        <EmailPassword>
+                        <FormGroup>
                             <FormControlLabel
                                 label="Email?"
                                 labelPlacement="start"
@@ -127,6 +129,7 @@ class Settings extends React.Component {
                             />
                         </FormGroup>
                     </EmailPassword>
+                    <InputFields>
                     <NameLocation>
                         <TextField
                             id="standard-name"
@@ -138,7 +141,6 @@ class Settings extends React.Component {
                             label="Partner Name"
                             margin="normal"
                         />
-                        <div>
                             <TextField
                                 id="datetime-local"
                                 label="Wedding Date &amp; Time"
@@ -148,19 +150,17 @@ class Settings extends React.Component {
                                     shrink: true,
                                 }}
                             />
-                        </div>
                         <TextField
                             id="standard-location"
                             label="Wedding Location"
                             margin="normal"
                         />
                     </NameLocation>
-                    <div>
                     <Button variant="contained" size="large" color="primary">
                         Save
                     </Button>
-                    </div>
                 </InputFields>
+                </form>
             </SettingsContainer >
         );
     }
