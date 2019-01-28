@@ -40,8 +40,23 @@ const styles = {
     button: {
         width: '20%',
         margin: '0 auto 30px'
-    }
-  };
+    },
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+      },
+      textField: {
+        marginLeft: '40px',
+        marginRight: '40px',
+        width: 200,
+      },
+      dense: {
+        marginTop: 19,
+      },
+      menu: {
+        width: 200,
+      },
+};
 
 class PublicRsvp extends Component {
     constructor(props) {
@@ -59,41 +74,15 @@ class PublicRsvp extends Component {
            weddingExists: true,
            questions: [
               {
-                wedding_id: localStorage.getItem('weddingID'),
+                wedding_id: w_id,
                 category: 'Guest Name',
                 multiple_choice: false,
                 question: '',
                 answer: ''
               }
            ]
-          }
-            //  questions: [
-
-            //   {
-            //       wedding_id: localStorage.getItem('weddingID'),
-            //       category: 'Attendance',
-            //       multiple_choice: true,
-            //       question: 'Will you be attending our wedding?',
-            //       answer: 'Attending,Not attending,Maybe'
-            //   },
-            //   {
-            //       wedding_id: localStorage.getItem('weddingID'),
-            //       category: 'Address',
-            //       multiple_choice: false,
-            //       question: 'What is your mailing address?',
-            //       answer: ''
-            //   },
-            //   {
-            //       wedding_id: localStorage.getItem('weddingID'),
-            //       category: 'Wedding Team',
-            //       multiple_choice: true,
-            //       question: 'Are you a friend or family of... ?',
-            //       answer: 'Bride,Groom,Both'
-            //   },
-            //   ]
+        }
     }
-
-
 
     // load user questions when component mounts
     componentDidMount() {
@@ -103,15 +92,10 @@ class PublicRsvp extends Component {
       console.log('wedding pathname', w_id)
       console.log('before everything')
 
-      // this.doesWeddingExist(w_id)
-
-      this.getQuestions()
-
-        // const question_url = (process.env.REACT_APP_LOCAL_URL ? process.env.REACT_APP_LOCAL_URL : `https://vbeloved.now.sh`) + `/${w_id}/allquestions`
+      this.getQuestions(w_id)
     }
 
-    getQuestions = () => {
-        const wed_id = 3;
+    getQuestions = (wed_id) => {
         const question_url = `${process.env.REACT_APP_LOCAL_URL}/${wed_id}/allquestions`
         let questionVar;
 
@@ -131,38 +115,11 @@ class PublicRsvp extends Component {
           }).catch(error => { console.log(error) })
           
         console.log(questionVar)
-
-        // if (questionVar.data.length > 0) {
-        //     // this.setState({ questions: questionVar.res.data })
-        //     console.log(this.state.questions)
-        //   } else {
-        //     console.log('Question array is empty')
-        //   }
     }
-
-    // inputHandler = (e, key) => {
-    //     this.setState( prevState => {
-    //       prevState.questions[key].answer = e.target.value
-    //       // const newQuestions = prevState.questions
-    //       return ({ 
-    //           [e.target.name]: e.target.value,
-    //           // questions: newQuestions
-    //       });
-    //     })
-    //   };
-      handleChange = (name, key) => event => {
-        this.setState(prevState => {
-            
-            // return ({ 
-            //     questions[key]: { 
-            //         [name]: event.target.checked 
-            //     }
-            // })
-        });
-    };
 
     // function to conditionally render cards based on the type of card
     renderCards = (q, i) => {
+        console.log(this.state.questions[i])
         if (q.category === 'Guest Name') {
             return  <Card style={styles.card} key={i}>
             <CardContent>
@@ -173,14 +130,12 @@ class PublicRsvp extends Component {
                 <TextField 
                   fullWidth={true} 
                   label="First Name" 
-                  value={this.state.value}
-                  onChange={e => {
-                    this.inputHandler(e, i)
-                }}></TextField>
+                  value={this.state.questions[i]}
+                  onChange={this.handleChange}  ></TextField>
                 <TextField fullWidth={true} label="Last Name"></TextField>
             </CardContent>
             </Card>
-        } else if (q.multiple_choice === 1) {
+        } else if (q.multiple_choice > 0) {
             return <Card style={styles.card} key={i}>
             <CardContent style={styles.topDiv}>
                 {q.category}
@@ -191,7 +146,11 @@ class PublicRsvp extends Component {
                 <FormLabel component="legend">{q.question}</FormLabel>
                 <RadioGroup>
                     {q.answer.split(",").map(option =>  
-                        <FormControlLabel value={option} control={<Radio />} label={option} 
+                        <FormControlLabel value={option} control={<Radio />} label={option}
+                        onChange={e => {
+                      console.log(e, e.target.value)
+                            this.handleChange(q/*false*/, i)(e)
+                        }}  
                     />)}
                 </RadioGroup>
                 </FormControl>
@@ -205,7 +164,13 @@ class PublicRsvp extends Component {
                 </CardContent>
                 <CardContent>
                     {q.question}
-                    <TextField fullWidth={true}></TextField>
+                    <TextField fullWidth={true}
+                      value={this.state.questions[i]['answer']}
+                      onChange={e => {
+                      console.log(e, e.target.value)
+                        this.handleChange(q/*false*/, i)(e)
+                      }}  
+                    ></TextField>
                 </CardContent>
                 </Card>
         }
@@ -220,54 +185,109 @@ class PublicRsvp extends Component {
         this.setState({ modalOpen: false });
     };
 
+      handleChange = name => event => {
+        this.setState({
+          [name]: event.target.value,
+        });
+      };
+
+      sendAnswers = () => {
+        let answersArr = this.state.questions.map( (e, i) => {
+            if ( i === 0 ) { e.id = 1}
+            return ({
+                question_id: e.id,
+                answer: this.state[i]
+            })
+        })
+        console.log(answersArr )
+          let responseObj = {
+            wedding_id: this.state.weddingId,
+            answers: answersArr,
+            guestObj: {
+                wedding_id: this.state.weddingId,
+                email: 'email@example.com'
+            }
+          }
+        console.log(responseObj)
+          axios.post(`${process.env.REACT_APP_LOCAL_URL}/answer`, responseObj)
+          .then(success => {
+              console.log('data successfuly recorded in server', success)
+              this.setState({success: true})
+          }).catch(error => console.log(error))
+      }
 
     render() {
+
+        return (
+            <div className="publicRsvp">
+                <form>
+                {this.state.questions.map( (question, i) => {
+                    const  {category} = question
+                    return (
+                        <div className="rsvp-question" key={i}>
+                        <TextField
+                        id="standard-name"
+                        label={category}
+                        className={styles.textField}
+                        value={this.state[parseInt(i)]}
+                        onChange={this.handleChange(i)}
+                        margin="normal"
+                      />
+                        </div>
+                    )
+                })}
+                <Button variant="outlined" onClick={this.sendAnswers} style={styles.button}>submit</Button> 
+                </form> 
+            
+            
+            </div>
+        )
       // find "Guest Name" questions
 
-      if (this.state.loading) {
-        return (
-          <div className="loading-rsvp" style={styles.rsvpContainer}>
-            <h1>loading</h1> 
-          </div>
-        )
-      } else if (!this.state.weddingExists) {
-        return (
-          <div className="wedding-not-exists" style={styles.rsvpContainer}>
-            <h1>This wedding is not present in our database.</h1> 
-            <p>If you would like to orginize a wedding please login</p>
-          </div>
-        ) 
-      } else {
+    //   if (this.state.loading) {
+    //     return (
+    //       <div className="loading-rsvp" style={styles.rsvpContainer}>
+    //         <h1>loading</h1> 
+    //       </div>
+    //     )
+    //   } else if (!this.state.weddingExists) {
+    //     return (
+    //       <div className="wedding-not-exists" style={styles.rsvpContainer}>
+    //         <h1>This wedding is not present in our database.</h1> 
+    //         <p>If you would like to orginize a wedding please login</p>
+    //       </div>
+    //     ) 
+    //   } else {
 
-        // let guestName = this.state.questions.find((q, i) => (
-        //   q.category === "Guest Name"
-        // ))
-        // get rest of questions
-        // let questions = this.state.questions.filter(q => q.category !== guestName.category);
-          // console.log(questions)
-        return (
-          <div className="public-rsvp" style={styles.rsvpContainer}>
-              {/*this.renderCards(guestName, 0) /* render "Guest Name" question*/} 
-                  {this.state.questions.map((q, i) => /* render the remaining questions */
-                      this.renderCards(q, i+1)
-              )}
-              <div style={styles.buttonDiv}>
-                  <Button variant="outlined" onClick={this.handleOpen} style={styles.button}>Add Question</Button>
-                  <Button variant="outlined" onClick={this.saveQuestions} style={styles.button}>submit</Button>
-              </div>
-              <Modal
-                  open={this.state.modalOpen}
-                  onClose={this.handleClose}>
-                  <AddQuestion
-                  category={this.state.category}
-                  question={this.state.question}
-                  addQuestion={this.addQuestion}
-                  handleClose={this.handleClose}
-                  handleInputChange={this.inputHandler}/>
-              </Modal>
-          </div>
-        );
-      }
+    //     // let guestName = this.state.questions.find((q, i) => (
+    //     //   q.category === "Guest Name"
+    //     // ))
+    //     // get rest of questions
+    //     // let questions = this.state.questions.filter(q => q.category !== guestName.category);
+    //       // console.log(questions)
+    //     return (
+    //       <div className="public-rsvp" style={styles.rsvpContainer}>
+    //           {/*this.renderCards(guestName, 0) /* render "Guest Name" question*/} 
+    //               {this.state.questions.map((q, i) => /* render the remaining questions */
+    //                   this.renderCards(q, i)
+    //           )}
+    //           <div style={styles.buttonDiv}>
+    //               <Button variant="outlined" onClick={this.handleOpen} style={styles.button}>Add Question</Button>
+    //               <Button variant="outlined" onClick={this.saveQuestions} style={styles.button}>submit</Button>
+    //           </div>
+    //           <Modal
+    //               open={this.state.modalOpen}
+    //               onClose={this.handleClose}>
+    //               <AddQuestion
+    //               category={this.state.category}
+    //               question={this.state.question}
+    //               addQuestion={this.addQuestion}
+    //               handleClose={this.handleClose}
+    //               handleInputChange={this.inputHandler}/>
+    //           </Modal>
+    //       </div>
+    //     );
+    //   }
     }
   }
   
