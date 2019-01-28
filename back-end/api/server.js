@@ -4,6 +4,7 @@ const server = express();
 const knex = require('knex');
 const KnexConfig = require('../knexfile');
 const db = knex(KnexConfig.development);
+const bcrypt = require('bcryptjs');
 const faker = require('faker');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
@@ -109,9 +110,9 @@ server.get('/google/redirect', passport.authenticate('google'), (req, res) => {
     console.log('session:', req._passport.session.user.oauth_id)
     res.append('Set-Cookie', 'foo=bar;')
     
-    req.session.user_id = req._passport.session.user.oauth_id;
-    console.log("REQSESSION:",req.session)
-    res.cookie('userID', `${req._passport.session.user.oauth_id}`)
+    let hash = bcrypt.hashSync(req._passport.session.user.oauth_id, 12)
+    console.log('HASH:', hash)
+    
     res.redirect(`http://${ process.env.LOCAL_CLIENT || 'vbeloved.com' }/vb/dashboard`);
     res.cookie('user', `${req._passport.session.user.oauth_id}`)
 })
@@ -161,7 +162,8 @@ server.get('/deleteall', async (req, res) => {
 server.post('/loaduser', async (req, res) => {
     let { first_name, last_name, p_firstname, p_lastname, event_date, event_address, oauth_id } = req.body;
 
-
+    let hash = bcrypt.hashSync(oauth_id, 12)
+    console.log('HASH:', hash)
     try {
         const userOAuthID = await db.table('oauth_ids').where({ oauth_id }).first();
 

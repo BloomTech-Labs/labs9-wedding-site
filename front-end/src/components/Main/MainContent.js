@@ -9,7 +9,7 @@ import Prices from './pricing';
 import Signup from './signup';
 import Login from './login';
 import PublicRsvp from '../Client/publicRsvp';
-
+import Auth from './Auth'
 
 //these are client views after login
 import Payment from '../Client/billing';
@@ -41,11 +41,26 @@ class MainContent extends Component {
            guests: [],
            event_date: '',
            event_address: '',
-           couple: []
+           couple: [],
+           loginbtn: false,
+           signupbtn: false
 
            
         }
     }
+
+    loginbtn = () => {
+        this.setState({
+            loginbtn: true
+        })
+    }
+
+    signupbtn = () => {
+        this.setState({
+            loginbtn: false
+        })
+    }
+
 
     login = () => {
 
@@ -112,7 +127,10 @@ class MainContent extends Component {
         return (
             <div>
                 <div className='main_container'>
-               <StickyTop loggedIn={this.state.loggedIn} logout={this.logout}/>
+               <StickyTop loggedIn={this.state.loggedIn} 
+                          logout={this.logout} 
+                          loginbtnFunc={this.loginbtn}
+                          signupbtnFunc={this.signupbtn}/>
                 <Switch>
 
                    <Route path='/' exact render={props => this.state.loggedIn ? <Redirect to="/vb/dashboard"/> : <LandingPage {...props} />} />
@@ -122,7 +140,7 @@ class MainContent extends Component {
                    <Route path='/login' component={Login} />
                    <Route path={`/rsvp`} render={props => <PublicRsvp {...props} state={this.state}/> }/>
                    {/* <Route path="/vb" render={props => <UserAccess {...props} />} /> */}
-                    <Route path='/vb/dashboard'  render={props => < Dashboard {...props} login={this.login} setUser={this.setUser}/>} />
+                    <Route path='/vb/dashboard/:id'  render={props => < Dashboard {...props} login={this.login} setUser={this.setUser}/>} />
                     <Route path='/vb/payment'  render={props => < Payment {...props} />} />
                     <Route path='/vb/settings'  render={props => < Settings {...props} />} />
                     <Route path='/vb/guestlist'  render={props => < GuestList {...props} 
@@ -137,7 +155,9 @@ class MainContent extends Component {
                     <Route path='/:id/invite/:name' render={props => < PublicInvite {...props} 
                                                                           coupleData={this.state}
                                                                           setUser={this.setUser} />} />
-
+                    <Route path='/auth'  render={props => < Auth  {...props}
+                                                                  loginbtn={this.state.loginbtn}
+                                                                   />}/>
                </Switch>
                </div>
            </div>

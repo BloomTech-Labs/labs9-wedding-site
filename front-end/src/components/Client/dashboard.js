@@ -116,7 +116,7 @@ class Dashboard extends Component {
         const userdata = cookies.get('USERDATA')
         const oauth_id = '117923096476841958425'
         //const oauth_id = cookies.get('userID')
-        console.log('userdata:', oauth_id)
+        console.log(this.props.location.search)
         if(oauth_id){
             axios.post(`${serverURL}/loaduser`, {...userdata, oauth_id})
             .then(res => {
