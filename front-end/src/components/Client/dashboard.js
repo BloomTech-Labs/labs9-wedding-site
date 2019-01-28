@@ -16,6 +16,7 @@ import Cookies from 'universal-cookie';
 import axios from 'axios';
 
 const cookies = new Cookies()
+const serverURL = process.env.REACT_APP_LOCAL_URL
 
 const styles = {
     dashboardContainer: {
@@ -67,8 +68,8 @@ const styles = {
 
 
 class Dashboard extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             attending: 300,
@@ -79,9 +80,9 @@ class Dashboard extends Component {
             registryLink: "",
             displayName: "",
             registry: [
-                {link: "a", name: "amazon"},
-                {link: "b", name: "target"},
-                {link: "e", name: "williams-sonoma"},
+                {link: "https://www.amazon.com/wedding/home", name: "amazon"},
+                {link: "https://www.target.com/gift-registry/wedding-registry", name: "target"},
+                {link: "https://www.williams-sonoma.com/registry/", name: "williams-sonoma"},
             ]
         }
     
@@ -112,20 +113,31 @@ class Dashboard extends Component {
     };
 
     componentDidMount() {
-        let wedding_id = localStorage.getItem('weddingID');
-        let userdata = cookies.get('USERDATA')
-        let oauth_id = cookies.get('userID')
+        const userdata = cookies.get('USERDATA')
+        const oauth_id = '117923096476841958425'
+        //const oauth_id = cookies.get('userID')
         console.log('userdata:', oauth_id)
         if(oauth_id){
-            axios.post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/loaduser`, {...userdata, oauth_id})
+            axios.post(`${serverURL}/loaduser`, {...userdata, oauth_id})
             .then(res => {
                 console.log(res)
+                cookies.set('userID', '117923096476841958425')
+                localStorage.setItem('weddingID', res.data.couple[0].wedding_id)
                 this.props.login() //toggles the state of the user to loggedIn (in MainContent component)
                 this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ])
                 this.setState({
                    userLoaded: true 
                 })
-            }).catch(err => console.log(err))
+            })
+            .then(() => {
+                const w_id = localStorage.getItem('weddingID');
+                axios
+                .get(`${serverURL}/${w_id}/registries`)
+                .then(res => {
+                        this.setState({ registry: res.data })
+                })
+            })
+            .catch(err => console.log(err))
         } else {
             this.props.history.push('/signup')
         }
@@ -135,27 +147,28 @@ class Dashboard extends Component {
     // add a registry to the database
     addRegistry = () => {
         axios
-            .post('https://vbeloved.now.sh/registry', {
+            .post(`${serverURL}/registry`, {
                 wedding_id: localStorage.getItem('weddingID'),
                 link: this.state.registryLink,
                 name: this.state.displayName
             })
             .then(res => {
                 console.log(res);
-                //this.setState({ registry: res.data })
-                //need to update server to return registry items
+                this.setState({ registry: res.data });
+                this.handleClose();
             })
             .catch(err => console.log(err));
     };
 
     // must use "multipart/form-data" when including a file in the body of a POST request
     handleonDrop = (files, rejectedFiles) => {
+        const wedding_id = localStorage.getItem('weddingID')
         files.forEach(file => {
             const formData = new FormData();
             formData.append('file', file);
             formData.append('filename', file.name);
-            //axios.post('http://localhost:8888/upload', formData)
-            axios.post('https://vbeloved.now.sh/upload', formData)
+            formData.append('wedding_id', wedding_id);
+            axios.post(`${serverURL}/upload`, formData)
                 .then((res => {
                     console.log(res)
                 }))
