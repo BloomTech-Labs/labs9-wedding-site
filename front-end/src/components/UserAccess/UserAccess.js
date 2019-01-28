@@ -2,7 +2,7 @@ import React from 'react';
 import Payment from '../Client/billing';
 import Settings from '../Client/settings';
 import GuestList from '../Client/guestList';
-import Rsvp from '../Client/rsvp';
+import Rsvp from '../Client/rsvp/clientRsvp';
 import Dashboard from '../Client/dashboard';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
