@@ -255,6 +255,25 @@ server.post('/registration', async (req, res) => {
 
 })
 
+//UPDATES USER SETTINGS IN THE DATABASE
+
+server.put('/user/:id', (req, res) => {
+    const edit = req.body;
+
+    db('user')
+        .where({ id: req.params.id })
+        .update(edit)
+        .then(response => {
+            if (response === 0) {
+                res.status(404).json('Could not find user');
+            } else {
+                res.status(200).json(response);
+            }
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+});
 
 //A FUNCTION TO POPULATE THE DATABASE WITH COUPLES DUMMY DATA
 server.get('/dummydata', async (req, res) => {
@@ -432,9 +451,6 @@ server.post('/adddummyguest', async (req, res) => {
                 related_spouse: couple[coupleIndex].first_name,
                 attending: attendArr[attendIndex]
             })
-
-
-
         let guests = await db('user').join('guests', { 'user.id': 'guests.guest_id' }).where({ wedding_id, guest: true })
 
         res.status(200).json(guests)
@@ -639,6 +655,11 @@ server.post('/upload', upload.single('file'), (req, res) => {
 })
 
 
+stripe.charges.retrieve("ch_1DswKX2eZvKYlo2CYqqd3tgH", {
+    api_key: "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
+});
+
+
 // STRIPE STATEMENT DESCRIPTOR
 server.post("/vb/billing", async (req, res) => {
     console.log(req.body);
@@ -680,6 +701,7 @@ server.post("/vb/billing", async (req, res) => {
 //     // asynchronously called
 //   }
 // );
+
 
 server.use('/answer', require('./answers'))
 
