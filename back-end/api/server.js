@@ -10,7 +10,8 @@ const cookieSession = require('cookie-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('../config/keys');
 const multer = require('multer');
-const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
+const stripe = require("stripe")("sk_test_QBcc8So0WjMMIznAloTV3kdv");
+server.use(require("body-parser").text());
 const fs = require('fs');
 const parse = require('csv-parse');
 const cookieParser = require('cookie-parser');
@@ -103,8 +104,8 @@ server.get('/google/redirect', passport.authenticate('google'), (req, res) => {
 
 
     console.log('REDIRECT SUCCESS-PASSPORTREQ:', req._passport.session.user);
-    
-    
+
+
     console.log('session:', req._passport.session.user.oauth_id)
     res.append('Set-Cookie', 'foo=bar;')
     
@@ -450,9 +451,6 @@ server.post('/adddummyguest', async (req, res) => {
                 related_spouse: couple[coupleIndex].first_name,
                 attending: attendArr[attendIndex]
             })
-
-
-
         let guests = await db('user').join('guests', { 'user.id': 'guests.guest_id' }).where({ wedding_id, guest: true })
 
         res.status(200).json(guests)
@@ -656,9 +654,54 @@ server.post('/upload', upload.single('file'), (req, res) => {
     }
 })
 
+
 stripe.charges.retrieve("ch_1DswKX2eZvKYlo2CYqqd3tgH", {
     api_key: "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
 });
+
+
+// STRIPE STATEMENT DESCRIPTOR
+server.post("/vb/billing", async (req, res) => {
+    console.log(req.body);
+    try {
+        let { status } = await stripe.charges.create({
+            amount: 2000,
+            currency: "usd",
+            description: "An example charge",
+            source: 'tok_visa'
+        });
+        res.json({ status });
+    } catch (err) {
+        console.log(err);
+        res.status(500).end();
+    }
+});
+
+// const token = request.body.stripeToken; // Using Express
+
+// const charge = stripe.charges.create({
+//   amount: 999,
+//   currency: 'usd',
+//   description: 'Example charge',
+//   source: token,
+// });
+
+// stripe.charges.create({
+//     amount: 2000,
+//     currency: "usd",
+//     source:"tok_visa",
+//     description:"Test charge for wedding site"
+// },  function(err, charge){
+//     // asynchronously called 
+// });
+
+// stripe.charges.retrieve(
+//     "ch_1DswKX2eZvKYlo2CYqqd3tgH",
+//     function(err, charge) {
+//     // asynchronously called
+//   }
+// );
+
 
 server.use('/answer', require('./answers'))
 
