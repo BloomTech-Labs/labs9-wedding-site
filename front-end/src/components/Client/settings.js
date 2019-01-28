@@ -37,7 +37,7 @@ width: 50%;
 class Settings extends React.Component {
     constructor() {
         super();
-        state = {
+        this.state = {
             checkedEmail: false,
             checkedText: false,
             first_name: "",
