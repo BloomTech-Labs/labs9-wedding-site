@@ -509,14 +509,18 @@ server.get('/:id/allquestions', (req, res) => {
 
     console.log(id)
     db('questions')
-        .where({wedding_id: id})
+        .where('wedding_id', id)
         .then(response => {
             console.log(response)
-            res.json(response)
+            // if (response.length < 1) {
+            //     res.status(500).json({message: 'There are no unique questions'})
+            // }
+            res.status(200).json(response)
         }).catch(err => {
-            res.json(err)
+            res.status(500).json(err)
         })
 })
+
 
 //A FUNCTION TO DELETE QUESTIONS OF A USER::LINE 393
 server.delete('/:questionID/deletequestion', async (req, res) => {
@@ -677,6 +681,6 @@ server.post("/vb/billing", async (req, res) => {
 //   }
 // );
 
-server.use('/weddings', require('./weddingEndpoint'))
+server.use('/answer', require('./answers'))
 
 module.exports = server; 
