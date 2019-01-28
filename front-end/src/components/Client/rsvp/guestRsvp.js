@@ -58,6 +58,15 @@ const styles = {
       },
 };
 
+const staticQuestions = [
+    {
+        category: 'Static',
+        multiple_choice: false,
+        question: '',
+        answer: '',
+    }
+]
+
 class PublicRsvp extends Component {
     constructor(props) {
         super(props);
@@ -76,10 +85,10 @@ class PublicRsvp extends Component {
               {
                 wedding_id: w_id,
                 category: 'Guest Name',
-                multiple_choice: false,
+                multiple_choice: 3,
                 question: '',
                 answer: ''
-              }
+              },
            ]
         }
     }
@@ -93,7 +102,7 @@ class PublicRsvp extends Component {
       console.log('before everything')
 
       this.getQuestions(w_id)
-    }
+    }   
 
     getQuestions = (wed_id) => {
         const question_url = `${process.env.REACT_APP_LOCAL_URL}/${wed_id}/allquestions`
@@ -120,6 +129,7 @@ class PublicRsvp extends Component {
     // function to conditionally render cards based on the type of card
     renderCards = (q, i) => {
         console.log(this.state.questions[i])
+        const  {category} = q
         if (q.category === 'Guest Name') {
             return  <Card style={styles.card} key={i}>
             <CardContent>
@@ -129,9 +139,13 @@ class PublicRsvp extends Component {
                 {q.question}
                 <TextField 
                   fullWidth={true} 
-                  label="First Name" 
-                  value={this.state.questions[i]}
-                  onChange={this.handleChange}  ></TextField>
+                  id="standard-name"
+                  label={category}
+                  className={styles.textField}
+                  value={this.state[parseInt(i)]}
+                  onChange={this.handleChange(i)}
+                  margin="normal"
+                ></TextField>
                 <TextField fullWidth={true} label="Last Name"></TextField>
             </CardContent>
             </Card>
@@ -143,14 +157,18 @@ class PublicRsvp extends Component {
             </CardContent>
             <CardContent>
                 <FormControl component="fieldset">
-                <FormLabel component="legend">{q.question}</FormLabel>
+                <FormLabel 
+                    component="legend"
+                    value={this.state[parseInt(i)]}
+                    onChange={this.handleChange(i)}
+                >{q.question}</FormLabel>
                 <RadioGroup>
                     {q.answer.split(",").map(option =>  
-                        <FormControlLabel value={option} control={<Radio />} label={option}
-                        onChange={e => {
-                      console.log(e, e.target.value)
-                            this.handleChange(q/*false*/, i)(e)
-                        }}  
+                        <FormControlLabel
+                            id="standard-name"
+                            label={option}  
+                            className={styles.textField}
+                            control={<Radio />} 
                     />)}
                 </RadioGroup>
                 </FormControl>
@@ -160,16 +178,16 @@ class PublicRsvp extends Component {
             return <Card style={styles.card} key={i}>
                 <CardContent style={styles.topDiv}>
                     {q.category}
-
                 </CardContent>
                 <CardContent>
                     {q.question}
                     <TextField fullWidth={true}
-                      value={this.state.questions[i]['answer']}
-                      onChange={e => {
-                      console.log(e, e.target.value)
-                        this.handleChange(q/*false*/, i)(e)
-                      }}  
+                        id="standard-name"
+                        label={category}
+                        className={styles.textField}
+                        value={this.state[parseInt(i)]}
+                        onChange={this.handleChange(i)}
+                        margin="normal"
                     ></TextField>
                 </CardContent>
                 </Card>
@@ -218,6 +236,16 @@ class PublicRsvp extends Component {
 
     render() {
 
+
+        return (
+            <div className="publicRsvp" style={styles.rsvpContainer}>
+                {this.state.questions.map( (question, i) => {
+                    return this.renderCards(question, i)
+                })}
+            
+            </div>
+        )
+        /*
         return (
             <div className="publicRsvp">
                 <form>
@@ -241,7 +269,7 @@ class PublicRsvp extends Component {
             
             
             </div>
-        )
+        )*/
       // find "Guest Name" questions
 
     //   if (this.state.loading) {
