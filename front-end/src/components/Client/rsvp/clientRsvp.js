@@ -69,6 +69,20 @@ class Rsvp extends Component {
             },
             {
                 wedding_id: localStorage.getItem('weddingID'),
+                category: 'Email',
+                multiple_choice: false,
+                question: 'What is your email address?',
+                answer: ''
+            },
+            {
+                wedding_id: localStorage.getItem('weddingID'),
+                category: 'Phone',
+                multiple_choice: false,
+                question: 'What is your phone number?',
+                answer: ''
+            },
+            {
+                wedding_id: localStorage.getItem('weddingID'),
                 category: 'Address',
                 multiple_choice: false,
                 question: 'What is your mailing address?',
@@ -169,9 +183,6 @@ class Rsvp extends Component {
             return <Card style={styles.card} key={i}>
             <CardContent style={styles.topDiv}>
                 {q.category}
-                {q.category === 'Attendance' ? <p></p> :
-                <Close onClick={() => this.deleteQuestion(q.id, i)} color="disabled" style={styles.closeIcon}/>
-                }
             </CardContent>
             <CardContent>
                 <FormControl component="fieldset">
@@ -188,7 +199,13 @@ class Rsvp extends Component {
             return <Card style={styles.card} key={i}>
                 <CardContent style={styles.topDiv}>
                     {q.category}
+                    {
+                    q.category === 'Wedding Team' ? <p></p> :
+                    q.category === 'Address' ? <p></p> :
+                    q.category === 'Phone' ? <p></p> :
+                    q.category === 'Email' ? <p></p> :
                     <Close onClick={() => this.deleteQuestion(q.id, i)} color="disabled" style={styles.closeIcon}/>
+                    }
                 </CardContent>
                 <CardContent>
                     {q.question}
@@ -209,18 +226,10 @@ class Rsvp extends Component {
 
 
     render() {
-      // find "Guest Name" questions
-      let guestName = this.state.questions.find((q, i) => (
-        q.category === "Guest Name"
-      ))
-      // get rest of questions
-      let questions = this.state.questions.filter(q => q.category !== guestName.category);
-    console.log(questions)
       return (
         <div style={styles.rsvpContainer}>
-            {this.renderCards(guestName, 0) /* render "Guest Name" question*/} 
-                {questions.map((q, i) => /* render the remaining questions */
-                    this.renderCards(q, i+1)
+             {this.state.questions.map((q, i) => 
+                this.renderCards(q, i)
             )}
             <div style={styles.buttonDiv}>
                 <Button variant="outlined" onClick={this.handleOpen} style={styles.button}>Add Question</Button>
