@@ -159,16 +159,19 @@ class PublicRsvp extends Component {
                 <FormControl component="fieldset">
                 <FormLabel 
                     component="legend"
+                    >{q.question}</FormLabel>
+                <RadioGroup
+                    label={category}  
                     value={this.state[parseInt(i)]}
                     onChange={this.handleChange(i)}
-                >{q.question}</FormLabel>
-                <RadioGroup>
+                    id="standard-name"
+                >
                     {q.answer.split(",").map(option =>  
                         <FormControlLabel
-                            id="standard-name"
-                            label={option}  
-                            className={styles.textField}
                             control={<Radio />} 
+                            value={option}
+                            label={option}
+                            labelPlacement="end"
                     />)}
                 </RadioGroup>
                 </FormControl>
