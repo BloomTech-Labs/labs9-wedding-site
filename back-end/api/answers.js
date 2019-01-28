@@ -4,6 +4,13 @@ const KnexConfig = require('../knexfile');
 const db = knex(process.env.DB_ENVIORNMENT ? KnexConfig[process.env.DB_ENVIORNMENT] : KnexConfig.development);
 const router = express()
 
+const diffObjects = (target, newObj) => Object.entries(newObj).filter(guestProp => {
+    // console.log(guestProp, user[guestProp[0]])
+    return (target[guestProp[0]] === undefined || target[guestProp[0]] !== guestProp[1])
+}).reduce((reducedObj, tuple) => {
+    reducedObj[tuple[0]] = tuple[1]
+    return reducedObj
+}, {})
 
 // A FUNCTION TO ADD GUESTS AND ANSWERS TO THE ANSWERS TABLE
 // if the guest does not exist then add them.
