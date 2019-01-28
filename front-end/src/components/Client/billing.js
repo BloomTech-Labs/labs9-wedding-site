@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { StripeProvider } from 'react-stripe-elements';
 import Checkout from './checkout/stripeCheckout';
+
 
 
 // const PaymentContainer = styled.div`
@@ -14,9 +15,11 @@ import Checkout from './checkout/stripeCheckout';
 
 function Payment() {
     return (
+        <div>
         <StripeProvider apiKey="pk_test_M1Y5kyDDSB7dOAWXIhzOOqMV">
             <Checkout />
         </StripeProvider>
+        </div>
     );
 }
 
