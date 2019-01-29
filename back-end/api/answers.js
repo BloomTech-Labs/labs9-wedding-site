@@ -48,7 +48,6 @@ const addAnswers = async (req, res) => {
             } 
             catch (error) {
                 console.log(error)
-                message =
                 res.status(500).json({error, message: 'can not add user'})
             }
         } else { // updates user info
@@ -76,8 +75,7 @@ const addAnswers = async (req, res) => {
                 } 
                 catch (error) {
                     console.log(error)
-                    message = 'can not update user'
-                    res.status(500).json(error, message)
+                    res.status(500).json({error, message: 'can not update user'})
                 }
             }
         }
@@ -98,14 +96,11 @@ const addAnswers = async (req, res) => {
         } 
         catch (error) {
             console.log(error)
-            message = 'can not add answer'
-            res.status(500).json({ error, message })
+            res.status(500).json({ error, message: 'can not add answer' })
         }
-
     }
     catch (error) {
-        message = 'can not find user'
-        res.status(500).json({ error, message })
+        res.status(500).json({ error, message: 'can not find user'})
         console.log(error, message)
     }
 }
