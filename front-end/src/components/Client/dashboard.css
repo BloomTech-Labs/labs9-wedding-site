@@ -3,13 +3,14 @@ cause the cards to expand
 offscreen forever */
 .dashboard {
   display: flex;
+  margin-top: 150px;
 }
 
 .dashboard .dashboardContainer {
-  margin: 150px auto 50px;
+  margin: 0 auto 50px;
   width: 85%;
   position: relative;
-  padding: 0 30px;
+  padding: 0 40px 0 20px;
 }
 
 .dashboard .cardTopLeft {
@@ -34,7 +35,7 @@ offscreen forever */
 .dashboard .clientNavSidebar {
   width: 15%;
   height: 100vh;
-  margin-top: 150px;
+  padding-left: 10px;
 }
 
 @media (max-width: 600px) {
@@ -48,6 +49,7 @@ offscreen forever */
     width: 100%;
     height: 100%;
     margin-bottom: 50px;
+    padding-left: 0;
   }
 
   .dashboard .dashboardContainer {

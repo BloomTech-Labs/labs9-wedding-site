@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import AddQuestion from './addQuestion';
 import axios from 'axios';
-
+import Sidebar from '../clientNav';
+import './clientRsvp.css';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
@@ -18,28 +19,16 @@ const serverURL = process.env.REACT_APP_LOCAL_URL
 
 // define styles for material-ui components
 const styles = {
-    rsvpContainer: {
-        marginTop: '150px'
-    },
     card: {
-      width: '30%',
+      width: '40%',
       margin: '0 auto 30px',
       padding: '0 20px 20px',
-    },
-    topDiv: {
-        display: 'flex',
-        justifyContent: 'space-between'
     },
     closeIcon: {
         cursor: 'pointer'
     },
-    buttonDiv: {
-        margin: '60px auto 30px',
-        display: 'flex',
-        flexDirection: 'column'
-    },
     button: {
-        width: '20%',
+        width: '30%',
         margin: '0 auto 30px'
     }
   };
@@ -227,11 +216,13 @@ class Rsvp extends Component {
 
     render() {
       return (
-        <div style={styles.rsvpContainer}>
+        <div className="clientRsvp">
+            <Sidebar />
+            <div className="clientRsvpContainer">
              {this.state.questions.map((q, i) => 
                 this.renderCards(q, i)
             )}
-            <div style={styles.buttonDiv}>
+            <div className="buttonDiv">
                 <Button variant="outlined" onClick={this.handleOpen} style={styles.button}>Add Question</Button>
                 <Button variant="outlined" onClick={this.saveQuestions} style={styles.button}>Save</Button>
             </div>
@@ -245,6 +236,7 @@ class Rsvp extends Component {
                 handleClose={this.handleClose}
                 handleInputChange={this.inputHandler}/>
             </Modal>
+        </div>
         </div>
       );
     }
