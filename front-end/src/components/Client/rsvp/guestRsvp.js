@@ -59,12 +59,13 @@ const styles = {
 };
 
 const staticQuestions = [
-    {
-        category: 'Static',
-        multiple_choice: false,
-        question: '',
-        answer: '',
-    }
+    'first_name', 
+    'last_name', 
+    'Attendance', 
+    'Email', 
+    'Phone', 
+    'Address',
+    'Wedding Team',
 ]
 
 class PublicRsvp extends Component {
@@ -92,6 +93,7 @@ class PublicRsvp extends Component {
            ]
         }
     }
+
 
     // load user questions when component mounts
     componentDidMount() {
@@ -213,14 +215,23 @@ class PublicRsvp extends Component {
       };
 
       sendAnswers = () => {
-        let answersArr = this.state.questions.map( (e, i) => {
-            if ( i === 0 ) { e.id = 1}
+
+        let answersArr = this.state.questions.map( (question, i) => {
             return ({
-                question_id: e.id,
+                question_id: question.id,
                 answer: this.state[i]
             })
         })
-        console.log(answersArr )
+
+
+        let guestObj = answersArr.filter( question => {
+            return (
+                staticQuestions.find( q => q === question.category.toLowerCase())
+                && question.anwser.length > 0
+            )
+        })
+        console.log(guestObj)
+        console.log(answersArr)
           let responseObj = {
             wedding_id: this.state.weddingId,
             answers: answersArr,

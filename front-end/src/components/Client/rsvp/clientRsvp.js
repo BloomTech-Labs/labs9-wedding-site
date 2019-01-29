@@ -55,7 +55,14 @@ class Rsvp extends Component {
            questions: [
             {
                 wedding_id: localStorage.getItem('weddingID'),
-                category: 'Guest Name',
+                category: 'first_name',
+                multiple_choice: false,
+                question: '',
+                answer: ''
+            },
+            {
+                wedding_id: localStorage.getItem('weddingID'),
+                category: 'last_name',
                 multiple_choice: false,
                 question: '',
                 answer: ''
@@ -66,6 +73,20 @@ class Rsvp extends Component {
                 multiple_choice: true,
                 question: 'Will you be attending our wedding?',
                 answer: 'Attending,Not attending,Maybe'
+            },
+            {
+                wedding_id: localStorage.getItem('weddingID'),
+                category: 'Email',
+                multiple_choice: false,
+                question: 'What is your email address?',
+                answer: ''
+            },
+            {
+                wedding_id: localStorage.getItem('weddingID'),
+                category: 'Phone',
+                multiple_choice: false,
+                question: 'What is your phone number?',
+                answer: ''
             },
             {
                 wedding_id: localStorage.getItem('weddingID'),
