@@ -231,15 +231,11 @@ class Rsvp extends Component {
 
     render() {
       // find "Guest Name" questions
-      let guestName = this.state.questions.find((q, i) => (
-        q.category === "Guest Name"
-      ))
-      // get rest of questions
-      let questions = this.state.questions.filter(q => q.category !== guestName.category);
+
     console.log(questions)
+    const { questions } = this.state
       return (
         <div style={styles.rsvpContainer}>
-            {this.renderCards(guestName, 0) /* render "Guest Name" question*/} 
                 {questions.map((q, i) => /* render the remaining questions */
                     this.renderCards(q, i+1)
             )}
