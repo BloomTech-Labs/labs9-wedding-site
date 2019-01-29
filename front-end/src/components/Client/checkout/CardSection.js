@@ -45,7 +45,7 @@ const createOptions = (fontSize, padding) => {
 class CardSection extends React.Component {
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.props.submit}>
                 <label>
                     Card number
                 <CardNumberElement
@@ -86,7 +86,7 @@ class CardSection extends React.Component {
                         {...createOptions(this.props.fontSize)}
                     />
                 </label>
-                <button>Pay</button>
+                <button type='submit'>Pay</button>
             </form>
         );
     }

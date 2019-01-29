@@ -1,21 +1,33 @@
 import React from 'react';
 import { injectStripe } from 'react-stripe-elements';
 import CardSection from './CardSection';
+import axios from 'axios';
 
 class _CheckoutForm extends React.Component {
-  handleSubmit = (ev) => {
+  constructor(props) {
+    super(props);
+    this.submit = this.submit.bind(this);
+  }
+
+  async submit(ev) {
     ev.preventDefault();
-    if (this.props.stripe) {
-      this.props.stripe
-        .createToken()
-        .then((payload) => console.log('[token]', payload));
-    } else {
-      console.log("Stripe.js hasn't loaded yet.");
-    }
-  };
+    let { token } = await this.props.stripe.createToken({ name: "Name" });
+    console.log(token);
+    axios.post("http://localhost:8888/vb/billing", {token})
+      .then(
+        function (response) {
+          console.log(response, { message: "Charge Successful" });
+        }
+      )
+      .catch(
+        function (err) {
+          console.log(err, { message: "error, charge unsuccessful" })
+        }
+      )
+  }
   render() {
     return (
-      <CardSection />
+      <CardSection submit={this.submit} />
     );
   }
 }
