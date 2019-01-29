@@ -4,6 +4,7 @@ const server = express();
 const knex = require('knex');
 const KnexConfig = require('../knexfile');
 const db = knex(process.env.DB_ENVIORNMENT ? KnexConfig[process.env.DB_ENVIORNMENT] : KnexConfig.development);
+const bcrypt = require('bcryptjs');
 const faker = require('faker');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
@@ -100,20 +101,21 @@ passport.use(new GoogleStrategy({
 //GOOGLE AUTHENTICATE
 server.get('/signin/google', passport.authenticate('google', { scope: ['profile'] }))
 
-server.get('/google/redirect', passport.authenticate('google'), (req, res) => {
+server.get('/google/redirect', passport.authenticate('google'), async (req, res) => {
 
-
-    console.log('REDIRECT SUCCESS-PASSPORTREQ:', req._passport.session.user);
-
-
-    console.log('session:', req._passport.session.user.oauth_id)
-    res.append('Set-Cookie', 'foo=bar;')
+    let oauth_id =  req._passport.session.user.oauth_id
     
-    req.session.user_id = req._passport.session.user.oauth_id;
-    console.log("REQSESSION:",req.session)
-    res.cookie('userID', `${req._passport.session.user.oauth_id}`)
-    res.redirect(`http://${ process.env.LOCAL_CLIENT || 'vbeloved.com' }/vb/dashboard`);
-    res.cookie('user', `${req._passport.session.user.oauth_id}`)
+
+    /* let hash = bcrypt.hashSync(req._passport.session.user.oauth_id, 12)
+    console.log('HASH:', hash) */
+    const user = await db.table('user').join('oauth_ids', { 'user.id': "oauth_ids.user_id" }).where({ oauth_id });
+    let userExists = user.first_name;
+
+
+    console.log("UserExists:",userExists, user)
+
+    res.redirect(`http://${ process.env.LOCAL_CLIENT || 'vbeloved.com' }/vb/dashboard/?vbTok=${req._passport.session.user.oauth_id}&vbEx=${userExists}`);
+    
 })
 
 
@@ -161,12 +163,11 @@ server.get('/deleteall', async (req, res) => {
 server.post('/loaduser', async (req, res) => {
     let { first_name, last_name, p_firstname, p_lastname, event_date, event_address, oauth_id } = req.body;
 
-
     try {
         const userOAuthID = await db.table('oauth_ids').where({ oauth_id }).first();
 
         const user = await db.table('user').join('oauth_ids', { 'user.id': "oauth_ids.user_id" }).where({ oauth_id }).first();
-        console.log("Loaduser-USER", user);
+        
 
         if (!user) {
             const wedding_id = await db.table('weddings').insert({ event_date, event_address });
@@ -633,7 +634,7 @@ server.post('/upload', upload.single('file'), (req, res) => {
 
                 console.log(`Person${i}`,{first_name, last_name, email, address, related_spouse, wedding_id})
 
-                db.table('users').insert({first_name, last_name, email, address, wedding_id, guest: true})
+                db.table('user').insert({first_name, last_name, email, address, wedding_id, guest: true})
                 .then(guest_id => { console.log(`Users${i}ID`, guest_id[0])
                     db.table('guests')
                       .insert({guest_id: guest_id[0], related_spouse})

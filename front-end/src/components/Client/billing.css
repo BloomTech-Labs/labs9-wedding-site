@@ -1,0 +1,16 @@
+.billing {
+    display: flex;
+    margin-top: 150px;
+}
+
+.billing .billingContainer {
+    margin: 0 auto 50px;
+    width: 80%;
+    padding-left: 10%;
+}
+
+.billing .clientNavSidebar {
+    width: 20%;
+    height: 100vh;
+    padding-left: 20px;
+}
