@@ -27,15 +27,13 @@ const addAnswers = async (req, res) => {
             .where('email', guestObj.email)
 
         user = user[0]
-        console.log('first user', user)
+        console.log('Is user in db?', user ? 'Yes.' : 'No')
         // if users does not exists in database
         if (user === undefined /*|| user.email !== guestObj.email */) {
             // add the user
             console.log('add user')
             try {
                 console.log('guestObj', guestObj)
-
-                setTimeout(()=>(0), 300)
                 
                 const newUserId = await db('users').insert(guestObj)
 
@@ -46,6 +44,7 @@ const addAnswers = async (req, res) => {
                 user = Object.assign({}, guestObj,
                     { id: newUserId[0] }
                 )
+                console.log('new user', user)
             } 
             catch (error) {
                 console.log(error)
@@ -63,17 +62,16 @@ const addAnswers = async (req, res) => {
                 reducedObj[tuple[0]] = tuple[1]
                 return reducedObj
             }, {})
-            console.log(diffGuestProps)
 
             // then update in db if different
             if (Object.keys(diffGuestProps).length > 0) {
                 try {
-                    setTimeout(()=>(0), 300)
+                    
                     const updated = await db('users')
                         .where('id', user.id)
                         .update(diffGuestProps)
 
-                    console.log('updated', updated)
+                    // console.log('updated', updated)
                     user = Object.assign(user, updated)
                 } 
                 catch (error) {
@@ -84,11 +82,8 @@ const addAnswers = async (req, res) => {
             }
         }
 
-        console.log('user', user)
-        let newAnswers;
-
         // map guest_id onto answer objects
-        newAnswers = answers.map(
+        let newAnswers = answers.map(
             answer => Object.assign({}, answer,
                 { "guest_id": user['id'] }
             )
