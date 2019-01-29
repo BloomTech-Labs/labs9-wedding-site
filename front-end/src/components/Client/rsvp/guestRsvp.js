@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import AddQuestion from './addQuestion';
 import axios from 'axios';
 
+import Sidebar from '../clientNav';
+import './clientRsvp.css';
+
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
@@ -85,22 +88,17 @@ class PublicRsvp extends Component {
         const { pathname } = this.props.location;
         const w_id = pathname.substr(pathname.lastIndexOf('/') + 1);
         console.log('wedding pathname', w_id)
-        console.log('before everything')
 
         this.getQuestions(w_id)
     }
 
     getQuestions = (wed_id) => {
         const question_url = `${process.env.REACT_APP_LOCAL_URL}/${wed_id}/allquestions`
-        let questionVar;
 
         axios.get(question_url)
             .then(qs => {
-                questionVar = qs
-                console.log(qs)
                 this.setState(prevState => {
-
-                    const newQuestions = ([...prevState.questions, ...qs.data])//Object.assign({}, prevState.questions, qs.data )  
+                    const newQuestions = ([...prevState.questions, ...qs.data]) 
                     console.log(newQuestions)
                     return ({
                         "questions": newQuestions,
@@ -109,8 +107,6 @@ class PublicRsvp extends Component {
                     })
                 })
             }).catch(error => { console.log(error) })
-
-        console.log(questionVar)
     }
 
     // function to conditionally render cards based on the type of card
@@ -202,31 +198,25 @@ class PublicRsvp extends Component {
     sendAnswers = () => {
 
         const { questions } = this.state
-        // localStorage.set(questions)
 
         const identObj = {
             'first_name': 1,
             'last_name': 1,
-            // 'Attendance': 1,
             'Email': 1,
             'Phone': 1,
             'Address': 1,
-            // 'Wedding Team': 1,
         }
 
         let dynamicAnswers = []
-        // let guestObj = {}
         const guestObj = this.state.questions.map((question, i) => {
             // Must set question answer as this.state[i]
             //  return the question
             // when the question category matches one of the identObj properties
-            // when the question category doesn't match we must push this question 
-            // into dynamicAnswers
+            // when the question category doesn't match we must push this question into dynamicAnswers
             question.answer = this.state[i]
             if ( identObj[question.category] ) {
                 return question;
             } else {
-                // push properties expected by answers endpoint
                 dynamicAnswers.push({question_id: question.id, answer: question.answer})
             }
         }).filter(q => q).reduce((accObj, question) => {
@@ -259,13 +249,16 @@ class PublicRsvp extends Component {
     render() {
 
         return (
-            <div className="publicRsvp" style={styles.rsvpContainer}>
-                {this.state.questions.map((question, i) => {
-                    return this.renderCards(question, i)
-                })}
+            <div className="clientRsvp" >
 
-                <div style={styles.buttonDiv}>
-                    <Button variant="outlined" onClick={this.sendAnswers} style={styles.button}>submit</Button>
+                <div className="clientRsvpContainer">
+                    {this.state.questions.map((question, i) => {
+                        return this.renderCards(question, i)
+                    })}
+
+                    <div style={styles.buttonDiv}>
+                        <Button variant="outlined" onClick={this.sendAnswers} style={styles.button}>submit</Button>
+                    </div>
                 </div>
             </div>
         )
