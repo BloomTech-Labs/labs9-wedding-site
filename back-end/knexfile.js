@@ -43,18 +43,18 @@ module.exports = {
     migrations: {
       directory: './database/migrations_aws'
     }
-  }
+  },
+  testing: {
+      client: 'sqlite3',
+      connection: {
+        filename: './database/beloveddb.sqlite3'
+  
+      },
+      useNullAsDefault: true,
+      migrations: {
+        directory: './database/migrations'
+      }
+    }
 
 };
 
-/*  development: {
-    client: 'sqlite3',
-    connection: {
-      filename: './database/beloveddb.sqlite3'
-
-    },
-    useNullAsDefault: true,
-    migrations: {
-      directory: './database/migrations'
-    }
-  } */

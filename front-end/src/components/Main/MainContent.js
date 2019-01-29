@@ -8,8 +8,8 @@ import Design from './designs';
 import Prices from './pricing';
 import Signup from './signup';
 import Login from './login';
-import PublicRsvp from '../Client/rsvp/publicRsvp';
-import Auth from './Auth'
+import PublicRsvp from '../Client/rsvp/guestRsvp';
+import Auth from './Auth';
 
 //these are client views after login
 import Payment from '../Client/billing';

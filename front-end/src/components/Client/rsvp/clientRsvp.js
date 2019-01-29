@@ -44,7 +44,14 @@ class Rsvp extends Component {
            questions: [
             {
                 wedding_id: localStorage.getItem('weddingID'),
-                category: 'Guest Name',
+                category: 'first_name',
+                multiple_choice: false,
+                question: '',
+                answer: ''
+            },
+            {
+                wedding_id: localStorage.getItem('weddingID'),
+                category: 'last_name',
                 multiple_choice: false,
                 question: '',
                 answer: ''
@@ -172,6 +179,9 @@ class Rsvp extends Component {
             return <Card style={styles.card} key={i}>
             <CardContent style={styles.topDiv}>
                 {q.category}
+                {q.category === 'Attendance' ? <p></p> :
+                <Close onClick={() => this.deleteQuestion(q.id, i)} color="disabled" style={styles.closeIcon}/>
+                }
             </CardContent>
             <CardContent>
                 <FormControl component="fieldset">
