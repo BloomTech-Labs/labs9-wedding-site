@@ -12,7 +12,7 @@ import Modal from '@material-ui/core/Modal';
 import ClientSelections from './ClientSelections'
 
 import './dashboard.css';
-
+import Sidebar from './clientNav';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 
@@ -20,11 +20,6 @@ const cookies = new Cookies()
 const serverURL = process.env.REACT_APP_LOCAL_URL
 
 const styles = {
-    dashboardContainer: {
-        margin: '150px auto 50px',
-        width: '80%',
-        position: 'relative'
-    },
     cardDivTop: {
         display: 'flex',
     },
@@ -36,11 +31,6 @@ const styles = {
     },
     weddingInfo: {
         display: 'flex',
-    },
-    location: {
-        // position: 'absolute',
-        // right: '0px',
-        // top: '25px',
     },
     buttonTop: {
         display: 'block',
@@ -80,11 +70,7 @@ class Dashboard extends Component {
             userLoaded: false,
             registryLink: "",
             displayName: "",
-            registry: [
-                {link: "https://www.amazon.com/wedding/home", name: "amazon"},
-                {link: "https://www.target.com/gift-registry/wedding-registry", name: "target"},
-                {link: "https://www.williams-sonoma.com/registry/", name: "williams-sonoma"},
-            ]
+            registry: []
         }
     
         this.chartData = {
@@ -160,6 +146,7 @@ class Dashboard extends Component {
             this.props.history.push('/signup')
         }
     }
+
     
 
     // add a registry to the database
@@ -210,16 +197,17 @@ class Dashboard extends Component {
         return (
             
         <div className="dashboard">
+            <Sidebar />
             {!this.props.registered ? <ClientSelections loadUser={this.loadUser} toggleRegistered={this.props.toggleRegistered}/> : !this.state.userLoaded ? <div>Loading...</div> :
             <div className="dashboardContainer" style={styles.dashboardContainer}>
                 <Button>
-                    Change Design
-                </Button>
+            Change Design
+            </Button>
             <div className="weddingInfo" style={styles.weddingInfo}>
                 <div className="userInfo">
                     <h1>Bri &amp; Ryan's Wedding<br />June 4, 2019</h1>
                 </div>
-                <div className="location" style={styles.location}>
+                <div className="location">
                     <Share />
                     <p>Wedding Reception Hall<br />San Diego, CA</p>
                 </div>

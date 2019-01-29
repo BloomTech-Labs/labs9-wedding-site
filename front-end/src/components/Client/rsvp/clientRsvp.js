@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import AddQuestion from './addQuestion';
 import axios from 'axios';
-
+import Sidebar from '../clientNav';
+import './clientRsvp.css';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
@@ -18,28 +19,16 @@ const serverURL = process.env.REACT_APP_LOCAL_URL
 
 // define styles for material-ui components
 const styles = {
-    rsvpContainer: {
-        marginTop: '150px'
-    },
     card: {
-      width: '30%',
+      width: '40%',
       margin: '0 auto 30px',
       padding: '0 20px 20px',
-    },
-    topDiv: {
-        display: 'flex',
-        justifyContent: 'space-between'
     },
     closeIcon: {
         cursor: 'pointer'
     },
-    buttonDiv: {
-        margin: '60px auto 30px',
-        display: 'flex',
-        flexDirection: 'column'
-    },
     button: {
-        width: '20%',
+        width: '30%',
         margin: '0 auto 30px'
     }
   };
@@ -55,7 +44,14 @@ class Rsvp extends Component {
            questions: [
             {
                 wedding_id: localStorage.getItem('weddingID'),
-                category: 'Guest Name',
+                category: 'first_name',
+                multiple_choice: false,
+                question: '',
+                answer: ''
+            },
+            {
+                wedding_id: localStorage.getItem('weddingID'),
+                category: 'last_name',
                 multiple_choice: false,
                 question: '',
                 answer: ''
@@ -66,6 +62,20 @@ class Rsvp extends Component {
                 multiple_choice: true,
                 question: 'Will you be attending our wedding?',
                 answer: 'Attending,Not attending,Maybe'
+            },
+            {
+                wedding_id: localStorage.getItem('weddingID'),
+                category: 'Email',
+                multiple_choice: false,
+                question: 'What is your email address?',
+                answer: ''
+            },
+            {
+                wedding_id: localStorage.getItem('weddingID'),
+                category: 'Phone',
+                multiple_choice: false,
+                question: 'What is your phone number?',
+                answer: ''
             },
             {
                 wedding_id: localStorage.getItem('weddingID'),
@@ -188,7 +198,13 @@ class Rsvp extends Component {
             return <Card style={styles.card} key={i}>
                 <CardContent style={styles.topDiv}>
                     {q.category}
+                    {
+                    q.category === 'Wedding Team' ? <p></p> :
+                    q.category === 'Address' ? <p></p> :
+                    q.category === 'Phone' ? <p></p> :
+                    q.category === 'Email' ? <p></p> :
                     <Close onClick={() => this.deleteQuestion(q.id, i)} color="disabled" style={styles.closeIcon}/>
+                    }
                 </CardContent>
                 <CardContent>
                     {q.question}
@@ -209,20 +225,14 @@ class Rsvp extends Component {
 
 
     render() {
-      // find "Guest Name" questions
-      let guestName = this.state.questions.find((q, i) => (
-        q.category === "Guest Name"
-      ))
-      // get rest of questions
-      let questions = this.state.questions.filter(q => q.category !== guestName.category);
-    console.log(questions)
       return (
-        <div style={styles.rsvpContainer}>
-            {this.renderCards(guestName, 0) /* render "Guest Name" question*/} 
-                {questions.map((q, i) => /* render the remaining questions */
-                    this.renderCards(q, i+1)
+        <div className="clientRsvp">
+            <Sidebar />
+            <div className="clientRsvpContainer">
+             {this.state.questions.map((q, i) => 
+                this.renderCards(q, i)
             )}
-            <div style={styles.buttonDiv}>
+            <div className="buttonDiv">
                 <Button variant="outlined" onClick={this.handleOpen} style={styles.button}>Add Question</Button>
                 <Button variant="outlined" onClick={this.saveQuestions} style={styles.button}>Save</Button>
             </div>
@@ -236,6 +246,7 @@ class Rsvp extends Component {
                 handleClose={this.handleClose}
                 handleInputChange={this.inputHandler}/>
             </Modal>
+        </div>
         </div>
       );
     }
