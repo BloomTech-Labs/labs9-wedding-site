@@ -1,38 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
+import Sidebar from './clientNav';
+import './settings.css';
 
-
-const SettingsContainer = styled.div`
-margin: auto;
-margin-top: 200px;
-display: flex;
-flex-direction: wrap;
-width: 750px;
-height: 450px;
-`
-const InputFields = styled.div`
-display: flex;
-flex-wrap: wrap;
-justify-content:center;
-`
-const EmailPassword = styled.div`
-display:flex;
-flex-wrap: wrap;
-justify-content: center;
-align-items: center;
-width: 50%;
-`
-const NameLocation = styled.div`
-display:flex;
-flex-wrap: wrap;
-justify-content: center;
-width: 50%;
-`
 
 class Settings extends React.Component {
     constructor() {
@@ -59,10 +33,10 @@ class Settings extends React.Component {
     }
 
     render() {
-
         return (
-            <SettingsContainer>
-                <form>
+            <div className="userSettings">
+                <Sidebar />
+                    <div className="settingsContainer">
                     <TextField
                         name="email"
                         id="outlined-email"
@@ -101,7 +75,7 @@ class Settings extends React.Component {
                             label="Partner Name"
                             margin="normal"
                         />
-                        <EmailPassword>
+                        <div className="emailPassword">
                         <FormGroup>
                             <FormControlLabel
                                 label="Email?"
@@ -128,9 +102,9 @@ class Settings extends React.Component {
                                 }
                             />
                         </FormGroup>
-                    </EmailPassword>
-                    <InputFields>
-                    <NameLocation>
+                    </div>
+                    <div className="inputFields">
+                    <div className="nameLocation">
                         <TextField
                             id="standard-name"
                             label="Partner Name"
@@ -155,13 +129,13 @@ class Settings extends React.Component {
                             label="Wedding Location"
                             margin="normal"
                         />
-                    </NameLocation>
+                    </div>
                     <Button variant="contained" size="large" color="primary">
                         Save
                     </Button>
-                </InputFields>
-                </form>
-            </SettingsContainer >
+                </div>
+                </div>
+            </div>
         );
     }
 }

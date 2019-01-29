@@ -8,14 +8,14 @@ import Design from './designs';
 import Prices from './pricing';
 import Signup from './signup';
 import Login from './login';
-import PublicRsvp from '../Client/publicRsvp';
+import PublicRsvp from '../Client/rsvp/publicRsvp';
 
 
 //these are client views after login
 import Payment from '../Client/billing';
 import Settings from '../Client/settings';
 import GuestList from '../Client/guestList';
-import Rsvp from '../Client/rsvp';
+import Rsvp from '../Client/rsvp/clientRsvp';
 import Dashboard from '../Client/dashboard';
 import UserAccess from '../UserAccess/UserAccess.js'
 import PublicInvite from '../Client/PublicInvite'
