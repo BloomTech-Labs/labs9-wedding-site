@@ -10,6 +10,19 @@
     display: flex;
 }
 
-.inner-guest-input-box{
-    
+.guestList {
+    display: flex;
+    margin-top: 150px;
 }
+
+.guestList .guestListContainer {
+    margin: 0 auto 50px;
+    width: 80%;
+    padding: 0 40px 0 20px;
+}
+
+.guestList .clientNavSidebar {
+    width: 15%;
+    height: 100vh;
+    padding-left: 10px;
+  }

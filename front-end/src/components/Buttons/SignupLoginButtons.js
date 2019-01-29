@@ -11,13 +11,13 @@ const SignupLogin = (props) => {
         { !props.loggedIn ? 
           <Fragment>
           <li>
-            <Link to='signup'>
+            <Link to='/auth' onClick={props.signupbtnFunc}>
               Signup
             </Link>
           </li>
 
           <li>
-            <Link to='/login'>
+            <Link to='/auth' onClick={props.loginbtnFunc}>
              Login
             </Link>
           </li>
