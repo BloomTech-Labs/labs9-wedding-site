@@ -19,7 +19,6 @@ const cookies = new Cookies()
 const serverURL = process.env.REACT_APP_LOCAL_URL
 
 const styles = {
-    
     cardDivTop: {
         display: 'flex',
     },
@@ -31,11 +30,6 @@ const styles = {
     },
     weddingInfo: {
         display: 'flex',
-    },
-    location: {
-        // position: 'absolute',
-        // right: '0px',
-        // top: '25px',
     },
     buttonTop: {
         display: 'block',
@@ -75,11 +69,7 @@ class Dashboard extends Component {
             userLoaded: false,
             registryLink: "",
             displayName: "",
-            registry: [
-                {link: "https://www.amazon.com/wedding/home", name: "amazon"},
-                {link: "https://www.target.com/gift-registry/wedding-registry", name: "target"},
-                {link: "https://www.williams-sonoma.com/registry/", name: "williams-sonoma"},
-            ]
+            registry: []
         }
     
         this.chartData = {
@@ -196,7 +186,7 @@ class Dashboard extends Component {
                 <div className="userInfo">
                     <h1>Bri &amp; Ryan's Wedding<br />June 4, 2019</h1>
                 </div>
-                <div className="location" style={styles.location}>
+                <div className="location">
                     <Share />
                     <p>Wedding Reception Hall<br />San Diego, CA</p>
                 </div>
