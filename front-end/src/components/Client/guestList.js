@@ -17,14 +17,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Cookies from 'universal-cookie';
+import Sidebar from './clientNav';
 
 
 const cookies = new Cookies()
-
-const GuestListContainer = styled.div`
-margin: 50px auto 50px;
-width: 80%
-`
 
 // define styles for material-ui components
 const styles = {
@@ -137,7 +133,9 @@ class GuestList extends Component {
 
     render() {
       return (
-      <GuestListContainer>
+      <div className="guestList">
+          <Sidebar />
+          <div className="guestListContainer">
           <Button variant="contained">Import CSV</Button>
           <Button variant="outlined" style={styles.deleteButton}>Delete</Button>
           <div className="guest-list-table">
@@ -208,8 +206,9 @@ class GuestList extends Component {
                     }
 
                 </Spring>}
+            </div>
           </div>
-      </GuestListContainer>
+      </div>
       );
     }
   }

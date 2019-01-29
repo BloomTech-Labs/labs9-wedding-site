@@ -1,75 +1,89 @@
 import React from 'react';
-import styled from 'styled-components';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
+import Sidebar from './clientNav';
+import './settings.css';
 
-
-const SettingsContainer = styled.div`
-margin: auto;
-margin-top: 200px;
-display: flex;
-flex-direction: wrap;
-width: 750px;
-height: 450px;
-`
-const InputFields = styled.div`
-display: flex;
-flex-wrap: wrap;
-justify-content:center;
-`
-const EmailPassword = styled.div`
-display:flex;
-flex-wrap: wrap;
-justify-content: center;
-align-items: center;
-width: 50%;
-`
-const NameLocation = styled.div`
-display:flex;
-flex-wrap: wrap;
-justify-content: center;
-width: 50%;
-`
 
 class Settings extends React.Component {
-    state = {
-        checkedEmail: false,
-        checkedText: false,
-    };
+    constructor() {
+        super();
+        this.state = {
+            checkedEmail: false,
+            checkedText: false,
+            first_name: "",
+            last_name: "",
+            p_first_name: "",
+            p_last_name: "",
+            email: "",
+            phone: "",
+            address: "",
+        };
+    }
 
-    handleChange = name => event => {
+    handleChecked = name => event => {
         this.setState({ [name]: event.target.checked });
     };
 
-    render() {
+    handleInputChange = event => {
+        this.setState({ [event.target.name]: event.target.value })
+    }
 
+    render() {
         return (
-            <SettingsContainer>
-                <InputFields>
-                    <EmailPassword>
+            <div className="userSettings">
+                <Sidebar />
+                    <div className="settingsContainer">
+                    <TextField
+                        name="email"
+                        id="outlined-email"
+                        label="Email"
+                        margin="normal"
+                        variant="outlined"
+                    />
+                    <TextField
+                        name="phone"
+                        id="outlined-phone"
+                        label="Phone"
+                        margin="normal"
+                        variant="outlined"
+                    />
                         <TextField
-                            id="outlined-email"
-                            label="Email"
+                            name="first_name"
+                            id="standard-name"
+                            label="Partner Name"
                             margin="normal"
-                            variant="outlined"
                         />
                         <TextField
-                            id="outlined-phone"
-                            label="Phone"
+                            name="last_name"
+                            id="standard-name"
+                            label="Partner Name"
                             margin="normal"
-                            variant="outlined"
                         />
-                        <FormGroup row>
+                        <TextField
+                            name="p_first_name"
+                            id="standard-name"
+                            label="Partner Name"
+                            margin="normal"
+                        />
+                        <TextField
+                            name="p_last_name"
+                            id="standard-name"
+                            label="Partner Name"
+                            margin="normal"
+                        />
+                        <div className="emailPassword">
+                        <FormGroup>
                             <FormControlLabel
                                 label="Email?"
                                 labelPlacement="start"
                                 control={
                                     <Checkbox
                                         checked={this.state.checkedEmail}
-                                        onChange={this.handleChange('checkedEmail')}
+                                        onChange={this.handleChecked('checkedEmail')}
                                         value="checkedEmail"
                                         color="primary"
                                     />
@@ -81,15 +95,16 @@ class Settings extends React.Component {
                                 control={
                                     <Checkbox
                                         checked={this.state.checkedText}
-                                        onChange={this.handleChange('checkedText')}
+                                        onChange={this.handleChecked('checkedText')}
                                         value="checkedText"
                                         color="primary"
                                     />
                                 }
                             />
                         </FormGroup>
-                    </EmailPassword>
-                    <NameLocation>
+                    </div>
+                    <div className="inputFields">
+                    <div className="nameLocation">
                         <TextField
                             id="standard-name"
                             label="Partner Name"
@@ -100,7 +115,6 @@ class Settings extends React.Component {
                             label="Partner Name"
                             margin="normal"
                         />
-                        <div>
                             <TextField
                                 id="datetime-local"
                                 label="Wedding Date &amp; Time"
@@ -110,20 +124,18 @@ class Settings extends React.Component {
                                     shrink: true,
                                 }}
                             />
-                        </div>
                         <TextField
                             id="standard-location"
                             label="Wedding Location"
                             margin="normal"
                         />
-                    </NameLocation>
-                    <div>
+                    </div>
                     <Button variant="contained" size="large" color="primary">
                         Save
                     </Button>
-                    </div>
-                </InputFields>
-            </SettingsContainer >
+                </div>
+                </div>
+            </div>
         );
     }
 }
