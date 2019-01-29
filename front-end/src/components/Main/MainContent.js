@@ -9,7 +9,6 @@ import Prices from './pricing';
 import Signup from './signup';
 import Login from './login';
 import PublicRsvp from '../Client/rsvp/guestRsvp';
-import PublicRsvp from '../Client/rsvp/publicRsvp';
 import Auth from './Auth';
 
 //these are client views after login
