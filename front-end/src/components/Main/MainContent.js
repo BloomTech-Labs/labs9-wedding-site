@@ -43,7 +43,8 @@ class MainContent extends Component {
            event_address: '',
            couple: [],
            loginbtn: false,
-           signupbtn: false
+           signupbtn: false,
+           registered: false
 
            
         }
@@ -75,7 +76,7 @@ class MainContent extends Component {
        this.setState({
            loggedIn: false
        })
-       cookies.remove('userID')
+       cookies.remove('vbtoken')
    }
 
    setUser = (partner1, partner2, guests, couple) => {
@@ -89,6 +90,13 @@ class MainContent extends Component {
            guests,
            couple
         })
+    }
+
+    toggleRegistered = () =>{
+        this.setState({
+            registered: true
+        })
+
     }
 
     setGuests = (guests) =>{
@@ -140,7 +148,11 @@ class MainContent extends Component {
                    <Route path='/login' component={Login} />
                    <Route path={`/rsvp`} render={props => <PublicRsvp {...props} state={this.state}/> }/>
                    {/* <Route path="/vb" render={props => <UserAccess {...props} />} /> */}
-                    <Route path='/vb/dashboard/:id'  render={props => < Dashboard {...props} login={this.login} setUser={this.setUser}/>} />
+                    <Route path='/vb/dashboard'  render={props => < Dashboard {...props} 
+                                                                              login={this.login} 
+                                                                              setUser={this.setUser}
+                                                                              registered={this.state.registered}
+                                                                              toggleRegistered={this.toggleRegistered}/>} />
                     <Route path='/vb/payment'  render={props => < Payment {...props} />} />
                     <Route path='/vb/settings'  render={props => < Settings {...props} />} />
                     <Route path='/vb/guestlist'  render={props => < GuestList {...props} 
@@ -153,8 +165,8 @@ class MainContent extends Component {
                     <Route path='/vb/rsvp'  render={props => < Rsvp {...props} />}/>
                     <Route path='/vb/billing' component={Payment} />
                     <Route path='/:id/invite/:name' render={props => < PublicInvite {...props} 
-                                                                          coupleData={this.state}
-                                                                          setUser={this.setUser} />} />
+                                                                                    coupleData={this.state}
+                                                                                    setUser={this.setUser} />} />
                     <Route path='/auth'  render={props => < Auth  {...props}
                                                                   loginbtn={this.state.loginbtn}
                                                                    />}/>

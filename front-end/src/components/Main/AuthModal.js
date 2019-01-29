@@ -26,10 +26,11 @@ export default class AuthModal extends React.Component {
                 <img src={require('./images/beloved_mark_pink.png')} alt="vbeloved-logo"/>
             </div>
         </div>
+        <a id="loginbtns" href={`${process.env.REACT_APP_LOCAL_URL}/signin/google`}>
         <div className="auth-btn">
             {`${this.props.loginbtn ? 'Login' : 'Sign Up'} With Google`}
         </div>
-        
+        </a>
 
 
         </div>

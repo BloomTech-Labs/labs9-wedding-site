@@ -101,20 +101,21 @@ passport.use(new GoogleStrategy({
 //GOOGLE AUTHENTICATE
 server.get('/signin/google', passport.authenticate('google', { scope: ['profile'] }))
 
-server.get('/google/redirect', passport.authenticate('google'), (req, res) => {
+server.get('/google/redirect', passport.authenticate('google'), async (req, res) => {
 
-
-    console.log('REDIRECT SUCCESS-PASSPORTREQ:', req._passport.session.user);
-
-
-    console.log('session:', req._passport.session.user.oauth_id)
-    res.append('Set-Cookie', 'foo=bar;')
+    let oauth_id =  req._passport.session.user.oauth_id
     
-    let hash = bcrypt.hashSync(req._passport.session.user.oauth_id, 12)
-    console.log('HASH:', hash)
+
+    /* let hash = bcrypt.hashSync(req._passport.session.user.oauth_id, 12)
+    console.log('HASH:', hash) */
+    const user = await db.table('user').join('oauth_ids', { 'user.id': "oauth_ids.user_id" }).where({ oauth_id });
+    let userExists = user.first_name;
+
+
+    console.log("UserExists:",userExists, user)
+
+    res.redirect(`http://${ process.env.LOCAL_CLIENT || 'vbeloved.com' }/vb/dashboard/?vbTok=${req._passport.session.user.oauth_id}&vbEx=${userExists}`);
     
-    res.redirect(`http://${ process.env.LOCAL_CLIENT || 'vbeloved.com' }/vb/dashboard`);
-    res.cookie('user', `${req._passport.session.user.oauth_id}`)
 })
 
 
@@ -162,13 +163,11 @@ server.get('/deleteall', async (req, res) => {
 server.post('/loaduser', async (req, res) => {
     let { first_name, last_name, p_firstname, p_lastname, event_date, event_address, oauth_id } = req.body;
 
-    let hash = bcrypt.hashSync(oauth_id, 12)
-    console.log('HASH:', hash)
     try {
         const userOAuthID = await db.table('oauth_ids').where({ oauth_id }).first();
 
         const user = await db.table('user').join('oauth_ids', { 'user.id': "oauth_ids.user_id" }).where({ oauth_id }).first();
-        console.log("Loaduser-USER", user);
+        
 
         if (!user) {
             const wedding_id = await db.table('weddings').insert({ event_date, event_address });
