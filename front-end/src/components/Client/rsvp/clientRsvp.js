@@ -25,7 +25,8 @@ const styles = {
       padding: '0 20px 20px',
     },
     closeIcon: {
-        cursor: 'pointer'
+        cursor: 'pointer',
+        float: 'right'
     },
     button: {
         width: '30%',
@@ -44,14 +45,14 @@ class Rsvp extends Component {
            questions: [
             {
                 wedding_id: localStorage.getItem('weddingID'),
-                category: 'first_name',
+                category: 'First Name',
                 multiple_choice: false,
                 question: '',
                 answer: ''
             },
             {
                 wedding_id: localStorage.getItem('weddingID'),
-                category: 'last_name',
+                category: 'Last Name',
                 multiple_choice: false,
                 question: '',
                 answer: ''
@@ -164,24 +165,10 @@ class Rsvp extends Component {
 
     // function to conditionally render cards based on the type of card
     renderCards = (q, i) => {
-        if (q.category === 'Guest Name') {
-            return  <Card style={styles.card} key={i}>
-            <CardContent>
-                {q.category}
-            </CardContent>
-            <CardContent>
-                {q.question}
-                <TextField fullWidth={true} label="First Name"></TextField>
-                <TextField fullWidth={true} label="Last Name"></TextField>
-            </CardContent>
-            </Card>
-        } else if (q.multiple_choice === 1 || q.multiple_choice === true) {
+        if (q.multiple_choice === 1 || q.multiple_choice === true) {
             return <Card style={styles.card} key={i}>
             <CardContent style={styles.topDiv}>
                 {q.category}
-                {q.category === 'Attendance' ? <p></p> :
-                <Close onClick={() => this.deleteQuestion(q.id, i)} color="disabled" style={styles.closeIcon}/>
-                }
             </CardContent>
             <CardContent>
                 <FormControl component="fieldset">
@@ -199,7 +186,8 @@ class Rsvp extends Component {
                 <CardContent style={styles.topDiv}>
                     {q.category}
                     {
-                    q.category === 'Wedding Team' ? <p></p> :
+                    q.category === 'First Name' ? <p></p> :
+                    q.category === 'Last Name' ? <p></p> :
                     q.category === 'Address' ? <p></p> :
                     q.category === 'Phone' ? <p></p> :
                     q.category === 'Email' ? <p></p> :
