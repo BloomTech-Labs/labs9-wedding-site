@@ -113,6 +113,7 @@ server.get('/google/redirect', passport.authenticate('google'), async (req, res)
 
 
     console.log("UserExists:",userExists, user)
+    console.log(oauth_id)
 
     res.redirect(`http://${ process.env.LOCAL_CLIENT || 'vbeloved.com' }/vb/dashboard/?vbTok=${req._passport.session.user.oauth_id}&vbEx=${userExists}`);
     
@@ -141,15 +142,18 @@ server.get('/', (req, res) => {
     res.json(`Server root.`)
 })
 
+//A FUNCTION FOR DELETING ALL USERS; MEANT TO CLEAR DB FOR TESTING.
+
 server.get('/deleteall', async (req, res) => {
     try {
         let oauth = await db.table('oauth_ids').del()
         let couples = await db.table('couples').del()
+        let guests = await db.table('guests').del() 
         let users = await db.table('user').del()
-
+        let registries = await db.table('registry').del()
         let answers = await db.table('answers').del()
         let questions = await db.table('questions').del()
-        let guests = await db.table('guests').del()
+        
         let weddings = await db.table('weddings').del()
         res.status(200).json('Everything - GONE!')
     }
@@ -161,7 +165,7 @@ server.get('/deleteall', async (req, res) => {
 
 //THIS FUNCTION LOADS THE USER'S INFORMATION INTO THE MAINCONTENT COMPONENT AND IS CALLED INSIDE OF componentDidMount() IN THE DASHBOARD COMPONENT 
 server.post('/loaduser', async (req, res) => {
-    let { first_name, last_name, p_firstname, p_lastname, event_date, event_address, oauth_id } = req.body;
+    let { first_name, last_name, p_firstname, p_lastname, event_date, event_address, oauth_id, design_template, registering } = req.body;
 
     try {
         const userOAuthID = await db.table('oauth_ids').where({ oauth_id }).first();
@@ -178,6 +182,26 @@ server.post('/loaduser', async (req, res) => {
             const oauth = await db('oauth_ids').insert({ oauth_id, user_id: user1[0] })
 
             const coupleID1 = await db('couples').insert({ user_id: user1[0], dashboard_access: true })
+            const coupleID2 = await db('couples').insert({ user_id: user2[0], dashboard_access: true })
+
+            let couple = await db('user').join('couples', { 'user.id': 'couples.user_id' }).where({ wedding_id });
+            let guests = await db('user').where({ wedding_id, guest: true });
+
+            res.status(200).json({
+                couple,
+                guests
+            })
+
+        }
+        else if(registering){
+            const wedding_id = await db.table('weddings').insert({ event_date, event_address });
+
+            const user1 = await db('user').where({id: user.id}).insert({ first_name, last_name, wedding_id }) //email must be added in OAuth
+            const user2 = await db('user').insert({ first_name: p_firstname, last_name: p_lastname, wedding_id })
+
+            const oauth = await db('oauth_ids').where({oauth_id})
+            console.log('oauthDBUser',oauth)
+            const coupleID1 = await db('couples').insert({ user_id: user.id, dashboard_access: true })
             const coupleID2 = await db('couples').insert({ user_id: user2[0], dashboard_access: true })
 
             let couple = await db('user').join('couples', { 'user.id': 'couples.user_id' }).where({ wedding_id });

@@ -21,6 +21,12 @@
     
 }
 
+#design-form {
+    position: relative;
+    top: unset;
+    left: unset;  
+}
+
 .auth-circle > .CustomizedInputs-wholegroup-256 {
     position: relative;
     top: unset;
@@ -32,3 +38,9 @@
     top: unset;
     left: unset; 
 }
+
+/* .CustomizedInputs-wholegroup-214 {
+    position: relative;
+    top: unset;
+    left: unset; 
+} */

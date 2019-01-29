@@ -78,9 +78,7 @@ const styles = theme => ({
     flexDirection:'row',
   },
   wholegroup: {
-    position:'absolute',
-    left: 550, //was 500 before adjustment
-    top:200, //was 100 before adjustment
+    position:'relative'
   },
   lasttwo:{
     width:690,

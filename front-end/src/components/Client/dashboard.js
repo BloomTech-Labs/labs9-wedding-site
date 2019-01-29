@@ -113,17 +113,20 @@ class Dashboard extends Component {
         this.setState({ [e.target.name]: e.target.value });
     };
 
+    loadUser = () =>{
+        this.setState({
+            userLoaded: true 
+         }) 
+    }
+
     componentDidMount() {
         const params = new URLSearchParams(this.props.location.search);
         const vbtoken = cookies.get('vbtoken'); //"VB Token"; this is a token created in the Passport redirect function, and set in a cookie in the Axios response below. Purpose here is to check if the user is still logged in(expires in 10m)
         const oauth_id = params.get("vbTok"); //Hashed OAuth ID set in the query section of the Passport redirect URL. 
         const userExists = params.get("vbEx"); // Boolean set in the query section of the Passport redirect URL that determines if the user exists or not.
-
-        console.log('vbtoken:', vbtoken)
-        console.log('oauth_id:',oauth_id)
-        console.log('userExists:', userExists)
-        console.log('bool:', (oauth_id || userExists))
-        
+        console.log('vb', vbtoken)
+        console.log('oatuh', oauth_id)
+        console.log('', userExists)
         if((oauth_id && userExists !== 'undefined') || vbtoken){
             axios.post(`${serverURL}/loaduser`, {oauth_id, vbtoken})
             .then(res => {
@@ -136,8 +139,7 @@ class Dashboard extends Component {
                 
                 this.setState({
                         userLoaded: true 
-                     })
-                
+                     })   
                 
             })
             .then(() => {
@@ -208,11 +210,11 @@ class Dashboard extends Component {
         return (
             
         <div className="dashboard">
-            {!this.props.registered ? <ClientSelections toggleRegistered={this.props.toggleRegistered}/> : !this.state.userLoaded ? <div>Loading...</div> :
+            {!this.props.registered ? <ClientSelections loadUser={this.loadUser} toggleRegistered={this.props.toggleRegistered}/> : !this.state.userLoaded ? <div>Loading...</div> :
             <div className="dashboardContainer" style={styles.dashboardContainer}>
                 <Button>
-            Change Design
-            </Button>
+                    Change Design
+                </Button>
             <div className="weddingInfo" style={styles.weddingInfo}>
                 <div className="userInfo">
                     <h1>Bri &amp; Ryan's Wedding<br />June 4, 2019</h1>
