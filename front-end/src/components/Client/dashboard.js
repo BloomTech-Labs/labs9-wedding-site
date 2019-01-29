@@ -9,9 +9,10 @@ import Button from '@material-ui/core/Button';
 import Share from '@material-ui/icons/Share';
 import Add from '@material-ui/icons/Add';
 import Modal from '@material-ui/core/Modal';
+import ClientSelections from './ClientSelections'
 
 import './dashboard.css';
-
+import Sidebar from './clientNav';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 
@@ -19,11 +20,6 @@ const cookies = new Cookies()
 const serverURL = process.env.REACT_APP_LOCAL_URL
 
 const styles = {
-    dashboardContainer: {
-        margin: '150px auto 50px',
-        width: '80%',
-        position: 'relative'
-    },
     cardDivTop: {
         display: 'flex',
     },
@@ -35,11 +31,6 @@ const styles = {
     },
     weddingInfo: {
         display: 'flex',
-    },
-    location: {
-        // position: 'absolute',
-        // right: '0px',
-        // top: '25px',
     },
     buttonTop: {
         display: 'block',
@@ -79,11 +70,7 @@ class Dashboard extends Component {
             userLoaded: false,
             registryLink: "",
             displayName: "",
-            registry: [
-                {link: "https://www.amazon.com/wedding/home", name: "amazon"},
-                {link: "https://www.target.com/gift-registry/wedding-registry", name: "target"},
-                {link: "https://www.williams-sonoma.com/registry/", name: "williams-sonoma"},
-            ]
+            registry: []
         }
     
         this.chartData = {
@@ -113,21 +100,31 @@ class Dashboard extends Component {
     };
 
     componentDidMount() {
-        const userdata = cookies.get('USERDATA')
-        const oauth_id = '117923096476841958425'
-        //const oauth_id = cookies.get('userID')
-        console.log('userdata:', oauth_id)
-        if(oauth_id){
-            axios.post(`${serverURL}/loaduser`, {...userdata, oauth_id})
+        const params = new URLSearchParams(this.props.location.search);
+        const vbtoken = cookies.get('vbtoken'); //"VB Token"; this is a token created in the Passport redirect function, and set in a cookie in the Axios response below. Purpose here is to check if the user is still logged in(expires in 10m)
+        const oauth_id = params.get("vbTok"); //Hashed OAuth ID set in the query section of the Passport redirect URL. 
+        const userExists = params.get("vbEx"); // Boolean set in the query section of the Passport redirect URL that determines if the user exists or not.
+
+        console.log('vbtoken:', vbtoken)
+        console.log('oauth_id:',oauth_id)
+        console.log('userExists:', userExists)
+        console.log('bool:', (oauth_id || userExists))
+        
+        if((oauth_id && userExists !== 'undefined') || vbtoken){
+            axios.post(`${serverURL}/loaduser`, {oauth_id, vbtoken})
             .then(res => {
                 console.log(res)
-                cookies.set('userID', '117923096476841958425')
+                cookies.set('vbtoken', oauth_id, {maxAge: 600})
                 localStorage.setItem('weddingID', res.data.couple[0].wedding_id)
                 this.props.login() //toggles the state of the user to loggedIn (in MainContent component)
-                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ])
+                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ]);
+                this.props.toggleRegistered();
+                
                 this.setState({
-                   userLoaded: true 
-                })
+                        userLoaded: true 
+                     })
+                
+                
             })
             .then(() => {
                 const w_id = localStorage.getItem('weddingID');
@@ -138,7 +135,12 @@ class Dashboard extends Component {
                 })
             })
             .catch(err => console.log(err))
-        } else {
+        }
+        
+        else if(oauth_id && userExists === "undefined"){
+            cookies.set('authID', oauth_id)
+        } 
+        else {
             this.props.history.push('/signup')
         }
     }
@@ -188,9 +190,12 @@ class Dashboard extends Component {
     };
 
     render() {
+        
         return (
+            
         <div className="dashboard">
-            {!this.state.userLoaded ? <div>Loading...</div> :
+            <Sidebar />
+            {!this.props.registered ? <ClientSelections toggleRegistered={this.props.toggleRegistered}/> : !this.state.userLoaded ? <div>Loading...</div> :
             <div className="dashboardContainer" style={styles.dashboardContainer}>
                 <Button>
             Change Design
@@ -199,7 +204,7 @@ class Dashboard extends Component {
                 <div className="userInfo">
                     <h1>Bri &amp; Ryan's Wedding<br />June 4, 2019</h1>
                 </div>
-                <div className="location" style={styles.location}>
+                <div className="location">
                     <Share />
                     <p>Wedding Reception Hall<br />San Diego, CA</p>
                 </div>

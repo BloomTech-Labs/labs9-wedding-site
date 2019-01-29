@@ -1,0 +1,37 @@
+.userSettings {
+    display: flex;
+    margin-top: 150px;
+}
+
+.userSettings .settingsContainer {
+    margin: 0 auto 50px;
+    width: 80%;
+    padding: 0 10%;
+}
+
+.userSettings .clientNavSidebar {
+    width: 20%;
+    height: 100vh;
+    padding-left: 20px;
+}
+
+.userSettings .inputFields {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:center;
+}
+
+.userSettings .emailPassword {
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.userSettings .nameLocation {
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 50%;
+}
