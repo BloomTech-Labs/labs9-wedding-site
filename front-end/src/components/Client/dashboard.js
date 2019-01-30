@@ -20,18 +20,6 @@ const cookies = new Cookies()
 const serverURL = process.env.REACT_APP_LOCAL_URL
 
 const styles = {
-    cardDivTop: {
-        display: 'flex',
-    },
-    cardBottom: {
-        marginTop: '30px',
-        minHeight: '200px',
-        padding: '15px',
-        display: 'flex'
-    },
-    weddingInfo: {
-        display: 'flex',
-    },
     buttonTop: {
         display: 'block',
         margin: '10% auto',
@@ -199,11 +187,11 @@ class Dashboard extends Component {
         <div className="dashboard">
             <Sidebar />
             {!this.props.registered ? <ClientSelections login={this.props.login} setUser={this.props.setUser} loadUser={this.loadUser} toggleRegistered={this.props.toggleRegistered}/> : !this.state.userLoaded ? <div>Loading...</div> :
-            <div className="dashboardContainer" style={styles.dashboardContainer}>
+            <div className="dashboardContainer">
                 <Button>
             Change Design
             </Button>
-            <div className="weddingInfo" style={styles.weddingInfo}>
+            <div className="weddingInfo">
                 <div className="userInfo">
                     <h1>Bri &amp; Ryan's Wedding<br />June 4, 2019</h1>
                 </div>
@@ -212,7 +200,7 @@ class Dashboard extends Component {
                     <p>Wedding Reception Hall<br />San Diego, CA</p>
                 </div>
             </div>
-            <div className="cardDivTop" style={styles.cardDivTop}>
+            <div className="cardDivTop">
                 <Card className="cardTopLeft" style={styles.cardTopLeft}>
                     Guest List
                     <ReactDropzone
@@ -226,7 +214,7 @@ class Dashboard extends Component {
                         )}
                     </ReactDropzone>
                 </Card>
-                <Card className="cardTopRight" style={styles.cardTopRight}>
+                <Card className="cardTopRight">
                     RSVP
                     <Pie data={this.chartData}
                         style={styles.pieChart}
@@ -235,7 +223,7 @@ class Dashboard extends Component {
                 </Card>
             </div>
             <div>
-            <Card className="Registry" style={styles.cardBottom}>
+            <Card className="registry">
                 Registry
                 <CardContent>
                     {this.state.registry.map((r, i) => {
