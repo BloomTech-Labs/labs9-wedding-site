@@ -109,7 +109,7 @@ server.get('/google/redirect', passport.authenticate('google'), async (req, res)
     /* let hash = bcrypt.hashSync(req._passport.session.user.oauth_id, 12)
     console.log('HASH:', hash) */
     const user = await db.table('user').join('oauth_ids', { 'user.id': "oauth_ids.user_id" }).where({ oauth_id });
-    let userExists = user.first_name;
+    let userExists = user.length;
 
 
     console.log("UserExists:",userExists, user)
