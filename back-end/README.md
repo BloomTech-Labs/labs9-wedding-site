@@ -9,7 +9,7 @@ will get all questions associated with wedding_id :id
         "multiple_choice": 0,
         "question": "Are you attending?",
         "answer": "yes, no, maybe",
-        "category": "multi-input"
+        "category": "Email"
     },
     {
         "id": 2,
@@ -17,7 +17,7 @@ will get all questions associated with wedding_id :id
         "multiple_choice": 0,
         "question": "Are you attending?",
         "answer": "yes, no, maybe",
-        "category": "multi-input"
+        "category": "first_name"
     },
     {
         "id": 4,
@@ -25,15 +25,15 @@ will get all questions associated with wedding_id :id
         "multiple_choice": 0,
         "question": "Are you attending?",
         "answer": "yes, no, maybe",
-        "category": "multi-input"
+        "category": "Phone"
     },
     {
         "id": 5,
         "wedding_id": 3,
-        "multiple_choice": 0,
+        "multiple_choice": 1,
         "question": "Are you attending?",
         "answer": "yes, no, maybe",
-        "category": "multi-input"
+        "category": "Attendance"
     }
 ]
 ```
