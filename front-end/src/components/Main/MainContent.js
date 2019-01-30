@@ -21,7 +21,7 @@ import UserAccess from '../UserAccess/UserAccess.js'
 import PublicInvite from '../Client/PublicInvite'
 
 //misc. components go here
-import StickyTop from '../Navigation/topBar'; //NavBar
+import StickyTop from '../Navigation/topBar';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 
@@ -81,7 +81,7 @@ class MainContent extends Component {
 
    setUser = (partner1, partner2, guests, couple) => {
         console.log('guests:', guests)
-    this.setState({
+        this.setState({
            weddingID: partner1.wedding_id,
            first_name: partner1.first_name,
            last_name: partner1.last_name,
