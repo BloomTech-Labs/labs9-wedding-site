@@ -8,7 +8,6 @@ import { pink } from '@material-ui/core/colors';
 
 const styles = {
   bigAvatar: {
-    marginTop:36,
     width: 50,
     height: 50,
     border: '3px solid pink',
@@ -18,9 +17,7 @@ const styles = {
 function ImageAvatars(props) {
   const { classes } = props;
   return (
-    // <Grid>
       <Avatar alt="Remy Sharp" src="https://i.pinimg.com/564x/9b/f4/3a/9bf43a4594863f04ac2648fa3071c5e8.jpg" className={classes.bigAvatar} />
-    // </Grid>
   );
 }
 

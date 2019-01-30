@@ -113,7 +113,7 @@ class Dashboard extends Component {
         console.log('vb', vbtoken)
         console.log('oatuh', oauth_id)
         console.log('', userExists)
-        if((this.props.registered) || userExists || vbtoken){
+        if(this.props.registered || userExists || vbtoken){
             axios.post(`${serverURL}/loaduser`, {oauth_id, vbtoken})
             .then(res => {
                 console.log(res)

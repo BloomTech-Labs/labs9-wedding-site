@@ -18,9 +18,9 @@ const StickyTop = (props) => {
         <LandingButtonsExp />
       </div>
       <div className="centerNav">
-        <Link to='/'>
+        {/* <Link to='/'> */}
           <h1 className="siteName">Beloved</h1>
-        </Link>
+        {/* </Link> */}
       </div>
       <div className="rightNav">
         <SignupLogin loginbtnFunc={props.loginbtnFunc}

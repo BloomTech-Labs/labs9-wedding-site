@@ -1,6 +1,6 @@
-@font-face {
+/* @font-face {
     font-family: 'Snell Bold';
-}
+} */
 
 .overall{
     height: 90px;
@@ -8,11 +8,16 @@
     background-color: white;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     border-bottom: 1px solid grey;
     position:fixed;
     z-index: 1000;
     top:0;
+}
+
+.overall ul{
+    padding: 0;
+    margin: 0;
 }
 
 .siteName {
@@ -25,14 +30,23 @@
     display: flex;
     flex-direction: row;
     align-self: center;
-    align-content: center;
+    align-items: center;
     font-weight: 600;
+    padding-left: 25px;
 }
 
 .centerNav {
     align-self: center;
     align-content: center;
-    padding-right: 7%;
+    padding-right: 8%;
+}
+
+.centerNav .siteName {
+    position: relative;
+    display: block;
+    font-size: 2rem;
+    text-transform: uppercase;
+    color: rgb(108, 192, 223);
 }
 
 .rightNav {
@@ -41,6 +55,13 @@
     align-self: center;
     align-content: center;
     font-weight: 600;
+    padding-right: 10px;
+}
+
+@media (max-width: 1024px) {
+    .centerNav {
+        padding-right: 0;
+    }
 }
 
 @media (max-width: 800px) {
@@ -52,8 +73,14 @@
 
     .centerNav {
         order: -1;
+    }
+
+    .leftNav {
+        padding-left: 0;
+    }
+    
+    .rightNav {
         padding-right: 0;
-        padding-left: 5%;
     }
 
 }
@@ -72,6 +99,6 @@
 
     .leftNav {
         flex-direction: column;
-        align-items: center;
+        text-align: center;
     }
 }
