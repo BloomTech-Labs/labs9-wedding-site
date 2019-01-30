@@ -167,24 +167,35 @@ server.get('/deleteall', async (req, res) => {
 server.post('/loaduser', async (req, res) => {
     let { first_name, last_name, p_firstname, p_lastname, event_date, event_address, oauth_id, design_template, registering, vbtoken } = req.body;
     
+
+    vbtoken ? oauth_id = vbtoken : oauth_id = oauth_id; 
+
     try {
+
         const userOAuthID = await db.table('oauth_ids').where({ oauth_id }).first();
 
         const user = await db.table('user').join('oauth_ids', { 'user.id': "oauth_ids.user_id" }).where({ oauth_id }).first();
         
+        
         if(vbtoken){
+
+            let wedding_data = await db('weddings').where({id: user.wedding_id}).first()
             let couple = await db('user').join('couples', { 'user.id': 'couples.user_id' }).where({ wedding_id: user.wedding_id });
             let guests = await db('user').join('guests', { 'user.id': 'guests.guest_id' }).where({ wedding_id: user.wedding_id, guest: true });
             let questions = await db('questions').where({ wedding_id: user.wedding_id })
 
+
             res.status(200).json({
                 couple,
                 guests,
-                questions
+                questions,
+                wedding_data
             })
         }
+        
+        else if(!user){
+            
 
-        else if (!user) {
             const wedding_id = await db.table('weddings').insert({ event_date, event_address, design_template });
 
             const user1 = await db('user').insert({ first_name, last_name, wedding_id }) //email must be added in OAuth
@@ -197,36 +208,21 @@ server.post('/loaduser', async (req, res) => {
 
             let couple = await db('user').join('couples', { 'user.id': 'couples.user_id' }).where({ wedding_id });
             let guests = await db('user').where({ wedding_id, guest: true });
+            let wedding_data = await db('weddings').where({id: user.wedding_id}).first()
 
             res.status(200).json({
                 couple,
-                guests
+                guests,
+                wedding_data
             })
 
         }
-        else if(registering){
-            const wedding_id = await db.table('weddings').insert({ event_date, event_address, design_template });
-
-            const user1 = await db('user').where({id: user.id}).insert({ first_name, last_name, wedding_id }) //email must be added in OAuth
-            const user2 = await db('user').insert({ first_name: p_firstname, last_name: p_lastname, wedding_id })
-
-            const oauth = await db('oauth_ids').where({oauth_id})
-            console.log('oauthDBUser',oauth)
-            const coupleID1 = await db('couples').where({user_id: user.id}).update({ dashboard_access: true })
-            const coupleID2 = await db('couples').insert({ user_id: user2[0], dashboard_access: true })
-
-            let couple = await db('user').join('couples', { 'user.id': 'couples.user_id' }).where({ wedding_id });
-            let guests = await db('user').where({ wedding_id, guest: true });
-
-            res.status(200).json({
-                couple,
-                guests
-            })
-
-        }
+        
 
         else {
+            
 
+            let wedding_data = await db('weddings').where({id: user.wedding_id}).first()
             let couple = await db('user').join('couples', { 'user.id': 'couples.user_id' }).where({ wedding_id: user.wedding_id });
             let guests = await db('user').join('guests', { 'user.id': 'guests.guest_id' }).where({ wedding_id: user.wedding_id, guest: true });
             let questions = await db('questions').where({ wedding_id: user.wedding_id })
@@ -234,7 +230,8 @@ server.post('/loaduser', async (req, res) => {
             res.status(200).json({
                 couple,
                 guests,
-                questions
+                questions,
+                wedding_data
             })
         }
 
