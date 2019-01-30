@@ -19,18 +19,12 @@ const serverURL = process.env.REACT_APP_LOCAL_URL
 
 // define styles for material-ui components
 const styles = {
-    card: {
-      width: '40%',
-      margin: '0 auto 30px',
-      padding: '0 20px 20px',
-    },
     closeIcon: {
         cursor: 'pointer',
         float: 'right'
     },
     button: {
-        width: '30%',
-        margin: '0 auto 30px'
+       
     }
   };
 
@@ -166,7 +160,7 @@ class Rsvp extends Component {
     // function to conditionally render cards based on the type of card
     renderCards = (q, i) => {
         if (q.multiple_choice === 1 || q.multiple_choice === true) {
-            return <Card style={styles.card} key={i}>
+            return <Card className="rsvpCard" key={i}>
             <CardContent style={styles.topDiv}>
                 {q.category}
             </CardContent>
@@ -182,7 +176,7 @@ class Rsvp extends Component {
             </CardContent>
             </Card>
         } else {
-            return <Card style={styles.card} key={i}>
+            return <Card className="rsvpCard" key={i}>
                 <CardContent style={styles.topDiv}>
                     {q.category}
                     {
@@ -221,8 +215,8 @@ class Rsvp extends Component {
                 this.renderCards(q, i)
             )}
             <div className="buttonDiv">
-                <Button variant="outlined" onClick={this.handleOpen} style={styles.button}>Add Question</Button>
-                <Button variant="outlined" onClick={this.saveQuestions} style={styles.button}>Save</Button>
+                <Button variant="outlined" onClick={this.handleOpen} className="rsvpButton">Add Question</Button>
+                <Button variant="outlined" onClick={this.saveQuestions} className="rsvpButton">Save</Button>
             </div>
             <Modal
                 open={this.state.modalOpen}
