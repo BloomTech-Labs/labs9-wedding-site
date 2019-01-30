@@ -21,8 +21,15 @@
     flex-direction: column;
 }
 
+
+.disabledBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .rsvpCard {
-    width: 30%;
+    width: 50%;
     margin: 0 auto 30px;
     padding: 0 20px 20px;
 }
