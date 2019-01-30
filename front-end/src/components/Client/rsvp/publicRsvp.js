@@ -8,6 +8,8 @@ import './clientRsvp.css';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import { unstable_Box as Box } from '@material-ui/core/Box';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -72,20 +74,21 @@ class PublicRsvp extends Component {
             weddingId: w_id,
             loading: false,
             weddingExists: true,
+            success: false,
             questions: []
         }
+        this.getQuestions(w_id)
     }
 
 
     // load user questions when component mounts
-    componentDidMount() {
+    // componentDidMount() {
 
-        const { pathname } = this.props.location;
-        const w_id = pathname.substr(pathname.lastIndexOf('/') + 1);
-        console.log('wedding pathname', w_id)
+    //     const { pathname } = this.props.location;
+    //     const w_id = pathname.substr(pathname.lastIndexOf('/') + 1);
+    //     console.log('wedding pathname', w_id)
 
-        this.getQuestions(w_id)
-    }
+    // }
 
     getQuestions = (wed_id) => {
         const question_url = `${process.env.REACT_APP_LOCAL_URL}/${wed_id}/allquestions`
@@ -242,7 +245,13 @@ class PublicRsvp extends Component {
 
     }
     render() {
+        function validateEmail(email) {
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
 
+        const emailIndex = this.state.questions ? this.state.questions.findIndex(question => question.category === 'Email') : -1
+        
         return (
             <div className="clientRsvp publicRsvp" >
 
@@ -251,9 +260,25 @@ class PublicRsvp extends Component {
                         return this.renderCards(question, i)
                     })}
 
-                    <div style={styles.buttonDiv}>
-                        <Button variant="outlined" onClick={this.sendAnswers} style={styles.button}>submit</Button>
-                    </div>
+                    <Typography component="div" style={styles.buttonDiv}>
+                    {this.state[emailIndex] && validateEmail(this.state[emailIndex]) ? (
+                            <Button variant="outlined" onClick={this.sendAnswers} style={styles.button}>submit</Button>
+                        ) : (
+                        <div className="disabledBox">
+                            <Box textAlign="center" m={1}>
+                                Please enter Email
+                            </Box>
+                            <Button variant="outlined" disabled style={styles.button}>submit</Button>
+                        </div>
+                    )}
+                    {this.state.success ? (
+                        <div className="successMessage">
+                            <Box textAlign="center" m={1}>
+                                rsvp saved!
+                            </Box>
+                        </div>
+                    ) : (<div></div>)}
+                    </Typography>
                 </div>
             </div>
         )
