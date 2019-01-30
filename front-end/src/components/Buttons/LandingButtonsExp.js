@@ -4,7 +4,7 @@ import './LandingButtonsExp.css';
 
 const LandingButtonsExp = () => {
   return (
-    <div>
+    <div className="landingButtons">
       <nav>
         <ul>
           <div className='moving'>

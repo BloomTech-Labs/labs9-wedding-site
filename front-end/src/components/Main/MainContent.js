@@ -79,7 +79,7 @@ class MainContent extends Component {
        localStorage.removeItem('vbtoken')
    }
 
-   setUser = (partner1, partner2, guests, couple) => {
+   setUser = (partner1, partner2, guests, couple, event_address, event_date) => {
         console.log('guests:', guests)
         this.setState({
            weddingID: partner1.wedding_id,
@@ -88,7 +88,9 @@ class MainContent extends Component {
            p_firstname: partner2.first_name,
            p_lastname: partner2.last_name,
            guests,
-           couple
+           couple,
+           event_address, 
+           event_date
         })
     }
 
@@ -152,7 +154,8 @@ class MainContent extends Component {
                                                                               login={this.login} 
                                                                               setUser={this.setUser}
                                                                               registered={this.state.registered}
-                                                                              toggleRegistered={this.toggleRegistered}/>} />
+                                                                              toggleRegistered={this.toggleRegistered}
+                                                                              userData={this.state}/>} />
                     <Route path='/vb/payment'  render={props => < Payment {...props} />} />
                     <Route path='/vb/settings'  render={props => < Settings {...props} />} />
                     <Route path='/vb/guestlist'  render={props => < GuestList {...props} 
