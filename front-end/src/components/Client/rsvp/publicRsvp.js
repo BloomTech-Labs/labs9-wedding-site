@@ -194,11 +194,10 @@ class PublicRsvp extends Component {
         const identObj = {
             'first_name': 1,
             'last_name': 1,
-            'Email': 1,
-            'Phone': 1,
-            'Address': 1,
+            'email': 1,
+            'phone': 1,
+            'address': 1,
         }
-
         let dynamicAnswers = []
         const guestObj = this.state.questions.map((question, i) => {
             // Must set question answer as this.state[i]
@@ -206,7 +205,7 @@ class PublicRsvp extends Component {
             // when the question category matches one of the identObj properties
             // when the question category doesn't match we must push this question into dynamicAnswers
             question.answer = this.state[i]
-            if ( identObj[question.category] ) {
+            if ( identObj[question.category.replace(' ', '_').toLowerCase()] ) {
                 return question;
             } else {
                 dynamicAnswers.push({question_id: question.id, answer: question.answer})
@@ -215,14 +214,12 @@ class PublicRsvp extends Component {
         }).filter(q => q).reduce((accObj, question) => {
             // set question.category to a property in the accumlator obj
             // then return that object
-            accObj[question.category.toLowerCase()] = question.answer
+            accObj[question.category.replace(' ', '_').toLowerCase()] = question.answer
             return accObj
         }, {})
         // some variables that every guest will have
         guestObj.wedding_id = parseInt(this.state.weddingId, 10)
         guestObj.guest = 1
-        console.log('guestObj is', guestObj)
-        console.log('dynamicAnwers is', dynamicAnswers)
 
         const responseObj = {
             wedding_id: parseInt(this.state.weddingId, 10),
