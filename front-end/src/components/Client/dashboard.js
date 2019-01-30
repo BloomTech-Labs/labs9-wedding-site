@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Pie } from 'react-chartjs-2';
 import ReactDropzone from "react-dropzone";
 import AddRegistry from './addRegistry';
@@ -10,6 +10,7 @@ import Share from '@material-ui/icons/Share';
 import Add from '@material-ui/icons/Add';
 import Modal from '@material-ui/core/Modal';
 import ClientSelections from './ClientSelections'
+
 
 import './dashboard.css';
 import Sidebar from './clientNav';
@@ -108,7 +109,7 @@ class Dashboard extends Component {
                 localStorage.setItem('vbtoken', oauth_id)
                 localStorage.setItem('weddingID', res.data.couple[0].wedding_id)
                 this.props.login() //toggles the state of the user to loggedIn (in MainContent component)
-                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ]);
+                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date);
                 this.props.toggleRegistered();
                 
                 this.setState({
@@ -181,25 +182,37 @@ class Dashboard extends Component {
     };
 
     render() {
+        let {first_name, p_firstname, event_address, event_date} = this.props.userData
         
         return (
             
-        <div className="dashboard">
-            <Sidebar />
-            {!this.props.registered ? <ClientSelections login={this.props.login} setUser={this.props.setUser} loadUser={this.loadUser} toggleRegistered={this.props.toggleRegistered}/> : !this.state.userLoaded ? <div>Loading...</div> :
-            <div className="dashboardContainer">
-                <Button>
-            Change Design
-            </Button>
-            <div className="weddingInfo">
-                <div className="userInfo">
-                    <h1>Bri &amp; Ryan's Wedding<br />June 4, 2019</h1>
+        <div>
+            
+            { !this.state.userLoaded ? <div className="loading">
+                                            <div className="logo-wrap">
+                                                <img src={require('../Main/images/beloved_mark_pink.png')} alt="vbeloved-logo"/>
+                                            </div>
+                                            <div className="load-txt">Loading...</div>
+                                       </div> : 
+              !this.props.registered ? <ClientSelections registered={this.props.registered} 
+                                                         login={this.props.login} setUser={this.props.setUser} 
+                                                         loadUser={this.loadUser} 
+                                                         toggleRegistered={this.props.toggleRegistered}/> :
+                <div className="dashboard">
+                <Sidebar />    
+                <div className="dashboardContainer">
+                    <Button>
+                Change Design
+                </Button>
+                <div className="weddingInfo">
+                    <div className="userInfo">
+                        <h1>{`${first_name ? first_name : "---"}`} &amp; {`${p_firstname ? p_firstname : "---"}'s`} Wedding<br />{`${event_date}`}</h1>
+                    </div>
+                    <div className="location">
+                        <Share />
+                        <p>Wedding Reception Hall<br />San Diego, CA</p>
+                    </div>
                 </div>
-                <div className="location">
-                    <Share />
-                    <p>Wedding Reception Hall<br />San Diego, CA</p>
-                </div>
-            </div>
             <div className="cardDivTop">
                 <Card className="cardTopLeft" style={styles.cardTopLeft}>
                     Guest List
@@ -247,6 +260,7 @@ class Dashboard extends Component {
                     handleClose={this.handleClose}
                     handleInputChange={this.inputHandler} />
             </Modal>
+            </div>
             </div>
             </div>
             }

@@ -103,3 +103,13 @@ offscreen forever */
     width: 100%;
   }
 }
+
+.loading{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    position: relative;
+    top: 150px;
+}
