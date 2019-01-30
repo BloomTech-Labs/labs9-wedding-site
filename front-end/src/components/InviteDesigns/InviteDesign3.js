@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import MainContent from './PublicInvite.css';
+import MainContent from './InviteDesign3.css';
+
+import { InviteDesign3 } from '../InviteDesigns'
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 
@@ -36,21 +38,28 @@ class PublicInvite extends Component {
       }
 
   render() {
+
     return (
-      <div className="invite-cont">
-            <div className="invite-main">
-              <div className='i-top'>
-                {`${this.props.coupleData.first_name} & ${this.props.coupleData.p_firstname}`}
-              </div> 
-              <div className='i-middle'>
-                hi
-              </div >
-              <div className='i-bottom'>
-                hi
-              </div>
-            </div>
-      </div>
-    );
+      <React.Fragment>
+        <InviteDesign3 />
+      </React.Fragment>
+    )
+
+    // return (
+    //   <div className="invite-cont">
+    //         <div className="invite-main">
+    //           <div className='i-top'>
+    //             {`${this.props.coupleData.first_name} & ${this.props.coupleData.p_firstname}`}
+    //           </div> 
+    //           <div className='i-middle'>
+    //             hi
+    //           </div >
+    //           <div className='i-bottom'>
+    //             hi
+    //           </div>
+    //         </div>
+    //   </div>
+    // );
   }
 }
 

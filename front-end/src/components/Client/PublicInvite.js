@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import MainContent from './PublicInvite.css';
+import './PublicInvite.css';
+import { InviteDesign3 } from '../InviteDesigns'
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 
@@ -35,6 +36,9 @@ class PublicInvite extends Component {
       }
 
   render() {
+
+
+    
     return (
       <div className="invite-cont">
             <div className="invite-main">
