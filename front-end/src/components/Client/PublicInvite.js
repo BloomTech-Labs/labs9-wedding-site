@@ -7,6 +7,40 @@ import axios from 'axios';
 const cookies = new Cookies()
 
 
+// test data
+/*
+weddingID: partner1.wedding_id,
+first_name: partner1.first_name,
+last_name: partner1.last_name,
+p_firstname: partner2.first_name,
+p_lastname: partner2.last_name,
+guests,
+couple,
+event_address, 
+event_date
+
+const partner1 = {
+  "id": 116,
+  "first_name": "Arlo",
+  "last_name": "Stanton",
+  "email": "Alexane60@hotmail.com",
+  "phone": null,
+  "address": "050 Zboncak Rest, Daniellefurt, GA 23176-2988",
+  "wedding_id": 121,
+  "guest": 1
+}
+const partner2 = {
+  "id": 117,
+  "first_name": "Rogers",
+  "last_name": "Schaden",
+  "email": "Jamarcus50@gmail.com",
+  "phone": null,
+  "address": "0279 Spencer Forges, East Vicenta, HI 87319",
+  "wedding_id": 121,
+  "guest": 1
+}
+*/
+
 class PublicInvite extends Component {
         state = {
 
@@ -37,23 +71,28 @@ class PublicInvite extends Component {
 
   render() {
 
-
-    
     return (
-      <div className="invite-cont">
-            <div className="invite-main">
-              <div className='i-top'>
-                {`${this.props.coupleData.first_name} & ${this.props.coupleData.p_firstname}`}
-              </div> 
-              <div className='i-middle'>
-                hi
-              </div >
-              <div className='i-bottom'>
-                hi
-              </div>
-            </div>
-      </div>
-    );
+      <React.Fragment>
+        <InviteDesign3 />
+      </React.Fragment>
+    )
+
+
+    // return (
+    //   <div className="invite-cont">
+    //         <div className="invite-main">
+    //           <div className='i-top'>
+    //             {`${this.props.coupleData.first_name} & ${this.props.coupleData.p_firstname}`}
+    //           </div> 
+    //           <div className='i-middle'>
+    //             hi
+    //           </div >
+    //           <div className='i-bottom'>
+    //             hi
+    //           </div>
+    //         </div>
+    //   </div>
+    // );
   }
 }
 
