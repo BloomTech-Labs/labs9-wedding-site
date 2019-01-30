@@ -107,17 +107,17 @@ class Dashboard extends Component {
 
     componentDidMount() {
         const params = new URLSearchParams(this.props.location.search);
-        const vbtoken = cookies.get('vbtoken'); //"VB Token"; this is a token created in the Passport redirect function, and set in a cookie in the Axios response below. Purpose here is to check if the user is still logged in(expires in 10m)
+        const vbtoken = localStorage.getItem('vbtoken'); //"VB Token"; this is a token created in the Passport redirect function, and set in a cookie in the Axios response below. Purpose here is to check if the user is still logged in(expires in 10m)
         const oauth_id = params.get("vbTok"); //Hashed OAuth ID set in the query section of the Passport redirect URL. 
         const userExists = params.get("vbEx"); // Boolean set in the query section of the Passport redirect URL that determines if the user exists or not.
         console.log('vb', vbtoken)
         console.log('oatuh', oauth_id)
         console.log('', userExists)
-        if((oauth_id && userExists !== 'undefined') || vbtoken){
+        if((this.props.registered) || vbtoken){
             axios.post(`${serverURL}/loaduser`, {oauth_id, vbtoken})
             .then(res => {
                 console.log(res)
-                cookies.set('vbtoken', oauth_id, {maxAge: 600})
+                localStorage.setItem('vbtoken', oauth_id)
                 localStorage.setItem('weddingID', res.data.couple[0].wedding_id)
                 this.props.login() //toggles the state of the user to loggedIn (in MainContent component)
                 this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ]);
@@ -140,7 +140,7 @@ class Dashboard extends Component {
         }
         
         else if(oauth_id && userExists === "undefined"){
-            cookies.set('authID', oauth_id)
+            localStorage.setItem('authID', oauth_id)
         } 
         else {
             this.props.history.push('/signup')
@@ -198,7 +198,7 @@ class Dashboard extends Component {
             
         <div className="dashboard">
             <Sidebar />
-            {!this.props.registered ? <ClientSelections loadUser={this.loadUser} toggleRegistered={this.props.toggleRegistered}/> : !this.state.userLoaded ? <div>Loading...</div> :
+            {!this.props.registered ? <ClientSelections login={this.props.login} setUser={this.props.setUser} loadUser={this.loadUser} toggleRegistered={this.props.toggleRegistered}/> : !this.state.userLoaded ? <div>Loading...</div> :
             <div className="dashboardContainer" style={styles.dashboardContainer}>
                 <Button>
             Change Design

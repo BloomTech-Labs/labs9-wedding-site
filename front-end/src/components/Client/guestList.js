@@ -18,7 +18,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Cookies from 'universal-cookie';
 import Sidebar from './clientNav';
-
+import {withRouter} from 'react-router';
 
 const cookies = new Cookies()
 
@@ -113,9 +113,11 @@ class GuestList extends Component {
     componentDidMount() {
 
         
-        let oauth_id = '117923096476841958425';
-        if(oauth_id){
-            axios.post(`${process.env.REACT_APP_LOCAL_URL}/loaduser`, {oauth_id})
+        let vbtoken = localStorage.getItem('vbtoken');
+        let oauth_id = localStorage.getItem('vbtoken');
+
+        if(vbtoken){
+            axios.post(`${process.env.REACT_APP_LOCAL_URL}/loaduser`, {oauth_id, vbtoken})
             .then(res => {
                 console.log(res)
                 this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ])

@@ -41,7 +41,7 @@ class ClientSelections extends React.Component {
     }
 
     save = () => {
-        let oauth_id = cookies.get('authID');
+        let oauth_id = localStorage.getItem('authID');
         let design_template = Number(this.state.design_template)
         console.log('DesignTemplateStrToNum:', design_template)
         let { 
@@ -59,9 +59,12 @@ class ClientSelections extends React.Component {
             .post(`${serverURL}/loaduser`, userinfo)
             .then(res => { console.log('ClientSelLoadUser:', res)
                 this.props.toggleRegistered()
-                cookies.set('vbtoken', oauth_id, {maxAge: 600})
-                console.log(this.props.history)
+                localStorage.setItem('vbtoken', oauth_id)
+                console.log('Cookie set-check')
                 this.props.loadUser()
+                this.props.login() //toggles the state of the user to loggedIn (in MainContent component)
+                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ]);
+                this.props.history.push('/vb/dashboard')
             })
             .catch(err => console.log('ClientSelectionsErr:', err))
 
