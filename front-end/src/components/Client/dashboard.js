@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Pie } from 'react-chartjs-2';
 import ReactDropzone from "react-dropzone";
 import AddRegistry from './addRegistry';
@@ -10,6 +10,7 @@ import Share from '@material-ui/icons/Share';
 import Add from '@material-ui/icons/Add';
 import Modal from '@material-ui/core/Modal';
 import ClientSelections from './ClientSelections'
+
 
 import './dashboard.css';
 import Sidebar from './clientNav';
@@ -113,14 +114,14 @@ class Dashboard extends Component {
         console.log('vb', vbtoken)
         console.log('oatuh', oauth_id)
         console.log('', userExists)
-        if((this.props.registered) || userExists || vbtoken){
+        if(this.props.registered || userExists || vbtoken){
             axios.post(`${serverURL}/loaduser`, {oauth_id, vbtoken})
             .then(res => {
                 console.log(res)
                 localStorage.setItem('vbtoken', oauth_id)
                 localStorage.setItem('weddingID', res.data.couple[0].wedding_id)
                 this.props.login() //toggles the state of the user to loggedIn (in MainContent component)
-                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ]);
+                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date);
                 this.props.toggleRegistered();
                 
                 this.setState({
@@ -193,74 +194,87 @@ class Dashboard extends Component {
     };
 
     render() {
+        let {first_name, p_firstname, event_address, event_date} = this.props.userData
         
         return (
             
         <div className="dashboard">
-            <Sidebar />
-            {!this.props.registered ? <ClientSelections login={this.props.login} setUser={this.props.setUser} loadUser={this.loadUser} toggleRegistered={this.props.toggleRegistered}/> : !this.state.userLoaded ? <div>Loading...</div> :
-            <div className="dashboardContainer" style={styles.dashboardContainer}>
-                <Button>
-            Change Design
-            </Button>
-            <div className="weddingInfo" style={styles.weddingInfo}>
-                <div className="userInfo">
-                    <h1>Bri &amp; Ryan's Wedding<br />June 4, 2019</h1>
+            
+            { !this.state.userLoaded ? <div className="loading">
+                                            <div className="logo-wrap">
+                                                <img src={require('../Main/images/beloved_mark_pink.png')} alt="vbeloved-logo"/>
+                                            </div>
+                                            <div className="load-txt">Loading...</div>
+                                       </div> : 
+              !this.props.registered ? <ClientSelections registered={this.props.registered} 
+                                                         login={this.props.login} setUser={this.props.setUser} 
+                                                         loadUser={this.loadUser} 
+                                                         toggleRegistered={this.props.toggleRegistered}/> :
+            <Fragment>
+                <Sidebar />    
+                <div className="dashboardContainer" style={styles.dashboardContainer}>
+                    <Button>
+                Change Design
+                </Button>
+                <div className="weddingInfo" style={styles.weddingInfo}>
+                    <div className="userInfo">
+                        <h1>{`${first_name ? first_name : "---"}`} &amp; {`${p_firstname ? p_firstname : "---"}'s`} Wedding<br />{`${event_date}`}</h1>
+                    </div>
+                    <div className="location">
+                        <Share />
+                        <p>Wedding Reception Hall<br />San Diego, CA</p>
+                    </div>
                 </div>
-                <div className="location">
-                    <Share />
-                    <p>Wedding Reception Hall<br />San Diego, CA</p>
+                <div className="cardDivTop" style={styles.cardDivTop}>
+                    <Card className="cardTopLeft" style={styles.cardTopLeft}>
+                        Guest List
+                        <ReactDropzone
+                            accept=".csv"
+                            onDrop={this.handleonDrop}>
+                            {({ getRootProps, getInputProps }) => (
+                                <div {...getRootProps()} style={styles.dropZone}>
+                                    <input {...getInputProps()} />
+                                    Drag and drop files or click here to import CSV
+                                </div>
+                            )}
+                        </ReactDropzone>
+                    </Card>
+                    <Card className="cardTopRight" style={styles.cardTopRight}>
+                        RSVP
+                        <Pie data={this.chartData}
+                            style={styles.pieChart}
+                            options={{ maintainAspectRatio: false }}
+                        />
+                    </Card>
                 </div>
-            </div>
-            <div className="cardDivTop" style={styles.cardDivTop}>
-                <Card className="cardTopLeft" style={styles.cardTopLeft}>
-                    Guest List
-                    <ReactDropzone
-                        accept=".csv"
-                        onDrop={this.handleonDrop}>
-                        {({ getRootProps, getInputProps }) => (
-                            <div {...getRootProps()} style={styles.dropZone}>
-                                <input {...getInputProps()} />
-                                Drag and drop files or click here to import CSV
-                            </div>
-                        )}
-                    </ReactDropzone>
+                <div>
+                <Card className="Registry" style={styles.cardBottom}>
+                    Registry
+                    <CardContent>
+                        {this.state.registry.map((r, i) => {
+                            return(
+                                <Button key={i} variant="outlined" style={styles.buttonBottom} href={r.link} target="_blank">
+                                    {r.name}
+                                </Button>
+                            )
+                        })}
+                        <Button variant="outlined" style={styles.buttonBottom} onClick={this.handleOpen}>
+                            <Add />
+                            Add Registry
+                        </Button>
+                    </CardContent>
                 </Card>
-                <Card className="cardTopRight" style={styles.cardTopRight}>
-                    RSVP
-                    <Pie data={this.chartData}
-                        style={styles.pieChart}
-                        options={{ maintainAspectRatio: false }}
-                    />
-                </Card>
-            </div>
-            <div>
-            <Card className="Registry" style={styles.cardBottom}>
-                Registry
-                <CardContent>
-                    {this.state.registry.map((r, i) => {
-                        return(
-                            <Button key={i} variant="outlined" style={styles.buttonBottom} href={r.link} target="_blank">
-                                {r.name}
-                            </Button>
-                        )
-                    })}
-                    <Button variant="outlined" style={styles.buttonBottom} onClick={this.handleOpen}>
-                        <Add />
-                        Add Registry
-                    </Button>
-                </CardContent>
-            </Card>
-            <Modal
-                open={this.state.modalOpen}
-                onClose={this.handleClose}>
-                <AddRegistry
-                    addRegistry={this.addRegistry}
-                    handleClose={this.handleClose}
-                    handleInputChange={this.inputHandler} />
-            </Modal>
-            </div>
-            </div>
+                <Modal
+                    open={this.state.modalOpen}
+                    onClose={this.handleClose}>
+                    <AddRegistry
+                        addRegistry={this.addRegistry}
+                        handleClose={this.handleClose}
+                        handleInputChange={this.inputHandler} />
+                </Modal>
+                </div>
+                </div>
+            </Fragment>
             }
         </div>
         )

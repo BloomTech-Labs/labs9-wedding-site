@@ -87,22 +87,26 @@ class ClientSelections extends React.Component {
   
     render() {
       return (
-        <div className="auth-div">
-            <div className="auth-circle">
-                {   
-                !this.state.next ? 
-                <Form id="design-form" inputHandler={this.inputHandler}/> : 
-                <DesignChoice inputHandler={this.inputHandler} designtemplate={this.state.design_template}/>
-                }
+        <div>
+            { !this.props.registered ? 
+            <div className="auth-div">
+                <div className="auth-circle">
+                    {   
+                    !this.state.next ? 
+                    <Form id="design-form" inputHandler={this.inputHandler}/> : 
+                    <DesignChoice inputHandler={this.inputHandler} designtemplate={this.state.design_template}/>
+                    }
 
-                <div className="btn-container">
-                    <div onClick={this.back}>Back</div>
-                    <div onClick={!this.state.next ? this.next : this.save}>
-                        {!this.state.next ? "Next" : "Go To Dashboard"}
+                    <div className="btn-container">
+                        <div onClick={this.back}>Back</div>
+                        <div onClick={!this.state.next ? this.next : this.save}>
+                            {!this.state.next ? "Next" : "Go To Dashboard"}
+                        </div>
                     </div>
+                    
                 </div>
-                
-            </div>
+            </div> : null
+                }
         </div>
       )
     }
