@@ -1,25 +1,18 @@
 @font-face {
     font-family: 'Snell Bold';
 }
+
 .overall{
     height: 90px;
     width: 100%;
-    background-color:none;
+    background-color: white;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
-    /* border-bottom: 1px solid grey; */
+    justify-content: space-around;
+    border-bottom: 1px solid grey;
     position:fixed;
     z-index: 1000;
-    /* margin-top: -5px; */
-    padding-top: 0%;
     top:0;
-}
-
-.navSections {
-    display: flex;
-    flex-direction: row;
-    align-self: center;
 }
 
 .siteName {
@@ -28,29 +21,41 @@
     font-family: serif;
 }
 
-.centerNav {
-    margin: -1.5% 5% 0% 5%;
-    position: absolute;
-    left:40%;
-}
-
 .leftNav {
     display: flex;
     flex-direction: row;
     align-self: center;
     align-content: center;
-    position: absolute;
-    right:70%;
     font-weight: 600;
+}
+
+.centerNav {
+    align-self: center;
+    align-content: center;
+    padding-right: 7%;
 }
 
 .rightNav {
     display: flex;
     flex-direction: row;
     align-self: center;
-    position:absolute;
-    left:80%;
+    align-content: center;
     font-weight: 600;
+}
+
+@media (max-width: 800px) {
+    .overall {
+        position: relative;
+        height: 100%;
+        flex-direction: column;
+    }
+
+    .centerNav {
+        order: -1;
+        padding-right: 0;
+        padding-left: 5%;
+    }
+
 }
 
 @media (max-width: 500px) {
@@ -67,5 +72,6 @@
 
     .leftNav {
         flex-direction: column;
+        align-items: center;
     }
 }
