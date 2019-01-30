@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import AddQuestion from './addQuestion';
 import axios from 'axios';
 
-import Sidebar from '../clientNav';
 import './clientRsvp.css';
 
 import Card from '@material-ui/core/Card';
@@ -16,8 +14,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
-import Modal from '@material-ui/core/Modal';
-import { Close } from '@material-ui/icons';
 
 
 // define styles for material-ui components
@@ -195,8 +191,6 @@ class PublicRsvp extends Component {
 
     sendAnswers = () => {
 
-        const { questions } = this.state
-
         const identObj = {
             'first_name': 1,
             'last_name': 1,
@@ -216,6 +210,7 @@ class PublicRsvp extends Component {
                 return question;
             } else {
                 dynamicAnswers.push({question_id: question.id, answer: question.answer})
+                return false;
             }
         }).filter(q => q).reduce((accObj, question) => {
             // set question.category to a property in the accumlator obj

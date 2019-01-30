@@ -1,5 +1,4 @@
-import React, { Component, Fragment } from 'react';
-import styled from 'styled-components';
+import React, { Component } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -18,9 +17,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Cookies from 'universal-cookie';
 import Sidebar from './clientNav';
-import {withRouter} from 'react-router';
 
-const cookies = new Cookies()
 
 // define styles for material-ui components
 const styles = {
