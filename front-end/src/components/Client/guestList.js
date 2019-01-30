@@ -138,7 +138,7 @@ class GuestList extends Component {
       <div className="guestList">
           <Sidebar />
           <div className="guestListContainer">
-          <Button variant="contained">Import CSV</Button>
+          <Button variant="contained" className="importCsv">Import CSV</Button>
           <Button variant="outlined" style={styles.deleteButton}>Delete</Button>
           <div className="guest-list-table">
           <Paper style={styles.paper}>
