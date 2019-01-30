@@ -23,11 +23,6 @@ const styles = {
     rsvpContainer: {
         marginTop: '150px'
     },
-    card: {
-        width: '30%',
-        margin: '0 auto 30px',
-        padding: '0 20px 20px'
-    },
     topDiv: {
         display: 'flex',
         justifyContent: 'space-between'
@@ -114,7 +109,7 @@ class PublicRsvp extends Component {
         // console.log(this.state.questions[i])
         const { category } = q
         if (q.category === 'Guest Name') {
-            return <Card style={styles.card} key={i}>
+            return <Card className="rsvpCard" style={styles.card} key={i}>
                 <CardContent>
                     {q.category}
                 </CardContent>
@@ -133,7 +128,7 @@ class PublicRsvp extends Component {
                 </CardContent>
             </Card>
         } else if (q.multiple_choice > 0) {
-            return <Card style={styles.card} key={i}>
+            return <Card className="rsvpCard" style={styles.card} key={i}>
                 <CardContent style={styles.topDiv}>
                     {q.category}
 
@@ -161,7 +156,7 @@ class PublicRsvp extends Component {
                 </CardContent>
             </Card>
         } else {
-            return <Card style={styles.card} key={i}>
+            return <Card className="rsvpCard" style={styles.card} key={i}>
                 <CardContent style={styles.topDiv}>
                     {q.category}
                 </CardContent>
@@ -249,7 +244,7 @@ class PublicRsvp extends Component {
     render() {
 
         return (
-            <div className="clientRsvp" >
+            <div className="clientRsvp publicRsvp" >
 
                 <div className="clientRsvpContainer">
                     {this.state.questions.map((question, i) => {
