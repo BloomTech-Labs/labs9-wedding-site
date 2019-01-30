@@ -146,7 +146,7 @@ class MainContent extends Component {
                    <Route path='/pricing' component={Prices} /> */}
                    <Route path='/signup' render={props => <Signup {...props} toggleLoggedIn={this.toggleLoggedIn}/>} />
                    <Route path='/login' component={Login} />
-                   <Route path={`/rsvp`} render={props => <PublicRsvp {...props} state={this.state}/> }/>
+                   <Route path={`/rsvp`} render={props => <PublicRsvp {...props} /> }/>
                    {/* <Route path="/vb" render={props => <UserAccess {...props} />} /> */}
                     <Route path='/vb/dashboard'  render={props => < Dashboard {...props} 
                                                                               login={this.login} 
