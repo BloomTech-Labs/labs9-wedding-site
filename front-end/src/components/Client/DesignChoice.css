@@ -7,11 +7,16 @@
 .choice{
     width: 33%;
     height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .choice-img{
     display: flex;
     height: 80%;
+    width: 95%;
     justify-content: center;
     align-items: center;
     font-size: 100px;

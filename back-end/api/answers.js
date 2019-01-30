@@ -27,14 +27,15 @@ const addAnswers = async (req, res) => {
             .where('email', guestObj.email)
 
         user = user[0]
+        console.log('Is user in db?', user ? 'Yes.' : 'No')
         // if users does not exists in database
-        console.log('first user', user)
         if (user === undefined /*|| user.email !== guestObj.email */) {
             // add the user
             console.log('add user')
             try {
-                const newUserId = await db('users')
-                    .insert(guestObj)
+                console.log('guestObj', guestObj)
+                
+                const newUserId = await db('users').insert(guestObj)
 
                 console.log('newUser', newUserId)
                 message = 'You have been added to the rsvp list'
@@ -43,10 +44,11 @@ const addAnswers = async (req, res) => {
                 user = Object.assign({}, guestObj,
                     { id: newUserId[0] }
                 )
-            } catch (error) {
+                console.log('new user', user)
+            } 
+            catch (error) {
                 console.log(error)
-                message = 'can not add user'
-                res.status(500).json(error)
+                res.status(500).json({error, message: 'can not add user'})
             }
         } else { // updates user info
             console.log('update user')
@@ -59,52 +61,47 @@ const addAnswers = async (req, res) => {
                 reducedObj[tuple[0]] = tuple[1]
                 return reducedObj
             }, {})
-            console.log(diffGuestProps)
 
             // then update in db if different
             if (Object.keys(diffGuestProps).length > 0) {
                 try {
+                    
                     const updated = await db('users')
                         .where('id', user.id)
                         .update(diffGuestProps)
 
-                    console.log('updated', updated)
-                    user = Object.assign({}, user, updated)
-                } catch (error) {
+                    // console.log('updated', updated)
+                    user = Object.assign(user, updated)
+                } 
+                catch (error) {
                     console.log(error)
-                    message = 'can not update user'
-                    res.status(500).json(error)
+                    res.status(500).json({error, message: 'can not update user'})
                 }
             }
         }
 
-        console.log('user', user)
-        let newAnswers;
-
         // map guest_id onto answer objects
-        newAnswers = answers.map(
+        let newAnswers = answers.map(
             answer => Object.assign({}, answer,
                 { "guest_id": user['id'] }
             )
         )
 
-
         try {
             // add array of new answers to answers table
+            setTimeout(()=>(0), 300)
             const success = await db('answers').insert(newAnswers)
             message = 'Successfuly added answers';
             res.status(200).json({ success, message })
-        } catch (error) {
+        } 
+        catch (error) {
             console.log(error)
-            message = 'can not add answer'
-            res.status(500).json({ error, message })
+            res.status(500).json({ error, message: 'can not add answer' })
         }
-
     }
     catch (error) {
-        message = 'can not find user'
-        res.status(500).json({ error: error, message: message })
-        console.log(error)
+        res.status(500).json({ error, message: 'can not find user'})
+        console.log(error, message)
     }
 }
 
