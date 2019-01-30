@@ -76,7 +76,7 @@ class MainContent extends Component {
        this.setState({
            loggedIn: false
        })
-       cookies.remove('vbtoken')
+       localStorage.removeItem('vbtoken')
    }
 
    setUser = (partner1, partner2, guests, couple) => {
