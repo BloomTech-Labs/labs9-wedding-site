@@ -35,3 +35,33 @@
     justify-content: center;
     width: 50%;
 }
+
+
+@media (max-width: 800px) {
+    .userSettings {
+        margin: 30px auto;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .userSettings .settingsContainer {
+        margin: 0 auto;
+    }
+    
+    .userSettings .clientNavSidebar {
+        width: 100%;
+        height: 100%;
+        margin-bottom: 50px;
+        padding-left: 0;
+    }
+    
+}
+
+
+@media (max-width: 600px) {
+    .userSettings .settingsContainer {
+        width: 90%;
+    }
+
+}

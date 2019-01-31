@@ -21,6 +21,10 @@
     flex-direction: column;
 }
 
+.clientRsvp .buttonDiv .rsvpButton {
+    width: 30%;
+    margin: 0 auto 30px;
+}
 
 .disabledBox {
     display: flex;
@@ -35,9 +39,44 @@
 }
 
 @media (max-width: 800px) {
+    .clientRsvp {
+        margin: 30px auto;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .clientRsvp .clientRsvpContainer {
+        margin: 0 auto;
+        width: 60%;
+        padding: 0;
+    }
+    
+    .clientRsvp .clientNavSidebar {
+        width: 100%;
+        height: 100%;
+        margin-bottom: 50px;
+        padding-left: 0;
+    }
+
+    .clientRsvp .buttonDiv .rsvpButton {
+        width: 50%;
+    }
 
     .rsvpCard {
-        width: 95%;
+        width: 80%;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+    .clientRsvp .clientRsvpContainer {
+        width: 80%;
+    }
+
+    .clientRsvp .buttonDiv .rsvpButton {
+        width: 80%;
     }
 
 }
