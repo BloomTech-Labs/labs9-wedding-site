@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components'
+
 import './InviteDesign3.css';
 
 
@@ -11,26 +14,47 @@ const designBackgroundPhotos = [
   'https://images.pexels.com/photos/1076429/pexels-photo-1076429.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260'
 ]
 
-class PublicInvite extends Component {
-  state = {
-    // for testing 
-    userLoaded: true,
-    designTemplate: 3
+const designThemes = [
+  {
+    backgroundUrl:  designBackgroundPhotos[0],
+    primary: '',
+    secondary: ''
+  },
+  {
+    backgroundUrl:  designBackgroundPhotos[1],
+    primary: 'rgb(108, 192, 223)',
+    secondary: 'rgb(250, 246, 224)'
+  },
+  {
+    backgroundUrl:  designBackgroundPhotos[2],
+    primary: '',
+    secondary: ''
   }
+]
+
+
+class PublicInvite extends Component {
 
   render() {
-    console.log(designBackgroundPhotos, designBackgroundPhotos[this.state.designTemplate - 1])
+    const designTemplate = 3
+    console.log(designThemes[0].backgroundUrl)
     const { details } = this.props
-    const url = designBackgroundPhotos[this.state.designTemplate - 1]
+    const designTheme = designThemes[0]
+    /*{
+      backgroundUrl:  designBackgroundPhotos[designTemplate - 1]
+    }*/
+
+    const url = designBackgroundPhotos[designTemplate - 1]
     return (
       <div className="invite-cont" id="main-container">
 
 
-        <div className="invite-main" >
+        <div className="invite-main" style={{ backgroundImage: `url(${designTheme.backgroundUrl})` }}>
           <div className='i-top'>
             
           </div>
-          <div className='i-middle' style={{ backgroundImage: `url(${url})` }}>
+
+          <div className='i-middle' >
             <div id="title-container">
               <div className="wedding-title-container">
                 <h1 className="wedding-title">
@@ -49,8 +73,10 @@ class PublicInvite extends Component {
 
           </div >
           <div className='i-bottom'>
-            hi hello
-              </div>
+            <div className="rsvp-link">
+              <Link to={`/rsvp/${details.weddingID}`}>RSVP here</Link>
+            </div>
+          </div>
         </div>
       </div>
     );
