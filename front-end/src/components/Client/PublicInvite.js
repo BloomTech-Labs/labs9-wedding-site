@@ -32,27 +32,28 @@ const partner2 = {
 
 
 class PublicInvite extends Component {
-    state = {
-      weddingID: partner1.wedding_id,
-      first_name: partner1.first_name,
-      last_name: partner1.last_name,
-      p_firstname: partner2.first_name,
-      p_lastname: partner2.last_name,
-      guests: [],
-      couple: [partner1, partner2],
-      partner1,
-      partner2,
-      event_address: '123 E 32nd St. Los Angeles, USA', 
-      event_date: 'May 3rd 2019'
+    constructor(props) {
+      super(props)
+      const weddingId = this.props.match.id
+      console.log(this.props.match)
+      this.state = {
+        weddingID: this.props.match.id, //partner1.wedding_id,
+        guests: [],
+        couple: [partner1, partner2],
+        partner1,
+        partner2,
+        event_address: '123 E 32nd St. Los Angeles, USA', 
+        event_date: 'May 3rd 2019'
+      }
     }
   
     componentDidMount() {
           let wedding_id = localStorage.getItem('weddingID');
           let userdata = cookies.get('USERDATA')
           let oauth_id = '117923096476841958425'
-          console.log('userdata:', oauth_id)
-          console.log(userdata)
-  
+          // console.log('userdata:', oauth_id)
+          // console.log(userdata)
+          this.setState({ weddingID: this.props.match.id })
           if(oauth_id){
               axios.post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/loaduser`, {...userdata, oauth_id})
               .then(res => {
