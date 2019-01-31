@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StripeProvider } from 'react-stripe-elements';
 import Checkout from './checkout/stripeCheckout';
 import Sidebar from './clientNav';

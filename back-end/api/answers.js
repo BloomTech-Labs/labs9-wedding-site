@@ -12,7 +12,7 @@ const diffObjects = (target, newObj) => Object.entries(newObj).filter(guestProp 
     return reducedObj
 }, {})
 
-// A FUNCTION TO ADD GUESTS AND ANSWERS TO THE ANSWERS TABLE
+// A FUNCTION TO ADD GUESTS AND ANSWERS TO THE GUEST AND ANSWERS TABLE RESPECTIVLY
 // if the guest does not exist then add them.
 // then add answers to the answers table
 const addAnswers = async (req, res) => {
@@ -50,7 +50,8 @@ const addAnswers = async (req, res) => {
                 console.log(error)
                 res.status(500).json({error, message: 'can not add user'})
             }
-        } else { // updates user info
+        } else { 
+            // updates user info
             console.log('update user')
 
             // find updated guest properties
@@ -65,7 +66,6 @@ const addAnswers = async (req, res) => {
             // then update in db if different
             if (Object.keys(diffGuestProps).length > 0) {
                 try {
-                    
                     const updated = await db('users')
                         .where('id', user.id)
                         .update(diffGuestProps)
