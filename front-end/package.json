@@ -13,6 +13,7 @@
     "delay": "^4.1.0",
     "material-ui": "^0.20.2",
     "next": "^7.0.2",
+    "node-sass": "^4.11.0",
     "react": "^16.7.0",
     "react-bootstrap": "^0.32.4",
     "react-chartjs-2": "^2.7.4",

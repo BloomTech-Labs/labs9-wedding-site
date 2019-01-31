@@ -8,6 +8,7 @@ import Design from './designs';
 import Prices from './pricing';
 import Signup from './signup';
 import Login from './login';
+import Template1 from '../Client/templates/template1';
 
 
 //these are client views after login
@@ -115,8 +116,8 @@ class MainContent extends Component {
                 <Switch>
 
                    <Route path='/' exact render={props => this.state.loggedIn ? <Redirect to="/vb/dashboard"/> : <LandingPage {...props} />} />
-                   {/* <Route path='/designs' component={Design} />
-                   <Route path='/pricing' component={Prices} /> */}
+                   {/* <Route path='/designs' component={Design} /> */}
+                   <Route path='/pricing' component={Template1} />
                    <Route path='/signup' render={props => <Signup {...props} toggleLoggedIn={this.toggleLoggedIn}/>} />
                    <Route path='/login' component={Login} />
                    {/* <Route path="/vb" render={props => <UserAccess {...props} />} /> */}

@@ -7,5 +7,7 @@
   "author": "y",
   "license": "y",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "react-render-html": "^0.6.0"
+  }
 }
