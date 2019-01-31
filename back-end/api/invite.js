@@ -11,10 +11,9 @@ const getWeddingDetails = async (req, res) => {
     try {
         const weddingDetails = await db('weddings').where({ id: weddingId })
 
-        const couple = await db('users')
-            .where({ 
+        const couple = await db('user')
+            .where({
                 wedding_id: weddingId,
-                guest: null
             })
 
         res.status(200).json({
