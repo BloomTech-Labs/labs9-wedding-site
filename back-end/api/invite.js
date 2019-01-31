@@ -5,28 +5,28 @@ const db = knex(process.env.DB_ENVIORNMENT ? KnexConfig[process.env.DB_ENVIORNME
 const router = express()
 
 
-const addAnswers = async (req, res) => {
+const getWeddingDetails = async (req, res) => {
     const weddingId = req.params.id
 
     try {
-        const weddingInfo = await db('weddings').where({ id: weddingId })
-        console.log('weddingInfo', weddingInfo)
-
+        const weddingDetails = await db('weddings').where({ id: weddingId })
 
         const couple = await db('users')
             .where({ 
                 wedding_id: weddingId,
-                guest: false
-                })
-        console.log('couple', couple)
+                guest: null
+            })
 
-        res.status(200).json({weddingInfo, couple})
+        res.status(200).json({
+            weddingDetails: weddingDetails[0], 
+            couple: [couple[0], couple[1]]
+        })
     } catch (error) {
         console.log(error)
         res.status(500).json({error, message: 'could not get wedding info'})
     }
 }
 
-router.get('/:id', addAnswers)
+router.get('/:id', getWeddingDetails)
 
 module.exports = router

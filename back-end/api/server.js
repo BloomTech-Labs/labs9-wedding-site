@@ -248,15 +248,9 @@ server.post('/loaduser', async (req, res) => {
 server.get('/users', async (req, res) => {
 
     try {
+        const users = await db.select().from('users');
 
-        console.log('before function', users)
-        const users = await db.select().from('user');
-        console.log(users)
-        // if (users.length > 0) {
-            res.status(200).json(users)
-        // }
-
-        // res.status(200).json({messages: 'No users'})
+        res.status(200).json(users)
     }
 
     catch (err) {
