@@ -17,8 +17,8 @@ const designBackgroundPhotos = [
 const designThemes = [
   {
     backgroundUrl: designBackgroundPhotos[0],
-    primary: '',
-    secondary: ''
+    primary: 'rgb( 222, 178, 0)',
+    secondary: 'rgb( 20, 204, 185)'
   },
   {
     backgroundUrl: designBackgroundPhotos[1],
@@ -27,8 +27,8 @@ const designThemes = [
   },
   {
     backgroundUrl: designBackgroundPhotos[2],
-    primary: '',
-    secondary: ''
+    primary: 'rgb( 255, 126, 0)',
+    secondary: 'rgb( 0, 178, 88)'
   }
 ]
 
@@ -40,6 +40,7 @@ class PublicInvite extends Component {
     console.log(designThemes[this.props.designTemplate].backgroundUrl)
     const { details } = this.props
     const designTheme = designThemes[this.props.designTemplate]
+    const { primary, secondary } = designTheme;
     /*{
       backgroundUrl:  designBackgroundPhotos[designTemplate - 1]
     }*/
@@ -49,7 +50,11 @@ class PublicInvite extends Component {
       <div className="invite-cont" id="main-container">
 
 
-        <div className="invite-main" style={{ backgroundImage: `url(${designTheme.backgroundUrl})` }}>
+        <div className="invite-main" style={{ 
+          backgroundImage: `url(${designTheme.backgroundUrl})` ,
+          color: primary
+
+        }}>
           <div className='i-top'>
 
           </div>
@@ -73,7 +78,7 @@ class PublicInvite extends Component {
 
           </div >
           <div className='i-bottom'>
-            <div className="rsvp-link">
+            <div className="rsvp-link" style={{color: secondary}}>
               <Link to={`/rsvp/${details.weddingID}`}>RSVP here</Link>
             </div>
           </div>
