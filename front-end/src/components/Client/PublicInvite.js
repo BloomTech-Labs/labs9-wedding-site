@@ -8,17 +8,6 @@ const cookies = new Cookies()
 
 
 // test data
-/*
-weddingID: partner1.wedding_id,
-first_name: partner1.first_name,
-last_name: partner1.last_name,
-p_firstname: partner2.first_name,
-p_lastname: partner2.last_name,
-guests,
-couple,
-event_address, 
-event_date
-
 const partner1 = {
   "id": 116,
   "first_name": "Arlo",
@@ -27,8 +16,9 @@ const partner1 = {
   "phone": null,
   "address": "050 Zboncak Rest, Daniellefurt, GA 23176-2988",
   "wedding_id": 121,
-  "guest": 1
+  "guest": 0
 }
+
 const partner2 = {
   "id": 117,
   "first_name": "Rogers",
@@ -37,14 +27,24 @@ const partner2 = {
   "phone": null,
   "address": "0279 Spencer Forges, East Vicenta, HI 87319",
   "wedding_id": 121,
-  "guest": 1
+  "guest": 0
 }
-*/
+
 
 class PublicInvite extends Component {
-        state = {
-
-        }
+    state = {
+      weddingID: partner1.wedding_id,
+      first_name: partner1.first_name,
+      last_name: partner1.last_name,
+      p_firstname: partner2.first_name,
+      p_lastname: partner2.last_name,
+      guests: [],
+      couple: [partner1, partner2],
+      partner1,
+      partner2,
+      event_address: '123 E 32nd St. Los Angeles, USA', 
+      event_date: 'May 3rd 2019'
+    }
   
     componentDidMount() {
           let wedding_id = localStorage.getItem('weddingID');
@@ -71,9 +71,10 @@ class PublicInvite extends Component {
 
   render() {
 
+
     return (
       <React.Fragment>
-        <InviteDesign3 />
+        <InviteDesign3 details={this.state}/>
       </React.Fragment>
     )
 
