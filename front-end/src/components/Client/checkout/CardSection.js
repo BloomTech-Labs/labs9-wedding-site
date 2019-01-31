@@ -75,13 +75,6 @@ class CardSection extends React.Component {
         return (
             <div>
              <div className="example">
-            <a
-              href="https://github.com/pradel/react-responsive-modal/blob/master/docs/examples/focus-trapped.js"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              See source code
-            </a>
             <Modal open={open} onClose={this.onCloseModal} focusTrapped>
               <h2>Your Payment Has Been Processed!</h2>
               <form action="">
@@ -131,6 +124,7 @@ class CardSection extends React.Component {
                     />
                 </label>
                 <button onClick={this.onOpenModal}>Pay</button>
+
             </form>
                 </div>
         );

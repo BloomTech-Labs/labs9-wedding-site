@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Pie } from 'react-chartjs-2';
 import ReactDropzone from "react-dropzone";
 import AddRegistry from './addRegistry';
@@ -9,20 +9,18 @@ import Button from '@material-ui/core/Button';
 import Share from '@material-ui/icons/Share';
 import Add from '@material-ui/icons/Add';
 import Modal from '@material-ui/core/Modal';
+import ClientSelections from './ClientSelections'
+
 
 import './dashboard.css';
-
+import Sidebar from './clientNav';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 
 const cookies = new Cookies()
+const serverURL = process.env.REACT_APP_LOCAL_URL
 
 const styles = {
-    dashboardContainer: {
-        margin: '150px auto 50px',
-        width: '80%',
-        position: 'relative'
-    },
     cardDivTop: {
         display: 'flex',
     },
@@ -34,11 +32,6 @@ const styles = {
     },
     weddingInfo: {
         display: 'flex',
-    },
-    location: {
-        // position: 'absolute',
-        // right: '0px',
-        // top: '25px',
     },
     buttonTop: {
         display: 'block',
@@ -67,8 +60,8 @@ const styles = {
 
 
 class Dashboard extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             attending: 300,
@@ -78,11 +71,7 @@ class Dashboard extends Component {
             userLoaded: false,
             registryLink: "",
             displayName: "",
-            registry: [
-                {link: "a", name: "amazon"},
-                {link: "b", name: "target"},
-                {link: "e", name: "williams-sonoma"},
-            ]
+            registry: []
         }
     
         this.chartData = {
@@ -111,51 +100,81 @@ class Dashboard extends Component {
         this.setState({ [e.target.name]: e.target.value });
     };
 
+    loadUser = () =>{
+        this.setState({
+            userLoaded: true 
+         }) 
+    }
+
     componentDidMount() {
-        let wedding_id = localStorage.getItem('weddingID');
-        let userdata = cookies.get('USERDATA')
-        let oauth_id = cookies.get('userID')
-        console.log('userdata:', oauth_id)
-        if(oauth_id){
-            axios.post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/loaduser`, {...userdata, oauth_id})
+        const params = new URLSearchParams(this.props.location.search);
+        const vbtoken = localStorage.getItem('vbtoken'); //"VB Token"; this is a token created in the Passport redirect function, and set in a cookie in the Axios response below. Purpose here is to check if the user is still logged in(expires in 10m)
+        const oauth_id = params.get("vbTok"); //Hashed OAuth ID set in the query section of the Passport redirect URL. 
+        const userExists = Number(params.get("vbEx")); // Boolean set in the query section of the Passport redirect URL that determines if the user exists or not.
+        console.log('vb', vbtoken)
+        console.log('oatuh', oauth_id)
+        console.log('', userExists)
+        if(this.props.registered || userExists || vbtoken){
+            axios.post(`${serverURL}/loaduser`, {oauth_id, vbtoken})
             .then(res => {
                 console.log(res)
+                localStorage.setItem('vbtoken', oauth_id)
+                localStorage.setItem('weddingID', res.data.couple[0].wedding_id)
                 this.props.login() //toggles the state of the user to loggedIn (in MainContent component)
-                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ])
+                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date);
+                this.props.toggleRegistered();
+                
                 this.setState({
-                   userLoaded: true 
+                        userLoaded: true 
+                     })   
+                
+            })
+            .then(() => {
+                const w_id = localStorage.getItem('weddingID');
+                axios
+                .get(`${serverURL}/${w_id}/registries`)
+                .then(res => {
+                        this.setState({ registry: res.data })
                 })
-            }).catch(err => console.log(err))
-        } else {
+            })
+            .catch(err => console.log(err))
+        }
+        
+        else if(oauth_id && !userExists){
+            localStorage.setItem('authID', oauth_id)
+        } 
+        else {
             this.props.history.push('/signup')
         }
     }
+
     
 
     // add a registry to the database
     addRegistry = () => {
         axios
-            .post('https://vbeloved.now.sh/registry', {
+            .post(`${serverURL}/registry`, {
                 wedding_id: localStorage.getItem('weddingID'),
                 link: this.state.registryLink,
                 name: this.state.displayName
             })
             .then(res => {
                 console.log(res);
-                //this.setState({ registry: res.data })
-                //need to update server to return registry items
+                this.setState({ registry: res.data });
+                this.handleClose();
             })
             .catch(err => console.log(err));
     };
 
     // must use "multipart/form-data" when including a file in the body of a POST request
     handleonDrop = (files, rejectedFiles) => {
+        const wedding_id = localStorage.getItem('weddingID')
         files.forEach(file => {
             const formData = new FormData();
             formData.append('file', file);
             formData.append('filename', file.name);
-            //axios.post('http://localhost:8888/upload', formData)
-            axios.post('https://vbeloved.now.sh/upload', formData)
+            formData.append('wedding_id', wedding_id);
+            axios.post(`${serverURL}/upload`, formData)
                 .then((res => {
                     console.log(res)
                 }))
@@ -175,71 +194,87 @@ class Dashboard extends Component {
     };
 
     render() {
+        let {first_name, p_firstname, event_address, event_date} = this.props.userData
+        
         return (
+            
         <div className="dashboard">
-            {!this.state.userLoaded ? <div>Loading...</div> :
-            <div className="dashboardContainer" style={styles.dashboardContainer}>
-                <Button>
-            Change Design
-            </Button>
-            <div className="weddingInfo" style={styles.weddingInfo}>
-                <div className="userInfo">
-                    <h1>Bri &amp; Ryan's Wedding<br />June 4, 2019</h1>
+            
+            { !this.state.userLoaded ? <div className="loading">
+                                            <div className="logo-wrap">
+                                                <img src={require('../Main/images/beloved_mark_pink.png')} alt="vbeloved-logo"/>
+                                            </div>
+                                            <div className="load-txt">Loading...</div>
+                                       </div> : 
+              !this.props.registered ? <ClientSelections registered={this.props.registered} 
+                                                         login={this.props.login} setUser={this.props.setUser} 
+                                                         loadUser={this.loadUser} 
+                                                         toggleRegistered={this.props.toggleRegistered}/> :
+            <Fragment>
+                <Sidebar />    
+                <div className="dashboardContainer" style={styles.dashboardContainer}>
+                    <Button>
+                Change Design
+                </Button>
+                <div className="weddingInfo" style={styles.weddingInfo}>
+                    <div className="userInfo">
+                        <h1>{`${first_name ? first_name : "---"}`} &amp; {`${p_firstname ? p_firstname : "---"}'s`} Wedding<br />{`${event_date}`}</h1>
+                    </div>
+                    <div className="location">
+                        <Share />
+                        <p>Wedding Reception Hall<br />San Diego, CA</p>
+                    </div>
                 </div>
-                <div className="location" style={styles.location}>
-                    <Share />
-                    <p>Wedding Reception Hall<br />San Diego, CA</p>
+                <div className="cardDivTop" style={styles.cardDivTop}>
+                    <Card className="cardTopLeft" style={styles.cardTopLeft}>
+                        Guest List
+                        <ReactDropzone
+                            accept=".csv"
+                            onDrop={this.handleonDrop}>
+                            {({ getRootProps, getInputProps }) => (
+                                <div {...getRootProps()} style={styles.dropZone}>
+                                    <input {...getInputProps()} />
+                                    Drag and drop files or click here to import CSV
+                                </div>
+                            )}
+                        </ReactDropzone>
+                    </Card>
+                    <Card className="cardTopRight" style={styles.cardTopRight}>
+                        RSVP
+                        <Pie data={this.chartData}
+                            style={styles.pieChart}
+                            options={{ maintainAspectRatio: false }}
+                        />
+                    </Card>
                 </div>
-            </div>
-            <div className="cardDivTop" style={styles.cardDivTop}>
-                <Card className="cardTopLeft" style={styles.cardTopLeft}>
-                    Guest List
-                    <ReactDropzone
-                        accept=".csv"
-                        onDrop={this.handleonDrop}>
-                        {({ getRootProps, getInputProps }) => (
-                            <div {...getRootProps()} style={styles.dropZone}>
-                                <input {...getInputProps()} />
-                                Drag and drop files or click here to import CSV
-                            </div>
-                        )}
-                    </ReactDropzone>
+                <div>
+                <Card className="Registry" style={styles.cardBottom}>
+                    Registry
+                    <CardContent>
+                        {this.state.registry.map((r, i) => {
+                            return(
+                                <Button key={i} variant="outlined" style={styles.buttonBottom} href={r.link} target="_blank">
+                                    {r.name}
+                                </Button>
+                            )
+                        })}
+                        <Button variant="outlined" style={styles.buttonBottom} onClick={this.handleOpen}>
+                            <Add />
+                            Add Registry
+                        </Button>
+                    </CardContent>
                 </Card>
-                <Card className="cardTopRight" style={styles.cardTopRight}>
-                    RSVP
-                    <Pie data={this.chartData}
-                        style={styles.pieChart}
-                        options={{ maintainAspectRatio: false }}
-                    />
-                </Card>
-            </div>
-            <div>
-            <Card className="Registry" style={styles.cardBottom}>
-                Registry
-                <CardContent>
-                    {this.state.registry.map((r, i) => {
-                        return(
-                            <Button key={i} variant="outlined" style={styles.buttonBottom} href={r.link} target="_blank">
-                                {r.name}
-                            </Button>
-                        )
-                    })}
-                    <Button variant="outlined" style={styles.buttonBottom} onClick={this.handleOpen}>
-                        <Add />
-                        Add Registry
-                    </Button>
-                </CardContent>
-            </Card>
-            <Modal
-                open={this.state.modalOpen}
-                onClose={this.handleClose}>
-                <AddRegistry
-                    addRegistry={this.addRegistry}
-                    handleClose={this.handleClose}
-                    handleInputChange={this.inputHandler} />
-            </Modal>
-            </div>
-            </div>
+                <Modal
+                    open={this.state.modalOpen}
+                    onClose={this.handleClose}>
+                    <AddRegistry
+                        addRegistry={this.addRegistry}
+                        handleClose={this.handleClose}
+                        handleInputChange={this.inputHandler} />
+                </Modal>
+                </div>
+                </div>
+            </Fragment>
             }
         </div>
         )

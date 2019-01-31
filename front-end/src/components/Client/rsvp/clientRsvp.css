@@ -1,0 +1,43 @@
+.clientRsvp {
+    display: flex;
+    margin-top: 150px;
+}
+
+.clientRsvp .clientRsvpContainer {
+    margin: 0 auto 50px;
+    width: 80%;
+    padding-right: 10%;
+}
+
+.clientRsvp .clientNavSidebar {
+    width: 20%;
+    height: 100vh;
+    padding-left: 20px;
+}
+
+.clientRsvp .buttonDiv {
+    margin: 60px auto 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.disabledBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.rsvpCard {
+    width: 50%;
+    margin: 0 auto 30px;
+    padding: 0 20px 20px;
+}
+
+@media (max-width: 800px) {
+
+    .rsvpCard {
+        width: 95%;
+    }
+
+}

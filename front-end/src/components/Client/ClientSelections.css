@@ -1,0 +1,46 @@
+.btn-container{
+    width: 60%;
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+
+.btn-container > div {
+    cursor: pointer;
+}
+
+.auth-circle{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 80vw;
+    border-radius: 50%;
+    background: #AFD4E1;
+    
+}
+
+#design-form {
+    position: relative;
+    top: unset;
+    left: unset;  
+}
+
+.auth-circle > .CustomizedInputs-wholegroup-256 {
+    position: relative;
+    top: unset;
+    left: unset;  
+}
+
+.auth-circle > .CustomizedInputs-wholegroup-114 {
+    position: relative;
+    top: unset;
+    left: unset; 
+}
+
+/* .CustomizedInputs-wholegroup-214 {
+    position: relative;
+    top: unset;
+    left: unset; 
+} */

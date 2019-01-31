@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import AddQuestion from './addQuestion';
 import axios from 'axios';
-
+import Sidebar from '../clientNav';
+import './clientRsvp.css';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
@@ -14,30 +15,21 @@ import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import { Close } from '@material-ui/icons';
 
+const serverURL = process.env.REACT_APP_LOCAL_URL
+
 // define styles for material-ui components
 const styles = {
-    rsvpContainer: {
-        marginTop: '150px'
-    },
     card: {
-      width: '30%',
+      width: '40%',
       margin: '0 auto 30px',
-      padding: '0 20px 20px'
-    },
-    topDiv: {
-        display: 'flex',
-        justifyContent: 'space-between'
+      padding: '0 20px 20px',
     },
     closeIcon: {
-        cursor: 'pointer'
-    },
-    buttonDiv: {
-        margin: '60px auto 30px',
-        display: 'flex',
-        flexDirection: 'column'
+        cursor: 'pointer',
+        float: 'right'
     },
     button: {
-        width: '20%',
+        width: '30%',
         margin: '0 auto 30px'
     }
   };
@@ -53,7 +45,14 @@ class Rsvp extends Component {
            questions: [
             {
                 wedding_id: localStorage.getItem('weddingID'),
-                category: 'Guest Name',
+                category: 'First Name',
+                multiple_choice: false,
+                question: '',
+                answer: ''
+            },
+            {
+                wedding_id: localStorage.getItem('weddingID'),
+                category: 'Last Name',
                 multiple_choice: false,
                 question: '',
                 answer: ''
@@ -64,6 +63,20 @@ class Rsvp extends Component {
                 multiple_choice: true,
                 question: 'Will you be attending our wedding?',
                 answer: 'Attending,Not attending,Maybe'
+            },
+            {
+                wedding_id: localStorage.getItem('weddingID'),
+                category: 'Email',
+                multiple_choice: false,
+                question: 'What is your email address?',
+                answer: ''
+            },
+            {
+                wedding_id: localStorage.getItem('weddingID'),
+                category: 'Phone',
+                multiple_choice: false,
+                question: 'What is your phone number?',
+                answer: ''
             },
             {
                 wedding_id: localStorage.getItem('weddingID'),
@@ -91,11 +104,12 @@ class Rsvp extends Component {
     componentDidMount() {
         const w_id = localStorage.getItem('weddingID');
         axios
-       .get(`https://vbeloved.now.sh/${w_id}/allquestions`)
+       .get(`${serverURL}/${w_id}/allquestions`)
        .then(res => {
+               console.log(this.state.questions)
            if (res.data.length > 0) {
                this.setState({ questions: res.data })
-               //console.log(this.state.questions)
+               console.log(this.state.questions)
            }
        })
        .catch(err => {
@@ -123,11 +137,10 @@ class Rsvp extends Component {
     deleteQuestion = (q_id, i) => {
         if (q_id) {
             axios
-            .delete(`https://vbeloved.now.sh/${q_id}/deletequestion`)
+            .delete(`${serverURL}/${q_id}/deletequestion`)
             .then(res => {
                 console.log(res)
-                //this.setState({ questions: res.data })
-                //need to update server.delete to return questions
+                window.location.reload();
             })
             .catch(err => {
                 console.log(err)
@@ -142,31 +155,20 @@ class Rsvp extends Component {
     // save all the questions to the database
     saveQuestions = () => {
         axios
-        .post('https://vbeloved.now.sh/questions', {questions: this.state.questions})
+        .post(`${serverURL}/questions`, {questions: this.state.questions})
         .then(res => {
             console.log(res);
+            window.location.reload();
         })
         .catch(err => console.log(err));
     };
 
     // function to conditionally render cards based on the type of card
     renderCards = (q, i) => {
-        if (q.category === 'Guest Name') {
-            return  <Card style={styles.card} key={i}>
-            <CardContent>
-                {q.category}
-            </CardContent>
-            <CardContent>
-                {q.question}
-                <TextField fullWidth={true} label="First Name"></TextField>
-                <TextField fullWidth={true} label="Last Name"></TextField>
-            </CardContent>
-            </Card>
-        } else if (q.multiple_choice === 1 || q.multiple_choice === true) {
+        if (q.multiple_choice === 1 || q.multiple_choice === true) {
             return <Card style={styles.card} key={i}>
             <CardContent style={styles.topDiv}>
                 {q.category}
-                <Close onClick={() => this.deleteQuestion(q.id, i)} color="disabled" style={styles.closeIcon}/>
             </CardContent>
             <CardContent>
                 <FormControl component="fieldset">
@@ -183,7 +185,14 @@ class Rsvp extends Component {
             return <Card style={styles.card} key={i}>
                 <CardContent style={styles.topDiv}>
                     {q.category}
+                    {
+                    q.category === 'First Name' ? <p></p> :
+                    q.category === 'Last Name' ? <p></p> :
+                    q.category === 'Address' ? <p></p> :
+                    q.category === 'Phone' ? <p></p> :
+                    q.category === 'Email' ? <p></p> :
                     <Close onClick={() => this.deleteQuestion(q.id, i)} color="disabled" style={styles.closeIcon}/>
+                    }
                 </CardContent>
                 <CardContent>
                     {q.question}
@@ -205,11 +214,13 @@ class Rsvp extends Component {
 
     render() {
       return (
-        <div style={styles.rsvpContainer}>
-            {this.state.questions.map((q, i) => 
+        <div className="clientRsvp">
+            <Sidebar />
+            <div className="clientRsvpContainer">
+             {this.state.questions.map((q, i) => 
                 this.renderCards(q, i)
             )}
-            <div style={styles.buttonDiv}>
+            <div className="buttonDiv">
                 <Button variant="outlined" onClick={this.handleOpen} style={styles.button}>Add Question</Button>
                 <Button variant="outlined" onClick={this.saveQuestions} style={styles.button}>Save</Button>
             </div>
@@ -224,8 +235,9 @@ class Rsvp extends Component {
                 handleInputChange={this.inputHandler}/>
             </Modal>
         </div>
+        </div>
       );
     }
   }
   
-  export default Rsvp;
+export default Rsvp;

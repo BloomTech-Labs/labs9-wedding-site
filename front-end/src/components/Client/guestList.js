@@ -17,14 +17,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Cookies from 'universal-cookie';
-
+import Sidebar from './clientNav';
+import {withRouter} from 'react-router';
 
 const cookies = new Cookies()
-
-const GuestListContainer = styled.div`
-margin: 50px auto 50px;
-width: 80%
-`
 
 // define styles for material-ui components
 const styles = {
@@ -57,7 +53,7 @@ class GuestList extends Component {
             [e.target.name]: e.target.value
         })
 
-        console.log(e.target.value)
+        
 
     }
 
@@ -81,7 +77,7 @@ class GuestList extends Component {
         let wedding_id = this.props.wedding_id;
 
         axios
-            .post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/addguest`, {first_name, last_name, email, address, wedding_id, related_spouse})
+            .post(`${process.env.REACT_APP_LOCAL_URL}/addguest`, {first_name, last_name, email, address, wedding_id, related_spouse})
             .then(res => {
                 this.props.setGuests(res.data)
                 this.setState({
@@ -103,7 +99,7 @@ class GuestList extends Component {
         let wedding_id = this.props.wedding_id;
         console.log(wedding_id)
         axios
-            .post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/adddummyguest`, {wedding_id, couple: this.props.couple})
+            .post(`${process.env.REACT_APP_LOCAL_URL}/adddummyguest`, {wedding_id, couple: this.props.couple})
             .then(res => {
                     console.log(res.data)
                     this.props.setGuests(res.data)
@@ -116,13 +112,15 @@ class GuestList extends Component {
 
     componentDidMount() {
 
-        let oauth_id = cookies.get('userID')
+        
+        let vbtoken = localStorage.getItem('vbtoken');
+        let oauth_id = localStorage.getItem('vbtoken');
 
-        if(oauth_id){
-            axios.post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/loaduser`, {oauth_id})
+        if(vbtoken){
+            axios.post(`${process.env.REACT_APP_LOCAL_URL}/loaduser`, {oauth_id, vbtoken})
             .then(res => {
-                console.log(this.props.guests)
-                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ])
+                console.log(res)
+                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date)
                 this.props.login()
                 this.setState({
                    userLoaded: true 
@@ -137,7 +135,9 @@ class GuestList extends Component {
 
     render() {
       return (
-      <GuestListContainer>
+      <div className="guestList">
+          <Sidebar />
+          <div className="guestListContainer">
           <Button variant="contained">Import CSV</Button>
           <Button variant="outlined" style={styles.deleteButton}>Delete</Button>
           <div className="guest-list-table">
@@ -208,8 +208,9 @@ class GuestList extends Component {
                     }
 
                 </Spring>}
+            </div>
           </div>
-      </GuestListContainer>
+      </div>
       );
     }
   }

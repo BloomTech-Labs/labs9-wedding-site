@@ -11,20 +11,20 @@ const SignupLogin = (props) => {
         { !props.loggedIn ? 
           <Fragment>
           <li>
-            <Link to='signup'>
+            <Link to='/auth' onClick={props.signupbtnFunc}>
               Signup
             </Link>
           </li>
 
           <li>
-            <Link to='/login'>
+            <Link to='/auth' onClick={props.loginbtnFunc}>
              Login
             </Link>
           </li>
           </Fragment>
           : 
           <li>
-            <a href={`http://${process.env.REACT_APP_LOCAL_CLIENT || 'vbeloved.com'}`} onClick={props.logout}>
+            <a href={`${process.env.REACT_APP_LOCAL_CLIENT}`} onClick={props.logout}>
              Logout
              </a>
             

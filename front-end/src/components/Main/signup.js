@@ -154,7 +154,7 @@ localStorage.setItem('weddingID', `${res.data.id}`)
                       ...props,
                     }}>
                     <Form.Item className={i === 0 ? 'middle' : ''}>
-                    <a id="loginbtns" href={`http://${ process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/signin/google`} >{item}</a>
+                    <a id="loginbtns" href={`${process.env.REACT_APP_LOCAL_URL}/signin/google`} >{item}</a>
                     </Form.Item>
                   </animated.div>
                 )}

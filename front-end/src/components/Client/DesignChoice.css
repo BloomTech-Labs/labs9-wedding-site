@@ -1,0 +1,30 @@
+.design-choice-cont{
+    height: 350px;
+    width: 85%;
+    display: flex;
+}
+
+.choice{
+    width: 33%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.choice-img{
+    display: flex;
+    height: 80%;
+    width: 95%;
+    justify-content: center;
+    align-items: center;
+    font-size: 100px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.choice-name{
+    display: flex;
+    justify-content: center;
+}

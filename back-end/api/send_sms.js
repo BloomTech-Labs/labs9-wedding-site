@@ -6,7 +6,7 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID || "not authorized";
 const authToken = process.env.TWILIO_AUTH_TOKEN || "not authorized";
 const twilioPhone = process.env.TWILIO_PHONE;
 const contactPhone = process.env.MY_PHONE_NUMBER;
-const client = require("twilio")(accountSid, authToken);
+/* const client = require("twilio")(accountSid, authToken); */
 
 
 router.get('/', (req, res) => {
