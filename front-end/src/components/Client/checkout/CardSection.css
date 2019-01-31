@@ -35,11 +35,6 @@
     margin:auto;
   }
 
-  /* form {
-    margin: 10% 30% auto;
-    padding-bottom: 40px;
-  } */
-
   button:hover {
     color: #fff;
     cursor: pointer;
@@ -52,7 +47,6 @@
   .StripeElement {
     display: block;
     margin: 10px 0 50px 0;
-    max-width: 60%;
     padding: 10px 14px;
     font-size: 3em;
     font-family: 'Source Code Pro', monospace;

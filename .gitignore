@@ -2,6 +2,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 .env
+
 # dependencies
 /node_modules
 /.pnp
@@ -26,3 +27,5 @@ yarn-error.log*
 
 front-end/.env
 front-end/.env
+front-end/.env.development
+front-end/.env.production

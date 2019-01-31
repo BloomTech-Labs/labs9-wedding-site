@@ -17,12 +17,42 @@
 
 .guestList .guestListContainer {
     margin: 0 auto 50px;
-    width: 80%;
-    padding: 0 40px 0 20px;
+    width: 85%;
+    padding: 0 2%;
 }
 
 .guestList .clientNavSidebar {
     width: 15%;
     height: 100vh;
     padding-left: 10px;
-  }
+}
+
+
+@media (max-width: 1024px) {
+    .guestList {
+        margin: 100px auto 0;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .guestList .guestListContainer {
+        margin: 0 auto;
+        width: 100%;
+    }
+    
+    .guestList .clientNavSidebar {
+        width: 100%;
+        height: 100%;
+        margin-bottom: 50px;
+        padding-left: 0;
+    }
+
+}
+
+@media (max-width: 800px) {
+    .guestList {
+        margin: 30px auto;
+    }
+
+}
