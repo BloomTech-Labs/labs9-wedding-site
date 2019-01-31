@@ -14,10 +14,9 @@ import ClientSelections from './ClientSelections'
 
 import './dashboard.css';
 import Sidebar from './clientNav';
-import Cookies from 'universal-cookie';
 import axios from 'axios';
 
-const cookies = new Cookies()
+
 const serverURL = process.env.REACT_APP_LOCAL_URL
 
 const styles = {
