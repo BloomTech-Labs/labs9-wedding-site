@@ -1,37 +1,48 @@
 .invite-cont{
-
     position: absolute;
     height: 100vh;
     width: 100vw;
     background: white;
     display: flex;
     justify-content: center;
-
 }
 
 .invite-main{
     position: relative;
     width: 80%;
-    background-image: url('https://images.pexels.com/photos/1712513/pexels-photo-1712513.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
-    height:100%;
+    background-image: url('doors.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    /* height:100%; */
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.i-top{
+/* .i-top{
 
-}
+} */
 
 .i-middle{
     display: flex;
     background-color: white;
-    opacity: .5;
-    height: 250px;
+    opacity: .1;
+    height: 130px;
     width: 100%; 
-
+    font-size: 30px;
+    color: #000;
+    font-weight: 900;
+    position: relative;
+    top:50%;
 }
 
-.i-bottom{
+.message{
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+    left:40%;
+    bottom: 50%;
+}
+/* .i-bottom{
     
-}
+} */

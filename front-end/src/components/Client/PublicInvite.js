@@ -42,11 +42,14 @@ class PublicInvite extends Component {
                 {`${this.props.coupleData.first_name} & ${this.props.coupleData.p_firstname}`}
               </div> 
               <div className='i-middle'>
-                hi
-              </div >
-              <div className='i-bottom'>
-                hi
+              <span className='message'>
+              {/* {`${this.props.coupleData.first_name} & ${this.props.coupleData.p_firstname}`} */}
+                hello guests
+              </span>
               </div>
+              {/* <div className='i-bottom'>
+                hello guests
+              </div> */}
             </div>
       </div>
     );
