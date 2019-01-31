@@ -54,12 +54,14 @@ class MainContent extends Component {
         this.setState({
             loginbtn: true
         })
+        
     }
 
     signupbtn = () => {
         this.setState({
             loginbtn: false
         })
+        localStorage.removeItem('vbtoken');
     }
 
 

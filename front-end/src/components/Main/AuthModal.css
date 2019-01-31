@@ -1,5 +1,6 @@
 .modal-div{
     width: 30%;
+    min-width: 250px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;

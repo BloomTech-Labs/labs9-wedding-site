@@ -1,7 +1,17 @@
 .design-choice-cont{
-    height: 350px;
-    width: 85%;
+   
+    
     display: flex;
+    position: relative;
+
+}
+
+@media only screen and (max-width: 1000px){
+    .design-choice-cont{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    }
 }
 
 .choice{
@@ -11,6 +21,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-width: 230px;
 }
 
 .choice-img{
