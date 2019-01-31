@@ -1,3 +1,4 @@
+
 import React, { Component, Fragment } from 'react';
 import { Pie } from 'react-chartjs-2';
 import ReactDropzone from "react-dropzone";
@@ -14,9 +15,10 @@ import ClientSelections from './ClientSelections'
 
 import './dashboard.css';
 import Sidebar from './clientNav';
+import Cookies from 'universal-cookie';
 import axios from 'axios';
 
-
+const cookies = new Cookies()
 const serverURL = process.env.REACT_APP_LOCAL_URL
 
 const styles = {
@@ -58,7 +60,8 @@ class Dashboard extends Component {
             userLoaded: false,
             registryLink: "",
             displayName: "",
-            registry: []
+            registry: [],
+            registering: false
         }
     
         this.chartData = {
@@ -93,6 +96,14 @@ class Dashboard extends Component {
          }) 
     }
 
+    toggleRegistering = () =>{
+
+        this.setState({
+            registering: false
+        })
+
+    }
+
     componentDidMount() {
         const params = new URLSearchParams(this.props.location.search);
         const vbtoken = localStorage.getItem('vbtoken'); //"VB Token"; this is a token created in the Passport redirect function, and set in a cookie in the Axios response below. Purpose here is to check if the user is still logged in(expires in 10m)
@@ -105,7 +116,7 @@ class Dashboard extends Component {
             axios.post(`${serverURL}/loaduser`, {oauth_id, vbtoken})
             .then(res => {
                 console.log(res)
-                localStorage.setItem('vbtoken', oauth_id)
+                localStorage.setItem('vbtoken', oauth_id || vbtoken)
                 localStorage.setItem('weddingID', res.data.couple[0].wedding_id)
                 this.props.login() //toggles the state of the user to loggedIn (in MainContent component)
                 this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date);
@@ -129,6 +140,7 @@ class Dashboard extends Component {
         
         else if(oauth_id && !userExists){
             localStorage.setItem('authID', oauth_id)
+            this.setState({registering: true})
         } 
         else {
             this.props.history.push('/signup')
@@ -185,19 +197,22 @@ class Dashboard extends Component {
         
         return (
             
-        <div>
+        <div className="dashboard">
             
-            { !this.state.userLoaded ? <div className="loading">
+            {   this.state.registering ? <ClientSelections registering={this.state.registering} 
+                                                           login={this.props.login} setUser={this.props.setUser} 
+                                                           loadUser={this.loadUser} 
+                                                           toggleRegistering={this.toggleRegistering}/> :
+                
+                !this.state.userLoaded ? <div className="loading">
                                             <div className="logo-wrap">
                                                 <img src={require('../Main/images/beloved_mark_pink.png')} alt="vbeloved-logo"/>
                                             </div>
                                             <div className="load-txt">Loading...</div>
                                        </div> : 
-              !this.props.registered ? <ClientSelections registered={this.props.registered} 
-                                                         login={this.props.login} setUser={this.props.setUser} 
-                                                         loadUser={this.loadUser} 
-                                                         toggleRegistered={this.props.toggleRegistered}/> :
-                <div className="dashboard">
+
+            <Fragment>
+
                 <Sidebar />    
                 <div className="dashboardContainer">
                     <Button>
@@ -209,7 +224,7 @@ class Dashboard extends Component {
                     </div>
                     <div className="location">
                         <Share />
-                        <p>Wedding Reception Hall<br />San Diego, CA</p>
+                        <p style={{fontWeight: "bold"}}>{event_address}</p>
                     </div>
                 </div>
             <div className="cardDivTop">
@@ -261,7 +276,7 @@ class Dashboard extends Component {
             </Modal>
             </div>
             </div>
-            </div>
+            </Fragment>
             }
         </div>
         )
@@ -270,3 +285,4 @@ class Dashboard extends Component {
 }
 
 export default Dashboard;
+

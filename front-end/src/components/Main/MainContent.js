@@ -27,101 +27,93 @@ import axios from "axios";
 const cookies = new Cookies();
 
 class MainContent extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			loggedIn: false,
-			weddingID: "",
-			first_name: "",
-			last_name: "",
-			p_firstname: "",
-			p_lastname: "",
-			guests: [],
-			event_date: "",
-			event_address: "",
-			couple: [],
-			loginbtn: false,
-			signupbtn: false,
-			registered: false
-		};
-	}
 
-	loginbtn = () => {
-		this.setState({
-			loginbtn: true
-		});
-	};
+   constructor(props) {
+       super(props);
+       this.state = {
+           loggedIn: false,
+           weddingID: '',
+           first_name: '',
+           last_name: '',
+           p_firstname: '',
+           p_lastname: '',
+           guests: [],
+           event_date: '',
+           event_address: '',
+           couple: [],
+           loginbtn: false,
+           signupbtn: false,
+           registered: false
 
-	signupbtn = () => {
-		this.setState({
-			loginbtn: false
-		});
-	};
+           
+        }
+    }
 
-	login = () => {
-		this.setState({
-			loggedIn: true
-		});
-	};
+    loginbtn = () => {
+        this.setState({
+            loginbtn: true
+        })
+        
+    }
 
-	logout = () => {
-		this.setState({
-			loggedIn: false
-		});
-		localStorage.removeItem("vbtoken");
-	};
+    signupbtn = () => {
+        this.setState({
+            loginbtn: false
+        })
+        localStorage.removeItem('vbtoken');
+    }
 
-	setUser = (
-		partner1,
-		partner2,
-		guests,
-		couple,
-		event_address,
-		event_date
-	) => {
-		console.log("guests:", guests);
-		this.setState({
-			weddingID: partner1.wedding_id,
-			first_name: partner1.first_name,
-			last_name: partner1.last_name,
-			p_firstname: partner2.first_name,
-			p_lastname: partner2.last_name,
-			guests,
-			couple,
-			event_address,
-			event_date
-		});
-	};
 
-	toggleRegistered = () => {
-		this.setState({
-			registered: true
-		});
-	};
+    login = () => {
 
-	setGuests = guests => {
-		this.setState({
-			guests
-		});
-	};
+        this.setState({
+            loggedIn: true
+        })
+        
 
-	componentDidMount() {
-		let oauth_id = cookies.get("userID");
+    }
 
-		/* if(oauth_id){
-            axios.post(`${process.env.REACT_APP_LOCAL_URL}/loaduser`, {...userdata, oauth_id})
-            .then(res => {
-                console.log(res)
-                this.props.toggleLoggedIn() //toggles the state of the user to loggedIn (in MainContent component)
-                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ])
-                this.setState({
-                   userLoaded: true 
-                })
-            })
-            .catch(err => console.log(err))
-        } else {
-            this.props.history.push('/')
-        } */
+   logout = () => {
+       this.setState({
+           loggedIn: false
+       })
+       localStorage.removeItem('vbtoken')
+   }
+
+   setUser = (partner1, partner2, guests, couple, event_address, event_date) => {
+        console.log('guests:', guests)
+    this.setState({
+           weddingID: partner1.wedding_id,
+           first_name: partner1.first_name,
+           last_name: partner1.last_name,
+           p_firstname: partner2.first_name,
+           p_lastname: partner2.last_name,
+           guests,
+           couple,
+           event_address, 
+           event_date
+        })
+    }
+
+    toggleRegistered = () =>{
+        this.setState({
+            registered: true
+        })
+
+    }
+
+    setGuests = (guests) =>{
+
+        this.setState({
+            guests
+        })
+
+    }
+
+    componentDidMount(){
+     
+
+
 	}
 
 	render() {

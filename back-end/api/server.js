@@ -167,8 +167,9 @@ server.get('/deleteall', async (req, res) => {
 server.post('/loaduser', async (req, res) => {
     let { first_name, last_name, p_firstname, p_lastname, event_date, event_address, oauth_id, design_template, registering, vbtoken } = req.body;
     
-
+    console.log("LoadUserReqbody",req.body)
     vbtoken ? oauth_id = vbtoken : oauth_id = oauth_id; 
+    console.log('loaduserid:', oauth_id)
 
     try {
 
@@ -195,7 +196,7 @@ server.post('/loaduser', async (req, res) => {
         
         else if(!user){
             
-
+            console.log('Nouser:', oauth_id)
             const wedding_id = await db.table('weddings').insert({ event_date, event_address, design_template });
 
             const user1 = await db('user').insert({ first_name, last_name, wedding_id }) //email must be added in OAuth
@@ -208,7 +209,7 @@ server.post('/loaduser', async (req, res) => {
 
             let couple = await db('user').join('couples', { 'user.id': 'couples.user_id' }).where({ wedding_id });
             let guests = await db('user').where({ wedding_id, guest: true });
-            let wedding_data = await db('weddings').where({id: user.wedding_id}).first()
+            let wedding_data = await db('weddings').where({id: wedding_id}).first()
 
             res.status(200).json({
                 couple,
@@ -220,7 +221,7 @@ server.post('/loaduser', async (req, res) => {
         
 
         else {
-            
+            console.log('loaduserelse:', oauth_id)
 
             let wedding_data = await db('weddings').where({id: user.wedding_id}).first()
             let couple = await db('user').join('couples', { 'user.id': 'couples.user_id' }).where({ wedding_id: user.wedding_id });

@@ -7,6 +7,30 @@
 
 .btn-container > div {
     cursor: pointer;
+    box-shadow: 1px 1px 3px black;
+    padding: 10px 0px;
+    border-radius: 5px;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+}
+
+.selections-div{
+    top: 0;
+    display: flex;
+    position: absolute;
+    height: 100%;
+  }
+
+.auth-div.registering{
+    
+    z-index: 11;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+    
+
 }
 
 .auth-circle{
@@ -14,12 +38,29 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100%;
     width: 80vw;
     border-radius: 50%;
     background: #AFD4E1;
     
 }
+
+@media only screen and (max-width: 532px) {
+    .auth-circle {
+      width: 100%;
+    }
+    .content-div.form{
+        width: 90%;
+    }
+    .btn-container{
+        width: 100%;
+    }
+    .btn-container > div {
+        width: 48%;
+        padding: 10px 0px;
+    }
+
+  }
 
 #design-form {
     position: relative;
@@ -30,7 +71,8 @@
 .auth-circle > .CustomizedInputs-wholegroup-256 {
     position: relative;
     top: unset;
-    left: unset;  
+    left: unset;
+     
 }
 
 .auth-circle > .CustomizedInputs-wholegroup-114 {
@@ -38,9 +80,67 @@
     top: unset;
     left: unset; 
 }
+.auth-title{
+color: white;
+font-weight: bold;
+margin-bottom: 8px;
+}
 
 /* .CustomizedInputs-wholegroup-214 {
     position: relative;
     top: unset;
     left: unset; 
 } */
+
+.vb-text{
+    font-family: 'Leckerli One', cursive;
+    color: #AFD4E1;
+    text-shadow: 1px 0.1px 1px black;
+}
+
+.v{
+    color: pink;
+}
+.vb-header{
+    position: absolute;
+    top: 0;
+    background: white;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 50px;
+    box-sizing: 1px 1px 1px black;
+    box-shadow: 1px 0.1px 0.1px black;
+    z-index: 10;
+}
+
+.logo-wrap.selections{
+
+}
+
+.content-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 80%;
+    top: -50px;
+}
+
+@media only screen and (max-width: 1000px) {
+    .content-div.design {
+      padding-top: 150px;
+    }
+    .content-div.form{
+      height: 100vh;
+      top: -150px;
+    }
+    .selections-div{
+        height: unset;
+    }
+  }
+
+
+
+

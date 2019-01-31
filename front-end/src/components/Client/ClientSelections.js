@@ -54,16 +54,17 @@ class ClientSelections extends React.Component {
         } = this.state;
 
         let userinfo = {first_name, last_name, p_firstname, p_lastname, event_date, event_address, design_template, oauth_id, registering: true}
-
+        console.log(userinfo)
         axios
             .post(`${serverURL}/loaduser`, userinfo)
             .then(res => { console.log('ClientSelLoadUser:', res)
-                this.props.toggleRegistered()
+                
                 localStorage.setItem('vbtoken', oauth_id)
                 console.log('Cookie set-check')
                 this.props.loadUser()
                 this.props.login() //toggles the state of the user to loggedIn (in MainContent component)
-                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ]);
+                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date);
+                this.props.toggleRegistering()
                 this.props.history.push('/vb/dashboard')
             })
             .catch(err => console.log('ClientSelectionsErr:', err))
@@ -87,23 +88,32 @@ class ClientSelections extends React.Component {
   
     render() {
       return (
-        <div>
-            { !this.props.registered ? 
-            <div className="auth-div">
+        <div className="selections-div">
+            { this.props.registering ? 
+            <div className="auth-div registering">
+                <div className="vb-header">
+                    <div className="vb-text"><span className="v">v</span>Beloved</div>
+                    
+                </div>
                 <div className="auth-circle">
-                    {   
-                    !this.state.next ? 
-                    <Form id="design-form" inputHandler={this.inputHandler}/> : 
-                    <DesignChoice inputHandler={this.inputHandler} designtemplate={this.state.design_template}/>
-                    }
+                    <div className={`content-div ${this.state.next ? "design" : "form" }`}>
+                        <div className="auth-title">{this.state.next ? 'Choose Your Invite Template' : 'Tell Us About Your Wedding'}</div>
+                        <div className="logo-wrap selections">
+                            <img src={require('../Main/images/beloved_mark_pink.png')} alt="vbeloved-logo"/>
+                        </div>
+                        {   
+                        !this.state.next ? 
+                        <Form id="design-form" inputHandler={this.inputHandler}/> : 
+                        <DesignChoice inputHandler={this.inputHandler} designtemplate={this.state.design_template}/>
+                        }
 
-                    <div className="btn-container">
-                        <div onClick={this.back}>Back</div>
-                        <div onClick={!this.state.next ? this.next : this.save}>
-                            {!this.state.next ? "Next" : "Go To Dashboard"}
+                        <div className="btn-container">
+                            <div onClick={this.back}>Back</div>
+                            <div onClick={!this.state.next ? this.next : this.save}>
+                                {!this.state.next ? "Next" : "Go To Dashboard"}
+                            </div>
                         </div>
                     </div>
-                    
                 </div>
             </div> : null
                 }
