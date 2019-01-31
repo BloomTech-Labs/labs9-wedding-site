@@ -1,3 +1,4 @@
+
 import React, { Component, Fragment } from 'react';
 import { Pie } from 'react-chartjs-2';
 import ReactDropzone from "react-dropzone";
@@ -59,7 +60,8 @@ class Dashboard extends Component {
             userLoaded: false,
             registryLink: "",
             displayName: "",
-            registry: []
+            registry: [],
+            registering: false
         }
     
         this.chartData = {
@@ -92,6 +94,14 @@ class Dashboard extends Component {
         this.setState({
             userLoaded: true 
          }) 
+    }
+
+    toggleRegistering = () =>{
+
+        this.setState({
+            registering: false
+        })
+
     }
 
     componentDidMount() {
@@ -130,6 +140,7 @@ class Dashboard extends Component {
         
         else if(oauth_id && !userExists){
             localStorage.setItem('authID', oauth_id)
+            this.setState({registering: true})
         } 
         else {
             this.props.history.push('/signup')
@@ -186,19 +197,22 @@ class Dashboard extends Component {
         
         return (
             
-        <div>
+        <div className="dashboard">
             
-            { !this.state.userLoaded ? <div className="loading">
+            {   this.state.registering ? <ClientSelections registering={this.state.registering} 
+                                                           login={this.props.login} setUser={this.props.setUser} 
+                                                           loadUser={this.loadUser} 
+                                                           toggleRegistering={this.toggleRegistering}/> :
+                
+                !this.state.userLoaded ? <div className="loading">
                                             <div className="logo-wrap">
                                                 <img src={require('../Main/images/beloved_mark_pink.png')} alt="vbeloved-logo"/>
                                             </div>
                                             <div className="load-txt">Loading...</div>
                                        </div> : 
-              !this.props.registered ? <ClientSelections registered={this.props.registered} 
-                                                         login={this.props.login} setUser={this.props.setUser} 
-                                                         loadUser={this.loadUser} 
-                                                         toggleRegistered={this.props.toggleRegistered}/> :
-                <div className="dashboard">
+
+            <Fragment>
+
                 <Sidebar />    
                 <div className="dashboardContainer">
                     <Button>
@@ -210,7 +224,7 @@ class Dashboard extends Component {
                     </div>
                     <div className="location">
                         <Share />
-                        <p>Wedding Reception Hall<br />San Diego, CA</p>
+                        <p style={{fontWeight: "bold"}}>{event_address}</p>
                     </div>
                 </div>
             <div className="cardDivTop">
@@ -262,7 +276,7 @@ class Dashboard extends Component {
             </Modal>
             </div>
             </div>
-            </div>
+            </Fragment>
             }
         </div>
         )
@@ -271,3 +285,4 @@ class Dashboard extends Component {
 }
 
 export default Dashboard;
+

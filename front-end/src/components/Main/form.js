@@ -5,6 +5,7 @@ import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import pink from "@material-ui/core/colors/pink";
+import './form.css'
 
 const styles = theme => ({
   container: {
@@ -12,11 +13,15 @@ const styles = theme => ({
     flexWrap: "wrap"
   },
   margin: {
-    margin: theme.spacing.unit
+    margin: 0
+    
   },
   cssLabel: {
     "&$cssFocused": {
       color: pink[100]
+    },
+    ['@media (max-width:532px)']: { // eslint-disable-line no-useless-computed-key
+      fontSize: '12px'
     }
   },
   cssFocused: {},
@@ -69,20 +74,29 @@ const styles = theme => ({
     justifyContent:'center',
     flexDirection:'column',
     alignContent:'space-between',
-    width:350,
-    // position:'absolute',
-    // left: 1000,
+    width: "100%",
+    padding: '8px'
+    
+    
   },
   group: {
     display:'flex',
     flexDirection:'row',
+    width: "100%"
   },
   wholegroup: {
-    position:'relative'
+    position:'relative',
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    width: '80%',
+    ['@media (max-width:532px)']: { // eslint-disable-line no-useless-computed-key
+      width: '100%'
+    }
   },
   lasttwo:{
-    width:690,
-    marginLeft:8,
+    width: '100%'
+    
   }
 });
 
@@ -92,7 +106,7 @@ function CustomizedInputs(props) {
   return (
     <div className={classes.wholegroup}>
       <div className={classes.group}>
-    <div className={classes.container} className={classes.position}>
+    <div className={`${classes.container} ${classes.position}`}>
       <FormControl className={classes.margin}>
         <InputLabel
           htmlFor="custom-css-standard-input"
@@ -114,7 +128,7 @@ function CustomizedInputs(props) {
         />
       </FormControl>
     </div>
-    <div className={classes.container} className={classes.position}>
+    <div className={`${classes.container} ${classes.position}`}>
       <FormControl className={classes.margin}>
         <InputLabel
           htmlFor="custom-css-standard-input"
@@ -139,7 +153,7 @@ function CustomizedInputs(props) {
     </div>
 
       <div className={classes.group}>
-      <div className={classes.container}className={classes.position}>
+      <div className={`${classes.container} ${classes.position}`}>
         <FormControl className={classes.margin}>
           <InputLabel
             htmlFor="custom-css-standard-input"
@@ -162,7 +176,7 @@ function CustomizedInputs(props) {
           />
         </FormControl>
       </div>
-      <div className={classes.container}className={classes.position}>
+      <div className={`${classes.container} ${classes.position}`}>
         <FormControl className={classes.margin}>
           <InputLabel
             htmlFor="custom-css-standard-input"
@@ -188,8 +202,8 @@ function CustomizedInputs(props) {
       </div>
 
      <div className={classes.group} >
-      <div className={classes.container}className={classes.position}>
-        <FormControl className={classes.margin} className={classes.lasttwo}>
+      <div className={`${classes.container} ${classes.position}`}>
+        <FormControl className={`${classes.margin} ${classes.lasttwo}`}>
           <InputLabel
             htmlFor="custom-css-standard-input"
             classes={{
@@ -197,7 +211,7 @@ function CustomizedInputs(props) {
               focused: classes.cssFocused
             }}
           >
-            Event Date
+            Event Date {<span id="example-txt">(Ex. August 12th, 1999)</span>} 
         </InputLabel>
 
           <Input
@@ -213,8 +227,8 @@ function CustomizedInputs(props) {
       </div>
       </div>
       <div className={classes.group} >
-      <div className={classes.container} className={classes.position}>
-        <FormControl className={classes.margin} className={classes.lasttwo}>
+      <div className={`${classes.container} ${classes.position}`}>
+        <FormControl className={`${classes.margin} ${classes.lasttwo}`}>
           <InputLabel
             htmlFor="custom-css-standard-input"
             classes={{

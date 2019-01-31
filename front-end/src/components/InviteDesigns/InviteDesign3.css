@@ -1,0 +1,95 @@
+#main-container {
+    margin-top: 90px;
+    /* position: relative; */
+    min-height: calc(100vh - 120px);
+    padding-bottom: 12%;
+}
+
+.invite-cont{
+    position: absolute;
+    height: calc(100vh - 120px);
+    width: 100vw;
+    /* background: rgb(250, 246, 224); */
+    display: flex;
+    justify-content: center;
+
+}
+
+.invite-main{
+    /* position: relative; */
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.i-top{
+    width: 100%;
+    min-height: 120px;
+}
+
+.i-middle{
+    display: flex;
+    /* background-color: white; */
+    opacity: .5;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    width: 100%; 
+}
+
+#title-container {
+    position: absolute;
+    /* top: 50%;
+    left: 10%;
+    right: 10%;
+    transform: translateY(-50%); */
+    z-index: 1000;
+}
+
+.wedding-title-container {
+    display: flex;
+    align-items: center;
+
+    flex-direction: column;
+    /* color: rgb(108, 192, 223); */
+    font-family: Playfair Display;
+    font-size: 66.5%;
+    font-style: italic;
+}
+
+.wedding-title-container > h1 {
+    font-size: 3.6rem;
+}
+
+.wedding-title-container > h1 {
+    font-size: 2.4rem;
+}
+.couple-names {
+    font-size: 3.6em;
+}
+
+.i-bottom{
+    width: 100%;
+}
+
+.i-bottom .rsvp-link {
+    display: flex;
+}
+
+.rsvp-link {
+}
+
+.rsvp-link a {
+    /* background-color: aqua;
+    border-radius: 5px; */
+    padding: 0 10px 0 10px;
+    margin: 0 auto;
+}
+
+@media (max-width: 800px) {
+    #main-container {
+        margin-top: 0px;
+    }
+}
