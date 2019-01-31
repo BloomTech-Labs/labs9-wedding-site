@@ -16,17 +16,17 @@ const designBackgroundPhotos = [
 
 const designThemes = [
   {
-    backgroundUrl:  designBackgroundPhotos[0],
+    backgroundUrl: designBackgroundPhotos[0],
     primary: '',
     secondary: ''
   },
   {
-    backgroundUrl:  designBackgroundPhotos[1],
+    backgroundUrl: designBackgroundPhotos[1],
     primary: 'rgb(108, 192, 223)',
     secondary: 'rgb(250, 246, 224)'
   },
   {
-    backgroundUrl:  designBackgroundPhotos[2],
+    backgroundUrl: designBackgroundPhotos[2],
     primary: '',
     secondary: ''
   }
@@ -51,7 +51,7 @@ class PublicInvite extends Component {
 
         <div className="invite-main" style={{ backgroundImage: `url(${designTheme.backgroundUrl})` }}>
           <div className='i-top'>
-            
+
           </div>
 
           <div className='i-middle' >
