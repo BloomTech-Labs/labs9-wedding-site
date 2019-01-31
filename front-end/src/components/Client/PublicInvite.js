@@ -51,6 +51,7 @@ class PublicInvite extends Component {
           let userdata = cookies.get('USERDATA')
           let oauth_id = '117923096476841958425'
           console.log('userdata:', oauth_id)
+          console.log(userdata)
   
           if(oauth_id){
               axios.post(`http://${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/loaduser`, {...userdata, oauth_id})
@@ -74,7 +75,7 @@ class PublicInvite extends Component {
 
     return (
       <React.Fragment>
-        <InviteDesign3 details={this.state}/>
+        <InviteDesign3 designTemplate={0} details={this.state}/>
       </React.Fragment>
     )
 

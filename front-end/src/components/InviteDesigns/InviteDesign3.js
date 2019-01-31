@@ -37,9 +37,9 @@ class PublicInvite extends Component {
 
   render() {
     const designTemplate = 3
-    console.log(designThemes[0].backgroundUrl)
+    console.log(designThemes[this.props.designTemplate].backgroundUrl)
     const { details } = this.props
-    const designTheme = designThemes[0]
+    const designTheme = designThemes[this.props.designTemplate]
     /*{
       backgroundUrl:  designBackgroundPhotos[designTemplate - 1]
     }*/
