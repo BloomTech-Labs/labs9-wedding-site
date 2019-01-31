@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MainContent from './PublicInvite.css';
+import './PublicInvite.css';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 

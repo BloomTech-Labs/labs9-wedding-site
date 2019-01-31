@@ -24,6 +24,7 @@ import PublicInvite from '../Client/PublicInvite'
 import StickyTop from '../Navigation/topBar'; //NavBar
 import Cookies from 'universal-cookie';
 import axios from 'axios';
+import Pricing from './pricing';
 
 const cookies = new Cookies()
 
@@ -145,7 +146,7 @@ class MainContent extends Component {
 
                    <Route path='/' exact render={props => this.state.loggedIn ? <Redirect to="/vb/dashboard"/> : <LandingPage {...props} />} />
                    {/* <Route path='/designs' component={Design} /> */}
-                   <Route path='/pricing' component={Template1} />
+                   {/* <Route path='/pricing' component={Pricing} /> */}
                    <Route path='/signup' render={props => <Signup {...props} toggleLoggedIn={this.toggleLoggedIn}/>} />
                    <Route path='/login' component={Login} />
                    <Route path={`/rsvp`} render={props => <PublicRsvp {...props} state={this.state}/> }/>
