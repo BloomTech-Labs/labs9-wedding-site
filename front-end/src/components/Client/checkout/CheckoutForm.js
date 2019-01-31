@@ -13,7 +13,7 @@ class _CheckoutForm extends React.Component {
     ev.preventDefault();
     let { token } = await this.props.stripe.createToken({ name: "Name" });
     console.log(token);
-    axios.post("http://localhost:8888/vb/billing", {token})
+    axios.post(`${process.env.REACT_APP_LOCAL_URL}/vb/billing`, {token})
       .then(
         function (response) {
           console.log(response, { message: "Charge Successful" });
