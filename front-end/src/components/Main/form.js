@@ -106,7 +106,7 @@ function CustomizedInputs(props) {
   return (
     <div className={classes.wholegroup}>
       <div className={classes.group}>
-    <div className={classes.container} className={classes.position}>
+    <div className={`${classes.container} ${classes.position}`}>
       <FormControl className={classes.margin}>
         <InputLabel
           htmlFor="custom-css-standard-input"
@@ -128,7 +128,7 @@ function CustomizedInputs(props) {
         />
       </FormControl>
     </div>
-    <div className={classes.container} className={classes.position}>
+    <div className={`${classes.container} ${classes.position}`}>
       <FormControl className={classes.margin}>
         <InputLabel
           htmlFor="custom-css-standard-input"
@@ -153,7 +153,7 @@ function CustomizedInputs(props) {
     </div>
 
       <div className={classes.group}>
-      <div className={classes.container}className={classes.position}>
+      <div className={`${classes.container} ${classes.position}`}>
         <FormControl className={classes.margin}>
           <InputLabel
             htmlFor="custom-css-standard-input"
@@ -176,7 +176,7 @@ function CustomizedInputs(props) {
           />
         </FormControl>
       </div>
-      <div className={classes.container}className={classes.position}>
+      <div className={`${classes.container} ${classes.position}`}>
         <FormControl className={classes.margin}>
           <InputLabel
             htmlFor="custom-css-standard-input"
@@ -202,8 +202,8 @@ function CustomizedInputs(props) {
       </div>
 
      <div className={classes.group} >
-      <div className={classes.container}className={classes.position}>
-        <FormControl className={classes.margin} className={classes.lasttwo}>
+      <div className={`${classes.container} ${classes.position}`}>
+        <FormControl className={`${classes.margin} ${classes.lasttwo}`}>
           <InputLabel
             htmlFor="custom-css-standard-input"
             classes={{
@@ -227,8 +227,8 @@ function CustomizedInputs(props) {
       </div>
       </div>
       <div className={classes.group} >
-      <div className={classes.container} className={classes.position}>
-        <FormControl className={classes.margin} className={classes.lasttwo}>
+      <div className={`${classes.container} ${classes.position}`}>
+        <FormControl className={`${classes.margin} ${classes.lasttwo}`}>
           <InputLabel
             htmlFor="custom-css-standard-input"
             classes={{

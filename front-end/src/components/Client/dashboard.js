@@ -1,3 +1,4 @@
+
 import React, { Component, Fragment } from 'react';
 import { Pie } from 'react-chartjs-2';
 import ReactDropzone from "react-dropzone";
@@ -196,7 +197,7 @@ class Dashboard extends Component {
         
         return (
             
-        <div>
+        <div className="dashboard">
             
             {   this.state.registering ? <ClientSelections registering={this.state.registering} 
                                                            login={this.props.login} setUser={this.props.setUser} 
@@ -275,7 +276,7 @@ class Dashboard extends Component {
             </Modal>
             </div>
             </div>
-            </div>
+            </Fragment>
             }
         </div>
         )
@@ -284,3 +285,4 @@ class Dashboard extends Component {
 }
 
 export default Dashboard;
+
