@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
 
         tbl.string('oauth_id');
 
-        tbl.integer('user_id').unsigned().notNullable().references('id').inTable('users');
+        tbl.integer('user_id').unsigned().notNullable().references('id').inTable('user');
     });
 };
 
