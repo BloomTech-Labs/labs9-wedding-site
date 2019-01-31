@@ -1,41 +1,80 @@
-@import url('https://fonts.googleapis.com/css?family=Pinyon+Script');
+@import url("https://fonts.googleapis.com/css?family=Pinyon+Script");
 
 .font {
-    display: flex;
-    flex-direction: column;
-    font-family: 'Pinyon Script', cursive;
-    color: '#AFD4E1';
-    position: absolute;
-    top:120px;
-    left:250px;
-    font-size: 60px;
-    font-weight: 600;
-    line-height: 1;
-  }
+	display: flex;
+	flex-direction: column;
+	font-family: "Pinyon Script", cursive;
+	color: #23369b;
+	position: absolute;
+	top: 120px;
+	left: 250px;
+	font-size: 60px;
+	font-weight: 600;
+	line-height: 1;
+	z-index: 498;
+	text-shadow: 1px 1px 1px beige;
+	transition: all 0.3s;
+}
 
-  .font2 {
-    display: flex;
-    flex-direction: column;
-    font-family: 'Pinyon Script', cursive;
-    color: '#AFD4E1';
-    position: absolute;
-    top:180px;
-    left:355px;
-    font-size: 110px;
-    font-weight: 600;
-  }
+.font2 {
+	display: flex;
+	flex-direction: column;
+	font-family: "Pinyon Script", cursive;
+	color: #23369b;
+	position: absolute;
+	top: 180px;
+	left: 355px;
+	font-size: 110px;
+	font-weight: 600;
+	z-index: 451;
+	text-shadow: 1px 1px 1px beige;
+	transition: all 0.3s;
+}
 
-  .font3 {
-    display: flex;
-    flex-direction: column;
-    color: '#AFD4E1';
-    position: absolute;
-    top:315px;
-    left:245px;
-    font-size: 23px;
-    font-weight: 400;
-  }
+.font3 {
+	display: flex;
+	flex-direction: column;
+	color: #2532a1;
+	left: 312px;
+	font-size: 23px;
+	font-weight: 400;
+	z-index: 1;
+	transition: all 0.3s;
+	position: absolute;
+	top: 400px;
+	font-weight: bold;
+	transition: all 0.3s;
+}
 
-  .color{
-      color:'#AFD4E1';
-  }
+.color {
+	color: "#AFD4E1";
+}
+@media (max-width: 800px) {
+	.font {
+		font-size: 38px;
+		z-index: 1000;
+		top: -153px;
+		margin-top: 20px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 61%;
+	}
+	.font2 {
+		font-size: 85px;
+		z-index: 1000;
+		top: -75px;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	.font3 {
+		font-weight: bold;
+		z-index: 10000;
+		background: #ffffff6b;
+		padding: 10px;
+		border-radius: 10px;
+		top: 550px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 58%;
+	}
+}
