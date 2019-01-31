@@ -23,7 +23,7 @@ const addAnswers = async (req, res) => {
     let message = ''
 
     try {
-        let user = await db('users')
+        let user = await db('user')
             .where('email', guestObj.email)
 
         user = user[0]
@@ -35,7 +35,7 @@ const addAnswers = async (req, res) => {
             try {
                 console.log('guestObj', guestObj)
                 
-                const newUserId = await db('users').insert(guestObj)
+                const newUserId = await db('user').insert(guestObj)
 
                 console.log('newUser', newUserId)
                 message = 'You have been added to the rsvp list'
@@ -66,7 +66,7 @@ const addAnswers = async (req, res) => {
             // then update in db if different
             if (Object.keys(diffGuestProps).length > 0) {
                 try {
-                    const updated = await db('users')
+                    const updated = await db('user')
                         .where('id', user.id)
                         .update(diffGuestProps)
 
