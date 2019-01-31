@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -18,103 +19,107 @@ import couple3 from "./images/couple3.png";
 import couple1 from "./images/couple1.png";
 
 const PackageContainer = styled.div`
-  display: flex;
-  position: absolute;
-  top: 200px;
-  margin-left: 800px;
-  height: 500px;
-  width: 40%;
-  z-index:500;
-  /* margin: auto; */
-  /* width: 40%;
-height: 400px;
-display:flex;
-justify-content: space-around;
-align-items: center; */
+	display: flex;
+	position: absolute;
+  right: 0;
+  top: 22%
+	height: 500px;
+	width: 40%;
+	z-index: 500;
+	display: flex;
+  justify-content: space-around;
+  @media (max-width: 1000px) {
+		width: 50%;
+	}
+	@media (max-width: 900px) {
+		width: 80%;
+	}
+	@media (max-width: 700px) {
+		width: 100%;
+	}
 `;
 
 const styles = {
-  card: {
-    maxWidth: 345,
-    backgroundColor: grey[50]
-  },
-  media: {
-    height: 500,
-    objectFit: "cover"
-  }
+	card: {
+		maxWidth: 345,
+		backgroundColor: grey[50]
+	},
+	media: {
+		height: 500,
+		objectFit: "cover"
+	}
 };
 
-
 function Prices(props) {
-  const { classes } = props;
-  return (
-    <PackageContainer>
-      <Card className={classes.card}>
-        <CardActionArea>
-        <div class="bontent" id="secondoverride">
-        <div class="bontent-overlay">
-          <CardMedia
-            className={classes.media}
-            component="img"
-            alt="Couple3"
-            height="140"
-            image={couple3}
-            title="Package 1"
-          />
-            </div>
-            <div class="bontent-details fadeIn-top">
-              <h3>Always</h3>
-              <p>This is a short description</p>
-              </div>
-          </div>
-        </CardActionArea>
-      </Card>
-      <Card className={classes.card}>
-        <CardActionArea>
-        <div class="bontent" id="override">
-        <div class="bontent-overlay">
-          <CardMedia
-            className={classes.media}
-            component="img"
-            alt="Couple1"
-            height="140"
-            image={couple1}
-            title="Package 2"
-          />
-            </div>
-            <div class="bontent-details fadeIn-top">
-              <h3>Forever</h3>
-              <p>This is a short description</p>
-              </div>
-          </div>
-        </CardActionArea>
-      </Card>
-      <Card className={classes.card}>
-        <CardActionArea>
-          <div class="bontent">
-            <div class="bontent-overlay">
-                    <CardMedia
-                    className={classes.media}
-                    component="img"
-                    alt="Couple4"
-                    height="140"
-                    image={couple5}
-                    title="Package 3"
-                    />
-            </div>
-            <div class="bontent-details fadeIn-top">
-              <h3>Eternity</h3>
-              <p>This is a short description</p>
-              </div>
-          </div>
-        </CardActionArea>
-      </Card>
-    </PackageContainer>
-  );
+	const { classes } = props;
+	return (
+		<PackageContainer>
+			<Card className={classes.card}>
+				<CardActionArea>
+					<div class="bontent" id="secondoverride">
+						<div class="bontent-overlay">
+							<CardMedia
+								className={classes.media}
+								component="img"
+								alt="Couple3"
+								height="140"
+								image={couple3}
+								title="Package 1"
+							/>
+						</div>
+						<div class="bontent-details fadeIn-top">
+							<h3>Always</h3>
+							<p>This is a short description</p>
+						</div>
+					</div>
+				</CardActionArea>
+			</Card>
+			<Card className={classes.card}>
+				<CardActionArea>
+					<div class="bontent" id="override">
+						<div class="bontent-overlay">
+							<CardMedia
+								className={classes.media}
+								component="img"
+								alt="Couple1"
+								height="140"
+								image={couple1}
+								title="Package 2"
+							/>
+						</div>
+						<div class="bontent-details fadeIn-top">
+							<h3>Forever</h3>
+							<p>This is a short description</p>
+						</div>
+					</div>
+				</CardActionArea>
+			</Card>
+			<Card className={classes.card}>
+				<CardActionArea>
+					<div class="bontent">
+						<div class="bontent-overlay">
+							<CardMedia
+								className={classes.media}
+								component="img"
+								alt="Couple4"
+								height="140"
+								image={couple5}
+								title="Package 3"
+							/>
+						</div>
+						<div class="bontent-details fadeIn-top">
+							<h3>Eternity</h3>
+							<p>This is a short description</p>
+						</div>
+					</div>
+				</CardActionArea>
+			</Card>
+		</PackageContainer>
+	);
 }
 
 Prices.propTypes = {
-  classes: PropTypes.object.isRequired
+	classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(Prices);
