@@ -33,10 +33,10 @@ a {
   top:-1px;
 }
 
-@media (max-width: 500px) {
-  .move {
+@media (max-width: 600px) {
+  /* .move {
     flex-direction: column;
-  }
+  } */
 }
 
 a:hover {

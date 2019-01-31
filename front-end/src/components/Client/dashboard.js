@@ -106,7 +106,7 @@ class Dashboard extends Component {
             axios.post(`${serverURL}/loaduser`, {oauth_id, vbtoken})
             .then(res => {
                 console.log(res)
-                localStorage.setItem('vbtoken', oauth_id)
+                localStorage.setItem('vbtoken', oauth_id || vbtoken)
                 localStorage.setItem('weddingID', res.data.couple[0].wedding_id)
                 this.props.login() //toggles the state of the user to loggedIn (in MainContent component)
                 this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date);

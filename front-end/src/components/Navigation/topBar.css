@@ -1,8 +1,4 @@
-/* @font-face {
-    font-family: 'Snell Bold';
-} */
-
-.overall{
+.overall {
     height: 90px;
     width: 100%;
     background-color: white;
@@ -11,19 +7,28 @@
     justify-content: space-between;
     border-bottom: 1px solid grey;
     position:fixed;
-    z-index: 1000;
+    z-index: 10;
     top:0;
 }
 
-.overall ul{
-    padding: 0;
-    margin: 0;
+.overall .rightNav .hamburgerMenu {
+    color: rgb(108, 192, 223);
+    display: none;
 }
 
-.siteName {
-    font-size: 2.4rem;
-    font-weight: bold;
-    font-family: serif;
+.overall .rightNav .dropDownMenu {
+    background-color: lightgray;
+    position: absolute;
+    margin-top: 38px;
+    right: 0;
+    min-width: 200px;
+    width: 30%;
+    height: 100vh;
+}
+
+.overall ul {
+    padding: 0;
+    margin: 0;
 }
 
 .leftNav {
@@ -35,15 +40,20 @@
     padding-left: 25px;
 }
 
+.leftNav .landingButtons {
+    display: none;
+}
+
 .centerNav {
     align-self: center;
     align-content: center;
-    padding-right: 8%;
+    padding-left: 8%;
 }
 
 .centerNav .siteName {
-    position: relative;
     display: block;
+    font-weight: bold;
+    font-family: serif;
     font-size: 2rem;
     text-transform: uppercase;
     color: rgb(108, 192, 223);
@@ -58,47 +68,30 @@
     padding-right: 10px;
 }
 
-@media (max-width: 1024px) {
-    .centerNav {
-        padding-right: 0;
-    }
-}
 
 @media (max-width: 800px) {
     .overall {
-        position: relative;
-        height: 100%;
-        flex-direction: column;
+        height: 50px;
     }
 
-    .centerNav {
-        order: -1;
+    .overall .rightNav .hamburgerMenu {
+        display: block;
     }
 
-    .leftNav {
-        padding-left: 0;
-    }
+    .overall .rightNav .logout {
+        display: none;
+    }  
     
-    .rightNav {
-        padding-right: 0;
+    .overall .leftNav {
+        display: none;
     }
 
-}
-
-@media (max-width: 600px) {
     .centerNav {
-        order: -1;
-    }
-    .overall {
-        flex-direction: column;
+        padding-left: 10px;
     }
 
-    .rightNav {
-        flex-direction: column;
+    .overall .centerNav .siteName {
+        font-size: 1.4rem;
     }
 
-    .leftNav {
-        flex-direction: column;
-        text-align: center;
-    }
 }

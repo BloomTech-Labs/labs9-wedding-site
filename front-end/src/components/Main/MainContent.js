@@ -21,7 +21,8 @@ import UserAccess from '../UserAccess/UserAccess.js'
 import PublicInvite from '../Client/PublicInvite'
 
 //misc. components go here
-import StickyTop from '../Navigation/topBar'; //NavBar
+import TopBar from '../Navigation/topBar'; //NavBar
+import TopBarPublic from '../Navigation/topBarPublic'; //NavBar
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 
@@ -137,10 +138,21 @@ class MainContent extends Component {
         return (
             <div>
                 <div className='main_container'>
-               <StickyTop loggedIn={this.state.loggedIn} 
+                {this.state.loggedIn ? (
+                    <TopBar loggedIn={this.state.loggedIn} 
+                    logout={this.logout} 
+                    loginbtnFunc={this.loginbtn}
+                    signupbtnFunc={this.signupbtn}/>
+                ) : (
+                    <TopBarPublic   loggedIn={this.state.loggedIn} 
+                                    logout={this.logout} 
+                                    loginbtnFunc={this.loginbtn}
+                                    signupbtnFunc={this.signupbtn}/>
+                )}
+               {/* <StickyTop loggedIn={this.state.loggedIn} 
                           logout={this.logout} 
                           loginbtnFunc={this.loginbtn}
-                          signupbtnFunc={this.signupbtn}/>
+                          signupbtnFunc={this.signupbtn}/> */}
                 <Switch>
 
                    <Route path='/' exact render={props => this.state.loggedIn ? <Redirect to="/vb/dashboard"/> : <LandingPage {...props} />} />

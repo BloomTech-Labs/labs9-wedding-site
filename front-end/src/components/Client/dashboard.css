@@ -13,6 +13,12 @@ offscreen forever */
   padding: 0 40px 0 20px;
 }
 
+.dashboard .clientNavSidebar {
+  width: 15%;
+  height: 100vh;
+  padding-left: 10px;
+}
+
 .dashboard .registry {
   margin-top: 30px;
   min-height: 200px;
@@ -43,26 +49,17 @@ offscreen forever */
   justify-content: space-between;
 }
 
-.dashboard .clientNavSidebar {
-  width: 15%;
-  height: 100vh;
-  padding-left: 10px;
-}
-
 
 @media (max-width: 800px) {
   .dashboard {
-    margin: 30px auto;
+    margin: 100px auto 50px;
     display: flex;
     flex-direction: column;
     text-align: center;
   }
 
   .dashboard .clientNavSidebar {
-    width: 100%;
-    height: 100%;
-    margin-bottom: 50px;
-    padding-left: 0;
+    display: none;
   }
 
   .dashboard .dashboardContainer {
