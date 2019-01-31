@@ -152,6 +152,7 @@ class Rsvp extends Component {
         .post(`${serverURL}/questions`, {questions: this.state.questions})
         .then(res => {
             console.log(res);
+        }).then(() => {
             window.location.reload();
         })
         .catch(err => console.log(err));

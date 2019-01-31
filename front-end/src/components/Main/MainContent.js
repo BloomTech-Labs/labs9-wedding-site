@@ -20,9 +20,10 @@ import UserAccess from "../UserAccess/UserAccess.js";
 import PublicInvite from "../Client/PublicInvite";
 
 //misc. components go here
-import StickyTop from "../Navigation/topBar"; //NavBar
-import Cookies from "universal-cookie";
-import axios from "axios";
+import TopBar from '../Navigation/topBar'; //NavBar
+import TopBarPublic from '../Navigation/topBarPublic'; //NavBar
+import Cookies from 'universal-cookie';
+import axios from 'axios';
 
 const cookies = new Cookies();
 
@@ -111,34 +112,33 @@ class MainContent extends Component {
     }
 
     componentDidMount(){
-     
+
+    }
 
 
-	}
+    render() {
+        return (
+            <div>
+                <div className='main_container'>
+                {this.state.loggedIn ? (
+                    <TopBar loggedIn={this.state.loggedIn} 
+                    logout={this.logout} 
+                    loginbtnFunc={this.loginbtn}
+                    signupbtnFunc={this.signupbtn}/>
+                ) : (
+                    <TopBarPublic   loggedIn={this.state.loggedIn} 
+                                    logout={this.logout} 
+                                    loginbtnFunc={this.loginbtn}
+                                    signupbtnFunc={this.signupbtn}/>
+                )}
+               {/* <StickyTop loggedIn={this.state.loggedIn} 
+                          logout={this.logout} 
+                          loginbtnFunc={this.loginbtn}
+                          signupbtnFunc={this.signupbtn}/> */}
+                <Switch>
 
-	render() {
-		return (
-			<div>
-				<div className="main_container">
-					<StickyTop
-						loggedIn={this.state.loggedIn}
-						logout={this.logout}
-						loginbtnFunc={this.loginbtn}
-						signupbtnFunc={this.signupbtn}
-					/>
-					<Switch>
-						<Route
-							path="/"
-							exact
-							render={props =>
-								this.state.loggedIn ? (
-									<Redirect to="/vb/dashboard" />
-								) : (
-									<LandingPage {...props} />
-								)
-							}
-						/>
-						{/* <Route path='/designs' component={Design} />
+                   <Route path='/' exact render={props => this.state.loggedIn ? <Redirect to="/vb/dashboard"/> : <LandingPage {...props} />} />
+                   {/* <Route path='/designs' component={Design} />
                    <Route path='/pricing' component={Prices} /> */}
 						<Route
 							path="/signup"
