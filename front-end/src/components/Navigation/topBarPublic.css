@@ -1,0 +1,84 @@
+.overallPublic {
+    height: 90px;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid grey;
+    position:fixed;
+    z-index: 1000;
+    top:0;
+}
+
+.overallPublic ul {
+    padding: 0;
+    margin: 0;
+}
+
+.siteNamePublic {
+    font-size: 2.4rem;
+    font-weight: bold;
+    font-family: serif;
+}
+
+.leftNavPublic {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    align-items: center;
+    font-weight: 600;
+    padding-left: 25px;
+}
+
+.centerNavPublic {
+    align-self: center;
+    align-content: center;
+    padding-right: 8%;
+}
+
+.centerNavPublic .siteNamePublic {
+    position: relative;
+    display: block;
+    font-size: 2rem;
+    text-transform: uppercase;
+    color: rgb(108, 192, 223);
+}
+
+.rightNavPublic {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    align-content: center;
+    font-weight: 600;
+    padding-right: 10px;
+}
+
+@media (max-width: 1024px) {
+    .centerNavPublic {
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 800px) {
+    .overallPublic {
+        height: 50px;
+    }
+
+    .overallPublic .centerNavPublic .siteNamePublic {
+        font-size: 1.4rem;
+    }
+
+    .centerNavPublic {
+        padding-left: 10px;
+    }
+
+    .leftNavPublic {
+        display: none;
+    }
+
+    .rightNavPublic a {
+        font-size: 1rem;
+    }
+
+}

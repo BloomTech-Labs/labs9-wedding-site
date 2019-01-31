@@ -21,6 +21,10 @@
     flex-direction: column;
 }
 
+.clientRsvp .buttonDiv .rsvpButton {
+    width: 30%;
+    margin: 0 auto 30px;
+}
 
 .disabledBox {
     display: flex;
@@ -34,10 +38,62 @@
     padding: 0 20px 20px;
 }
 
+/* .addQuestionButtons {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.addQuestionButton {
+    width: 30%;
+    margin: 0 15px;
+} */
+
 @media (max-width: 800px) {
+    .clientRsvp {
+        margin: 100px auto 50px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .clientRsvp .clientRsvpContainer {
+        margin: 0 auto;
+        width: 60%;
+        padding: 0;
+    }
+    
+    .clientRsvp .clientNavSidebar {
+        display: none;
+    }
+
+    .clientRsvp .buttonDiv .rsvpButton {
+        width: 50%;
+    }
 
     .rsvpCard {
-        width: 95%;
+        width: 80%;
+    }
+
+    .addQuestionButtons {
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .addQuestionButton {
+        margin: 15px 0;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+    .clientRsvp .clientRsvpContainer {
+        width: 80%;
+    }
+
+    .clientRsvp .buttonDiv .rsvpButton {
+        width: 80%;
     }
 
 }

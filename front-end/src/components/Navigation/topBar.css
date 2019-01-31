@@ -1,71 +1,97 @@
-@font-face {
-    font-family: 'Snell Bold';
-}
-.overall{
+.overall {
     height: 90px;
     width: 100%;
-    background-color:none;
+    background-color: white;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
-    /* border-bottom: 1px solid grey; */
+    justify-content: space-between;
+    border-bottom: 1px solid grey;
     position:fixed;
     z-index: 10;
-    /* margin-top: -5px; */
-    padding-top: 0%;
     top:0;
 }
 
-.navSections {
-    display: flex;
-    flex-direction: row;
-    align-self: center;
+.overall .rightNav .hamburgerMenu {
+    color: rgb(108, 192, 223);
+    display: none;
 }
 
-.siteName {
-    font-size: 2.4rem;
-    font-weight: bold;
-    font-family: serif;
-}
-
-.centerNav {
-    margin: -1.5% 5% 0% 5%;
+.overall .rightNav .dropDownMenu {
+    background-color: lightgray;
     position: absolute;
-    left:40%;
+    margin-top: 38px;
+    right: 0;
+    min-width: 200px;
+    width: 30%;
+    height: 100vh;
+}
+
+.overall ul {
+    padding: 0;
+    margin: 0;
 }
 
 .leftNav {
     display: flex;
     flex-direction: row;
     align-self: center;
-    align-content: center;
-    position: absolute;
-    right:70%;
+    align-items: center;
     font-weight: 600;
+    padding-left: 25px;
+}
+
+.leftNav .landingButtons {
+    display: none;
+}
+
+.centerNav {
+    align-self: center;
+    align-content: center;
+    padding-left: 8%;
+}
+
+.centerNav .siteName {
+    display: block;
+    font-weight: bold;
+    font-family: serif;
+    font-size: 2rem;
+    text-transform: uppercase;
+    color: rgb(108, 192, 223);
 }
 
 .rightNav {
     display: flex;
     flex-direction: row;
     align-self: center;
-    position:absolute;
-    left:80%;
+    align-content: center;
     font-weight: 600;
+    padding-right: 10px;
 }
 
-@media (max-width: 600px) {
-    .centerNav {
-        order: -1;
-    }
+
+@media (max-width: 800px) {
     .overall {
-        flex-direction: column;
+        height: 50px;
     }
 
-    .rightNav {
-        flex-direction: column;
+    .overall .rightNav .hamburgerMenu {
+        display: block;
     }
 
-    .leftNav {
-        flex-direction: column;
+    .overall .rightNav .logout {
+        display: none;
+    }  
+    
+    .overall .leftNav {
+        display: none;
     }
+
+    .centerNav {
+        padding-left: 10px;
+    }
+
+    .overall .centerNav .siteName {
+        font-size: 1.4rem;
+    }
+
 }

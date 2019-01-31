@@ -12,7 +12,7 @@ const diffObjects = (target, newObj) => Object.entries(newObj).filter(guestProp 
     return reducedObj
 }, {})
 
-// A FUNCTION TO ADD GUESTS AND ANSWERS TO THE ANSWERS TABLE
+// A FUNCTION TO ADD GUESTS AND ANSWERS TO THE GUEST AND ANSWERS TABLE RESPECTIVLY
 // if the guest does not exist then add them.
 // then add answers to the answers table
 const addAnswers = async (req, res) => {
@@ -23,7 +23,7 @@ const addAnswers = async (req, res) => {
     let message = ''
 
     try {
-        let user = await db('users')
+        let user = await db('user')
             .where('email', guestObj.email)
 
         user = user[0]
@@ -35,7 +35,7 @@ const addAnswers = async (req, res) => {
             try {
                 console.log('guestObj', guestObj)
                 
-                const newUserId = await db('users').insert(guestObj)
+                const newUserId = await db('user').insert(guestObj)
 
                 console.log('newUser', newUserId)
                 message = 'You have been added to the rsvp list'
@@ -50,7 +50,8 @@ const addAnswers = async (req, res) => {
                 console.log(error)
                 res.status(500).json({error, message: 'can not add user'})
             }
-        } else { // updates user info
+        } else { 
+            // updates user info
             console.log('update user')
 
             // find updated guest properties
@@ -65,8 +66,7 @@ const addAnswers = async (req, res) => {
             // then update in db if different
             if (Object.keys(diffGuestProps).length > 0) {
                 try {
-                    
-                    const updated = await db('users')
+                    const updated = await db('user')
                         .where('id', user.id)
                         .update(diffGuestProps)
 

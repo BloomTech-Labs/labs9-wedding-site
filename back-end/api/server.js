@@ -249,12 +249,9 @@ server.post('/loaduser', async (req, res) => {
 server.get('/users', async (req, res) => {
 
     try {
-
         const users = await db('user');
-        if (users) {
-            res.status(200).json(users)
-        }
 
+        res.status(200).json(users)
     }
 
     catch (err) {
@@ -568,7 +565,7 @@ server.get('/:id/allquestions', (req, res) => {
 
 
 //A FUNCTION TO DELETE QUESTIONS OF A USER::LINE 393
-server.delete('/:questionID/deletequestion', async (req, res) => {
+server.delete('/:questionID/deletequestion', async (req, res) => { 
     let { questionID } = req.params;
     console.log('qID', questionID)
 
@@ -733,5 +730,8 @@ server.post("/vb/billing", async (req, res) => {
 
 
 server.use('/answer', require('./answers'))
+
+// A FUNCTION TO GET WEDDING DETAILS FROM THE DB
+server.use('/invite', require('./invite.js'))
 
 module.exports = server; 

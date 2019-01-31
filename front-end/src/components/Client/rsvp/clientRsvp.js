@@ -19,17 +19,12 @@ const serverURL = process.env.REACT_APP_LOCAL_URL
 
 // define styles for material-ui components
 const styles = {
-    card: {
-      width: '40%',
-      margin: '0 auto 30px',
-      padding: '0 20px 20px',
-    },
     closeIcon: {
-        cursor: 'pointer'
+        cursor: 'pointer',
+        float: 'right'
     },
     button: {
-        width: '30%',
-        margin: '0 auto 30px'
+       
     }
   };
 
@@ -44,14 +39,14 @@ class Rsvp extends Component {
            questions: [
             {
                 wedding_id: localStorage.getItem('weddingID'),
-                category: 'first_name',
+                category: 'First Name',
                 multiple_choice: false,
                 question: '',
                 answer: ''
             },
             {
                 wedding_id: localStorage.getItem('weddingID'),
-                category: 'last_name',
+                category: 'Last Name',
                 multiple_choice: false,
                 question: '',
                 answer: ''
@@ -158,6 +153,7 @@ class Rsvp extends Component {
         .post(`${serverURL}/questions`, {questions: this.state.questions})
         .then(res => {
             console.log(res);
+        }).then(() => {
             window.location.reload();
         })
         .catch(err => console.log(err));
@@ -165,24 +161,10 @@ class Rsvp extends Component {
 
     // function to conditionally render cards based on the type of card
     renderCards = (q, i) => {
-        if (q.category === 'Guest Name') {
-            return  <Card style={styles.card} key={i}>
-            <CardContent>
-                {q.category}
-            </CardContent>
-            <CardContent>
-                {q.question}
-                <TextField fullWidth={true} label="First Name"></TextField>
-                <TextField fullWidth={true} label="Last Name"></TextField>
-            </CardContent>
-            </Card>
-        } else if (q.multiple_choice === 1 || q.multiple_choice === true) {
-            return <Card style={styles.card} key={i}>
+        if (q.multiple_choice === 1 || q.multiple_choice === true) {
+            return <Card className="rsvpCard" key={i}>
             <CardContent style={styles.topDiv}>
                 {q.category}
-                {q.category === 'Attendance' ? <p></p> :
-                <Close onClick={() => this.deleteQuestion(q.id, i)} color="disabled" style={styles.closeIcon}/>
-                }
             </CardContent>
             <CardContent>
                 <FormControl component="fieldset">
@@ -196,11 +178,12 @@ class Rsvp extends Component {
             </CardContent>
             </Card>
         } else {
-            return <Card style={styles.card} key={i}>
+            return <Card className="rsvpCard" key={i}>
                 <CardContent style={styles.topDiv}>
                     {q.category}
                     {
-                    q.category === 'Wedding Team' ? <p></p> :
+                    q.category === 'First Name' ? <p></p> :
+                    q.category === 'Last Name' ? <p></p> :
                     q.category === 'Address' ? <p></p> :
                     q.category === 'Phone' ? <p></p> :
                     q.category === 'Email' ? <p></p> :
@@ -234,8 +217,8 @@ class Rsvp extends Component {
                 this.renderCards(q, i)
             )}
             <div className="buttonDiv">
-                <Button variant="outlined" onClick={this.handleOpen} style={styles.button}>Add Question</Button>
-                <Button variant="outlined" onClick={this.saveQuestions} style={styles.button}>Save</Button>
+                <Button variant="outlined" onClick={this.handleOpen} className="rsvpButton">Add Question</Button>
+                <Button variant="outlined" onClick={this.saveQuestions} className="rsvpButton">Save</Button>
             </div>
             <Modal
                 open={this.state.modalOpen}

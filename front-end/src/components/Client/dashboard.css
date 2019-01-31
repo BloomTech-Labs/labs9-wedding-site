@@ -13,6 +13,23 @@ offscreen forever */
   padding: 0 40px 0 20px;
 }
 
+.dashboard .clientNavSidebar {
+  width: 15%;
+  height: 100vh;
+  padding-left: 10px;
+}
+
+.dashboard .registry {
+  margin-top: 30px;
+  min-height: 200px;
+  padding: 15px;
+  display: flex;
+}
+
+.dashboard .cardDivTop {
+  display: flex;
+}
+
 .dashboard .cardTopLeft {
   width: 50%;
   margin-right: 10px;
@@ -32,55 +49,55 @@ offscreen forever */
   justify-content: space-between;
 }
 
-.dashboard .clientNavSidebar {
-  width: 15%;
-  height: 100vh;
-  padding-left: 10px;
-}
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .dashboard {
+    margin: 100px auto 50px;
     display: flex;
     flex-direction: column;
     text-align: center;
   }
 
   .dashboard .clientNavSidebar {
-    width: 100%;
-    height: 100%;
-    margin-bottom: 50px;
-    padding-left: 0;
+    display: none;
   }
 
   .dashboard .dashboardContainer {
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
-    width: 100%;
   }
 
   .dashboard .cardDivTop {
     flex-direction: column;
+    width: 100%;
+    margin: auto;
   }
 
-  .dashboard .Registry {
+  .dashboard .registry {
     flex-direction: column;
     width: 100%;
   }
+
   .dashboard .weddingInfo {
     flex-direction: column;
   }
+
   .dashboard .cardTopLeft  {
     width: 100%;
-    margin-top: 30px ;
-    margin-right: 0px ;
-    min-height: 200px ;
+    margin: 30px auto 0 auto;
   }
 
   .dashboard .cardTopRight {
     width: 100%;
     margin-top: 30px ;
     margin-left: 0px ;
-    min-height: 200px ;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .dashboard .dashboardContainer {
+    width: 100%;
   }
 }
 
