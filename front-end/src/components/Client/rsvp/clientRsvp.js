@@ -106,6 +106,7 @@ class Rsvp extends Component {
        .get(`${serverURL}/${w_id}/allquestions`)
        .then(res => {
                console.log(this.state.questions)
+            this.props.login()
            if (res.data.length > 0) {
                this.setState({ questions: res.data })
                console.log(this.state.questions)
