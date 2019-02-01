@@ -43,7 +43,7 @@ class ClientSelections extends React.Component {
     save = () => {
         let oauth_id = localStorage.getItem('authID');
         let design_template = Number(this.state.design_template)
-        console.log('DesignTemplateStrToNum:', design_template)
+        
         let { 
         first_name,
         last_name,
@@ -54,10 +54,10 @@ class ClientSelections extends React.Component {
         } = this.state;
 
         let userinfo = {first_name, last_name, p_firstname, p_lastname, event_date, event_address, design_template, oauth_id, registering: true}
-        console.log(userinfo)
+        
         axios
             .post(`${serverURL}/loaduser`, userinfo)
-            .then(res => { console.log('ClientSelLoadUser:', res)
+            .then(res => { 
                 
                 localStorage.setItem('vbtoken', oauth_id)
                 console.log('Cookie set-check')
