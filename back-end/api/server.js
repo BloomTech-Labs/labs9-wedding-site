@@ -196,7 +196,7 @@ server.post('/loaduser', async (req, res) => {
         
         else if(!user){
             
-            console.log('Nouser:', oauth_id)
+            
             const wedding_id = await db.table('weddings').insert({ event_date, event_address, design_template });
 
             const user1 = await db('user').insert({ first_name, last_name, wedding_id }) //email must be added in OAuth
