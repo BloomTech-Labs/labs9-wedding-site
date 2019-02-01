@@ -198,6 +198,12 @@ class PublicRsvp extends Component {
             'phone': 1,
             'address': 1,
         }
+
+        const guestFields = {
+            "Attendance": 1,
+            "Wedding Team": 1
+        }
+        
         let dynamicAnswers = []
         const guestObj = this.state.questions.map((question, i) => {
             // Must set question answer as this.state[i]

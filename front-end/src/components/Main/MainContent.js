@@ -198,7 +198,7 @@ class MainContent extends Component {
 						/>
 						<Route path="/vb/billing" component={Payment} />
 						<Route
-							path="/:id/invite/:name"
+							path="/:id/invite/"
 							render={props => (
 								<PublicInvite
 									{...props}
