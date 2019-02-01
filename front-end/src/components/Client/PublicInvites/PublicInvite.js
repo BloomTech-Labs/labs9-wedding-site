@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './PublicInvite.css';
-import { InviteDesign3 } from '../InviteDesigns'
+import { InviteDesign3 } from '../InviteDesigns';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 
