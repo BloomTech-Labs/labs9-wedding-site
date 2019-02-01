@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import './PublicInvite.css';
-import { InviteDesign3 } from '../InviteDesigns';
+import InviteDesign3  from './InviteDesigns/InviteDesign3';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
+import Dialog from './emailHere';
+import Details from './details';
 
 const cookies = new Cookies()
 
@@ -76,18 +78,10 @@ class PublicInvite extends Component {
     return (
       <div className="invite-cont">
             <div className="invite-main">
-              <div className='i-top'>
-                {`${this.props.coupleData.first_name} & ${this.props.coupleData.p_firstname}`}
-              </div> 
-              <div className='i-middle'>
-              <span className='message'>
-              {/* {`${this.props.coupleData.first_name} & ${this.props.coupleData.p_firstname}`} */}
-                hello guests
-              </span>
-              </div>
-              {/* <div className='i-bottom'>
-                hello guests
-              </div> */}
+              <Dialog />
+            </div>
+            <div className="list">
+              <Details />
             </div>
       </div>
     );

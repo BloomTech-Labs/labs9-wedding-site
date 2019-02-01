@@ -1,48 +1,21 @@
 .invite-cont{
     position: absolute;
-    height: 100vh;
-    width: 100vw;
-    background: white;
-    display: flex;
-    justify-content: center;
+    height: 100%;
+    width: 100%;
+    top:12%;
+    background: url(doors.jpg);
+    background-size: 100% 100%;
 }
 
 .invite-main{
-    position: relative;
-    width: 80%;
-    background-image: url('doors.jpg');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    /* height:100%; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* .i-top{
-
-} */
-
-.i-middle{
-    display: flex;
-    background-color: white;
-    opacity: .1;
-    height: 130px;
-    width: 100%; 
-    font-size: 30px;
-    color: #000;
-    font-weight: 900;
-    position: relative;
+    position: absolute;
     top:50%;
+    display: flex;
+    right:14.5%;
 }
 
-.message{
-    display: flex;
-    align-items: flex-end;
-    position: relative;
-    left:40%;
-    bottom: 50%;
+.list{
+    position: absolute;
+    top:40%;
+    left:1%;
 }
-/* .i-bottom{
-    
-} */
