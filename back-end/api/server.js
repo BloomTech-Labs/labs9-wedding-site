@@ -148,10 +148,10 @@ server.get('/deleteall', async (req, res) => {
     try {
         let oauth = await db.table('oauth_ids').del()
         let couples = await db.table('couples').del()
+        let answers = await db.table('answers').del()
         let guests = await db.table('guests').del() 
         let users = await db.table('user').del()
         let registries = await db.table('registry').del()
-        let answers = await db.table('answers').del()
         let questions = await db.table('questions').del()
         
         let weddings = await db.table('weddings').del()
