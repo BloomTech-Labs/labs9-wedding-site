@@ -11,7 +11,8 @@
     position: absolute;
     top:50%;
     display: flex;
-    right:14.5%;
+    /* right:14.5%; */
+    right:-25%;
 }
 
 .list{
