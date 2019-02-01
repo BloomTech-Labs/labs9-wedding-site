@@ -3,7 +3,7 @@
     "builds": [
         { "src": "/back-end/index.js", "use": "@now/node-server" }
     ],
-    "alias": "vbeloved.com",
+    "alias":  ["vbeloved.now.sh"],
     "routes": [
         { "src": "/.*", "dest": "/back-end/index.js" }
     ],

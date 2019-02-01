@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { Link } from 'react-router-dom';
 import './SignupLoginButtons.css';
+import Sidebar from '../Client/clientNav';
 
 const SignupLogin = (props) => {
   return (
@@ -27,8 +28,9 @@ const SignupLogin = (props) => {
             <a href={`${process.env.REACT_APP_LOCAL_CLIENT}`} onClick={props.logout}>
              Logout
              </a>
-            
+          <Sidebar/>
           </li>
+         
         }
           </div>
         </ul>

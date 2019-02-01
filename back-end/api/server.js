@@ -249,7 +249,7 @@ server.post('/loaduser', async (req, res) => {
 server.get('/users', async (req, res) => {
 
     try {
-        const users = await db.select().from('users');
+        const users = await db('user');
 
         res.status(200).json(users)
     }
