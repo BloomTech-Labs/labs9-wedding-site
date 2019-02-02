@@ -158,16 +158,18 @@ class Rsvp extends Component {
         axios
         .post(`${serverURL}/questions`, {questions: this.state.questions})
         .then(res => {
-            if (res.status === 200) {
-                const w_id = localStorage.getItem('weddingID');
-                axios
-                .get(`${serverURL}/${w_id}/allquestions`)
-                .then(res => {
-                    if (res.data.length > 0) {
-                        this.setState({ questions: res.data })
-                    }
-                })
-            }
+            console.log("POST", res);
+        })
+        .then(() => {
+            const w_id = localStorage.getItem('weddingID');
+            axios
+            .get(`${serverURL}/${w_id}/allquestions`)
+            .then(res => {
+                console.log("GET", res);
+                if (res.data.length > 0) {
+                    this.setState({ questions: res.data })
+                }
+            })
         })
         .catch(err => console.log(err));
     };

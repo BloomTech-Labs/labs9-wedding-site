@@ -526,26 +526,41 @@ server.delete('/users/:id', (req, res) => {
 
 
 
+
 //A FUNCTION TO POST QUESTIONS::LINE 360
-server.post('/questions', (req, res) => {
+server.post('/questions', async (req, res) => {
     let { questions } = req.body;
 
-    questions.forEach(qData => {
-        db.table('questions').where({question: qData.question, wedding_id: qData.wedding_id})
-        .then(res => {
-            console.log("DBQuery",res)
+    async function asyncForEach(questions, callback) {
+        for (let index = 0; index < questions.length; index++) {
+          await callback(questions[index], index, questions);
+        }
+      }
+    
+    async function asyncQuestions(currIndex, index, array) {
+       try {
+        const res = await db.table('questions').where({question: currIndex.question, wedding_id: currIndex.wedding_id})
+        console.log("DBQuery",res)
             if(!res.length){
                 console.log('NoRes')
-                db.table('questions').insert(qData).then(res =>console.log(res)).catch(err => console.log(err))
+                try {
+                const successQuestion = await db.table('questions').insert(currIndex)
+                console.log(successQuestion)
+                }
+                catch (err) {
+                    console.log(err)
+                }
+               
             }
             else {
                 console.log('ResExists')
             }
-
-            })
-            .catch(err => { console.log(err) })
-    })
-    
+       } 
+        catch (err) {
+            console.log(err)
+        }
+    }
+    const response = await asyncForEach(questions, asyncQuestions);
     res.status(200).json({message: 'Data Posted Successfully.'})
 })
 
