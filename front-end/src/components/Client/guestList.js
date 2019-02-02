@@ -21,7 +21,7 @@ import Sidebar from './clientNav';
 // define styles for material-ui components
 const styles = {
     paper: {
-      margin: '30px 0 10px',
+      margin: '30px 0',
     },
     deleteButton: {
         float: 'right',
