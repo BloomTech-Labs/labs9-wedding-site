@@ -16,8 +16,8 @@ class Settings extends React.Component {
             checkedText: false,
             first_name: "",
             last_name: "",
-            p_first_name: "",
-            p_last_name: "",
+            p_firstname: "",
+            p_lastname: "",
             email: "",
             phone: "",
             address: "",
@@ -38,6 +38,8 @@ class Settings extends React.Component {
                 <Sidebar />
                     <div className="settingsContainer">
                     <TextField
+                        onChange={this.props.inputHandler}
+                        value={this.props.userData.couple[0].email}
                         name="email"
                         id="outlined-email"
                         label="Email"
@@ -45,6 +47,8 @@ class Settings extends React.Component {
                         variant="outlined"
                     />
                     <TextField
+                        onChange={this.props.inputHandler}
+                        value={this.props.userData.couple[0].phone}
                         name="phone"
                         id="outlined-phone"
                         label="Phone"
@@ -52,25 +56,33 @@ class Settings extends React.Component {
                         variant="outlined"
                     />
                         <TextField
+                            onChange={this.props.inputHandler}
+                            value={this.props.userData.couple[0].first_name}
                             name="first_name"
                             id="standard-name"
                             label="Partner Name"
                             margin="normal"
                         />
                         <TextField
+                            onChange={this.props.inputHandler}
+                            value={this.props.userData.couple[0].last_name}
                             name="last_name"
                             id="standard-name"
                             label="Partner Name"
                             margin="normal"
                         />
                         <TextField
-                            name="p_first_name"
+                            onChange={this.props.inputHandler}
+                            value={this.props.userData.couple[1].first_name}
+                            name="p_firstname"
                             id="standard-name"
                             label="Partner Name"
                             margin="normal"
                         />
                         <TextField
-                            name="p_last_name"
+                            onChange={this.props.inputHandler}
+                            value={this.props.userData.couple[1].last_name}
+                            name="p_lastname"
                             id="standard-name"
                             label="Partner Name"
                             margin="normal"

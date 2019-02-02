@@ -148,10 +148,10 @@ server.get('/deleteall', async (req, res) => {
     try {
         let oauth = await db.table('oauth_ids').del()
         let couples = await db.table('couples').del()
+        let answers = await db.table('answers').del()
         let guests = await db.table('guests').del() 
         let users = await db.table('user').del()
         let registries = await db.table('registry').del()
-        let answers = await db.table('answers').del()
         let questions = await db.table('questions').del()
         
         let weddings = await db.table('weddings').del()
@@ -196,7 +196,7 @@ server.post('/loaduser', async (req, res) => {
         
         else if(!user){
             
-            console.log('Nouser:', oauth_id)
+            
             const wedding_id = await db.table('weddings').insert({ event_date, event_address, design_template });
 
             const user1 = await db('user').insert({ first_name, last_name, wedding_id }) //email must be added in OAuth
@@ -249,7 +249,7 @@ server.post('/loaduser', async (req, res) => {
 server.get('/users', async (req, res) => {
 
     try {
-        const users = await db.select().from('users');
+        const users = await db('user');
 
         res.status(200).json(users)
     }

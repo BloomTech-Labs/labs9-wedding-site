@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
     return knex.schema.createTable('couples', function(tbl) {
         tbl.increments();
 
-        tbl.integer('user_id').unsigned().notNullable().references('id').inTable('users');
+        tbl.integer('user_id').unsigned().notNullable().references('id').inTable('user');
 
         tbl.string('bride_groom');
 
