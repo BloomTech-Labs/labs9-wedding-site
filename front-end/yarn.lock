@@ -6729,6 +6729,10 @@ moment@2.x, moment@^2.10.2, moment@^2.22.1, moment@^2.22.2:
   version "2.23.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.23.0.tgz#759ea491ac97d54bac5ad776996e2a58cc1bc225"
 
+moment@>=1.6.0:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/move-concurrently/-/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
@@ -8853,6 +8857,16 @@ react-minimalist-portal@^2.3.1:
   resolved "https://registry.yarnpkg.com/react-minimalist-portal/-/react-minimalist-portal-2.3.1.tgz#4853e3f48a74a32c1b8767601887cdf7941eeba3"
   dependencies:
     prop-types "^15.6.1"
+
+react-moment-countdown@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/react-moment-countdown/-/react-moment-countdown-0.3.0.tgz#155b924f93f6588ef0702bcb49cf2004750f2bc3"
+
+react-moment-proptypes@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/react-moment-proptypes/-/react-moment-proptypes-1.6.0.tgz#8ec266ee392a08ba3412d2df2eebf833ab1046df"
+  dependencies:
+    moment ">=1.6.0"
 
 react-overlays@^0.8.0:
   version "0.8.3"

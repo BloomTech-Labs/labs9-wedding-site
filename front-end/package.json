@@ -22,6 +22,8 @@
     "react-dropzone": "^8.0.3",
     "react-images": "^0.5.19",
     "react-materialize": "^2.6.0",
+    "react-moment-countdown": "^0.3.0",
+    "react-moment-proptypes": "^1.6.0",
     "react-perfect-scrollbar": "^1.4.4",
     "react-photo-gallery": "^6.3.0",
     "react-responsive-modal": "^3.5.1",
