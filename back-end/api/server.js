@@ -11,7 +11,7 @@ const cookieSession = require('cookie-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('../config/keys');
 const multer = require('multer');
-const stripe = require("stripe")("sk_test_QBcc8So0WjMMIznAloTV3kdv");
+const stripe = require("stripe")("sk_test_G5mHqEs7tUDoo9REXKg7cwu6");
 server.use(require("body-parser").text());
 const fs = require('fs');
 const parse = require('csv-parse');
@@ -693,55 +693,24 @@ server.post('/upload', upload.single('file'), (req, res) => {
 
         res.status(200).json({ message: "CSV successfully posted" });
     }
-})
-
-
-stripe.charges.retrieve("ch_1DswKX2eZvKYlo2CYqqd3tgH", {
-    api_key: "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
 });
 
 
-// STRIPE STATEMENT DESCRIPTOR
-server.post("/vb/billing", async (req, res) => {
-    console.log(req.body);
+// STRIPE PAYMENT ENDPOINT
+server.post("/charge", async (req, res) => {
     try {
         let { status } = await stripe.charges.create({
-            amount: 2000,
+            amount: 1000,
             currency: "usd",
             description: "An example charge",
-            source: 'tok_visa'
+            source: req.body
         });
         res.json({ status });
     } catch (err) {
-        console.log(err);
         res.status(500).end();
     }
 });
 
-// const token = request.body.stripeToken; // Using Express
-
-// const charge = stripe.charges.create({
-//   amount: 999,
-//   currency: 'usd',
-//   description: 'Example charge',
-//   source: token,
-// });
-
-// stripe.charges.create({
-//     amount: 2000,
-//     currency: "usd",
-//     source:"tok_visa",
-//     description:"Test charge for wedding site"
-// },  function(err, charge){
-//     // asynchronously called 
-// });
-
-// stripe.charges.retrieve(
-//     "ch_1DswKX2eZvKYlo2CYqqd3tgH",
-//     function(err, charge) {
-//     // asynchronously called
-//   }
-// );
 
 
 server.use('/answer', require('./answers'))
