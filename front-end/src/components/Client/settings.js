@@ -60,8 +60,75 @@ class Settings extends React.Component {
         return (
             <div className="userSettings">
                 <Sidebar />
-                    <div className="settingsContainer">
-                    <TextField
+                <div className="settingsContainer">
+                   <div className="acct-info">
+
+                    <div className="acct-info-title"> 
+                        Account Information
+                    </div>
+
+                    <div className="user-names">
+                        <div className="acct-spec">
+                            <div className="acct-topic">First Name:</div>
+                            <div className="acct-spec-info"></div>
+                        </div>
+                        <div className="acct-spec">
+                            <div className="acct-topic">Last Name:</div>
+                            <div className="acct-spec-info"></div>
+                        </div>
+                    </div>
+
+                    <div className="user-names">
+                        <div className="acct-spec">
+                            <div className="acct-topic">Partner First Name:</div>
+                            <div className="acct-spec-info"></div>
+                        </div>
+                        <div className="acct-spec">
+                            <div className="acct-topic">Partner Last Name:</div>
+                            <div className="acct-spec-info"></div>
+                        </div>
+                    </div>
+
+                    <div className="acct-spec">
+                        <div className="acct-topic">Email:</div>
+                        <div className="acct-spec-info"></div>
+                    </div>
+
+                    <div className="acct-spec">
+                        <div className="acct-topic">Phone:</div>
+                        <div className="acct-spec-info"></div>
+                    </div>
+
+                   </div>
+
+                   <div className="wedding-info">
+                        <div className="acct-info-title"> 
+                            Wedding Info
+                        </div>
+
+                        <div className="acct-spec">
+                            <div className="acct-topic">Wedding Date:</div>
+                            <div className="acct-spec-info"></div>
+                        </div>
+
+                        <div className="acct-spec">
+                        <div className="acct-topic">Wedding Location:</div>
+                        <div className="acct-spec-info"></div>
+                        </div>
+                   
+
+                    
+                   </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+export default Settings;
+
+
+/* <TextField
                         onChange={this.props.inputHandler}
                         value={this.props.userData.couple[0].email}
                         name="email"
@@ -169,11 +236,4 @@ class Settings extends React.Component {
                     <Button variant="contained" size="large" color="primary">
                         Save
                     </Button>
-                </div>
-                </div>
-            </div>
-        );
-    }
-}
-
-export default Settings;
+                </div> */
