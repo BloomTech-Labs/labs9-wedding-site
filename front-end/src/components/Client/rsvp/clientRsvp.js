@@ -27,11 +27,36 @@ const styles = {
        
     }
   };
+// test data
+const defaultCouple = [{
+    "id": 116,
+    "first_name": "partner1",
+    "last_name": "last_name",
+    "email": "Alexane60@hotmail.com",
+    "phone": null,
+    "address": "050 Zboncak Rest, Daniellefurt, GA 23176-2988",
+    "wedding_id": 121,
+    "guest": 0
+  },
+  {
+    "id": 117,
+    "first_name": "partner2",
+    "last_name": "last_name",
+    "email": "Jamarcus50@gmail.com",
+    "phone": null,
+    "address": "0279 Spencer Forges, East Vicenta, HI 87319",
+    "wedding_id": 121,
+    "guest": 0
+  }]
 
 class Rsvp extends Component {
-    constructor() {
-        super();
-
+    constructor(props) {
+        super(props);
+        
+        console.log('this.props.couple', this.props.couple)
+        const couple = (this.props.couple.length) ? this.props.couple : defaultCouple
+        console.log('couple', couple)
+        
         this.state = {
            category: '',
            question: '',
@@ -84,7 +109,7 @@ class Rsvp extends Component {
                 category: 'Wedding Team',
                 multiple_choice: true,
                 question: 'Are you a friend or family of... ?',
-                answer: 'Bride,Groom,Both'
+                answer: `${couple[0].first_name},${couple[1].first_name},Both`
             },
             ]
         }

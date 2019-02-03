@@ -207,6 +207,7 @@ class MainContent extends Component {
 							path="/vb/rsvp"
                             render={props => <Rsvp 
                                                 {...props} 
+                                                couple={this.state.couple}
                                                 login={this.login} />}
 						/>
 						<Route path="/vb/billing" component={Payment} />

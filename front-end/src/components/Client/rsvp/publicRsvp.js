@@ -55,7 +55,7 @@ const styles = {
     },
 };
 
-
+const url = process.env.REACT_APP_LOCAL_URL
 
 class PublicRsvp extends Component {
     constructor(props) {
@@ -88,9 +88,8 @@ class PublicRsvp extends Component {
     // }
 
     getQuestions = (wed_id) => {
-        const question_url = `${process.env.REACT_APP_LOCAL_URL}/${wed_id}/allquestions`
 
-        axios.get(question_url)
+        axios.get(`${url}/${wed_id}/allquestions`)
             .then(qs => {
                 this.setState(prevState => {
 
@@ -206,7 +205,7 @@ class PublicRsvp extends Component {
             "attendance": 'attending',
             "wedding_team": 'related_spouse',
         }
-        
+
         let dynamicAnswers = []
         let guestObj = {}
         const userObj = this.state.questions.map((question, i) => {
@@ -247,7 +246,7 @@ class PublicRsvp extends Component {
     }
     sendAnswers = () => {
         const answers = this.extractAnswers()
-        axios.post(`${process.env.REACT_APP_LOCAL_URL}/answer`, answers)
+        axios.post(`${url}/answer`, answers)
             .then(success => {
                 console.log('data successfuly recorded in server', success)
                 this.setState({ success: true })
