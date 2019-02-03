@@ -3,6 +3,7 @@ import React, { Component, Fragment } from 'react';
 import { Pie } from 'react-chartjs-2';
 import ReactDropzone from "react-dropzone";
 import AddRegistry from './addRegistry';
+import { Link } from 'react-router-dom'
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -218,6 +219,11 @@ class Dashboard extends Component {
                     <Button>
                 Change Design
                 </Button>
+                <Link to={`/${localStorage.getItem('weddingID')}/invite`}>
+                <Button style={{marginLeft: '10px'}}>
+                Change Design
+                </Button>
+                </Link>
                 <div className="weddingInfo">
                     <div className="userInfo">
                         <h1>{`${first_name ? first_name : "---"}`} &amp; {`${p_firstname ? p_firstname : "---"}'s`} Wedding<br />{`${event_date}`}</h1>
