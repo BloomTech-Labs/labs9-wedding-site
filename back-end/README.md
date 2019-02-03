@@ -66,8 +66,8 @@ request body data schema
 		"phone": "123-456-7890"
     },
     "guestObj": {
-        "attending": ,
-        "related_spouse": 
+        "attending": "not_attending" | "attending" | "maybe",
+        "related_spouse": "bride" | "groom" | "both" 
     }
 }
 ```
