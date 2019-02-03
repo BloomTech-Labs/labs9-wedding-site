@@ -7,6 +7,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Sidebar from './clientNav';
 import './settings.css';
 import axios from 'axios';
+import Icon from 'antd/lib/icon';
 
 class Settings extends React.Component {
     constructor() {
@@ -21,6 +22,7 @@ class Settings extends React.Component {
             email: "",
             phone: "",
             address: "",
+            edit: false
         };
     }
 
@@ -30,6 +32,12 @@ class Settings extends React.Component {
 
     handleInputChange = event => {
         this.setState({ [event.target.name]: event.target.value })
+    }
+
+    toggleEdit = () =>{
+        this.setState({
+            edit: !this.state.edit
+        })
     }
 
     componentDidMount() {
@@ -64,39 +72,93 @@ class Settings extends React.Component {
                    <div className="acct-info">
 
                     <div className="acct-info-title"> 
-                        Account Information
+                        Account Information <Icon type="edit" className='edit-acct' onClick={this.toggleEdit}/>
                     </div>
 
                     <div className="user-names">
                         <div className="acct-spec">
                             <div className="acct-topic">First Name:</div>
-                            <div className="acct-spec-info"></div>
+                            <div className="acct-spec-info">
+                            {!this.state.edit ?
+                                this.props.userData.first_name :
+                                <TextField
+                                onChange={this.props.inputHandler}
+                                value={this.props.userData.first_name}
+                                name="first_name"
+                                id="standard-name"/> 
+                            }
+                            </div>
                         </div>
                         <div className="acct-spec">
                             <div className="acct-topic">Last Name:</div>
-                            <div className="acct-spec-info"></div>
+                            <div className="acct-spec-info">
+                            {!this.state.edit ?
+                                this.props.userData.last_name :
+                                <TextField
+                                onChange={this.props.inputHandler}
+                                value={this.props.userData.last_name}
+                                name="last_name"
+                                id="standard-name"/> 
+                            }
+                            </div>
                         </div>
                     </div>
 
                     <div className="user-names">
                         <div className="acct-spec">
                             <div className="acct-topic">Partner First Name:</div>
-                            <div className="acct-spec-info"></div>
+                            <div className="acct-spec-info">
+                            {!this.state.edit ?
+                                this.props.userData.p_firstname :
+                                <TextField
+                                onChange={this.props.inputHandler}
+                                value={this.props.userData.p_firstname}
+                                name="p_firstname"
+                                id="standard-name"/> 
+                            }
+                            </div>
                         </div>
                         <div className="acct-spec">
                             <div className="acct-topic">Partner Last Name:</div>
-                            <div className="acct-spec-info"></div>
+                            <div className="acct-spec-info">
+                            {!this.state.edit ?
+                                this.props.userData.p_lastname :
+                                <TextField
+                                onChange={this.props.inputHandler}
+                                value={this.props.userData.p_lastname}
+                                name="p_lastname"
+                                id="standard-name"/> 
+                            }
+                            </div>
                         </div>
                     </div>
 
                     <div className="acct-spec">
                         <div className="acct-topic">Email:</div>
-                        <div className="acct-spec-info"></div>
+                        <div className="acct-spec-info">
+                        {!this.state.edit ?
+                                this.props.userData.email :
+                                <TextField
+                                onChange={this.props.inputHandler}
+                                value={this.props.userData.email}
+                                name="email"
+                                id="standard-name"/> 
+                            }
+                        </div>
                     </div>
 
                     <div className="acct-spec">
                         <div className="acct-topic">Phone:</div>
-                        <div className="acct-spec-info"></div>
+                        <div className="acct-spec-info">
+                        {!this.state.edit ?
+                                this.props.userData.phone :
+                                <TextField
+                                onChange={this.props.inputHandler}
+                                value={this.props.userData.phone}
+                                name="phone"
+                                id="standard-name"/> 
+                            }
+                        </div>
                     </div>
 
                    </div>
@@ -108,12 +170,30 @@ class Settings extends React.Component {
 
                         <div className="acct-spec">
                             <div className="acct-topic">Wedding Date:</div>
-                            <div className="acct-spec-info"></div>
+                            <div className="acct-spec-info">
+                            {!this.state.edit ?
+                                this.props.userData.event_date :
+                                <TextField
+                                onChange={this.props.inputHandler}
+                                value={this.props.userData.event_date}
+                                name="event_date"
+                                id="standard-name"/> 
+                            }
+                            </div>
                         </div>
 
                         <div className="acct-spec">
                         <div className="acct-topic">Wedding Location:</div>
-                        <div className="acct-spec-info"></div>
+                        <div className="acct-spec-info">
+                        {!this.state.edit ?
+                                this.props.userData.event_address :
+                                <TextField
+                                onChange={this.props.inputHandler}
+                                value={this.props.userData.event_address}
+                                name="event_address"
+                                id="standard-name"/> 
+                            }
+                        </div>
                         </div>
                    
 
