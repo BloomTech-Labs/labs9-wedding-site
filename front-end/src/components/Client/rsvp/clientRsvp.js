@@ -134,8 +134,14 @@ class Rsvp extends Component {
             axios
             .delete(`${serverURL}/${q_id}/deletequestion`)
             .then(res => {
-                console.log(res)
-                window.location.reload();
+                const w_id = localStorage.getItem('weddingID');
+                axios
+                .get(`${serverURL}/${w_id}/allquestions`)
+                .then(res => {
+                    if (res.data.length > 0) {
+                        this.setState({ questions: res.data })
+                    }
+                })
             })
             .catch(err => {
                 console.log(err)
@@ -152,9 +158,18 @@ class Rsvp extends Component {
         axios
         .post(`${serverURL}/questions`, {questions: this.state.questions})
         .then(res => {
-            console.log(res);
-        }).then(() => {
-            window.location.reload();
+            console.log("POST", res);
+        })
+        .then(() => {
+            const w_id = localStorage.getItem('weddingID');
+            axios
+            .get(`${serverURL}/${w_id}/allquestions`)
+            .then(res => {
+                console.log("GET", res);
+                if (res.data.length > 0) {
+                    this.setState({ questions: res.data })
+                }
+            })
         })
         .catch(err => console.log(err));
     };
