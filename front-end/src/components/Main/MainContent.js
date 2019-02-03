@@ -207,6 +207,7 @@ class MainContent extends Component {
 							path="/vb/rsvp"
                             render={props => <Rsvp 
                                                 {...props} 
+                                                setUser={this.setUser}
                                                 couple={this.state.couple}
                                                 login={this.login} />}
 						/>

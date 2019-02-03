@@ -49,12 +49,16 @@ const defaultCouple = [{
     "guest": 0
   }]
 
+
 class Rsvp extends Component {
     constructor(props) {
         super(props);
-        
+        const weddingId = localStorage.getItem('weddingID')
+        // this.getCouple(weddingId)
         console.log('this.props.couple', this.props.couple)
-        const couple = (this.props.couple.length) ? this.props.couple : defaultCouple
+        let couple = this.getCouple(weddingId)
+        // couple = (!couple.length) ? couple : defaultCouple
+        couple = (this.props.couple.length) ? this.props.couple : defaultCouple
         console.log('couple', couple)
         
         this.state = {
@@ -135,6 +139,29 @@ class Rsvp extends Component {
        .catch(err => {
            console.log(err)
        })
+    }
+
+    getCouple = (w_id) => {
+        const weddingId = localStorage.getItem('weddingID')
+        w_id = !weddingId ? w_id : weddingId
+        let couple;
+        axios(`${serverURL}/invite/${w_id}`)
+        .then(weddingDetails => {
+            weddingDetails = weddingDetails.data
+            console.log(weddingDetails)
+            couple = weddingDetails.couple;
+            this.props.setUser(
+                    weddingDetails.couple[0],
+                    weddingDetails.couple[1],
+                    null,
+                    weddingDetails.couple,
+                    weddingDetails.weddingDetails.event_address,
+                    weddingDetails.weddingDetails.event_date,
+                    weddingDetails.couple[0].email,
+                    weddingDetails.couple[0].phone,
+                )
+            })
+        return couple
     }
 
     // adds a question to the default question array
