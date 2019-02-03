@@ -8,7 +8,7 @@ const LandingButtonsExp = () => {
 			<nav>
 				<ul>
 					<div className="moving">
-						<li class="">
+						<li>
 							<Link to="/">Home</Link>
 						</li>
 						<li>
