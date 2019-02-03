@@ -4,17 +4,7 @@ const KnexConfig = require('../knexfile');
 const db = knex(process.env.DB_ENVIORNMENT ? KnexConfig[process.env.DB_ENVIORNMENT] : KnexConfig.development);
 const router = express()
 
-const { formatStr } = require('../../front-end/src/universal/helperFunctions')
-
-const reduceObjectEntries = (reducedObj, tuple) => {
-    reducedObj[tuple[0]] = tuple[1]
-    return reducedObj
-}
-
-const diffObjects = (oldObj, newObj) => Object.entries(newObj).filter(newProp => {
-    // console.log(guestProp, user[guestProp[0]])
-    return (oldObj[newProp[0]] === undefined || oldObj[newProp[0]] !== newProp[1])
-}).reduce(reduceObjectEntries, {})
+const { diffObjects } = require('../../front-end/src/universal/helperFunctions')
 
 // A FUNCTION TO ADD GUESTS AND ANSWERS TO THE GUEST AND ANSWERS TABLE RESPECTIVLY
 // if the guest does not exist then add them.
@@ -80,6 +70,7 @@ const addAnswers = async (req, res) => {
 
                     // console.log('updated', updated)
                     user = Object.assign(user, updated)
+                    
                     console.log('updated user', updated)
                     console.log('user object', user)
 
@@ -100,9 +91,7 @@ const addAnswers = async (req, res) => {
                     res.status(500).json({error, message: 'can not update user'})
                 }
             }
-
         }
-
 
         try {
             // map guest_id onto answer objects
@@ -128,8 +117,6 @@ const addAnswers = async (req, res) => {
         res.status(500).json({ error, message: 'can not find user'})
         console.log(error, message)
     }
-
-    
 }
 
 router.post('/', addAnswers)

@@ -1,5 +1,8 @@
+# vBeloved api refrence 
+https://vBeloved.now.sh
 
-# get /:id/allquestions
+## get /:id/allquestions
+-----------------
 will get all questions associated with wedding_id :id
 ```json
 [
@@ -38,7 +41,8 @@ will get all questions associated with wedding_id :id
 ]
 ```
 
-# post /answer
+## post /answer
+-----------------
 request body data schema
 ```json
 {
@@ -66,8 +70,8 @@ request body data schema
 		"phone": "123-456-7890"
     },
     "guestObj": {
-        "attending": "not_attending" | "attending" | "maybe",
-        "related_spouse": "bride" | "groom" | "both" 
+        "attending": "Not Attending" | "Attending" | "Maybe",
+        "related_spouse": String
     }
 }
 ```

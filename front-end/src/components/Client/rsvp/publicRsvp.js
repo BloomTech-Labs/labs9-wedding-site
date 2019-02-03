@@ -205,8 +205,8 @@ class PublicRsvp extends Component {
         const guestFields = {
             "attendance": 'attending',
             "wedding_team": 'related_spouse',
-
         }
+        
         let dynamicAnswers = []
         let guestObj = {}
         const userObj = this.state.questions.map((question, i) => {
@@ -219,7 +219,7 @@ class PublicRsvp extends Component {
             if ( identObj[questionCategory] ) {
                 return question;
             } else if(guestFields[questionCategory]) {
-                guestObj[guestFields[questionCategory] ] = formatStr(question.answer);
+                guestObj[guestFields[questionCategory] ] = question.answer;
             } else {
                 dynamicAnswers.push({question_id: question.id, answer: question.answer})
                 return false;
@@ -247,15 +247,11 @@ class PublicRsvp extends Component {
     }
     sendAnswers = () => {
         const answers = this.extractAnswers()
-        /*
         axios.post(`${process.env.REACT_APP_LOCAL_URL}/answer`, answers)
             .then(success => {
                 console.log('data successfuly recorded in server', success)
                 this.setState({ success: true })
             }).catch(error => console.log(error))
-
-            */
-
     }
 
     saveAnswers = () => {
