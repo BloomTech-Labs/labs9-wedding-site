@@ -57,13 +57,17 @@ request body data schema
 			"answer": "maybe"
 		}
 	],
-	"guestObj": {
+	"userObj": {
 		"wedding_id": 3,
 		"first_name": "hargobind",
 		"last_name": "atwal",
 		"email": "Ola.Jakubowski65@yahoo.com",
 		"address": "123 street",
 		"phone": "123-456-7890"
-	}
+    },
+    "guestObj": {
+        "attending": ,
+        "related_spouse": 
+    }
 }
 ```
