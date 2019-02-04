@@ -183,6 +183,13 @@ server.post('/loaduser', async (req, res) => {
             let wedding_data = await db('weddings').where({id: user.wedding_id}).first()
             let couple = await db('user').join('couples', { 'user.id': 'couples.user_id' }).where({ wedding_id: user.wedding_id });
             let guests = await db('user').join('guests', { 'user.id': 'guests.guest_id' }).where({ wedding_id: user.wedding_id, guest: true });
+
+            // gets rsvp results 
+            let rsvpResults = await db('user').join('guests', { 'user.id': 'guests.guest_id' })
+                .where({ wedding_id: user.wedding_id, guest: true }).groupBy('attending');
+
+            console.log('rsvp results vbtoken', rsvpResults)
+
             let questions = await db('questions').where({ wedding_id: user.wedding_id })
 
 
@@ -190,6 +197,7 @@ server.post('/loaduser', async (req, res) => {
                 couple,
                 guests,
                 questions,
+                rsvpResults,
                 wedding_data
             })
         }
@@ -211,9 +219,16 @@ server.post('/loaduser', async (req, res) => {
             let guests = await db('user').where({ wedding_id, guest: true });
             let wedding_data = await db('weddings').where({id: wedding_id}).first()
 
+            // gets rsvp results 
+            let rsvpResults = await db('user').join('guests', { 'user.id': 'guests.guest_id' })
+                .where({ wedding_id: user.wedding_id, guest: true }).groupBy('attending');
+
+            console.log('guests !user', rsvpResults)
+
             res.status(200).json({
                 couple,
                 guests,
+                rsvpResults,
                 wedding_data
             })
 
