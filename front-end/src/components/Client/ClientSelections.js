@@ -104,7 +104,7 @@ class ClientSelections extends React.Component {
                         {   
                         !this.state.next ? 
                         <Form id="design-form" inputHandler={this.inputHandler}/> : 
-                        <DesignChoice inputHandler={this.inputHandler} designtemplate={this.state.design_template}/>
+                        <DesignChoice inputHandler={this.inputHandler} design_template={this.state.design_template}/>
                         }
 
                         <div className="btn-container">
