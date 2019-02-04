@@ -43,7 +43,7 @@ class ClientSelections extends React.Component {
     save = () => {
         let oauth_id = localStorage.getItem('authID');
         let design_template = Number(this.state.design_template)
-        console.log('DesignTemplateStrToNum:', design_template)
+        
         let { 
         first_name,
         last_name,
@@ -54,16 +54,16 @@ class ClientSelections extends React.Component {
         } = this.state;
 
         let userinfo = {first_name, last_name, p_firstname, p_lastname, event_date, event_address, design_template, oauth_id, registering: true}
-        console.log(userinfo)
+        
         axios
             .post(`${serverURL}/loaduser`, userinfo)
-            .then(res => { console.log('ClientSelLoadUser:', res)
+            .then(res => { 
                 
                 localStorage.setItem('vbtoken', oauth_id)
                 console.log('Cookie set-check')
                 this.props.loadUser()
                 this.props.login() //toggles the state of the user to loggedIn (in MainContent component)
-                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date);
+                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date, res.data.couple[0].email, res.data.couple[0].phone);
                 this.props.toggleRegistering()
                 this.props.history.push('/vb/dashboard')
             })
@@ -91,10 +91,10 @@ class ClientSelections extends React.Component {
         <div className="selections-div">
             { this.props.registering ? 
             <div className="auth-div registering">
-                <div className="vb-header">
+                {/* <div className="vb-header">
                     <div className="vb-text"><span className="v">v</span>Beloved</div>
                     
-                </div>
+                </div> */}
                 <div className="auth-circle">
                     <div className={`content-div ${this.state.next ? "design" : "form" }`}>
                         <div className="auth-title">{this.state.next ? 'Choose Your Invite Template' : 'Tell Us About Your Wedding'}</div>

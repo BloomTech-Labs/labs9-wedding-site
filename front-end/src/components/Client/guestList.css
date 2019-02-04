@@ -17,7 +17,7 @@
 
 .guestList .guestListContainer {
     margin: 0 auto 50px;
-    width: 85%;
+    width: 100%;
     padding: 0 2%;
 }
 
@@ -27,6 +27,9 @@
     padding-left: 10px;
 }
 
+.guestList .guestListContainer .guest-list-table {
+    min-width: 950px;
+}
 
 @media (max-width: 1024px) {
     .guestList {
@@ -46,9 +49,3 @@
     }
 
 }
-
-/* @media (max-width: 800px) {
-    .guestList {
-        margin: 30px auto;
-    } */
-

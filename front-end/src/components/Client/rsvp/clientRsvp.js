@@ -101,6 +101,7 @@ class Rsvp extends Component {
        .get(`${serverURL}/${w_id}/allquestions`)
        .then(res => {
                console.log(this.state.questions)
+            this.props.login()
            if (res.data.length > 0) {
                this.setState({ questions: res.data })
                console.log(this.state.questions)
@@ -133,8 +134,14 @@ class Rsvp extends Component {
             axios
             .delete(`${serverURL}/${q_id}/deletequestion`)
             .then(res => {
-                console.log(res)
-                window.location.reload();
+                const w_id = localStorage.getItem('weddingID');
+                axios
+                .get(`${serverURL}/${w_id}/allquestions`)
+                .then(res => {
+                    if (res.data.length > 0) {
+                        this.setState({ questions: res.data })
+                    }
+                })
             })
             .catch(err => {
                 console.log(err)
@@ -151,9 +158,18 @@ class Rsvp extends Component {
         axios
         .post(`${serverURL}/questions`, {questions: this.state.questions})
         .then(res => {
-            console.log(res);
-        }).then(() => {
-            window.location.reload();
+            console.log("POST", res);
+        })
+        .then(() => {
+            const w_id = localStorage.getItem('weddingID');
+            axios
+            .get(`${serverURL}/${w_id}/allquestions`)
+            .then(res => {
+                console.log("GET", res);
+                if (res.data.length > 0) {
+                    this.setState({ questions: res.data })
+                }
+            })
         })
         .catch(err => console.log(err));
     };
@@ -205,6 +221,30 @@ class Rsvp extends Component {
     handleClose = () => {
         this.setState({ modalOpen: false });
     };
+
+    componentDidMount() {
+
+        
+        let vbtoken = localStorage.getItem('vbtoken');
+        let oauth_id = localStorage.getItem('vbtoken');
+
+        if(vbtoken){
+            axios.post(`${process.env.REACT_APP_LOCAL_URL}/loaduser`, {oauth_id, vbtoken})
+            .then(res => {
+                console.log(res)
+                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date, res.data.couple[0].email, res.data.couple[0].phone)
+                this.props.login()
+                this.setState({
+                   userLoaded: true 
+                })
+            })
+            .catch(err => console.log(err))
+        } 
+        else {
+            this.props.history.push('/login')
+        }
+    }
+
 
 
     render() {

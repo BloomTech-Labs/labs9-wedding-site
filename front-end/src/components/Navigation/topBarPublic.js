@@ -16,7 +16,7 @@ const TopBarPublic = (props) => {
           <LandingButtonsExp/>
         </div>
         <div className="centerNavPublic">
-            <h1 className="siteNamePublic">Beloved</h1>
+        <div className="vb-text"><span className="v">v</span>Beloved</div>
         </div>
         <div className="rightNavPublic">
           <SignupLogin loginbtnFunc={props.loginbtnFunc}

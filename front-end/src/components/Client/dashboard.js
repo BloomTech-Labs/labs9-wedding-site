@@ -58,7 +58,7 @@ class Dashboard extends Component {
             notAttending: 50,
             maybe: 100,
             modalOpen: false,
-            userLoaded: true, //false,
+            userLoaded: false,
             registryLink: "",
             displayName: "",
             registry: [],
@@ -120,7 +120,7 @@ class Dashboard extends Component {
                 localStorage.setItem('vbtoken', oauth_id || vbtoken)
                 localStorage.setItem('weddingID', res.data.couple[0].wedding_id)
                 this.props.login() //toggles the state of the user to loggedIn (in MainContent component)
-                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date);
+                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date, res.data.couple[0].email, res.data.couple[0].phone);
                 this.props.toggleRegistered();
                 
                 this.setState({
@@ -221,14 +221,12 @@ class Dashboard extends Component {
                     <div className="userInfo">
                         <h1>{`${first_name ? first_name : "---"}`} &amp; {`${p_firstname ? p_firstname : "---"}'s`} Wedding<br />{`${event_date}`}</h1>
                     </div>
-
                     <div className="location">
                         <Share />
                         <p style={{fontWeight: "bold"}}>{event_address}</p>
                     </div>
                 </div>
-
-            <Card className="invite-link">
+                <Card className="invite-link">
                 <div className="invite-link-text">
                     Copy this link and share it with your friends and family 
                     <Link to={`/${localStorage.getItem('weddingID')}/invite`}>
@@ -236,6 +234,7 @@ class Dashboard extends Component {
                     </Link>
                 </div>
             </Card>
+
             <div className="cardDivTop">
                 <Card className="cardTopLeft" style={styles.cardTopLeft}>
                     Guest List

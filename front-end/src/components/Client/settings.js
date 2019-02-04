@@ -6,6 +6,8 @@ import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import Sidebar from './clientNav';
 import './settings.css';
+import axios from 'axios';
+import Icon from 'antd/lib/icon';
 
 
 class Settings extends React.Component {
@@ -16,11 +18,12 @@ class Settings extends React.Component {
             checkedText: false,
             first_name: "",
             last_name: "",
-            p_first_name: "",
-            p_last_name: "",
+            p_firstname: "",
+            p_lastname: "",
             email: "",
             phone: "",
             address: "",
+            edit: false
         };
     }
 
@@ -32,12 +35,216 @@ class Settings extends React.Component {
         this.setState({ [event.target.name]: event.target.value })
     }
 
+    toggleEdit = () =>{
+        this.setState({
+            edit: !this.state.edit
+        })
+    }
+
+    save = () =>{
+        let vbtoken = localStorage.getItem('vbtoken');
+        let wedding_id = localStorage.getItem('weddingID')
+        let { 
+            first_name,
+            last_name,
+            p_firstname,
+            p_lastname,
+            event_date,
+            event_address,
+            phone, 
+            email
+            } = this.props.userData;
+    
+            let userinfo = {first_name, last_name, p_firstname, p_lastname, event_date, event_address, phone, email, vbtoken, wedding_id}
+
+        
+            axios.put(`${process.env.REACT_APP_LOCAL_URL}/update`, userinfo)
+            .then(res => {
+                console.log(res)
+                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date, res.data.couple[0].email, res.data.couple[0].phone)
+                this.setState({
+                   edit: false 
+                })
+            })
+            .catch(err => console.log(err))
+         
+    }
+
+    componentDidMount() {
+
+        
+        let vbtoken = localStorage.getItem('vbtoken');
+        let oauth_id = localStorage.getItem('vbtoken');
+
+        if(vbtoken){
+            axios.post(`${process.env.REACT_APP_LOCAL_URL}/loaduser`, {oauth_id, vbtoken})
+            .then(res => {
+                console.log(res)
+                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date, res.data.couple[0].email, res.data.couple[0].phone)
+                this.props.login()
+                this.setState({
+                   userLoaded: true 
+                })
+            })
+            .catch(err => console.log(err))
+        } 
+        else {
+            this.props.history.push('/login')
+        }
+    }
+
+
     render() {
         return (
             <div className="userSettings">
                 <Sidebar />
-                    <div className="settingsContainer">
-                    <TextField
+                <div className="settingsContainer">
+                   <div className="acct-info">
+
+                    <div className="acct-info-title"> 
+                        Account Information <Icon type="edit" className='edit-acct' onClick={this.toggleEdit}/>
+                    </div>
+
+                    <div className="user-names">
+                        <div className="acct-spec">
+                            <div className="acct-topic">First Name:</div>
+                            <div className="acct-spec-info">
+                            {!this.state.edit ?
+                                this.props.userData.first_name :
+                                <TextField
+                                onChange={this.props.inputHandler}
+                                value={this.props.userData.first_name}
+                                name="first_name"
+                                id="standard-name"/> 
+                            }
+                            </div>
+                        </div>
+                        <div className="acct-spec">
+                            <div className="acct-topic">Last Name:</div>
+                            <div className="acct-spec-info">
+                            {!this.state.edit ?
+                                this.props.userData.last_name :
+                                <TextField
+                                onChange={this.props.inputHandler}
+                                value={this.props.userData.last_name}
+                                name="last_name"
+                                id="standard-name"/> 
+                            }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="user-names">
+                        <div className="acct-spec">
+                            <div className="acct-topic">Partner First Name:</div>
+                            <div className="acct-spec-info">
+                            {!this.state.edit ?
+                                this.props.userData.p_firstname :
+                                <TextField
+                                onChange={this.props.inputHandler}
+                                value={this.props.userData.p_firstname}
+                                name="p_firstname"
+                                id="standard-name"/> 
+                            }
+                            </div>
+                        </div>
+                        <div className="acct-spec">
+                            <div className="acct-topic">Partner Last Name:</div>
+                            <div className="acct-spec-info">
+                            {!this.state.edit ?
+                                this.props.userData.p_lastname :
+                                <TextField
+                                onChange={this.props.inputHandler}
+                                value={this.props.userData.p_lastname}
+                                name="p_lastname"
+                                id="standard-name"/> 
+                            }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="acct-spec">
+                        <div className="acct-topic">Email:</div>
+                        <div className="acct-spec-info">
+                        {!this.state.edit ?
+                                this.props.userData.email :
+                                <TextField
+                                onChange={this.props.inputHandler}
+                                value={this.props.userData.email}
+                                name="email"
+                                id="standard-name"/> 
+                            }
+                        </div>
+                    </div>
+
+                    <div className="acct-spec">
+                        <div className="acct-topic">Phone:</div>
+                        <div className="acct-spec-info">
+                        {!this.state.edit ?
+                                this.props.userData.phone :
+                                <TextField
+                                onChange={this.props.inputHandler}
+                                value={this.props.userData.phone}
+                                name="phone"
+                                id="standard-name"/> 
+                            }
+                        </div>
+                    </div>
+
+                   </div>
+
+                   <div className="wedding-info">
+                        <div className="acct-info-title"> 
+                            Wedding Info
+                        </div>
+
+                        <div className="acct-spec">
+                            <div className="acct-topic">Wedding Date:</div>
+                            <div className="acct-spec-info">
+                            {!this.state.edit ?
+                                this.props.userData.event_date :
+                                <TextField
+                                onChange={this.props.inputHandler}
+                                value={this.props.userData.event_date}
+                                name="event_date"
+                                id="standard-name"/> 
+                            }
+                            </div>
+                        </div>
+
+                        <div className="acct-spec">
+                            <div className="acct-topic">Wedding Location:</div>
+                            <div className="acct-spec-info">
+                            {!this.state.edit ?
+                                    this.props.userData.event_address :
+                                    <TextField
+                                    onChange={this.props.inputHandler}
+                                    value={this.props.userData.event_address}
+                                    name="event_address"
+                                    id="standard-name"/> 
+                                }
+                            </div>
+                        </div>
+                   
+
+                    
+                   </div>
+                   { this.state.edit ?
+                   <Button variant="contained" size="small" color="primary" onClick={this.save}>
+                        Save
+                    </Button> : null}
+                </div>
+            </div>
+        );
+    }
+}
+
+export default Settings;
+
+
+/* <TextField
+                        onChange={this.props.inputHandler}
+                        value={this.props.userData.couple[0].email}
                         name="email"
                         id="outlined-email"
                         label="Email"
@@ -45,6 +252,8 @@ class Settings extends React.Component {
                         variant="outlined"
                     />
                     <TextField
+                        onChange={this.props.inputHandler}
+                        value={this.props.userData.couple[0].phone}
                         name="phone"
                         id="outlined-phone"
                         label="Phone"
@@ -52,25 +261,33 @@ class Settings extends React.Component {
                         variant="outlined"
                     />
                         <TextField
+                            onChange={this.props.inputHandler}
+                            value={this.props.userData.couple[0].first_name}
                             name="first_name"
                             id="standard-name"
                             label="Partner Name"
                             margin="normal"
                         />
                         <TextField
+                            onChange={this.props.inputHandler}
+                            value={this.props.userData.couple[0].last_name}
                             name="last_name"
                             id="standard-name"
                             label="Partner Name"
                             margin="normal"
                         />
                         <TextField
-                            name="p_first_name"
+                            onChange={this.props.inputHandler}
+                            value={this.props.userData.couple[1].first_name}
+                            name="p_firstname"
                             id="standard-name"
                             label="Partner Name"
                             margin="normal"
                         />
                         <TextField
-                            name="p_last_name"
+                            onChange={this.props.inputHandler}
+                            value={this.props.userData.couple[1].last_name}
+                            name="p_lastname"
                             id="standard-name"
                             label="Partner Name"
                             margin="normal"
@@ -133,11 +350,4 @@ class Settings extends React.Component {
                     <Button variant="contained" size="large" color="primary">
                         Save
                     </Button>
-                </div>
-                </div>
-            </div>
-        );
-    }
-}
-
-export default Settings;
+                </div> */
