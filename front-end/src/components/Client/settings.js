@@ -43,6 +43,7 @@ class Settings extends React.Component {
 
     save = () =>{
         let vbtoken = localStorage.getItem('vbtoken');
+        let wedding_id = localStorage.getItem('weddingID')
         let { 
             first_name,
             last_name,
@@ -54,10 +55,10 @@ class Settings extends React.Component {
             email
             } = this.props.userData;
     
-            let userinfo = {first_name, last_name, p_firstname, p_lastname, event_date, event_address, phone, email, vbtoken}
+            let userinfo = {first_name, last_name, p_firstname, p_lastname, event_date, event_address, phone, email, vbtoken, wedding_id}
 
         
-            axios.post(`${process.env.REACT_APP_LOCAL_URL}/update`, userinfo)
+            axios.put(`${process.env.REACT_APP_LOCAL_URL}/update`, userinfo)
             .then(res => {
                 console.log(res)
                 this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date, res.data.couple[0].email, res.data.couple[0].phone)
@@ -229,7 +230,7 @@ class Settings extends React.Component {
                     
                    </div>
                    { this.state.edit ?
-                   <Button variant="contained" size="small" color="primary">
+                   <Button variant="contained" size="small" color="primary" onClick={this.save}>
                         Save
                     </Button> : null}
                 </div>
