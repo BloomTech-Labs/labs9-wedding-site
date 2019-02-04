@@ -1,12 +1,13 @@
 .userSettings {
     display: flex;
     margin-top: 150px;
+    
 }
 
 .userSettings .settingsContainer {
     margin: 0 auto 50px;
     width: 80%;
-    padding: 0 10%;
+    padding: 5px;
 }
 
 .userSettings .clientNavSidebar {
@@ -61,4 +62,56 @@
         width: 90%;
     }
 
+}
+
+.acct-info{
+    margin-bottom: 50px;
+}
+
+.acct-info-title{
+    padding: 10px 0;
+    border-top-right-radius: 15px;
+    border: 1px solid lightgray;
+    border-left: unset;
+    background: rgb(198, 240, 255);
+    padding-left: 5px;
+    color: black;
+    font-size: 25px;
+    font-weight: 900; 
+}
+
+.user-names{
+    display: flex;
+
+}
+
+.acct-spec{
+    width: 50%;
+    margin: 15px 0;
+    padding-left: 5px;
+}
+
+.acct-topic{
+    font-weight: 600;
+    font-size: 19px;
+}
+
+.acct-spec-info{
+
+}
+
+.wedding-info{
+    margin-bottom: 50px;
+}
+
+#standard-name{
+
+}
+
+.edit-acct{
+    cursor: pointer;
+}
+
+.edit-acct > svg:hover{
+    fill: pink;
 }

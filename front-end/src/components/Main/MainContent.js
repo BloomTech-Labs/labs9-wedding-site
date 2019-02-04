@@ -180,14 +180,18 @@ class MainContent extends Component {
 						/>
 						<Route
 							path="/vb/payment"
-							render={props => <Payment {...props} />}
+                            render={props => <Payment {...props}
+                                                      login={this.login}
+                                                      setUser={this.setUser} />}
 						/>
 						<Route
 							path="/vb/settings"
                             render={props => <Settings 
                                                 {...props}
                                                 userData={this.state}
-                                                inputHandler={this.inputHandler} />}
+                                                inputHandler={this.inputHandler}
+                                                login={this.login}
+									            setUser={this.setUser} />}
 						/>
 						<Route
 							path="/vb/guestlist"
@@ -207,7 +211,8 @@ class MainContent extends Component {
 							path="/vb/rsvp"
                             render={props => <Rsvp 
                                                 {...props} 
-                                                login={this.login} />}
+                                                login={this.login}
+                                                setUser={this.setUser} />}
 						/>
 						<Route path="/vb/billing" component={Payment} />
 						<Route
