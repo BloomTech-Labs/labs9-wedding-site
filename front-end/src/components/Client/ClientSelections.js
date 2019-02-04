@@ -91,10 +91,10 @@ class ClientSelections extends React.Component {
         <div className="selections-div">
             { this.props.registering ? 
             <div className="auth-div registering">
-                <div className="vb-header">
+                {/* <div className="vb-header">
                     <div className="vb-text"><span className="v">v</span>Beloved</div>
                     
-                </div>
+                </div> */}
                 <div className="auth-circle">
                     <div className={`content-div ${this.state.next ? "design" : "form" }`}>
                         <div className="auth-title">{this.state.next ? 'Choose Your Invite Template' : 'Tell Us About Your Wedding'}</div>
