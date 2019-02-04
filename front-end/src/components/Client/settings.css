@@ -115,3 +115,9 @@
 .edit-acct > svg:hover{
     fill: pink;
 }
+
+.acct-spec.invite {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}

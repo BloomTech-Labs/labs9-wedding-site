@@ -121,3 +121,11 @@ offscreen forever */
     position: relative;
     top: 150px;
 }
+
+.chg-design:hover{
+  text-decoration: unset;
+}
+
+.chg-design:before{
+  display: none;
+}

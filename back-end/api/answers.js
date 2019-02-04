@@ -19,29 +19,29 @@ const addAnswers = async (req, res) => {
     // let { id } = req.params;
     // console.log(id)
 
-    let { guestObj, answers, wedding_id } = req.body
+    let { userObj, answers, wedding_id } = req.body
     let message = ''
 
     try {
         let user = await db('user')
-            .where('email', guestObj.email)
+            .where('email', userObj.email)
 
         user = user[0]
         console.log('Is user in db?', user ? 'Yes.' : 'No')
         // if users does not exists in database
-        if (user === undefined /*|| user.email !== guestObj.email */) {
+        if (user === undefined /*|| user.email !== userObj.email */) {
             // add the user
             console.log('add user')
             try {
-                console.log('guestObj', guestObj)
+                console.log('userObj', userObj)
                 
-                const newUserId = await db('user').insert(guestObj)
+                const newUserId = await db('user').insert(userObj)
 
                 console.log('newUser', newUserId)
                 message = 'You have been added to the rsvp list'
 
                 // overwrite user obj with new newUser
-                user = Object.assign({}, guestObj,
+                user = Object.assign({}, userObj,
                     { id: newUserId[0] }
                 )
                 console.log('new user', user)
@@ -55,7 +55,7 @@ const addAnswers = async (req, res) => {
             console.log('update user')
 
             // find updated guest properties
-            const diffGuestProps = Object.entries(guestObj).filter(guestProp => {
+            const diffGuestProps = Object.entries(userObj).filter(guestProp => {
                 // console.log(guestProp, user[guestProp[0]])
                 return (user[guestProp[0]] === undefined || user[guestProp[0]] !== guestProp[1])
             }).reduce((reducedObj, tuple) => {

@@ -9,5 +9,8 @@
     ],
       "github": {
         "enabled": true
+      },
+      "env": {
+          "STRIPE_TEST_KEY": "@stripe-test-key"
       }
 } 

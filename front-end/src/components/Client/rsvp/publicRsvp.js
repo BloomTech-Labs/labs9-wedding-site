@@ -200,12 +200,13 @@ class PublicRsvp extends Component {
         }
 
         const guestFields = {
-            "Attendance": 1,
-            "Wedding Team": 1
+            "Attendance": 'attending',
+            "Wedding Team": 'related_spouse',
+
         }
         
         let dynamicAnswers = []
-        const guestObj = this.state.questions.map((question, i) => {
+        const userObj = this.state.questions.map((question, i) => {
             // Must set question answer as this.state[i]
             //  return the question
             // when the question category matches one of the identObj properties
@@ -224,22 +225,24 @@ class PublicRsvp extends Component {
             return accObj
         }, {})
         // some variables that every guest will have
-        guestObj.wedding_id = parseInt(this.state.weddingId, 10)
-        guestObj.guest = 1
+        userObj.wedding_id = parseInt(this.state.weddingId, 10)
+        userObj.guest = 1
 
         const responseObj = {
             wedding_id: parseInt(this.state.weddingId, 10),
-            guestObj,
+            userObj,
             answers: dynamicAnswers
         }
 
-        console.log('responseObj', JSON.stringify(responseObj))
-
+        console.log('responseObj', responseObj)
+        /*
         axios.post(`${process.env.REACT_APP_LOCAL_URL}/answer`, responseObj)
             .then(success => {
                 console.log('data successfuly recorded in server', success)
                 this.setState({ success: true })
             }).catch(error => console.log(error))
+
+            */
 
     }
     render() {

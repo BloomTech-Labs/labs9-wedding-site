@@ -245,7 +245,7 @@ server.post('/loaduser', async (req, res) => {
 })
 
 server.put('/update', async (req,res)=>{
-    let { first_name, last_name, p_firstname, p_lastname, event_date, event_address, email, phone, vbtoken, wedding_id } = req.body;
+    let { first_name, last_name, p_firstname, p_lastname, event_date, event_address, email, phone, vbtoken, wedding_id, design_template } = req.body;
     
     try{
     
@@ -254,7 +254,7 @@ server.put('/update', async (req,res)=>{
     console.log("User",user)
     if(vbtoken){
 
-        let wedding = await db('weddings').where({id: user.wedding_id}).update({event_date, event_address})
+        let wedding = await db('weddings').where({id: user.wedding_id}).update({event_date, event_address, design_template})
         let user1 = await db('user').where({id: user.id}).update({ first_name: first_name, last_name, email, phone})
         let user2 = await db('user').where({id: couple1[1].id }).update({ first_name: p_firstname, last_name: p_lastname })
         

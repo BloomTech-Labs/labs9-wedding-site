@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react';
 import { Pie } from 'react-chartjs-2';
 import ReactDropzone from "react-dropzone";
 import AddRegistry from './addRegistry';
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -217,6 +217,12 @@ class Dashboard extends Component {
                 <Sidebar />    
                 <div className="dashboardContainer">
 
+                <a className="chg-design" href="/vb/settings">
+                    <Button>
+                    Change Design
+                    </Button>
+                </a>
+
                 <div className="weddingInfo">
                     <div className="userInfo">
                         <h1>{`${first_name ? first_name : "---"}`} &amp; {`${p_firstname ? p_firstname : "---"}'s`} Wedding<br />{`${event_date}`}</h1>
@@ -227,13 +233,13 @@ class Dashboard extends Component {
                     </div>
                 </div>
                 <Card className="invite-link">
-                <div className="invite-link-text">
-                Copy this link and share it with your friends and family so they can rsvp to your event!                    <Link to={`/${localStorage.getItem('weddingID')}/invite`}>
-    {`https://www.vbeloved.com/${localStorage.getItem('weddingID')}/invite`}
-                    </Link>
-                </div>
+                    <div className="invite-link-text">
+                        Copy this link and share it with your friends and family so they can rsvp to your event!                    
+                        <Link to={`/${localStorage.getItem('weddingID')}/invite`}>
+                            {`https://www.vbeloved.com/${localStorage.getItem('weddingID')}/invite`}
+                        </Link>
+                    </div>
             </Card>
-
             <div className="cardDivTop">
                 <Card className="cardTopLeft" style={styles.cardTopLeft}>
                     Guest List
