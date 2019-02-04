@@ -3,6 +3,7 @@ import React, { Component, Fragment } from 'react';
 import { Pie } from 'react-chartjs-2';
 import ReactDropzone from "react-dropzone";
 import AddRegistry from './addRegistry';
+import {Link} from 'react-router-dom';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -215,9 +216,13 @@ class Dashboard extends Component {
 
                 <Sidebar />    
                 <div className="dashboardContainer">
+
+                <a className="chg-design" href="/vb/settings">
                     <Button>
-                Change Design
-                </Button>
+                    Change Design
+                    </Button>
+                </a>
+
                 <div className="weddingInfo">
                     <div className="userInfo">
                         <h1>{`${first_name ? first_name : "---"}`} &amp; {`${p_firstname ? p_firstname : "---"}'s`} Wedding<br />{`${event_date}`}</h1>
