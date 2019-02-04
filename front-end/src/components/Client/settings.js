@@ -41,6 +41,34 @@ class Settings extends React.Component {
         })
     }
 
+    save = () =>{
+        let vbtoken = localStorage.getItem('vbtoken');
+        let { 
+            first_name,
+            last_name,
+            p_firstname,
+            p_lastname,
+            event_date,
+            event_address,
+            phone, 
+            email
+            } = this.props.userData;
+    
+            let userinfo = {first_name, last_name, p_firstname, p_lastname, event_date, event_address, phone, email, vbtoken}
+
+        
+            axios.post(`${process.env.REACT_APP_LOCAL_URL}/update`, userinfo)
+            .then(res => {
+                console.log(res)
+                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date, res.data.couple[0].email, res.data.couple[0].phone)
+                this.setState({
+                   edit: false 
+                })
+            })
+            .catch(err => console.log(err))
+         
+    }
+
     componentDidMount() {
 
         
