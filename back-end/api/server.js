@@ -244,6 +244,26 @@ server.post('/loaduser', async (req, res) => {
 
 })
 
+server.put('/update', async (req,res)=>{
+    let { first_name, last_name, p_firstname, p_lastname, event_date, event_address, vbtoken } = req.body;
+
+    try{
+    const user = await db.table('user').join('oauth_ids', { 'user.id': "oauth_ids.user_id" }).where({ oauth_id: vbtoken }).first();
+        
+
+        
+    if(vbtoken){
+
+        let wedding_data = await db('weddings').where({id: user.wedding_id}).update({event_date, event_address})
+        let couple = await db('user').join('couples', { 'user.id': 'couples.user_id' }).where({ wedding_id: user.wedding_id });
+        }
+    }
+
+    catch(err){
+
+    }
+})
+
 
 //RETURNS ALL USER DATA IN THE DATABASE
 server.get('/users', async (req, res) => {

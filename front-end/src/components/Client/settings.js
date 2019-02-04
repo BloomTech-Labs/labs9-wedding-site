@@ -9,6 +9,7 @@ import './settings.css';
 import axios from 'axios';
 import Icon from 'antd/lib/icon';
 
+
 class Settings extends React.Component {
     constructor() {
         super();
@@ -183,22 +184,26 @@ class Settings extends React.Component {
                         </div>
 
                         <div className="acct-spec">
-                        <div className="acct-topic">Wedding Location:</div>
-                        <div className="acct-spec-info">
-                        {!this.state.edit ?
-                                this.props.userData.event_address :
-                                <TextField
-                                onChange={this.props.inputHandler}
-                                value={this.props.userData.event_address}
-                                name="event_address"
-                                id="standard-name"/> 
-                            }
-                        </div>
+                            <div className="acct-topic">Wedding Location:</div>
+                            <div className="acct-spec-info">
+                            {!this.state.edit ?
+                                    this.props.userData.event_address :
+                                    <TextField
+                                    onChange={this.props.inputHandler}
+                                    value={this.props.userData.event_address}
+                                    name="event_address"
+                                    id="standard-name"/> 
+                                }
+                            </div>
                         </div>
                    
 
                     
                    </div>
+                   { this.state.edit ?
+                   <Button variant="contained" size="small" color="primary">
+                        Save
+                    </Button> : null}
                 </div>
             </div>
         );
