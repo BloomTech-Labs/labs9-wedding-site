@@ -244,6 +244,45 @@ server.post('/loaduser', async (req, res) => {
 
 })
 
+server.put('/update', async (req,res)=>{
+    let { first_name, last_name, p_firstname, p_lastname, event_date, event_address, email, phone, vbtoken, wedding_id } = req.body;
+    
+    try{
+    
+    const couple1 = await db.table('user').where({wedding_id})
+    let user = couple1[0];
+    console.log("User",user)
+    if(vbtoken){
+
+        let wedding = await db('weddings').where({id: user.wedding_id}).update({event_date, event_address})
+        let user1 = await db('user').where({id: user.id}).update({ first_name: first_name, last_name, email, phone})
+        let user2 = await db('user').where({id: couple1[1].id }).update({ first_name: p_firstname, last_name: p_lastname })
+        
+        console.log("User1:", first_name, user1, wedding)
+
+        let wedding_data = await db('weddings').where({id: user.wedding_id}).first()
+        let couple = await db('user').join('couples', { 'user.id': 'couples.user_id' }).where({ wedding_id: user.wedding_id });
+        let guests = await db('user').join('guests', { 'user.id': 'guests.guest_id' }).where({ wedding_id: user.wedding_id, guest: true });
+        let questions = await db('questions').where({ wedding_id: user.wedding_id })
+
+       
+            res.status(200).json({
+                couple,
+                guests,
+                questions,
+                wedding_data
+            })
+
+        
+    }
+
+    }
+
+    catch(err){ console.log(err)
+        res.status(500).json({message: 'Error occurred.'})
+    }
+})
+
 
 //RETURNS ALL USER DATA IN THE DATABASE
 server.get('/users', async (req, res) => {

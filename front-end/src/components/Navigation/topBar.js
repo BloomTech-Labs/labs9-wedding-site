@@ -46,7 +46,7 @@ class TopBar extends Component {
           <LandingButtonsExp/>
         </div>
         <div className="centerNav">
-            <h1 className="siteName">Beloved</h1>
+        <div className="vb-text"><span className="v">v</span>Beloved</div>
         </div>
         <div className="rightNav">
           <li className="logout">

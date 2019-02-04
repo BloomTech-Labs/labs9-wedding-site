@@ -1,0 +1,13 @@
+{
+  "name": "y",
+  "version": "y",
+  "description": "y",
+  "main": "y",
+  "repository": "y",
+  "author": "y",
+  "license": "y",
+  "private": true,
+  "dependencies": {
+    "react-render-html": "^0.6.0"
+  }
+}

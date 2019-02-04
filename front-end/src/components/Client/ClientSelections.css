@@ -92,15 +92,7 @@ margin-bottom: 8px;
     left: unset; 
 } */
 
-.vb-text{
-    font-family: 'Leckerli One', cursive;
-    color: #AFD4E1;
-    text-shadow: 1px 0.1px 1px black;
-}
 
-.v{
-    color: pink;
-}
 .vb-header{
     position: absolute;
     top: 0;

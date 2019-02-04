@@ -4,6 +4,7 @@ import {Elements, StripeProvider} from 'react-stripe-elements';
 import CheckoutForm from './checkout/stripeCheckout';
 import Sidebar from './clientNav';
 import './billing.css';
+import axios from 'axios';
 
 
 class Payment extends Component {
