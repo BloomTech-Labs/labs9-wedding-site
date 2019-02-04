@@ -58,7 +58,7 @@ class Dashboard extends Component {
             notAttending: 50,
             maybe: 100,
             modalOpen: false,
-            userLoaded: false,
+            userLoaded: true, //false,
             registryLink: "",
             displayName: "",
             registry: [],
@@ -217,20 +217,25 @@ class Dashboard extends Component {
                 <Sidebar />    
                 <div className="dashboardContainer">
 
-                <Link to={`/${localStorage.getItem('weddingID')}/invite`}>
-                <Button style={{marginLeft: '10px'}}>
-                Invite Page
-                </Button>
-                </Link>
                 <div className="weddingInfo">
                     <div className="userInfo">
                         <h1>{`${first_name ? first_name : "---"}`} &amp; {`${p_firstname ? p_firstname : "---"}'s`} Wedding<br />{`${event_date}`}</h1>
                     </div>
+
                     <div className="location">
                         <Share />
                         <p style={{fontWeight: "bold"}}>{event_address}</p>
                     </div>
                 </div>
+
+            <Card className="invite-link">
+                <div className="invite-link-text">
+                    Copy this link and share it with your friends and family 
+                    <Link to={`/${localStorage.getItem('weddingID')}/invite`}>
+    {`https://www.vBeloved.com/${localStorage.getItem('weddingID')}/invite`}
+                    </Link>
+                </div>
+            </Card>
             <div className="cardDivTop">
                 <Card className="cardTopLeft" style={styles.cardTopLeft}>
                     Guest List
