@@ -228,8 +228,7 @@ class Dashboard extends Component {
                 </div>
                 <Card className="invite-link">
                 <div className="invite-link-text">
-                    Copy this link and share it with your friends and family 
-                    <Link to={`/${localStorage.getItem('weddingID')}/invite`}>
+                Copy this link and share it with your friends and family so they can rsvp to your event!                    <Link to={`/${localStorage.getItem('weddingID')}/invite`}>
     {`https://www.vbeloved.com/${localStorage.getItem('weddingID')}/invite`}
                     </Link>
                 </div>
