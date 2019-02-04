@@ -15,6 +15,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
 
+const { formatStr } = require('../../../universal/helperFunctions')
 
 // define styles for material-ui components
 const styles = {
@@ -54,7 +55,7 @@ const styles = {
     },
 };
 
-
+const url = process.env.REACT_APP_LOCAL_URL
 
 class PublicRsvp extends Component {
     constructor(props) {
@@ -87,15 +88,16 @@ class PublicRsvp extends Component {
     // }
 
     getQuestions = (wed_id) => {
-        const question_url = `${process.env.REACT_APP_LOCAL_URL}/${wed_id}/allquestions`
 
-        axios.get(question_url)
+        axios.get(`${url}/${wed_id}/allquestions`)
             .then(qs => {
                 this.setState(prevState => {
+
                     const newQuestions = ([...prevState.questions, ...qs.data]) 
                     console.log(newQuestions)
+
                     return ({
-                        "questions": newQuestions,
+                        "questions": [...qs.data],
                         weddingExists: true,
                         loading: false
                     })
@@ -189,8 +191,8 @@ class PublicRsvp extends Component {
         });
     };
 
-    sendAnswers = () => {
-
+    extractAnswers = () => {
+        
         const identObj = {
             'first_name': 1,
             'last_name': 1,
@@ -198,15 +200,25 @@ class PublicRsvp extends Component {
             'phone': 1,
             'address': 1,
         }
+
+        const guestFields = {
+            "attendance": 'attending',
+            "wedding_team": 'related_spouse',
+        }
+
         let dynamicAnswers = []
-        const guestObj = this.state.questions.map((question, i) => {
+        let guestObj = {}
+        const userObj = this.state.questions.map((question, i) => {
             // Must set question answer as this.state[i]
             //  return the question
             // when the question category matches one of the identObj properties
             // when the question category doesn't match we must push this question into dynamicAnswers
             question.answer = this.state[i]
-            if ( identObj[question.category.replace(' ', '_').toLowerCase()] ) {
+            const questionCategory = formatStr(question.category)
+            if ( identObj[questionCategory] ) {
                 return question;
+            } else if(guestFields[questionCategory]) {
+                guestObj[guestFields[questionCategory] ] = question.answer;
             } else {
                 dynamicAnswers.push({question_id: question.id, answer: question.answer})
                 return false;
@@ -214,28 +226,39 @@ class PublicRsvp extends Component {
         }).filter(q => q).reduce((accObj, question) => {
             // set question.category to a property in the accumlator obj
             // then return that object
-            accObj[question.category.replace(' ', '_').toLowerCase()] = question.answer
+            accObj[formatStr(question.category)] = question.answer
             return accObj
         }, {})
         // some variables that every guest will have
-        guestObj.wedding_id = parseInt(this.state.weddingId, 10)
-        guestObj.guest = 1
+        userObj.wedding_id = parseInt(this.state.weddingId, 10)
+        userObj.guest = 1
 
         const responseObj = {
             wedding_id: parseInt(this.state.weddingId, 10),
+            userObj,
             guestObj,
             answers: dynamicAnswers
         }
 
-        console.log('responseObj', JSON.stringify(responseObj))
+        console.log('responseObj', responseObj)
 
-        axios.post(`${process.env.REACT_APP_LOCAL_URL}/answer`, responseObj)
+        return responseObj;
+    }
+    sendAnswers = () => {
+        const answers = this.extractAnswers()
+        axios.post(`${url}/answer`, answers)
             .then(success => {
                 console.log('data successfuly recorded in server', success)
                 this.setState({ success: true })
             }).catch(error => console.log(error))
-
     }
+
+    saveAnswers = () => {
+        const responseObj = this.extractAnswers()
+        localStorage.setItem('rsvpAnswers', JSON.stringify(responseObj))
+        console.log('saved!', responseObj)
+    }
+
     render() {
         function validateEmail(email) {
             // eslint-disable-next-line
@@ -252,10 +275,16 @@ class PublicRsvp extends Component {
                     {this.state.questions.map((question, i) => {
                         return this.renderCards(question, i)
                     })}
-
+                            <Button variant="outlined" 
+                                onClick={this.saveAnswers} 
+                                style={styles.button}
+                            >Save Answers</Button>
                     <Typography component="div" style={styles.buttonDiv}>
                     {this.state[emailIndex] && validateEmail(this.state[emailIndex]) ? (
-                            <Button variant="outlined" onClick={this.sendAnswers} style={styles.button}>submit</Button>
+                            <Button variant="outlined" 
+                                onClick={this.sendAnswers} 
+                                style={styles.button}
+                            >Submit</Button>
                         ) : (
                         <div className="disabledBox">
                             <Box textAlign="center" m={1}>

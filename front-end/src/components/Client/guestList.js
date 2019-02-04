@@ -48,9 +48,7 @@ class GuestList extends Component {
         this.setState({
             [e.target.name]: e.target.value
         })
-
         
-
     }
 
     toggleInputting = () => {

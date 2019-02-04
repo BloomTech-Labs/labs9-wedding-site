@@ -24,7 +24,7 @@ export default class DesignChoice extends React.Component {
                 <div className="choice-img">
                     1
                 </div>
-                <Radio checked={this.props.designtemplate === "1"} aria-label="A" onClick={this.props.inputHandler} value='1' name="design_template" />
+                <Radio checked={this.props.design_template === "1"} aria-label="A" onClick={this.props.inputHandler} value='1' name="design_template" />
             </div>
 
             <div className="choice">
@@ -32,7 +32,7 @@ export default class DesignChoice extends React.Component {
                 <div className="choice-img">
                     2
                 </div>
-                <Radio checked={this.props.designtemplate === "2"} aria-label="B" onClick={this.props.inputHandler} value='2' name="design_template" />
+                <Radio checked={this.props.design_template === "2"} aria-label="B" onClick={this.props.inputHandler} value='2' name="design_template" />
             </div>
 
             <div className="choice">
@@ -41,7 +41,7 @@ export default class DesignChoice extends React.Component {
                     3
                 </div>
                       
-                <Radio checked={this.props.designtemplate === "3"} aria-label="C" onClick={this.props.inputHandler} value='3' name="design_template" />
+                <Radio checked={this.props.design_template === "3"} aria-label="C" onClick={this.props.inputHandler} value='3' name="design_template" />
                 
             </div>
             
