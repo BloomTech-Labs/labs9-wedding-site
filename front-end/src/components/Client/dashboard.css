@@ -49,6 +49,17 @@ offscreen forever */
   justify-content: space-between;
 }
 
+.dashboard .invite-link {
+  padding: 15px 15px 20px;
+  margin: 30px 0;
+}
+
+.dashboard .invite-link a {
+  padding: 0;
+  margin: 10px 0 0 0;
+  font-size: inherit;
+  text-transform: none;
+}
 
 @media (max-width: 800px) {
   .dashboard {

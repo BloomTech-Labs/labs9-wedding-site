@@ -232,6 +232,14 @@ class Dashboard extends Component {
                         <p style={{fontWeight: "bold"}}>{event_address}</p>
                     </div>
                 </div>
+                <Card className="invite-link">
+                    <div className="invite-link-text">
+                        Copy this link and share it with your friends and family so they can rsvp to your event!                    
+                        <Link to={`/${localStorage.getItem('weddingID')}/invite`}>
+                            {`https://www.vbeloved.com/${localStorage.getItem('weddingID')}/invite`}
+                        </Link>
+                    </div>
+            </Card>
             <div className="cardDivTop">
                 <Card className="cardTopLeft" style={styles.cardTopLeft}>
                     Guest List
