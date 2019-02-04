@@ -6,7 +6,11 @@ import Sidebar from './clientNav';
 import './billing.css';
 
 
-class Payment extends Component {
+class Billing extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {}
+    }
 
     componentDidMount() {
         let vbtoken = localStorage.getItem('vbtoken');
@@ -15,11 +19,11 @@ class Payment extends Component {
         if(vbtoken){
             axios.post(`${process.env.REACT_APP_LOCAL_URL}/loaduser`, {oauth_id, vbtoken})
             .then(res => {
-                console.log(res)
                 this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date, res.data.couple[0].email, res.data.couple[0].phone)
                 this.props.login()
                 this.setState({
-                   userLoaded: true 
+                   userLoaded: true,
+                   user1: res.data.couple[0]
                 })
             })
             .catch(err => console.log(err))
@@ -34,9 +38,9 @@ class Payment extends Component {
             <div className="billing">
                 <Sidebar />
                 <div className="billingContainer">
-                    <StripeProvider apiKey="pk_test_RTz8Co6cQicMzrk7QcnSvwUh">
+                    <StripeProvider apiKey={process.env.REACT_APP_STRIPE_API_KEY}>
                         <Elements>
-                            <CheckoutForm />
+                            <CheckoutForm user={this.state.user1}/>
                         </Elements>
                     </StripeProvider>
                 </div>
@@ -45,4 +49,4 @@ class Payment extends Component {
     }
 }
 
-export default Payment;
+export default Billing;

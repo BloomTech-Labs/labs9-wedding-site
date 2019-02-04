@@ -1,9 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 
 import "./topBarPublic.css";
 
 import ProfilePic from './nav';
-// import LandingPageButtons from './LandingButtons';
 import SignupLogin from '../Buttons/SignupLoginButtons';
 import LandingButtonsExp from '../Buttons/LandingButtonsExp';
 

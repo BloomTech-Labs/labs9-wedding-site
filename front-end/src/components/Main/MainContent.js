@@ -11,7 +11,7 @@ import PublicRsvp from "../Client/rsvp/publicRsvp";
 import Auth from "./Auth";
 
 //these are client views after login
-import Payment from "../Client/billing";
+import Billing from "../Client/billing";
 import Settings from "../Client/settings";
 import GuestList from "../Client/guestList";
 import Rsvp from "../Client/rsvp/clientRsvp";
@@ -179,12 +179,6 @@ class MainContent extends Component {
 							)}
 						/>
 						<Route
-							path="/vb/payment"
-                            render={props => <Payment {...props}
-                                                      login={this.login}
-                                                      setUser={this.setUser} />}
-						/>
-						<Route
 							path="/vb/settings"
                             render={props => <Settings 
                                                 {...props}
@@ -214,7 +208,16 @@ class MainContent extends Component {
                                                 login={this.login}
                                                 setUser={this.setUser} />}
 						/>
-						<Route path="/vb/billing" component={Payment} />
+						<Route
+                            path="/vb/billing"
+                            render={props => (
+                                <Billing
+                                    {...props}
+                                    login={this.login}
+                                    setUser={this.setUser}
+                                />
+                            )}
+                        />
 						<Route
 							path="/:id/invite/:name"
 							render={props => (

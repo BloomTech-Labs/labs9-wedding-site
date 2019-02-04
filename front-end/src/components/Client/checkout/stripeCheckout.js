@@ -18,7 +18,8 @@ class CheckoutForm extends Component {
 
   submit = async (e) => {
     e.preventDefault();
-    let {token} = await this.props.stripe.createToken({name: "Customer Name"});
+    let customerName = `${this.props.user.first_name} ${this.props.user.last_name}`;
+    let {token} = await this.props.stripe.createToken({name: customerName});
     let response = await fetch(`${process.env.REACT_APP_LOCAL_URL}/charge`, {
       method: "POST",
       headers: {"Content-Type": "text/plain"},
