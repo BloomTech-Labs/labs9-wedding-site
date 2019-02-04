@@ -216,12 +216,10 @@ class Dashboard extends Component {
 
                 <Sidebar />    
                 <div className="dashboardContainer">
-                    <Button>
-                Change Design
-                </Button>
+
                 <Link to={`/${localStorage.getItem('weddingID')}/invite`}>
                 <Button style={{marginLeft: '10px'}}>
-                Change Design
+                Invite Page
                 </Button>
                 </Link>
                 <div className="weddingInfo">
