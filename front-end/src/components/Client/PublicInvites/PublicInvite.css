@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script');
+.container{
+    height: 1400px;
+    width:100%;
+}
+
 .invite-cont{
     position: absolute;
     height: 100%;
@@ -16,15 +22,98 @@
 }
 
 .list{
-    position: absolute;
+    position: relative;
     top:40%;
     left:1%;
 }
 
 .countdown{
-    position: absolute;
-    top:10%;
-    left:40%;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    position: relative;
+    top:-15%;
+    left:50%;
+    font-size: 135px;
+    font-weight: bold;
+    color:whitesmoke;
+    font-family: 'Dancing Script', cursive;
 }
 
+.part-two{
+    height:800px;
+    width:100%;
+    background: #DCD0c0;
+    padding-top: 40%;
+}
+
+.part-three{
+    height:800px;
+    width:100%;
+    background: #F4F4F4;
+    padding-top: 0%;
+}
+
+.header-name{
+    font-size: 135px;
+    font-weight: bold;
+    color:whitesmoke;
+    font-family: 'Dancing Script', cursive;
+    position: absolute;
+    top:29%;
+    left:25%;
+    opacity:.95;
+}
+
+.save-date{
+    display: flex;
+    flex-direction: column;
+    margin-top:22.5%;
+    margin-right:5%;
+    font-size: 75px;
+    font-weight: bold;
+    color:whitesmoke;
+    opacity:.9;
+    font-family: 'Dancing Script', cursive;
+}
+
+.smaller-font{
+    font-size:40px;
+    margin-left:15%;
+}
+
+.location{
+    position: relative;
+    font-size: 135px;
+    font-weight: bold;
+    color:whitesmoke;
+    font-family: 'Dancing Script', cursive;
+    top:-30%;
+    left:10%;
+    opacity:.95;
+}
+
+.story{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    font-size: 135px;
+    font-weight: bold;
+    color:black;
+    font-family: 'Dancing Script', cursive;
+    top:10%;
+    left:25%;
+    opacity:.95;
+}
+
+.paragraph{
+    font-size:40px;
+    top:105%;
+    line-height: 1.25;
+    position: absolute;
+    left:-20%;
+}
+
+.dialog{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top:50%;
+}
