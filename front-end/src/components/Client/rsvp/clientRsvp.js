@@ -27,11 +27,40 @@ const styles = {
        
     }
   };
+// test data
+const defaultCouple = [{
+    "id": 116,
+    "first_name": "partner1",
+    "last_name": "last_name",
+    "email": "Alexane60@hotmail.com",
+    "phone": null,
+    "address": "050 Zboncak Rest, Daniellefurt, GA 23176-2988",
+    "wedding_id": 121,
+    "guest": 0
+  },
+  {
+    "id": 117,
+    "first_name": "partner2",
+    "last_name": "last_name",
+    "email": "Jamarcus50@gmail.com",
+    "phone": null,
+    "address": "0279 Spencer Forges, East Vicenta, HI 87319",
+    "wedding_id": 121,
+    "guest": 0
+  }]
+
 
 class Rsvp extends Component {
-    constructor() {
-        super();
-
+    constructor(props) {
+        super(props);
+        const weddingId = localStorage.getItem('weddingID')
+        // this.getCouple(weddingId)
+        console.log('this.props.couple', this.props.couple)
+        let couple = this.getCouple(weddingId)
+        // couple = (!couple.length) ? couple : defaultCouple
+        couple = (this.props.couple.length) ? this.props.couple : defaultCouple
+        console.log('couple', couple)
+        
         this.state = {
            category: '',
            question: '',
@@ -84,7 +113,7 @@ class Rsvp extends Component {
                 category: 'Wedding Team',
                 multiple_choice: true,
                 question: 'Are you a friend or family of... ?',
-                answer: 'Bride,Groom,Both'
+                answer: `${couple[0].first_name},${couple[1].first_name},Both`
             },
             ]
         }
@@ -124,6 +153,29 @@ class Rsvp extends Component {
         else {
             this.props.history.push('/login')
         }
+    }
+
+    getCouple = (w_id) => {
+        const weddingId = localStorage.getItem('weddingID')
+        w_id = !weddingId ? w_id : weddingId
+        let couple;
+        axios(`${serverURL}/invite/${w_id}`)
+        .then(weddingDetails => {
+            weddingDetails = weddingDetails.data
+            console.log(weddingDetails)
+            couple = weddingDetails.couple;
+            this.props.setUser(
+                    weddingDetails.couple[0],
+                    weddingDetails.couple[1],
+                    null,
+                    weddingDetails.couple,
+                    weddingDetails.weddingDetails.event_address,
+                    weddingDetails.weddingDetails.event_date,
+                    weddingDetails.couple[0].email,
+                    weddingDetails.couple[0].phone,
+                )
+            })
+        return couple
     }
 
     // adds a question to the default question array
