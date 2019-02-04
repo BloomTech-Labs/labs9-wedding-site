@@ -7,25 +7,25 @@ vBeloved is your one-stop-shop for all things wedding planning
 For this project, you will need your own Stripe API keys. You can sign up for a Stripe account here: https://dashboard.stripe.com/register
 
 ### Front-End Setup
-After cloning this respository to your local machine, `cd` into the `front-end` folder and run `yarn install` to install all needed dependencies.
-Set up a front-end .env file with the following environment variables, and replace `REACT_APP_STRIPE_API_KEY` with your own key.
+After cloning this respository to your local machine, `cd` into the `front-end` folder and run `yarn install` to install all needed dependencies.<br/>
+Set up a front-end .env file with the following environment variables, and replace the value for `REACT_APP_STRIPE_API_KEY` with your own key.<br/>
     ```
     REACT_APP_LOCAL_URL='http://localhost:8888'
     REACT_APP_LOCAL_CLIENT='http://localhost:3000'
     REACT_APP_STRIPE_API_KEY='your-key-here'
-    ```
-We used PORT 8888 for our server and PORT 3000 for our app, but you can replace these with whatever you wish.
+    ```<br/>
+We used PORT 8888 for our server and PORT 3000 for our app, but you can replace these with whatever you wish.<br/>
 To start the development app, run the command `yarn start`.
 
 
 ### Back-End Setup
-In a separate terminal, `cd` into the `back-end` folder and run `yarn install` to install all needed dependencies.
-Set up a back-end .env file with the following environment variables, and replace `STRIPE_TEST_KEY` with your own key.
+In a separate terminal, `cd` into the `back-end` folder and run `yarn install` to install all needed dependencies.<br/>
+Set up a back-end .env file with the following environment variables, and replace the value for `STRIPE_TEST_KEY` with your own key.<br/>
     ```
     LOCAL_URL='localhost:8888'
     LOCAL_CLIENT='localhost:3000'
     STRIPE_TEST_KEY='your-key-here'
-    ```
+    ```<br/>
 To run the development server, run the command `yarn server`.
 
 
