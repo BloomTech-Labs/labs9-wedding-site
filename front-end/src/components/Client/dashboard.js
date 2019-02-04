@@ -230,7 +230,7 @@ class Dashboard extends Component {
                 <div className="invite-link-text">
                     Copy this link and share it with your friends and family 
                     <Link to={`/${localStorage.getItem('weddingID')}/invite`}>
-    {`https://www.vBeloved.com/${localStorage.getItem('weddingID')}/invite`}
+    {`https://www.vbeloved.com/${localStorage.getItem('weddingID')}/invite`}
                     </Link>
                 </div>
             </Card>
