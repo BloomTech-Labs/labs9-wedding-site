@@ -17,7 +17,7 @@ import GuestList from "../Client/guestList";
 import Rsvp from "../Client/rsvp/clientRsvp";
 import Dashboard from "../Client/dashboard";
 import UserAccess from "../UserAccess/UserAccess.js";
-import PublicInvite from "../Client/PublicInvite";
+import PublicInvite from "../Client/PublicInvites/PublicInvite";
 
 //misc. components go here
 import TopBar from '../Navigation/topBar'; //NavBar

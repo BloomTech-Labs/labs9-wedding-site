@@ -1,0 +1,30 @@
+.invite-cont{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top:12%;
+    background: url(doors.jpg);
+    background-size: 100% 100%;
+}
+
+.invite-main{
+    position: absolute;
+    top:50%;
+    display: flex;
+    /* right:14.5%; */
+    right:-25%;
+}
+
+.list{
+    position: absolute;
+    top:40%;
+    left:1%;
+}
+
+.countdown{
+    position: absolute;
+    top:10%;
+    left:40%;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
