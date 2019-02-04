@@ -11,7 +11,7 @@ const cookieSession = require('cookie-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('../config/keys');
 const multer = require('multer');
-const stripe = require("stripe")("sk_test_G5mHqEs7tUDoo9REXKg7cwu6");
+const stripe = require("stripe")(process.env.STRIPE_TEST_KEY);
 server.use(require("body-parser").text());
 const fs = require('fs');
 const parse = require('csv-parse');
