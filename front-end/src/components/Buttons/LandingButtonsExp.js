@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./LandingButtonsExp.css";
 
@@ -8,7 +8,7 @@ const LandingButtonsExp = () => {
 			<nav>
 				<ul>
 					<div className="moving">
-						<li class="">
+						<li>
 							<Link to="/">Home</Link>
 						</li>
 						<li>
