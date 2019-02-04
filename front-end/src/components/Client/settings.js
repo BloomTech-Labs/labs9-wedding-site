@@ -8,7 +8,7 @@ import Sidebar from './clientNav';
 import './settings.css';
 import axios from 'axios';
 import Icon from 'antd/lib/icon';
-
+import DesignChoice from './DesignChoice';
 
 class Settings extends React.Component {
     constructor() {
@@ -23,7 +23,8 @@ class Settings extends React.Component {
             email: "",
             phone: "",
             address: "",
-            edit: false
+            edit: false,
+            design_template: ''
         };
     }
 
@@ -31,7 +32,7 @@ class Settings extends React.Component {
         this.setState({ [name]: event.target.checked });
     };
 
-    handleInputChange = event => {
+    inputHandler = event => {
         this.setState({ [event.target.name]: event.target.value })
     }
 
@@ -54,8 +55,9 @@ class Settings extends React.Component {
             phone, 
             email
             } = this.props.userData;
+        let design_template = this.state.design_template;
     
-            let userinfo = {first_name, last_name, p_firstname, p_lastname, event_date, event_address, phone, email, vbtoken, wedding_id}
+            let userinfo = {first_name, last_name, p_firstname, p_lastname, event_date, event_address, phone, email, vbtoken, wedding_id, design_template}
 
         
             axios.put(`${process.env.REACT_APP_LOCAL_URL}/update`, userinfo)
@@ -63,7 +65,8 @@ class Settings extends React.Component {
                 console.log(res)
                 this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date, res.data.couple[0].email, res.data.couple[0].phone)
                 this.setState({
-                   edit: false 
+                   edit: false,
+                   design_template: res.data.wedding_data.design_template 
                 })
             })
             .catch(err => console.log(err))
@@ -83,7 +86,8 @@ class Settings extends React.Component {
                 this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date, res.data.couple[0].email, res.data.couple[0].phone)
                 this.props.login()
                 this.setState({
-                   userLoaded: true 
+                   userLoaded: true,
+                   design_template: res.data.wedding_data.design_template 
                 })
             })
             .catch(err => console.log(err))
@@ -222,6 +226,22 @@ class Settings extends React.Component {
                                     value={this.props.userData.event_address}
                                     name="event_address"
                                     id="standard-name"/> 
+                                }
+                            </div>
+                        </div>
+                        <div className="acct-spec invite">
+                            <div className="acct-topic">Invitation Template:</div>
+                            <div className="acct-spec-info invite">
+                            {!this.state.edit ?
+                                    <div className="choice">
+                                    <div className="choice-name">Design {this.state.design_template}</div>
+                                    <div className="choice-img">
+                                    {this.state.design_template}
+                                    </div>
+                                </div> :
+                                    <DesignChoice 
+                                        inputHandler={this.inputHandler}
+                                        design_template={this.state.design_template} /> 
                                 }
                             </div>
                         </div>
