@@ -154,7 +154,7 @@ class GuestList extends Component {
                         <TableCell align="right">{guest.first_name}</TableCell>
                         <TableCell align="right">{guest.last_name}</TableCell>
                         <TableCell align="right">{guest.email}</TableCell>
-                        <TableCell align="right">{}</TableCell>
+                        <TableCell align="right">{guest.attending}</TableCell>
                         <TableCell align="right">{guest.address}</TableCell>
                         <TableCell align="right">{guest.related_spouse}</TableCell>
                     </TableRow>
