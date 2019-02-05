@@ -63,16 +63,19 @@ class Design extends React.Component {
 		return (
 			<div id="#designs">
 				<div className="design-cont">
-					<div className="des-template">
-						<img onClick={()=> this.openLightbox()(photos)} className="img-temp1" src="https://cdn.freshdesignweb.com/wp-content/uploads/glanz-html-wedding-template.jpg" alt="invite-template"/>
+
+					<div className="template-cont">
+						<div className="des-template 1">
+							<img onClick={()=> this.openLightbox()(photos)} className="img-temp1" src="https://cdn.freshdesignweb.com/wp-content/uploads/glanz-html-wedding-template.jpg" alt="invite-template"/>
+						</div>
+						<div className="des-template 2">
+							<img onClick={()=> this.openLightbox()(photos)} className="img-temp2" src="https://cdn.freshdesignweb.com/wp-content/uploads/belle-responsive-wedding-template.jpg" alt="invite-template"/>
+						</div>
+						<div className="des-template 3">
+							<img onClick={()=> this.openLightbox()(photos)} className="img-temp3" src="https://cdn.freshdesignweb.com/wp-content/uploads/site/newlyweds-html-wedding-template.jpg" alt="invite-template"/>
+						</div>
 					</div>
-					<div className="des-template">
-						<img onClick={this.openLightbox} className="img-temp2" src="https://cdn.freshdesignweb.com/wp-content/uploads/belle-responsive-wedding-template.jpg" alt="invite-template"/>
-					</div>
-					<div className="des-template">
-						<img onClick={this.openLightbox} className="img-temp3" src="https://cdn.freshdesignweb.com/wp-content/uploads/site/newlyweds-html-wedding-template.jpg" alt="invite-template"/>
-					</div>
-					
+
 				</div>
 				<Lightbox className="lightboxff"
 						images={photos}
