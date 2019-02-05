@@ -8,6 +8,9 @@ import Details from "./details";
 import Paper from "./weddingInfo";
 import CountdownComponent from "./countdown";
 import TimePlace from "./timePlace";
+import Bride from './bride';
+import Groom from './groom';
+import heartheader from './heartheader.jpg';
 
 const cookies = new Cookies();
 
@@ -97,10 +100,18 @@ class PublicInvite extends Component {
             <Details />
           </div>
           <div className="location">
-            <span> Copan Ruinas, Honduras </span>
+            <span> Happy Couple </span>
+            <img src={heartheader} className='heart-header' height='70px' width='700px'/>
           </div>
-          <div className="countdown">
+          {/* <div className="countdown">
             <CountdownComponent />
+          </div> */}
+          <div className='wedding-party'>
+          <Bride className='bride'/>
+          <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIBAcOkIeGVef1xXUghK2KLTwZT-E3XpiE9c1sIkRaAF4sOAiq' height='50' width='50' className='hide'/>
+          <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIBAcOkIeGVef1xXUghK2KLTwZT-E3XpiE9c1sIkRaAF4sOAiq' height='140' width='140'/>
+          <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIBAcOkIeGVef1xXUghK2KLTwZT-E3XpiE9c1sIkRaAF4sOAiq' height='50' width='50' className='hide'/>
+          <Groom className='groom' /> 
           </div>
           {/* <div className="wedding-info">
               <Paper />
