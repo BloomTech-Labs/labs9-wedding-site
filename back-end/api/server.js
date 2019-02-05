@@ -189,13 +189,13 @@ server.post('/loaduser', async (req, res) => {
                 .where({ wedding_id: user.wedding_id, guest: true }).groupBy('attending');
 
             rsvpResults = rsvpResults.reduce( (rsvps, guest) => {
-                console.log(rsvps, guest)
-                // rsvps[guest.attending] = rsvps[guest.attending] ? rsvps[guest.attending] + 1 : 1
-                if (rsvps[guest.attending]) {
-                    rsvps[guest.attending] = 1
-                } else {
-                    rsvps[guest.attending]++
-                }
+                // console.log(rsvps, guest)
+                rsvps[guest.attending] = rsvps[guest.attending] ? rsvps[guest.attending] + 1 : 1
+                // if (rsvps[guest.attending]) {
+                //     rsvps[guest.attending] = 1
+                // } else {
+                //     rsvps[guest.attending]++
+                // }
                 return rsvps
             }, {})
             console.log('rsvp results vbtoken', rsvpResults)
