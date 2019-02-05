@@ -203,11 +203,14 @@ class MainContent extends Component {
 						/>
 						<Route
 							path="/vb/rsvp"
-                            render={props => <Rsvp 
-                                                {...props} 
-                                                login={this.login} />}
-                                                setUser={this.setUser}
-                                                couple={this.state.couple}
+                            render={props => (
+                                <Rsvp 
+                                    {...props} 
+                                    login={this.login}
+                                    setUser={this.setUser}
+                                    couple={this.state.couple}
+                                />
+                            )}
 						/>
 						<Route
                             path="/vb/billing"
