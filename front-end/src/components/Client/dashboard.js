@@ -264,25 +264,25 @@ class Dashboard extends Component {
                 <Card className="cardTopRight">
                     RSVP
                     <Pie data={{
-                labels: [
-                    'Attending',
-                    'Not Attending',
-                    'Maybe'
-                ],
-                datasets: [{
-                    data: [this.state.attending, this.state.notAttending, this.state.maybe],
-                    backgroundColor: [
-                        '#FF6384',
-                        '#36A2EB',
-                        '#FFCE56'
-                    ],
-                    hoverBackgroundColor: [
-                        '#FF6384',
-                        '#36A2EB',
-                        '#FFCE56'
-                    ]
-                }]
-            }}
+                            labels: [
+                                'Attending',
+                                'Not Attending',
+                                'Maybe'
+                            ],
+                            datasets: [{
+                                data: [this.state.attending, this.state.notAttending, this.state.maybe],
+                                backgroundColor: [
+                                    '#FF6384',
+                                    '#36A2EB',
+                                    '#FFCE56'
+                                ],
+                                hoverBackgroundColor: [
+                                    '#FF6384',
+                                    '#36A2EB',
+                                    '#FFCE56'
+                                ]
+                            }]
+                        }}
                         style={styles.pieChart}
                         options={{ maintainAspectRatio: false }}
                     />
