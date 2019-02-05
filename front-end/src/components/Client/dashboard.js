@@ -68,26 +68,6 @@ class Dashboard extends Component {
             notAttending: 0,
             maybe: 0,
         }
-        this.chartData = {
-            labels: [
-                'Attending',
-                'Not Attending',
-                'Maybe'
-            ],
-            datasets: [{
-                data: [this.state.attending, this.state.notAttending, this.state.maybe],
-                backgroundColor: [
-                    '#FF6384',
-                    '#36A2EB',
-                    '#FFCE56'
-                ],
-                hoverBackgroundColor: [
-                    '#FF6384',
-                    '#36A2EB',
-                    '#FFCE56'
-                ]
-            }]
-        }
     }
 
     inputHandler = e => {
