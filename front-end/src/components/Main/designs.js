@@ -81,12 +81,14 @@ class Design extends React.Component {
 					</div>
 
 					<div className="designs-page-txt">
-						<div className="designs-call">
-							<span className="">Made perfect for you, by you 
-							Choose a template for your site.</span>
-						</div>
-						<div className="auth-btn">
-							Sign Up Now
+						<div className="cto-cont">
+							<div className="designs-call">
+								<span className="font30b">Made perfect for you, by you.</span>  <br/> 
+								Choose a template for your site!
+							</div>
+							<div className="auth-btn design">
+								Sign Up Now
+							</div>
 						</div>
 					</div>
 
