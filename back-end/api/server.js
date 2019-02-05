@@ -735,13 +735,27 @@ server.post('/upload', upload.single('file'), (req, res) => {
 });
 
 
-// STRIPE PAYMENT ENDPOINT
-server.post("/charge", async (req, res) => {
+// STRIPE PAYMENT ENDPOINTS
+server.post("/chargeforever", async (req, res) => {
     try {
         let { status } = await stripe.charges.create({
-            amount: 1000,
+            amount: 999,
             currency: "usd",
-            description: "An example charge",
+            description: "The forever package",
+            source: req.body
+        });
+        res.json({ status });
+    } catch (err) {
+        res.status(500).end();
+    }
+});
+
+server.post("/chargeeternity", async (req, res) => {
+    try {
+        let { status } = await stripe.charges.create({
+            amount: 1999,
+            currency: "usd",
+            description: "The eternity package",
             source: req.body
         });
         res.json({ status });

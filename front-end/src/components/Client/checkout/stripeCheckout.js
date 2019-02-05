@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import {  injectStripe,
+          CardElement,
           CardNumberElement,
           CardExpiryElement,
           CardCVCElement,
           PostalCodeElement} from 'react-stripe-elements';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import "./cardSection.css";
 
 
@@ -16,11 +19,27 @@ class CheckoutForm extends Component {
     };
   }
 
-  submit = async (e) => {
+  submitForeverPackage = async (e) => {
     e.preventDefault();
     let customerName = `${this.props.user.first_name} ${this.props.user.last_name}`;
     let {token} = await this.props.stripe.createToken({name: customerName});
-    let response = await fetch(`${process.env.REACT_APP_LOCAL_URL}/charge`, {
+    let response = await fetch(`${process.env.REACT_APP_LOCAL_URL}/chargeforever`, {
+      method: "POST",
+      headers: {"Content-Type": "text/plain"},
+      body: token.id
+    });
+  
+    if (response.ok) {
+      console.log("Purchase Complete!")
+      this.setState({complete: true});
+    }
+  }
+
+  submitEternityPackage = async (e) => {
+    e.preventDefault();
+    let customerName = `${this.props.user.first_name} ${this.props.user.last_name}`;
+    let {token} = await this.props.stripe.createToken({name: customerName});
+    let response = await fetch(`${process.env.REACT_APP_LOCAL_URL}/chargeeternity`, {
       method: "POST",
       headers: {"Content-Type": "text/plain"},
       body: token.id
@@ -35,14 +54,35 @@ class CheckoutForm extends Component {
   render() {
     if (this.state.complete) return <h2>Your Payment Has Been Processed!</h2>;
     return (
+      // <div className="checkout">
+      //   <form onSubmit={this.submit}>
+      //     <label>Card number<CardNumberElement /></label>
+      //     <label>Expiration date<CardExpiryElement /></label>
+      //     <label>CVC<CardCVCElement /></label>
+      //     <label>Zip code<PostalCodeElement /></label>
+      //     <button onClick={this.submit}>Complete Purchase</button>
+      //   </form>
+      // </div>
       <div className="checkout">
-        <form onSubmit={this.submit}>
-          <label>Card number<CardNumberElement /></label>
-          <label>Expiration date<CardExpiryElement /></label>
-          <label>CVC<CardCVCElement /></label>
-          <label>Zip code<PostalCodeElement /></label>
-          <button onClick={this.submit}>Complete Purchase</button>
-        </form>
+        <CardElement />
+        <div className="pricing-packages">
+          <Card className="package">
+            <CardContent>
+            <h4>The Forever Package | $9.99</h4>
+            <p>30-person Guest List</p>
+            <p>Unlimited Registries</p>
+            <button onClick={this.submitForeverPackage}>Buy Forever Package</button>
+            </CardContent>
+          </Card>
+          <Card className="package">
+            <CardContent>
+            <h4>The Eternity Package | $19.99</h4>
+            <p>Unlimited Guest List</p>
+            <p>Unlimited Registries</p>
+            <button onClick={this.submitEternityPackage}>Buy Eternity Package</button>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     );
   }

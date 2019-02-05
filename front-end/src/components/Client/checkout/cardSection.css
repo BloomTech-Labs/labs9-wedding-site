@@ -67,3 +67,19 @@
     -webkit-transition: all 150ms ease;
     transition: all 150ms ease;
   }
+
+  .checkout .pricing-packages {
+    display: flex;
+  }
+
+  .checkout .pricing-packages .package{
+    width: 350px;
+    height:600px;
+  }
+
+  @media (max-width: 800px) {
+    .checkout .pricing-packages {
+      display: flex;
+      flex-direction: column;
+    }
+  }

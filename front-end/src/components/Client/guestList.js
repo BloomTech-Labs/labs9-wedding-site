@@ -106,7 +106,7 @@ class GuestList extends Component {
 
     componentDidMount() {
 
-        
+        console.log("GUESTS", this.state.guests);
         let vbtoken = localStorage.getItem('vbtoken');
         let oauth_id = localStorage.getItem('vbtoken');
 
@@ -148,13 +148,13 @@ class GuestList extends Component {
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                {this.props.guests.map(guest => {
+                {this.props.guests.map((guest, index) => {
                     return (
-                    <TableRow key={guest.id}>
+                    <TableRow key={index} className={ index > 5 ? 'blurry-text' : null }>
                         <TableCell align="right">{guest.first_name}</TableCell>
                         <TableCell align="right">{guest.last_name}</TableCell>
                         <TableCell align="right">{guest.email}</TableCell>
-                        <TableCell align="right">{}</TableCell>
+                        <TableCell align="right">{guest.attending}</TableCell>
                         <TableCell align="right">{guest.address}</TableCell>
                         <TableCell align="right">{guest.related_spouse}</TableCell>
                     </TableRow>
