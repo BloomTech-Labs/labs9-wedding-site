@@ -1,5 +1,26 @@
-.design-cont{
+.designs-page-info{
+    position: relative;
+    display: flex;
+}
 
+.designs-page{
+
+}
+
+.designs-page-txt{
+    
+}
+
+.designs-page-hdr{
+    display: flex;
+    justify-content: center;
+    font-family: "Pinyon Script", cursive;
+    color: #23369b;
+    font-size: 60px;
+    font-weight: 600;
+    line-height: 1;
+    text-shadow: 1px 1px 1px beige;
+    margin-bottom: 50px;
 }
 
 .des-template{
@@ -8,6 +29,11 @@
     overflow: hidden;
     justify-content: center;
     cursor: pointer;
+    position: relative;
+}
+
+.des-template > img{
+    width: 100%;
 }
 
 .img-temp1{
@@ -21,15 +47,23 @@
 }
 
 .template-cont{
-    position: relative
+    width: 60%;
+    padding: 2%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.des-template.1{
-
-}
-.des-template.2{
+.des-template.one{
     
 }
-.des-template.3{
-    
+.des-template.two{
+    top: -150px;
+    left: 50px;
+}
+.des-template.three{
+    top: -300px;
+    left: 100px;
 }

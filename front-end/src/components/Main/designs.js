@@ -61,22 +61,38 @@ class Design extends React.Component {
 	}
 	render() {
 		return (
-			<div id="#designs">
-				<div className="design-cont">
+			<div id="#designs" className="designs-page">
+
+					<div className="designs-page-hdr ">
+						Digital Invitations
+					</div>
+					<div className="designs-page-info">
 
 					<div className="template-cont">
-						<div className="des-template 1">
+						<div className="des-template one">
 							<img onClick={()=> this.openLightbox()(photos)} className="img-temp1" src="https://cdn.freshdesignweb.com/wp-content/uploads/glanz-html-wedding-template.jpg" alt="invite-template"/>
 						</div>
-						<div className="des-template 2">
+						<div className="des-template two">
 							<img onClick={()=> this.openLightbox()(photos)} className="img-temp2" src="https://cdn.freshdesignweb.com/wp-content/uploads/belle-responsive-wedding-template.jpg" alt="invite-template"/>
 						</div>
-						<div className="des-template 3">
+						<div className="des-template three">
 							<img onClick={()=> this.openLightbox()(photos)} className="img-temp3" src="https://cdn.freshdesignweb.com/wp-content/uploads/site/newlyweds-html-wedding-template.jpg" alt="invite-template"/>
 						</div>
 					</div>
 
-				</div>
+					<div className="designs-page-txt">
+						<div className="designs-call">
+							<span className="">Made perfect for you, by you 
+							Choose a template for your site.</span>
+						</div>
+						<div className="auth-btn">
+							Sign Up Now
+						</div>
+					</div>
+
+					</div>
+
+				
 				<Lightbox className="lightboxff"
 						images={photos}
 						onClose={this.closeLightbox}
