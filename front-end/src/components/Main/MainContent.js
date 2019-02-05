@@ -11,7 +11,7 @@ import PublicRsvp from "../Client/rsvp/publicRsvp";
 import Auth from "./Auth";
 
 //these are client views after login
-import Payment from "../Client/billing";
+import Billing from "../Client/billing";
 import Settings from "../Client/settings";
 import GuestList from "../Client/guestList";
 import Rsvp from "../Client/rsvp/clientRsvp";
@@ -42,6 +42,8 @@ class MainContent extends Component {
            event_date: '',
            event_address: '',
            couple: [],
+           email: '',
+           phone: '',
            loginbtn: false,
            signupbtn: false,
            registered: false
@@ -81,7 +83,11 @@ class MainContent extends Component {
        localStorage.removeItem('vbtoken')
    }
 
-   setUser = (partner1, partner2, guests, couple, event_address, event_date) => {
+   inputHandler = event => { //handler for the Client settings page
+    this.setState({ [event.target.name]: event.target.value })
+    }
+
+   setUser = (partner1, partner2, guests, couple, event_address, event_date, email, phone) => {
         console.log('guests:', guests)
     this.setState({
            weddingID: partner1.wedding_id,
@@ -92,7 +98,9 @@ class MainContent extends Component {
            guests,
            couple,
            event_address, 
-           event_date
+           event_date,
+           email,
+           phone
         })
     }
 
@@ -171,12 +179,13 @@ class MainContent extends Component {
 							)}
 						/>
 						<Route
-							path="/vb/payment"
-							render={props => <Payment {...props} />}
-						/>
-						<Route
 							path="/vb/settings"
-							render={props => <Settings {...props} />}
+                            render={props => <Settings 
+                                                {...props}
+                                                userData={this.state}
+                                                inputHandler={this.inputHandler}
+                                                login={this.login}
+									            setUser={this.setUser} />}
 						/>
 						<Route
 							path="/vb/guestlist"
@@ -194,11 +203,24 @@ class MainContent extends Component {
 						/>
 						<Route
 							path="/vb/rsvp"
-							render={props => <Rsvp {...props} />}
+                            render={props => <Rsvp 
+                                                {...props} 
+                                                login={this.login} />}
+                                                setUser={this.setUser}
+                                                couple={this.state.couple}
 						/>
-						<Route path="/vb/billing" component={Payment} />
 						<Route
-							path="/:id/invite/:name"
+                            path="/vb/billing"
+                            render={props => (
+                                <Billing
+                                    {...props}
+                                    login={this.login}
+                                    setUser={this.setUser}
+                                />
+                            )}
+                        />
+						<Route
+							path="/:id/invite/"
 							render={props => (
 								<PublicInvite
 									{...props}

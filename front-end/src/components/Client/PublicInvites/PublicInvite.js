@@ -58,9 +58,8 @@ class PublicInvite extends Component {
     this.getWeddingDetails(weddingId);
   }
 
-  getWeddingDetails = wedding_id => {
-    const url = `${process.env.REACT_APP_LOCAL_URL ||
-      "vbeloved.now.sh"}/invite/${wedding_id}`;
+  getWeddingDetails = (wedding_id) => {
+    const url = `${process.env.REACT_APP_LOCAL_URL || 'https://vbeloved.now.sh'}/invite/${wedding_id}`
 
     axios
       .get(url)
@@ -150,10 +149,7 @@ class PublicInvite extends Component {
     if (this.state.weddingDetailsLoaded) {
       return (
         <React.Fragment>
-          <InviteDesign3
-            designTemplate={this.state.design_template}
-            details={this.state}
-          />
+          <InviteDesign3 designTemplate={this.state.design_template-1} details={this.state} />
         </React.Fragment>
       );
     } else {

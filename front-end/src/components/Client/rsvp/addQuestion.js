@@ -6,19 +6,20 @@ import "./clientRsvp.css";
 
 const styles = {
   card: {
-    width: '45%',
+    width: '50%',
     margin: '150px auto 30px',
     padding: '20px'
   },
-  // buttonDiv: {
-  //   marginTop: '30px',
-  //   display: 'flex',
-  //   justifyContent: 'center'
-  // },
-  // button: {
-  //     width: '30%',
-  //     margin: '0 15px'
-  // }
+  buttonDiv: {
+    marginTop: '30px',
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  button: {
+      width: '30%',
+      minWidth: '150px',
+      margin: '15px'
+  }
 };
 
 class addQuestion extends React.Component {
@@ -40,8 +41,8 @@ class addQuestion extends React.Component {
         type="text"
         name="question"/>
           <div style={styles.buttonDiv} className="addQuestionButtons">
-            <Button className="addQuestionButton" variant="outlined" onClick={this.props.addQuestion} style={styles.button}>Add Question</Button>
-            <Button className="addQuestionButton" variant="outlined" onClick={this.props.handleClose} style={styles.button}>Cancel</Button>
+            <Button variant="outlined" onClick={this.props.addQuestion} style={styles.button}>Add Question</Button>
+            <Button variant="outlined" onClick={this.props.handleClose} style={styles.button}>Cancel</Button>
           </div>
           </div>
       </Card>

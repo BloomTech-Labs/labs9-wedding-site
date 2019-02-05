@@ -1,9 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 
 import "./topBarPublic.css";
 
 import ProfilePic from './nav';
-// import LandingPageButtons from './LandingButtons';
 import SignupLogin from '../Buttons/SignupLoginButtons';
 import LandingButtonsExp from '../Buttons/LandingButtonsExp';
 
@@ -16,7 +15,7 @@ const TopBarPublic = (props) => {
           <LandingButtonsExp/>
         </div>
         <div className="centerNavPublic">
-            <h1 className="siteNamePublic">Beloved</h1>
+        <div className="vb-text"><span className="v">v</span>Beloved</div>
         </div>
         <div className="rightNavPublic">
           <SignupLogin loginbtnFunc={props.loginbtnFunc}
