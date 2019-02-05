@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 import Prices from "./Prices";
 // import StickyTop from '../Navigation/topBar';
