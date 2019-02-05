@@ -54,9 +54,6 @@ class Dashboard extends Component {
         super(props);
 
         this.state = {
-            attending: 300,
-            notAttending: 50,
-            maybe: 100,
             modalOpen: false,
             userLoaded: false,
             registryLink: "",
@@ -64,9 +61,9 @@ class Dashboard extends Component {
             registry: [],
             registering: false,
             rsvps: [0, 0, 0],
-            attending: 0,
-            notAttending: 0,
-            maybe: 0,
+            attending: 1,
+            notAttending: 1,
+            maybe: 1,
         }
     }
 
@@ -101,7 +98,7 @@ class Dashboard extends Component {
             .then(res => {
                 console.log(res)
                 localStorage.setItem('vbtoken', oauth_id || vbtoken)
-                // localStorage.setItem('weddingID', res.data.couple[0].wedding_id)
+                localStorage.setItem('weddingID', res.data.couple[0].wedding_id)
                 this.props.login() //toggles the state of the user to loggedIn (in MainContent component)
                 this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date, res.data.couple[0].email, res.data.couple[0].phone);
                 this.props.toggleRegistered();

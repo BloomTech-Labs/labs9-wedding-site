@@ -192,7 +192,6 @@ server.post('/loaduser', async (req, res) => {
                 rsvps[guest.attending] = rsvps[guest.attending] ? rsvps[guest.attending] + 1 : 1
                 return rsvps
             }, {})
-            console.log('rsvp results vbtoken', rsvpResults)
 
             let questions = await db('questions').where({ wedding_id: user.wedding_id })
 
@@ -227,7 +226,10 @@ server.post('/loaduser', async (req, res) => {
             let rsvpResults = await db('user').join('guests', { 'user.id': 'guests.guest_id' })
                 .where({ wedding_id: user.wedding_id, guest: true }).groupBy('attending');
 
-            console.log('guests !user', rsvpResults)
+            rsvpResults = rsvpResults.reduce( (rsvps, guest) => {
+                rsvps[guest.attending] = rsvps[guest.attending] ? rsvps[guest.attending] + 1 : 1
+                return rsvps
+            }, {})
 
             res.status(200).json({
                 couple,
