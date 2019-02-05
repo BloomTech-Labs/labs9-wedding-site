@@ -188,6 +188,16 @@ server.post('/loaduser', async (req, res) => {
             let rsvpResults = await db('user').join('guests', { 'user.id': 'guests.guest_id' })
                 .where({ wedding_id: user.wedding_id, guest: true }).groupBy('attending');
 
+            rsvpResults = rsvpResults.reduce( (rsvps, guest) => {
+                console.log(rsvps, guest)
+                // rsvps[guest.attending] = rsvps[guest.attending] ? rsvps[guest.attending] + 1 : 1
+                if (rsvps[guest.attending]) {
+                    rsvps[guest.attending] = 1
+                } else {
+                    rsvps[guest.attending]++
+                }
+                return rsvps
+            }, {})
             console.log('rsvp results vbtoken', rsvpResults)
 
             let questions = await db('questions').where({ wedding_id: user.wedding_id })
@@ -446,7 +456,6 @@ server.get('/dummyguests', async (req, res) => {
         })
         console.log('guestID:', guestID)
 
-        let guests = await db.table('user').join('guests', { 'users.id': 'guests.user_id' }).where({ wedding_id: 3 })
 
         res.status(200).json(guests)
     }
@@ -469,7 +478,8 @@ server.post('/addguest', async (req, res) => {
         email,
         address,
         wedding_id,
-        related_spouse
+        related_spouse,
+        attending
     } = req.body
 
     let attendArr = ['Not Attending', 'Attending', 'TBD']
@@ -489,7 +499,8 @@ server.post('/addguest', async (req, res) => {
         let guestID = await db.table('guests')
             .insert({
                 guest_id: userID,
-                related_spouse
+                related_spouse,
+                attending
             })
 
 
@@ -501,7 +512,7 @@ server.post('/addguest', async (req, res) => {
 
     catch (err) {
         console.log(err)
-        res.status(500).json({ message: 'An error occured while retrieving the data.' })
+        res.status(500).json({ err, message: 'An error occured while retrieving the data.' })
 
     }
 
@@ -536,6 +547,7 @@ server.post('/adddummyguest', async (req, res) => {
                 related_spouse: couple[coupleIndex].first_name,
                 attending: attendArr[attendIndex]
             })
+        
         let guests = await db('user').join('guests', { 'user.id': 'guests.guest_id' }).where({ wedding_id, guest: true })
 
         res.status(200).json(guests)
@@ -543,7 +555,7 @@ server.post('/adddummyguest', async (req, res) => {
 
     catch (err) {
         console.log(err)
-        res.status(500).json({ message: 'An error occured while retrieving the data.' })
+        res.status(500).json({ err, message: 'An error occured while retrieving the data.' })
 
     }
 

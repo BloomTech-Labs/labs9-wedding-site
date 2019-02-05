@@ -62,7 +62,8 @@ class Dashboard extends Component {
             registryLink: "",
             displayName: "",
             registry: [],
-            registering: false
+            registering: false,
+            rsvps: [0, 0, 0]
         }
     
         this.chartData = {
@@ -124,6 +125,10 @@ class Dashboard extends Component {
                 this.props.toggleRegistered();
                 
                 this.setState({
+                        rsvps: res.data.rsvpResults,
+                        attending: res.data.rsvpResults['Attending'],
+                        notAttending: res.data.rsvpResults['Not Attending'], 
+                        maybe: res.data.rsvpResults['Maybe'],
                         userLoaded: true 
                      })   
                 
