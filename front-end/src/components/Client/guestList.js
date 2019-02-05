@@ -21,7 +21,7 @@ import Sidebar from './clientNav';
 // define styles for material-ui components
 const styles = {
     paper: {
-      margin: '30px 0 10px',
+      margin: '30px 0',
     },
     deleteButton: {
         float: 'right',
@@ -48,9 +48,7 @@ class GuestList extends Component {
         this.setState({
             [e.target.name]: e.target.value
         })
-
         
-
     }
 
     toggleInputting = () => {
@@ -116,7 +114,7 @@ class GuestList extends Component {
             axios.post(`${process.env.REACT_APP_LOCAL_URL}/loaduser`, {oauth_id, vbtoken})
             .then(res => {
                 console.log(res)
-                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date)
+                this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date, res.data.couple[0].email, res.data.couple[0].phone)
                 this.props.login()
                 this.setState({
                    userLoaded: true 

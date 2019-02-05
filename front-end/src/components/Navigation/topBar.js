@@ -46,7 +46,7 @@ class TopBar extends Component {
           <LandingButtonsExp/>
         </div>
         <div className="centerNav">
-            <h1 className="siteName">Beloved</h1>
+        <div className="vb-text"><span className="v">v</span>Beloved</div>
         </div>
         <div className="rightNav">
           <li className="logout">
@@ -55,10 +55,12 @@ class TopBar extends Component {
           <Menu className="hamburgerMenu" onClick={this.handletoggle} />
           <div className="dropDownMenu"
             style={this.state.menuOpen ? {display: 'block'} : {display: 'none'}} >
-            <SignupLogin loginbtnFunc={this.props.loginbtnFunc}
-            signupbtnFunc={this.props.signupbtnFunc}
-            loggedIn={this.props.loggedIn} 
-            logout={this.props.logout} 
+            <SignupLogin
+              loginbtnFunc={this.props.loginbtnFunc}
+              signupbtnFunc={this.props.signupbtnFunc}
+              loggedIn={this.props.loggedIn} 
+              logout={this.props.logout} 
+              handletoggle={this.handletoggle}
             />
           </div>
         </div>
