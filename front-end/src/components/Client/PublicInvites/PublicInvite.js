@@ -103,15 +103,22 @@ class PublicInvite extends Component {
             <span> Happy Couple </span>
             <img src={heartheader} className='heart-header' height='70px' width='700px'/>
           </div>
-          {/* <div className="countdown">
+          <div className="countdown">
+            <span className='big-day'>The Big Day</span>
             <CountdownComponent />
-          </div> */}
+          </div>
           <div className='wedding-party'>
+          <div> <span className='jeska'>Jeska</span> </div>
+          <div> <span className='jeska-descrip'> Lorem ipsum dolor sit amet, <br/> consectetur elit, sed do
+              eiusmo <br/> tempor incididunt ut labore <br/> et dolore magna aliqua. </span> </div>
           <Bride className='bride'/>
           <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIBAcOkIeGVef1xXUghK2KLTwZT-E3XpiE9c1sIkRaAF4sOAiq' height='50' width='50' className='hide'/>
           <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIBAcOkIeGVef1xXUghK2KLTwZT-E3XpiE9c1sIkRaAF4sOAiq' height='140' width='140'/>
           <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIBAcOkIeGVef1xXUghK2KLTwZT-E3XpiE9c1sIkRaAF4sOAiq' height='50' width='50' className='hide'/>
           <Groom className='groom' /> 
+          <div> <span className='andy'>Andy</span></div>
+          <div> <span className='andy-descrip'> Lorem ipsum dolor sit amet, <br/> consectetur elit, sed do
+              eiusmo <br/> tempor incididunt ut labore <br/> et dolore magna aliqua. </span> </div>
           </div>
           {/* <div className="wedding-info">
               <Paper />

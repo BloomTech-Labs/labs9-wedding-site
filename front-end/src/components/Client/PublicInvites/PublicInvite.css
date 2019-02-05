@@ -28,13 +28,24 @@
 }
 
 .countdown{
+    display: 'flex';
+    flex-direction: column;
     position: relative;
-    top:-15%;
-    left:50%;
-    font-size: 75px;
+    top:40%;
+    left:65%;
+    font-size: 55px;
     font-weight: bold;
     color:#d0d2d1;
     font-family: 'Dancing Script', cursive;
+}
+
+.big-day{
+    position: absolute;
+    display: flex;
+    font-size:75px;
+    top:-205%;
+    left:-5%;
+    padding-bottom: 2%;
 }
 
 .part-two{
@@ -151,4 +162,39 @@ position: relative;
     top:110%;
     justify-content: center;
     left:-7%;
+}
+
+.jeska{
+    position: absolute;
+    left:-15%;
+    top:0%;
+    color:#d0d2d1;
+    font-family: 'Dancing Script', cursive;
+    font-size: 60px;
+}
+
+.jeska-descrip{
+    position: absolute;
+    left:-40%;
+    top:30%;
+    color:#d0d2d1;
+    font-family: 'Dancing Script', cursive;
+    font-size: 30px;
+}
+.andy{
+    position: absolute;
+    right:-15%;
+    top:0%;
+    color:#d0d2d1;
+    font-family: 'Dancing Script', cursive;
+    font-size: 60px;
+}
+
+.andy-descrip{
+    position: absolute;
+    right:-43%;
+    top:30%;
+    color:#d0d2d1;
+    font-family: 'Dancing Script', cursive;
+    font-size: 30px;
 }
