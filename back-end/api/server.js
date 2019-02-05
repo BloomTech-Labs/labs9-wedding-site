@@ -186,7 +186,7 @@ server.post('/loaduser', async (req, res) => {
 
             // gets rsvp results 
             let rsvpResults = await db('user').join('guests', { 'user.id': 'guests.guest_id' })
-                .where({ wedding_id: user.wedding_id, guest: true }).groupBy('attending');
+                .where({ wedding_id: user.wedding_id, guest: true })//.groupBy('attending');
 
             rsvpResults = rsvpResults.reduce( (rsvps, guest) => {
                 rsvps[guest.attending] = rsvps[guest.attending] ? rsvps[guest.attending] + 1 : 1
@@ -224,7 +224,7 @@ server.post('/loaduser', async (req, res) => {
 
             // gets rsvp results 
             let rsvpResults = await db('user').join('guests', { 'user.id': 'guests.guest_id' })
-                .where({ wedding_id: user.wedding_id, guest: true }).groupBy('attending');
+                .where({ wedding_id: user.wedding_id, guest: true })//.groupBy('attending');
 
             rsvpResults = rsvpResults.reduce( (rsvps, guest) => {
                 rsvps[guest.attending] = rsvps[guest.attending] ? rsvps[guest.attending] + 1 : 1
