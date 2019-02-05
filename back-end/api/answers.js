@@ -34,7 +34,7 @@ const addAnswers = async (req, res) => {
                 console.log('userObj', userObj)
                 
                 const newUserId = await db('user').insert(userObj)
-                userObj.id = newUserId
+                userObj.id = newUserId[0]
                 console.log('newUser', newUserId)
 
                 guestObj["guest_id"] = newUserId;
@@ -44,10 +44,10 @@ const addAnswers = async (req, res) => {
                 console.log('new guest table id', newGuestId)
 
                 // overwrite user obj with new newUser
-                // user = Object.assign({}, userObj,
-                //     { id: newUserId[0] }
-                // )
-                // console.log('new user', user)
+                user = Object.assign({}, userObj,
+                    { id: newUserId[0] }
+                )
+                console.log('new user', user)
             } 
             catch (error) {
                 console.log(error)
