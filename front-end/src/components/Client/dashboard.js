@@ -110,9 +110,7 @@ class Dashboard extends Component {
         const vbtoken = localStorage.getItem('vbtoken'); //"VB Token"; this is a token created in the Passport redirect function, and set in a cookie in the Axios response below. Purpose here is to check if the user is still logged in(expires in 10m)
         const oauth_id = params.get("vbTok"); //Hashed OAuth ID set in the query section of the Passport redirect URL. 
         const userExists = Number(params.get("vbEx")); // Boolean set in the query section of the Passport redirect URL that determines if the user exists or not.
-        console.log('vb', vbtoken)
-        console.log('oatuh', oauth_id)
-        console.log('', userExists)
+        
         if(this.props.registered || userExists || vbtoken){
             axios.post(`${serverURL}/loaduser`, {oauth_id, vbtoken})
             .then(res => {
