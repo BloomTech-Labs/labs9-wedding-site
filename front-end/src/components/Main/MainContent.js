@@ -11,13 +11,13 @@ import PublicRsvp from "../Client/rsvp/publicRsvp";
 import Auth from "./Auth";
 
 //these are client views after login
-import Payment from "../Client/billing";
+import Billing from "../Client/billing";
 import Settings from "../Client/settings";
 import GuestList from "../Client/guestList";
 import Rsvp from "../Client/rsvp/clientRsvp";
 import Dashboard from "../Client/dashboard";
 import UserAccess from "../UserAccess/UserAccess.js";
-import PublicInvite from "../Client/PublicInvite";
+import PublicInvite from "../Client/PublicInvites/PublicInvite";
 
 //misc. components go here
 import TopBar from '../Navigation/topBar'; //NavBar
@@ -179,12 +179,6 @@ class MainContent extends Component {
 							)}
 						/>
 						<Route
-							path="/vb/payment"
-                            render={props => <Payment {...props}
-                                                      login={this.login}
-                                                      setUser={this.setUser} />}
-						/>
-						<Route
 							path="/vb/settings"
                             render={props => <Settings 
                                                 {...props}
@@ -211,12 +205,22 @@ class MainContent extends Component {
 							path="/vb/rsvp"
                             render={props => <Rsvp 
                                                 {...props} 
-                                                login={this.login}
-                                                setUser={this.setUser} />}
+                                                login={this.login} />}
+                                                setUser={this.setUser}
+                                                couple={this.state.couple}
 						/>
-						<Route path="/vb/billing" component={Payment} />
 						<Route
-							path="/:id/invite/:name"
+                            path="/vb/billing"
+                            render={props => (
+                                <Billing
+                                    {...props}
+                                    login={this.login}
+                                    setUser={this.setUser}
+                                />
+                            )}
+                        />
+						<Route
+							path="/:id/invite/"
 							render={props => (
 								<PublicInvite
 									{...props}

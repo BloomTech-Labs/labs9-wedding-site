@@ -11,7 +11,7 @@ const cookieSession = require('cookie-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('../config/keys');
 const multer = require('multer');
-const stripe = require("stripe")("sk_test_QBcc8So0WjMMIznAloTV3kdv");
+const stripe = require("stripe")(process.env.STRIPE_TEST_KEY);
 server.use(require("body-parser").text());
 const fs = require('fs');
 const parse = require('csv-parse');
@@ -196,7 +196,7 @@ server.post('/loaduser', async (req, res) => {
         
         else if(!user){
             
-            console.log('Nouser:', oauth_id)
+            
             const wedding_id = await db.table('weddings').insert({ event_date, event_address, design_template });
 
             const user1 = await db('user').insert({ first_name, last_name, wedding_id }) //email must be added in OAuth
@@ -565,26 +565,41 @@ server.delete('/users/:id', (req, res) => {
 
 
 
+
 //A FUNCTION TO POST QUESTIONS::LINE 360
-server.post('/questions', (req, res) => {
+server.post('/questions', async (req, res) => {
     let { questions } = req.body;
 
-    questions.forEach(qData => {
-        db.table('questions').where({question: qData.question, wedding_id: qData.wedding_id})
-        .then(res => {
-            console.log("DBQuery",res)
+    async function asyncForEach(questions, callback) {
+        for (let index = 0; index < questions.length; index++) {
+          await callback(questions[index], index, questions);
+        }
+      }
+    
+    async function asyncQuestions(currIndex, index, array) {
+       try {
+        const res = await db.table('questions').where({question: currIndex.question, wedding_id: currIndex.wedding_id})
+        console.log("DBQuery",res)
             if(!res.length){
                 console.log('NoRes')
-                db.table('questions').insert(qData).then(res =>console.log(res)).catch(err => console.log(err))
+                try {
+                const successQuestion = await db.table('questions').insert(currIndex)
+                console.log(successQuestion)
+                }
+                catch (err) {
+                    console.log(err)
+                }
+               
             }
             else {
                 console.log('ResExists')
             }
-
-            })
-            .catch(err => { console.log(err) })
-    })
-    
+       } 
+        catch (err) {
+            console.log(err)
+        }
+    }
+    const response = await asyncForEach(questions, asyncQuestions);
     res.status(200).json({message: 'Data Posted Successfully.'})
 })
 
@@ -717,55 +732,24 @@ server.post('/upload', upload.single('file'), (req, res) => {
 
         res.status(200).json({ message: "CSV successfully posted" });
     }
-})
-
-
-stripe.charges.retrieve("ch_1DswKX2eZvKYlo2CYqqd3tgH", {
-    api_key: "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
 });
 
 
-// STRIPE STATEMENT DESCRIPTOR
-server.post("/vb/billing", async (req, res) => {
-    console.log(req.body);
+// STRIPE PAYMENT ENDPOINT
+server.post("/charge", async (req, res) => {
     try {
         let { status } = await stripe.charges.create({
-            amount: 2000,
+            amount: 1000,
             currency: "usd",
             description: "An example charge",
-            source: 'tok_visa'
+            source: req.body
         });
         res.json({ status });
     } catch (err) {
-        console.log(err);
         res.status(500).end();
     }
 });
 
-// const token = request.body.stripeToken; // Using Express
-
-// const charge = stripe.charges.create({
-//   amount: 999,
-//   currency: 'usd',
-//   description: 'Example charge',
-//   source: token,
-// });
-
-// stripe.charges.create({
-//     amount: 2000,
-//     currency: "usd",
-//     source:"tok_visa",
-//     description:"Test charge for wedding site"
-// },  function(err, charge){
-//     // asynchronously called 
-// });
-
-// stripe.charges.retrieve(
-//     "ch_1DswKX2eZvKYlo2CYqqd3tgH",
-//     function(err, charge) {
-//     // asynchronously called
-//   }
-// );
 
 
 server.use('/answer', require('./answers'))

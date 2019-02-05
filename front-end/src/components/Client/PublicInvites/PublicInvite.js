@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import './PublicInvite.css';
-import { InviteDesign3 } from '../InviteDesigns'
+import InviteDesign3  from './InviteDesigns/InviteDesign3';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
+import Dialog from './emailHere';
+import Details from './details';
+import Paper from './weddingInfo';
+import CountdownComponent from './countdown';
+import TimePlace from './timePlace';
 
 const cookies = new Cookies()
 
@@ -53,7 +58,7 @@ class PublicInvite extends Component {
   }
 
   getWeddingDetails = (wedding_id) => {
-    const url = `${process.env.REACT_APP_LOCAL_URL || 'vbeloved.now.sh'}/invite/${wedding_id}`
+    const url = `${process.env.REACT_APP_LOCAL_URL || 'https://vbeloved.now.sh'}/invite/${wedding_id}`
 
     axios.get(url)
       .then(res => {
@@ -73,11 +78,30 @@ class PublicInvite extends Component {
   }
 
   render() {
+    return (
+      <div className="invite-cont">
+            <div className="invite-main">
+              <Dialog />
+            </div>
+            <div className="list">
+              <Details />
+            </div>
+            <div className="wedding-info">
+              <Paper />
+            </div>
+            <div className='countdown'>
+              <CountdownComponent />
+            </div>
+            <div>
+              <TimePlace />
+            </div>
+      </div>
+    );
 
     if (this.state.weddingDetailsLoaded) {
       return (
         <React.Fragment>
-          <InviteDesign3 designTemplate={this.state.design_template} details={this.state} />
+          <InviteDesign3 designTemplate={this.state.design_template-1} details={this.state} />
         </React.Fragment>
       )
     } else {

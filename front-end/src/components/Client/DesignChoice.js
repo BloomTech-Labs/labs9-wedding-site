@@ -33,7 +33,7 @@ export default class DesignChoice extends React.Component {
                     2
                 </div>
                 <Radio checked={this.props.design_template === "2"} aria-label="B" onClick={this.props.inputHandler} value='2' name="design_template" />
-            </div>
+            </div>S
 
             <div className="choice">
                 <div className="choice-name">Design 3</div>

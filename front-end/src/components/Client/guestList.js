@@ -21,7 +21,7 @@ import Sidebar from './clientNav';
 // define styles for material-ui components
 const styles = {
     paper: {
-      margin: '30px 0 10px',
+      margin: '30px 0',
     },
     deleteButton: {
         float: 'right',
@@ -48,9 +48,7 @@ class GuestList extends Component {
         this.setState({
             [e.target.name]: e.target.value
         })
-
         
-
     }
 
     toggleInputting = () => {
