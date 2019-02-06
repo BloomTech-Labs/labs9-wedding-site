@@ -67,7 +67,7 @@ export default class DesignChoice extends React.Component {
         
             <div className="choice">
             <div className="choice-name" >Design 1</div>
-                <div onClick={()=>this.openLightbox(1)}className="choice-img" style={{background: 'url("https://cdn.freshdesignweb.com/wp-content/uploads/glanz-html-wedding-template.jpg")', backgroundPosition: 'top'}}>
+                <div onClick={()=>this.openLightbox(0)}className="choice-img" style={{background: 'url("https://cdn.freshdesignweb.com/wp-content/uploads/glanz-html-wedding-template.jpg")', backgroundPosition: 'top'}}>
                     
                 </div>
                 <Radio checked={this.props.design_template === "1"} aria-label="A" onClick={this.props.inputHandler} value='1' name="design_template" />
@@ -75,7 +75,7 @@ export default class DesignChoice extends React.Component {
 
             <div className="choice">
                 <div className="choice-name">Design 2</div>
-                <div onClick={()=>this.openLightbox(2)}className="choice-img" style={{background: 'url("https://cdn.freshdesignweb.com/wp-content/uploads/belle-responsive-wedding-template.jpg")', backgroundPosition: 'bottom'}}>
+                <div onClick={()=>this.openLightbox(1)}className="choice-img" style={{background: 'url("https://cdn.freshdesignweb.com/wp-content/uploads/belle-responsive-wedding-template.jpg")', backgroundPosition: 'bottom'}}>
                     
                 </div>
                 <Radio checked={this.props.design_template === "2"} aria-label="B" onClick={this.props.inputHandler} value='2' name="design_template" />
@@ -83,7 +83,7 @@ export default class DesignChoice extends React.Component {
 
             <div className="choice">
                 <div className="choice-name">Design 3</div>
-                <div onClick={()=>this.openLightbox(3)}className="choice-img" style={{background: 'url("https://cdn.freshdesignweb.com/wp-content/uploads/site/newlyweds-html-wedding-template.jpg")', backgroundPosition: 'top'}}>
+                <div onClick={()=>this.openLightbox(2)}className="choice-img" style={{background: 'url("https://cdn.freshdesignweb.com/wp-content/uploads/site/newlyweds-html-wedding-template.jpg")', backgroundPosition: 'top'}}>
                     
                 </div>
                       
