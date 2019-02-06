@@ -54,36 +54,16 @@ class Dashboard extends Component {
         super(props);
 
         this.state = {
-            attending: 300,
-            notAttending: 50,
-            maybe: 100,
             modalOpen: false,
             userLoaded: false,
             registryLink: "",
             displayName: "",
             registry: [],
-            registering: false
-        }
-    
-        this.chartData = {
-            labels: [
-                'Attending',
-                'Not Attending',
-                'Maybe'
-            ],
-            datasets: [{
-                data: [this.state.attending, this.state.notAttending, this.state.maybe],
-                backgroundColor: [
-                    '#FF6384',
-                    '#36A2EB',
-                    '#FFCE56'
-                ],
-                hoverBackgroundColor: [
-                    '#FF6384',
-                    '#36A2EB',
-                    '#FFCE56'
-                ]
-            }]
+            registering: false,
+            rsvps: [0, 0, 0],
+            attending: 1,
+            notAttending: 1,
+            maybe: 1,
         }
     }
 
@@ -122,6 +102,10 @@ class Dashboard extends Component {
                 this.props.toggleRegistered();
                 
                 this.setState({
+                        rsvps: res.data.rsvpResults,
+                        attending: res.data.rsvpResults['Attending'],
+                        notAttending: res.data.rsvpResults['Not Attending'], 
+                        maybe: res.data.rsvpResults['Maybe'],
                         userLoaded: true 
                      })   
                 
@@ -254,7 +238,26 @@ class Dashboard extends Component {
                 </Card>
                 <Card className="cardTopRight">
                     RSVP
-                    <Pie data={this.chartData}
+                    <Pie data={{
+                            labels: [
+                                'Attending',
+                                'Not Attending',
+                                'Maybe'
+                            ],
+                            datasets: [{
+                                data: [this.state.attending, this.state.notAttending, this.state.maybe],
+                                backgroundColor: [
+                                    '#FF6384',
+                                    '#36A2EB',
+                                    '#FFCE56'
+                                ],
+                                hoverBackgroundColor: [
+                                    '#FF6384',
+                                    '#36A2EB',
+                                    '#FFCE56'
+                                ]
+                            }]
+                        }}
                         style={styles.pieChart}
                         options={{ maintainAspectRatio: false }}
                     />

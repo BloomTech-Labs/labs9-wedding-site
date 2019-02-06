@@ -28,7 +28,7 @@ const SignupLogin = (props) => {
             <a href={`${process.env.REACT_APP_LOCAL_CLIENT}`} onClick={props.logout}>
              Logout
              </a>
-          <Sidebar/>
+          <Sidebar handletoggle={props.handletoggle}/>
           </li>
          
         }
