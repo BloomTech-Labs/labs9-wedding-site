@@ -31,6 +31,11 @@
     min-width: 950px;
 }
 
+.guestList .guestListContainer .guest-list-table .blurry-text td{
+    color: transparent;
+    text-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
 @media (max-width: 1024px) {
     .guestList {
         margin: 100px auto 50px;
