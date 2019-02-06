@@ -79,7 +79,7 @@
 }
 
 .auth-btn.design{
-    width: 50%;
+    width: 100%;
     display: flex;
     justify-content: center;
     font-weight: bold;
@@ -147,4 +147,12 @@
 .des-template.three{
     left: 100px;
     top: -270px;
+}
+a.designs-auth-btn::before{
+    all: unset;
+    
+}
+a.designs-auth-btn{
+    all: unset;
+    
 }

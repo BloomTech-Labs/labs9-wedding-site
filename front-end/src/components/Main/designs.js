@@ -3,7 +3,7 @@ import Gallery from "react-photo-gallery";
 import Lightbox from "react-images";
 import styled from "styled-components";
 import './designs.css';
-
+import {Link} from 'react-router-dom';
 
 
 
@@ -86,9 +86,12 @@ class Design extends React.Component {
 								<span className="font30b">Made perfect for you, by you.</span>  <br/> 
 								Choose a template for your site!
 							</div>
+
+							<a href="/auth" className="designs-auth-btn">
 							<div className="auth-btn design">
 								Sign Up Now
 							</div>
+							</a>
 						</div>
 					</div>
 
