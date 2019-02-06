@@ -65,7 +65,6 @@ class Rsvp extends Component {
            category: '',
            question: '',
            modalOpen: false,
-           questionsSaved: false,
            questions: [
             {
                 wedding_id: localStorage.getItem('weddingID'),
@@ -234,7 +233,7 @@ class Rsvp extends Component {
             .then(res => {
                 console.log("GET", res);
                 if (res.data.length > 0) {
-                    this.setState({ questions: res.data, questionsSaved: true })
+                    this.setState({ questions: res.data })
                 }
             })
         })
@@ -300,10 +299,6 @@ class Rsvp extends Component {
                 <div className="buttonDiv">
                     <Button variant="outlined" onClick={this.handleOpen} className="rsvpButton">Add Question</Button>
                     <Button variant="outlined" onClick={this.saveQuestions} className="rsvpButton">Save</Button>
-                    {this.state.questionsSaved ? (
-                        <div className="successMessage">
-                            rsvp form saved!
-                    </div>) : (<div></div>)}
                 </div>
                 <Modal
                     open={this.state.modalOpen}
