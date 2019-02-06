@@ -23,7 +23,7 @@
     box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
     color: #fff;
     border-radius: 4px;
-    font-size: 15px;
+    font-size: 0.9rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.025em;
@@ -31,8 +31,7 @@
     text-decoration: none;
     -webkit-transition: all 150ms ease;
     transition: all 150ms ease;
-    margin-top: 10px;
-    margin:auto;
+    margin: 50px auto;
   }
 
   .checkout button:hover {
@@ -66,4 +65,34 @@
     box-shadow: rgba(50, 50, 93, 0.109804) 0px 4px 6px, rgba(0, 0, 0, 0.0784314) 0px 1px 3px;
     -webkit-transition: all 150ms ease;
     transition: all 150ms ease;
+  }
+
+  .checkout .pricing-packages {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .checkout .pricing-packages .package {
+    width: 45%;
+    height: 500px;
+    text-align: center;
+  }
+
+  @media (max-width: 965px) {
+    .checkout .pricing-packages .package {
+      width: 50%;
+    }
+  }
+
+  @media (max-width: 800px) {
+    .checkout .pricing-packages {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .checkout .pricing-packages .package {
+      width: 100%;
+      height: 100%;
+      margin-bottom: 50px;
+    }
   }
