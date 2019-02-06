@@ -595,19 +595,16 @@ server.post('/questions', async (req, res) => {
 
     async function asyncForEach(questions, callback) {
         for (let index = 0; index < questions.length; index++) {
-          await callback(questions[index], index, questions);
+          await callback(questions[index]);
         }
       }
     
-    async function asyncQuestions(currIndex, index, array) {
+    async function asyncQuestions(currIndex) {
        try {
-        const res = await db.table('questions').where({question: currIndex.question, wedding_id: currIndex.wedding_id})
-        console.log("DBQuery",res)
+        const res = await db.table('questions').where({wedding_id: currIndex.wedding_id, category: currIndex.category, question: currIndex.question})
             if(!res.length){
-                console.log('NoRes')
                 try {
-                const successQuestion = await db.table('questions').insert(currIndex)
-                console.log(successQuestion)
+                await db.table('questions').insert(currIndex)
                 }
                 catch (err) {
                     console.log(err)
@@ -615,14 +612,15 @@ server.post('/questions', async (req, res) => {
                
             }
             else {
-                console.log('ResExists')
+                console.log('Question already exists')
             }
        } 
         catch (err) {
             console.log(err)
         }
     }
-    const response = await asyncForEach(questions, asyncQuestions);
+    
+    await asyncForEach(questions, asyncQuestions);
     res.status(200).json({message: 'Data Posted Successfully.'})
 })
 

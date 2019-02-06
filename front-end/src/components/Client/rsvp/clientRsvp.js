@@ -152,7 +152,7 @@ class Rsvp extends Component {
         } 
         else {
             this.props.history.push('/login')
-        }
+        } console.log("THIS.STATE.QUESTIONS", this.state.questions)
     }
 
     getCouple = (w_id) => {
@@ -224,14 +224,14 @@ class Rsvp extends Component {
         axios
         .post(`${serverURL}/questions`, {questions: this.state.questions})
         .then(res => {
-            console.log("POST", res);
+            console.log("POST QUESTIONS", res);
         })
         .then(() => {
             const w_id = localStorage.getItem('weddingID');
             axios
             .get(`${serverURL}/${w_id}/allquestions`)
             .then(res => {
-                console.log("GET", res);
+                console.log("GET QUESTIONS", res);
                 if (res.data.length > 0) {
                     this.setState({ questions: res.data })
                 }
