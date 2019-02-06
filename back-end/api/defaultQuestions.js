@@ -52,7 +52,7 @@ const generateDefaultQuestions = (
             category: 'Wedding Team',
             multiple_choice: true,
             question: 'Are you a friend or family of... ?',
-            answer: `${first_name},${p_first_name},Both`
+            answer: `${first_name},${p_firstname},Both`
         },
     ]
 }

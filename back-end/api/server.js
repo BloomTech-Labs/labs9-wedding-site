@@ -164,7 +164,7 @@ server.get('/deleteall', async (req, res) => {
 
 const { generateDefaultQuestions } = require('./defaultQuestions')
 
-console.log(generateDefaultQuestions( 168, 'Sally', 'Sam' ) )
+// console.log(generateDefaultQuestions( 168, 'Sally', 'Sam' ) )
 
 //THIS FUNCTION LOADS THE USER'S INFORMATION INTO THE MAINCONTENT COMPONENT AND IS CALLED INSIDE OF componentDidMount() IN THE DASHBOARD COMPONENT 
 server.post('/loaduser', async (req, res) => {
