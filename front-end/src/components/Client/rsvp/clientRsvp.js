@@ -13,6 +13,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
+import Snackbar from '@material-ui/core/Snackbar';
 import { Close } from '@material-ui/icons';
 
 const serverURL = process.env.REACT_APP_LOCAL_URL
@@ -65,6 +66,7 @@ class Rsvp extends Component {
            category: '',
            question: '',
            modalOpen: false,
+           snackbarOpen: false,
            questions: [
             {
                 wedding_id: localStorage.getItem('weddingID'),
@@ -230,7 +232,7 @@ class Rsvp extends Component {
             .get(`${serverURL}/${w_id}/allquestions`)
             .then(res => {
                 if (res.data.length > 0) {
-                    this.setState({ questions: res.data })
+                    this.setState({ questions: res.data, snackbarOpen: true })
                 }
             })
         })
@@ -285,6 +287,11 @@ class Rsvp extends Component {
         this.setState({ modalOpen: false });
     };
 
+    handleSnackbarClose = () => {
+        this.setState({ snackbarOpen: false });
+    };
+
+
     render() {
       return (
         <div className="clientRsvp">
@@ -307,6 +314,16 @@ class Rsvp extends Component {
                 handleClose={this.handleClose}
                 handleInputChange={this.inputHandler}/>
             </Modal>
+            <Snackbar
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
+                open={this.state.snackbarOpen}
+                autoHideDuration={2000}
+                onClose={this.handleSnackbarClose}
+                message={<span>Questions Successfully Saved!</span>}
+            />
         </div>
         </div>
       );
