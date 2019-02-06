@@ -61,9 +61,9 @@ class Dashboard extends Component {
             registry: [],
             registering: false,
             rsvps: [0, 0, 0],
-            attending: 1,
-            notAttending: 1,
-            maybe: 1,
+            attending: 0,
+            notAttending: 0,
+            maybe: 0,
         }
     }
 

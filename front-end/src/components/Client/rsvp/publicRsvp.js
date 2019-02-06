@@ -15,7 +15,8 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
 
-const { formatStr } = require('../../../universal/helperFunctions')
+// const { formatStr } = require('../../../universal/helperFunctions')
+const formatStr = (str) => str.replace(' ', '_').toLowerCase()
 
 // define styles for material-ui components
 const styles = {

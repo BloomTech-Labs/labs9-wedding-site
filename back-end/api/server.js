@@ -162,6 +162,9 @@ server.get('/deleteall', async (req, res) => {
     }
 })
 
+const { generateDefaultQuestions } = require('./defaultQuestions')
+
+console.log(generateDefaultQuestions( 168, 'Sally', 'Sam' ) )
 
 //THIS FUNCTION LOADS THE USER'S INFORMATION INTO THE MAINCONTENT COMPONENT AND IS CALLED INSIDE OF componentDidMount() IN THE DASHBOARD COMPONENT 
 server.post('/loaduser', async (req, res) => {
@@ -587,7 +590,21 @@ server.delete('/users/:id', (req, res) => {
 })
 
 
-const { asyncForEach } = require('../../front-end/src/universal/helperFunctions')
+// const { asyncForEach } = require('../../front-end/src/universal/helperFunctions')
+
+async function asyncForEach(array, callback) {
+    try {
+
+        for (let index = 0; index < array.length; index++) {
+            await callback(array[index], index, array);
+        }
+        return true
+    }
+    catch(error) {
+        console.log(error)
+        return false
+    }
+}
 
 async function asyncQuestions(currIndex, index, array) {
     try {

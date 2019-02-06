@@ -27,6 +27,6 @@ async function asyncForEach(array, callback) {
 
 module.exports = {
     diffObjects,
-    formatStr,
-    asyncForEach
+    formatStr
+    // asyncForEach
 }
