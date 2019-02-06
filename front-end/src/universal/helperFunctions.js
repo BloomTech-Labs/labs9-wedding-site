@@ -10,7 +10,23 @@ const diffObjects = (oldObj, newObj) => Object.entries(newObj).filter(newProp =>
     return (oldObj[newProp[0]] === undefined || oldObj[newProp[0]] !== newProp[1])
 }).reduce(reduceObjectEntries, {})
 
+async function asyncForEach(array, callback) {
+    try {
+
+        for (let index = 0; index < array.length; index++) {
+            await callback(array[index], index, array);
+        }
+        return true
+    }
+    catch(error) {
+        console.log(error)
+        return false
+    }
+}
+
+
 module.exports = {
     diffObjects,
-    formatStr
+    formatStr,
+    asyncForEach
 }

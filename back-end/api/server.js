@@ -205,7 +205,7 @@ server.post('/loaduser', async (req, res) => {
             })
         }
         
-        else if(!user){
+        else if(!user){ // registration
             
             
             const wedding_id = await db.table('weddings').insert({ event_date, event_address, design_template });
@@ -587,43 +587,44 @@ server.delete('/users/:id', (req, res) => {
 })
 
 
+const { asyncForEach } = require('../../front-end/src/universal/helperFunctions')
 
+async function asyncQuestions(currIndex, index, array) {
+    try {
+        const res = await db.table('questions').where({question: currIndex.question, wedding_id: currIndex.wedding_id})
+        console.log("DBQuery",res)
+        if(!res.length){
+            console.log('NoRes')
+            try {
+                const successQuestion = await db.table('questions').insert(currIndex)
+                console.log(successQuestion)
+            }
+            catch (err) {
+                console.log(err)
+            }
+        }
+        else {
+            console.log('ResExists')
+        }
+    } 
+    catch (err) {
+         console.log(err)
+    }
+}
 
 //A FUNCTION TO POST QUESTIONS::LINE 360
 server.post('/questions', async (req, res) => {
     let { questions } = req.body;
-
-    async function asyncForEach(questions, callback) {
-        for (let index = 0; index < questions.length; index++) {
-          await callback(questions[index], index, questions);
-        }
-      }
-    
-    async function asyncQuestions(currIndex, index, array) {
-       try {
-        const res = await db.table('questions').where({question: currIndex.question, wedding_id: currIndex.wedding_id})
-        console.log("DBQuery",res)
-            if(!res.length){
-                console.log('NoRes')
-                try {
-                const successQuestion = await db.table('questions').insert(currIndex)
-                console.log(successQuestion)
-                }
-                catch (err) {
-                    console.log(err)
-                }
-               
-            }
-            else {
-                console.log('ResExists')
-            }
-       } 
-        catch (err) {
-            console.log(err)
-        }
+    try {
+        const response = await asyncForEach(questions, asyncQuestions);
+        
+        console.log('response', response)
+        res.status(200).json({response, message: 'Data Posted Successfully.'})
     }
-    const response = await asyncForEach(questions, asyncQuestions);
-    res.status(200).json({message: 'Data Posted Successfully.'})
+    catch(error) {
+        console.log(error)
+        res.status(500).json({ error, message: 'Server Error.' })
+    }
 })
 
 
