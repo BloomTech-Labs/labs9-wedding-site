@@ -4,9 +4,9 @@
 	display: flex;
 	flex-direction: column;
 	font-family: "Pinyon Script", cursive;
-	color: #23369b;
+	/* color: #23369b; */
 	position: absolute;
-	top: 120px;
+	top: -40px;
 	left: 250px;
 	font-size: 60px;
 	font-weight: 600;
@@ -20,9 +20,9 @@
 	display: flex;
 	flex-direction: column;
 	font-family: "Pinyon Script", cursive;
-	color: #23369b;
+	/* color: #23369b; */
 	position: absolute;
-	top: 180px;
+	top: 10px;
 	left: 355px;
 	font-size: 110px;
 	font-weight: 600;
@@ -34,14 +34,14 @@
 .font3 {
 	display: flex;
 	flex-direction: column;
-	color: #2532a1;
-	left: 312px;
+	/* color: #2532a1; */
+	left: 302px;
 	font-size: 23px;
 	font-weight: 400;
 	z-index: 1;
 	transition: all 0.3s;
 	position: absolute;
-	top: 400px;
+	top: 180px;
 	font-weight: bold;
 	transition: all 0.3s;
 }
