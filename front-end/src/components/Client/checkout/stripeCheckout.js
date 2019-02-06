@@ -8,6 +8,7 @@ import {  injectStripe,
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import "./cardSection.css";
+import axios from 'axios';
 
 
 class CheckoutForm extends Component {
@@ -23,32 +24,38 @@ class CheckoutForm extends Component {
     e.preventDefault();
     let customerName = `${this.props.user.first_name} ${this.props.user.last_name}`;
     let {token} = await this.props.stripe.createToken({name: customerName});
-    let response = await fetch(`${process.env.REACT_APP_LOCAL_URL}/chargeforever`, {
-      method: "POST",
-      headers: {"Content-Type": "text/plain"},
-      body: token.id
-    });
-  
-    if (response.ok) {
-      console.log("Purchase Complete!")
-      this.setState({complete: true});
-    }
+    axios
+      .post(`${process.env.REACT_APP_LOCAL_URL}/chargeforever`, {
+        token: token.id,
+        wedding_id: localStorage.getItem('weddingID')
+      })
+      .then(res => {
+        console.log(res);
+        if (res.status === 200) {
+          console.log("Purchase Complete!")
+          this.setState({complete: true});
+        }
+      })
+      .catch(err => console.log(err));
   }
 
   submitEternityPackage = async (e) => {
     e.preventDefault();
     let customerName = `${this.props.user.first_name} ${this.props.user.last_name}`;
     let {token} = await this.props.stripe.createToken({name: customerName});
-    let response = await fetch(`${process.env.REACT_APP_LOCAL_URL}/chargeeternity`, {
-      method: "POST",
-      headers: {"Content-Type": "text/plain"},
-      body: token.id
-    });
-  
-    if (response.ok) {
-      console.log("Purchase Complete!")
-      this.setState({complete: true});
-    }
+    axios
+      .post(`${process.env.REACT_APP_LOCAL_URL}/chargeeternity`, {
+        token: token.id,
+        wedding_id: localStorage.getItem('weddingID')
+      })
+      .then(res => {
+        console.log(res);
+        if (res.status === 200) {
+          console.log("Purchase Complete!")
+          this.setState({complete: true});
+        }
+      })
+      .catch(err => console.log(err));
   }
 
   render() {

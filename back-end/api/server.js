@@ -760,14 +760,16 @@ server.post('/upload', upload.single('file'), (req, res) => {
 
 // STRIPE PAYMENT ENDPOINTS
 server.post("/chargeforever", async (req, res) => {
+    console.log("req.body", req.body)
     try {
         let { status } = await stripe.charges.create({
             amount: 999,
             currency: "usd",
             description: "The forever package",
-            source: req.body
+            source: req.body.token
         });
-        res.json({ status });
+        let package = await db.table('weddings').where({id: req.body.wedding_id}).update({pricing_package: 1})
+        res.json({ status, package });
     } catch (err) {
         res.status(500).end();
     }
@@ -779,9 +781,10 @@ server.post("/chargeeternity", async (req, res) => {
             amount: 1999,
             currency: "usd",
             description: "The eternity package",
-            source: req.body
+            source: req.body.token
         });
-        res.json({ status });
+        let package = await db.table('weddings').where({id: req.body.wedding_id}).update({pricing_package: 2})
+        res.json({ status, package });
     } catch (err) {
         res.status(500).end();
     }

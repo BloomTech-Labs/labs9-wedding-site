@@ -117,7 +117,8 @@ class GuestList extends Component {
                 this.props.setUser(res.data.couple[0], res.data.couple[1], res.data.guests, [ {...res.data.couple[0]}, {...res.data.couple[1]} ], res.data.wedding_data.event_address, res.data.wedding_data.event_date, res.data.couple[0].email, res.data.couple[0].phone)
                 this.props.login()
                 this.setState({
-                   userLoaded: true 
+                   userLoaded: true,
+                   pricing_package: res.data.wedding_data.pricing_package
                 })
             })
             .catch(err => console.log(err))
@@ -150,7 +151,13 @@ class GuestList extends Component {
                 <TableBody>
                 {this.props.guests.map((guest, index) => {
                     return (
-                    <TableRow key={index} className={ index > 5 ? 'blurry-text' : null }>
+                    <TableRow
+                    key={index}
+                    className={
+                        index > 5 && this.state.pricing_package < 1 ? 'blurry-text' :
+                        index > 10 && this.state.pricing_package < 2 ? 'blurry-text' :
+                        null
+                    }>
                         <TableCell align="right">{guest.first_name}</TableCell>
                         <TableCell align="right">{guest.last_name}</TableCell>
                         <TableCell align="right">{guest.email}</TableCell>
