@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import "./landing.css";
 import Design from "./designs";
 import Pricing from "./pricing";
-import wallflower from "./images/wallflower.jpg";
+import beach from "./images/beach.jpg";
 import belovedmark from "./images/beloved_mark.png";
 import arrow from "./images/arrowclipart3.jpg";
 import styled from "styled-components";
@@ -13,7 +13,7 @@ const LandingPageDiv = styled.div`
 	top: 0;
 	height: 100vh;
 	width: 100%;
-	background-image: linear-gradient(to right, white, transparent),
+	background-image: 
 		url(${props => props.img});
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -27,10 +27,9 @@ class LandingPage extends Component {
 				<div className="containerLanding" id="home">
 					<LandingPageDiv
 						className="containerLanding_text"
-						img={wallflower}
+						img={beach}
 					>
 						<span className="firstfont">
-							{" "}
 							Helping you <br />
 						</span>
 						<span className="secondfont"> Tie the Knot </span>
@@ -50,20 +49,19 @@ class LandingPage extends Component {
 
 				<div className="containerPricing" id="pricing">
 					<Pricing />
-					<a href={"#designs"}>
+					{/* <a href={"#designs"}>
 						{" "}
 						<img src={arrow} alt="arrow" className="arrow" />
 						Check out our designs
-					</a>
+					</a> */}
 				</div>
 
 				<div className="containerDesign" id="designs">
 					<Design />
+
 					<a href={"#home"}>Back to top</a>
-					<span>
-						Made perfect for you, by you <br />
-					</span>
-					<span>Choose a template for your site.</span>
+					
+
 				</div>
 			</div>
 		);
