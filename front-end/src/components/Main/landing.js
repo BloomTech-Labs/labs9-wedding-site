@@ -60,10 +60,7 @@ class LandingPage extends Component {
 				<div className="containerDesign" id="designs">
 					<Design />
 					<a href={"#home"}>Back to top</a>
-					<span>
-						Made perfect for you, by you <br />
-					</span>
-					<span>Choose a template for your site.</span>
+					
 				</div>
 			</div>
 		);

@@ -98,7 +98,7 @@ class Design extends React.Component {
 					</div>
 
 				
-				<Lightbox className="lightboxff"
+				<Lightbox 
 						images={photos}
 						onClose={this.closeLightbox}
 						onClickPrev={this.gotoPrevious}
