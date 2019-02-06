@@ -34,10 +34,10 @@
 
 .auth-btn{
     padding: 10px;
-    border: 1px solid rgb(177, 225, 243);
+    border: 1.5px solid rgb(177, 225, 243);
     border-radius: 4px;
     cursor: pointer;
-
+    font-weight: 600;
 }
 
 .auth-btn:hover{
@@ -45,7 +45,12 @@
     background: rgb(177, 225, 243, .3);
     color: pink;
     font-weight: bold;
+}
 
+.discover-zen{
+    font-family: 'Montserrat';
+    font-weight: 600;
+    font-size: 20px;
 }
 
 

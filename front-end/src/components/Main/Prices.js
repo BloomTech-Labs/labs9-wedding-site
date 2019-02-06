@@ -22,7 +22,7 @@ const PackageContainer = styled.div`
 	display: flex;
 	position: absolute;
   right: 0;
-  top: 22%
+  top: 22%;
 	height: 500px;
 	width: 40%;
 	z-index: 500;
