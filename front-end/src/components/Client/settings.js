@@ -10,6 +10,7 @@ import axios from 'axios';
 import Icon from 'antd/lib/icon';
 import DesignChoice from './DesignChoice';
 
+
 class Settings extends React.Component {
     constructor() {
         super();
@@ -99,6 +100,21 @@ class Settings extends React.Component {
 
 
     render() {
+        console.log(this.state.design_template)
+        const photos = [
+            {
+                src:
+                    "https://cdn.freshdesignweb.com/wp-content/uploads/glanz-html-wedding-template.jpg"
+            },
+            {
+                src:
+                    "https://cdn.freshdesignweb.com/wp-content/uploads/belle-responsive-wedding-template.jpg"
+            },
+            {
+                src:
+                    "https://cdn.freshdesignweb.com/wp-content/uploads/site/newlyweds-html-wedding-template.jpg"
+            }
+        ];
         return (
             <div className="userSettings">
                 <Sidebar />
@@ -235,7 +251,7 @@ class Settings extends React.Component {
                             {!this.state.edit ?
                                     <div className="choice">
                                     <div className="choice-name">Design {this.state.design_template}</div>
-                                    <div className="choice-img">
+                                    <div className="choice-img settings" style={{background: `url(${this.state.design_template ? photos[this.state.design_template-1].src : null})`}}>
                                     {this.state.design_template}
                                     </div>
                                 </div> :
