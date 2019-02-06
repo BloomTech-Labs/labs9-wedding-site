@@ -30,7 +30,6 @@ class LandingPage extends Component {
 						img={beach}
 					>
 						<span className="firstfont">
-							{" "}
 							Helping you <br />
 						</span>
 						<span className="secondfont"> Tie the Knot </span>

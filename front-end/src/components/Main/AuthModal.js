@@ -19,7 +19,7 @@ export default class AuthModal extends React.Component {
       return (
         <div className="modal-div">
         
-        <div>Discover The Zen Of Wedding Planning</div>
+        <div className='discover-zen'>Discover The Zen Of Wedding Planning</div>
         
         <div className='logo-cont'>
             <div className="logo-wrap">
