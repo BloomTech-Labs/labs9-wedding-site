@@ -121,3 +121,8 @@
     width: 100%;
     flex-direction: column;
 }
+
+.choice-img.settings{
+    background-position: top;
+}
+
