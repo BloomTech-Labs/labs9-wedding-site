@@ -29,16 +29,36 @@
 
 }
 
+@media only screen and (max-width: 1240px){
+    .designs-page-info{
+        flex-direction: column;
+    }
+
+    
+}
+
 .designs-page{
     height: 700px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+@media only screen and (max-width: 1240px){
+   
+
+    .designs-page{
+    height: unset;
+    align-items: center;
+    }
+    .designs-page-info{
+        align-items: center;
+    }
+}
 
 .designs-page-txt{
     display: flex;
     flex-direction: column;
+    position: relative;
     
 }
 
@@ -46,13 +66,14 @@
     display: flex;
     justify-content: center;
     font-family: "Pinyon Script", cursive;
-    color: #23369b;
+    color: white;
     font-size: 60px;
     font-weight: 600;
     line-height: 1;
-    text-shadow: 1px 1px 1px beige;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.548);
     margin-bottom: 50px;
     margin-top: 20px;
+
 }
 
 .cto-cont{
@@ -82,12 +103,17 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    font-weight: bold;
-    color: palevioletred;
+    font-weight: bolder;
+    color: white;
     font-size: 20px;
-    background: rgb(177, 225, 243);
-    border: 3px outset white;
-    
+    background: #87C8CD;
+    border: 3px outset white; 
+}
+
+.auth-btn.design:hover{
+    background: rgba(255, 255, 255, 0.651); 
+    color: palevioletred;
+    font-weight: bolder;
 }
 
 
@@ -155,4 +181,67 @@ a.designs-auth-btn::before{
 a.designs-auth-btn{
     all: unset;
     
+}
+
+@media only screen and (max-width: 1240px){
+   
+
+    .template-cont{
+        align-items: center;
+    }
+    .des-template.two{
+        left: 25;
+    }
+    .des-template.three{
+        left: 50;
+    }
+    .designs-page-txt{
+        top: -150px;
+
+    }
+    a.designs-auth-btn{
+        margin-top: 50px;
+
+    }
+    .designs-call{
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.384);
+        font-size: 35px;
+    }
+}
+
+@media only screen and (max-width: 800px){
+   
+    .des-template.one{
+        top: unset;
+    }
+
+    .des-template{
+        margin: 15px 0;
+    }
+    
+    .des-template.two{
+        left: unset;
+        top: unset;
+    }
+    .des-template.three{
+        left: unset;
+        top: unset;
+    }
+    .designs-page-txt{
+        top: unset;
+
+    }
+    a.designs-auth-btn{
+        margin-top: 50px;
+
+    }
+    .designs-call{
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.548);
+        font-size: 20px;
+    }
+    .font30b{
+        font-size: 25px;
+        font-weight: bold;
+        
+    }
 }

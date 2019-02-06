@@ -33,9 +33,9 @@ class Design extends React.Component {
 		this.goToSignUp = this.goToSignUp.bind(this);
 	}
 
-	openLightbox = (event) => (obj) => {
+	openLightbox = (obj) => {
 		this.setState({
-			currentImage: obj.src,
+			currentImage: obj,
 			lightboxIsOpen: true
 		});
 	}
@@ -64,19 +64,19 @@ class Design extends React.Component {
 			<div id="#designs" className="designs-page">
 
 					<div className="designs-page-hdr ">
-						Digital Invitations
+						Invite Templates
 					</div>
 					<div className="designs-page-info">
 
 					<div className="template-cont">
 						<div className="des-template one">
-							<img onClick={()=> this.openLightbox()(photos)} className="img-temp1" src="https://cdn.freshdesignweb.com/wp-content/uploads/glanz-html-wedding-template.jpg" alt="invite-template"/>
+							<img onClick={()=> this.openLightbox(0)} className="img-temp1" src="https://cdn.freshdesignweb.com/wp-content/uploads/glanz-html-wedding-template.jpg" alt="invite-template"/>
 						</div>
 						<div className="des-template two">
-							<img onClick={()=> this.openLightbox()(photos)} className="img-temp2" src="https://cdn.freshdesignweb.com/wp-content/uploads/belle-responsive-wedding-template.jpg" alt="invite-template"/>
+							<img onClick={()=> this.openLightbox(1)} className="img-temp2" src="https://cdn.freshdesignweb.com/wp-content/uploads/belle-responsive-wedding-template.jpg" alt="invite-template"/>
 						</div>
 						<div className="des-template three">
-							<img onClick={()=> this.openLightbox()(photos)} className="img-temp3" src="https://cdn.freshdesignweb.com/wp-content/uploads/site/newlyweds-html-wedding-template.jpg" alt="invite-template"/>
+							<img onClick={()=> this.openLightbox(2)} className="img-temp3" src="https://cdn.freshdesignweb.com/wp-content/uploads/site/newlyweds-html-wedding-template.jpg" alt="invite-template"/>
 						</div>
 					</div>
 
