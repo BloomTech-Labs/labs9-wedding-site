@@ -61,9 +61,11 @@ class DraggableDialog extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
+            <a href={`/rsvp/${this.props.weddingID}`}>
             <Button onClick={this.handleClose} color="primary">
               RSVP
             </Button>
+            </a>
           </DialogActions>
         </Dialog>
       </div>

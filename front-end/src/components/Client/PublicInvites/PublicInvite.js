@@ -80,15 +80,16 @@ class PublicInvite extends Component {
   };
 
   render() {
+    if (this.state.weddingDetailsLoaded) {
     return (
       <div className="container">
         <div className="invite-cont">
           <div className="header-name">
-            <span>Andy & Jeska</span>
+            <span>{this.state.partner1.first_name} & {this.state.partner2.first_name}</span>
           </div>
           <div className="save-date">
             <span>Save the Date!</span>
-            <span className="smaller-font">August 10, 2017</span>
+            <span className="smaller-font">{this.state.event_date}</span>
           </div>
         </div>
         <div className="part-two">
@@ -98,16 +99,17 @@ class PublicInvite extends Component {
           <div className="list">
             <Details />
           </div>
-          <div className="location">
+          <div className="location2">
             <span> Happy Couple </span>
             <img src={heartheader} className='heart-header' height='70px' width='700px'/>
           </div>
           <div className="countdown">
+            <span>{this.state.event_address}</span>
             <span className='big-day'>The Big Day</span>
             <CountdownComponent />
           </div>
           <div className='wedding-party'>
-          <div> <span className='jeska'>Jeska</span> </div>
+          <div> <span className='jeska'>{this.state.partner1.first_name}</span> </div>
           <div> <span className='jeska-descrip'> Lorem ipsum dolor sit amet, <br/> consectetur elit, sed do
               eiusmo <br/> tempor incididunt ut labore <br/> et dolore magna aliqua. </span> </div>
           <Bride className='bride'/>
@@ -115,7 +117,7 @@ class PublicInvite extends Component {
           <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIBAcOkIeGVef1xXUghK2KLTwZT-E3XpiE9c1sIkRaAF4sOAiq' height='140' width='140'/>
           <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIBAcOkIeGVef1xXUghK2KLTwZT-E3XpiE9c1sIkRaAF4sOAiq' height='50' width='50' className='hide'/>
           <Groom className='groom' /> 
-          <div> <span className='andy'>Andy</span></div>
+          <div> <span className='andy'>{this.state.partner2.first_name}</span></div>
           <div> <span className='andy-descrip'> Lorem ipsum dolor sit amet, <br/> consectetur elit, sed do
               eiusmo <br/> tempor incididunt ut labore <br/> et dolore magna aliqua. </span> </div>
           </div>
@@ -140,22 +142,15 @@ class PublicInvite extends Component {
             </span>
           </div>
           <div className='dialog'>
-          <Dialog /> 
+          <Dialog weddingID={this.state.weddingID} /> 
           </div>
         </div>
       </div>
     );
-
-    if (this.state.weddingDetailsLoaded) {
-      return (
-        <React.Fragment>
-          <InviteDesign3 designTemplate={this.state.design_template-1} details={this.state} />
-        </React.Fragment>
-      );
     } else {
       return (
         <div className="i-loading">
-          <span>Loading</span>
+          <span>Material UI here</span>
         </div>
       );
     }
