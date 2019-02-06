@@ -80,16 +80,6 @@ class PublicRsvp extends Component {
         this.getQuestions(w_id)
     }
 
-
-    // load user questions when component mounts
-    // componentDidMount() {
-
-    //     const { pathname } = this.props.location;
-    //     const w_id = pathname.substr(pathname.lastIndexOf('/') + 1);
-    //     console.log('wedding pathname', w_id)
-
-    // }
-
     getQuestions = (wed_id) => {
 
         axios.get(`${url}/${wed_id}/allquestions`)
