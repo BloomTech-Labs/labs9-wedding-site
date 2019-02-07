@@ -67,6 +67,7 @@
     font-family: 'Dancing Script', cursive;
     position: relative;
     opacity:.95;
+    margin-bottom: 150px;
 }
 
 .save-date{
@@ -171,9 +172,17 @@ position: relative;
 }
 
 .invite-btn{
-
+    padding: 10px 55px;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    font-size: 25px;
 }
 
 a.invite-anchor::before{
     all: unset;
+}
+
+.invite-anchor{
+    position: relative;
+    top: 50px;
 }
