@@ -162,20 +162,20 @@ class Rsvp extends Component {
         w_id = !weddingId ? w_id : weddingId
         let couple;
         axios(`${serverURL}/invite/${w_id}`)
-        .then(weddingDetails => {
-            weddingDetails = weddingDetails.data
+        .then(res => {
+            let weddingDetails = res.data
             console.log(weddingDetails)
             couple = weddingDetails.couple;
-            this.props.setUser(
-                    weddingDetails.couple[0],
-                    weddingDetails.couple[1],
-                    null,
-                    weddingDetails.couple,
-                    weddingDetails.weddingDetails.event_address,
-                    weddingDetails.weddingDetails.event_date,
-                    weddingDetails.couple[0].email,
-                    weddingDetails.couple[0].phone,
-                )
+            // this.props.setUser(
+            //         weddingDetails.couple[0],
+            //         weddingDetails.couple[1],
+            //         null,
+            //         weddingDetails.couple,
+            //         weddingDetails.weddingDetails.event_address,
+            //         weddingDetails.weddingDetails.event_date,
+            //         weddingDetails.couple[0].email,
+            //         weddingDetails.couple[0].phone,
+            //     )
             })
         return couple
     }
@@ -297,13 +297,14 @@ class Rsvp extends Component {
         <div className="clientRsvp">
             <Sidebar />
             <div className="clientRsvpContainer">
-             {this.state.questions.map((q, i) => 
-                this.renderCards(q, i)
-            )}
-            <div className="buttonDiv">
-                <Button variant="outlined" onClick={this.handleOpen} className="rsvpButton">Add Question</Button>
-                <Button variant="outlined" onClick={this.saveQuestions} className="rsvpButton">Save</Button>
-            </div>
+                {this.state.questions.map((q, i) => 
+                    this.renderCards(q, i)
+                )}
+                <div className="buttonDiv">
+                    <Button variant="outlined" onClick={this.handleOpen} className="rsvpButton">Add Question</Button>
+                    <Button variant="outlined" onClick={this.saveQuestions} className="rsvpButton">Save</Button>
+                </div>
+
             <Modal
                 open={this.state.modalOpen}
                 onClose={this.handleClose}>
