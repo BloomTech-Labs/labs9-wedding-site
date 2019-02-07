@@ -23,13 +23,13 @@
     border-radius: 50%;
 }
 
-.logo-wrap{
+/* .logo-wrap{
 
-}
+} */
 
 .logo-wrap > img{
     height: auto;
-        width: 95px;
+    width: 95px;
 }
 
 .auth-btn{
