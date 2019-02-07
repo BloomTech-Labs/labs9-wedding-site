@@ -16,6 +16,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Sidebar from './clientNav';
+import ReactDropzone from "react-dropzone";
 
 
 // define styles for material-ui components
@@ -88,8 +89,6 @@ class GuestList extends Component {
     }
 
     addDummyUser = () => {
-        
-
         let wedding_id = this.props.wedding_id;
         console.log(wedding_id)
         axios
@@ -105,7 +104,6 @@ class GuestList extends Component {
     }
 
     componentDidMount() {
-
         console.log("GUESTS", this.state.guests);
         let vbtoken = localStorage.getItem('vbtoken');
         let oauth_id = localStorage.getItem('vbtoken');
@@ -128,13 +126,39 @@ class GuestList extends Component {
         }
     }
 
+    handleonDrop = (files, rejectedFiles) => {
+        const wedding_id = localStorage.getItem('weddingID')
+        files.forEach(file => {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('filename', file.name);
+            formData.append('wedding_id', wedding_id);
+            axios.post(`${process.env.REACT_APP_LOCAL_URL}/upload`, formData)
+                .then((res => {
+                    console.log(res)
+                }))
+                .catch(err => {
+                    console.log(err)
+                })
+        });
+    }
+
     render() {
       return (
       <div className="guestList">
           <Sidebar />
           <div className="guestListContainer">
-          <Button variant="contained" className="importCsv">Import CSV</Button>
-          <Button variant="outlined" style={styles.deleteButton}>Delete</Button>
+          <ReactDropzone
+                        accept=".csv"
+                        onDrop={this.handleonDrop}>
+                        {({ getRootProps, getInputProps }) => (
+                            <div {...getRootProps()} style={{width: "120px"}}>
+                                <input {...getInputProps()} />
+                                <Button variant="contained" className="importCsv">Import CSV</Button>
+                            </div>
+                        )}
+            </ReactDropzone>
+          {/* <Button variant="outlined" style={styles.deleteButton}>Delete</Button> */}
           <div className="guest-list-table">
           <Paper style={styles.paper}>
             <Table>
@@ -172,42 +196,35 @@ class GuestList extends Component {
             </Paper>
           </div>
           <div className='add-guest-box'>
-
-                <Button onClick={this.toggleInputting}>Add Guest Manually</Button >
-                
+                <Button variant="outlined" onClick={this.toggleInputting}>Add Guest Manually</Button >
                 { !this.state.inputting ? null : 
                 <Spring from={{top: -100, opacity: 0}} to={{top: 0, opacity: 1}}>
-
                     { (props) =>
                     <div style={props} styles={{position: 'relative'}}>
-
                         <div className='guest-input-box' style={{display: 'flex'}}>
-                          <div>
-                            <div className="inner-guest-input-box">
+                            <div className="inner-guest-input">
                                 <TextField label="First Name" name="first_name" className="guest-input" onChange={this.inputHandler}></TextField>
                                 <TextField label="Last Name" name="last_name" className="guest-input" onChange={this.inputHandler}></TextField>
                             </div>
-                            <div className="inner-guest-input-box">
+                            <div className="inner-guest-input">
                                 <TextField label="Email" name="email" className="guest-input" onChange={this.inputHandler}></TextField> 
                                 <TextField label="Mailing Address" name="address" className="guest-input" onChange={this.inputHandler}></TextField> 
                             </div>
-                          </div> 
-                            <FormControl component="fieldset" className="related-spouse-radio">
-                            <FormLabel component="legend">Related Spouse</FormLabel>
-                            <RadioGroup>
-                            {this.props.couple.map(option =>  
-                            <FormControlLabel value={option.first_name} control={<Radio name="related_spouse" onClick={this.inputHandler} />} label={option.first_name} 
-                            />)}
-                            </RadioGroup>
+                            <FormControl component="fieldset" className="inner-guest-input">
+                                <FormLabel component="legend">Related Spouse</FormLabel>
+                                <RadioGroup className="material-form-group">
+                                {this.props.couple.map(option =>  
+                                <FormControlLabel value={option.first_name} control={<Radio name="related_spouse" onClick={this.inputHandler} />} label={option.first_name} 
+                                />)}
+                                </RadioGroup>
                             </FormControl>
-
                         </div>
-                            
-                        <Button onClick={this.addUser}>Add</Button> <Button onClick={this.addDummyUser}>Add Dummy Guest</Button>
-
+                        <div className="guest-button-div">
+                            <Button variant="outlined" onClick={this.addUser}>Add</Button>
+                            <Button variant="outlined" onClick={this.addDummyUser}>Add Dummy Guest</Button>
+                        </div>
                     </div>
                     }
-
                 </Spring>}
             </div>
           </div>
