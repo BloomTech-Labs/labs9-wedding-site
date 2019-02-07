@@ -61,7 +61,9 @@ class LandingPage extends Component {
         <div className="containerDesign" id="designs">
           <Design />
 
-          <a href={"#home"}>Back to top</a>
+          <a  href={"#home"}>
+          <div className="bottom-btn">Back to top</div>
+          </a>
         </div>
       </div>
     );

@@ -232,7 +232,7 @@ a.designs-auth-btn{
     }
     .designs-page-txt{
         top: unset;
-
+        margin-top: 150px;
     }
     a.designs-auth-btn{
         margin-top: 50px;
@@ -249,14 +249,3 @@ a.designs-auth-btn{
     }
 }
 
-@media only screen and (max-width: 350px){
-    .designs-page-hdr{
-        font-size: 40px;
-    }
-    .designs-call{
-        text-align: center;
-    }
-    .font30b{
-         
-    }
-}

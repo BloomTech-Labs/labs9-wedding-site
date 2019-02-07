@@ -80,7 +80,7 @@ class Design extends React.Component {
 						</div>
 					</div>
 
-					<div className="designs-page-txt">
+					<div className="designs-page-txt ">
 						<div className="cto-cont">
 							<div className="designs-call">
 								<span className="font30b">Made perfect for you, by you.</span>  <br/> 
