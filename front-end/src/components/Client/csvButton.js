@@ -9,6 +9,7 @@ const styles = theme => ({
     fontFamily: "\Roboto\", \"Helvetica\", \"Arial\", \"sans-serif", 
     color: 'rgba(0, 0, 0, 0.87)',
     fontWeight: 500,
+    fontSize:14,
 
   },
   input: {
