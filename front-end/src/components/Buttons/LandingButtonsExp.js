@@ -9,7 +9,7 @@ const LandingButtonsExp = () => {
 				<ul>
 					<div className="moving">
 						<li>
-							<Link to="/">Home</Link>
+							<a href="/#home">Home</a>
 						</li>
 						<li>
 							{/*<Link to="/pricing">Pricing </Link>*/}

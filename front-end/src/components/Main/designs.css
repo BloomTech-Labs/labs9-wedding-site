@@ -32,6 +32,7 @@
 @media only screen and (max-width: 1240px){
     .designs-page-info{
         flex-direction: column;
+        min-width: unset;
     }
 
     
@@ -210,13 +211,17 @@ a.designs-auth-btn{
 }
 
 @media only screen and (max-width: 800px){
-   
+    .template-cont{
+        width: 95%;
+    }
     .des-template.one{
         top: unset;
     }
 
     .des-template{
         margin: 15px 0;
+        width: 95%;
+        min-width: unset;
     }
     
     .des-template.two{
@@ -243,5 +248,17 @@ a.designs-auth-btn{
         font-size: 25px;
         font-weight: bold;
         
+    }
+}
+
+@media only screen and (max-width: 350px){
+    .designs-page-hdr{
+        font-size: 40px;
+    }
+    .designs-call{
+        text-align: center;
+    }
+    .font30b{
+         
     }
 }

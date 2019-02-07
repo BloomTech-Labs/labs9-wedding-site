@@ -56,7 +56,8 @@ class MainContent extends Component {
         this.setState({
             loginbtn: true
         })
-        
+        localStorage.removeItem('vbtoken');
+        localStorage.removeItem('weddingID')
     }
 
     signupbtn = () => {
@@ -64,6 +65,7 @@ class MainContent extends Component {
             loginbtn: false
         })
         localStorage.removeItem('vbtoken');
+        localStorage.removeItem('weddingID')
     }
 
 
@@ -88,7 +90,7 @@ class MainContent extends Component {
     }
 
    setUser = (partner1, partner2, guests, couple, event_address, event_date, email, phone) => {
-        console.log('guests:', guests)
+        // console.log('guests:', guests)
     this.setState({
            weddingID: partner1.wedding_id,
            first_name: partner1.first_name,
