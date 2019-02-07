@@ -25,6 +25,18 @@
 	line-height: 1;
 }
 
+.thirdfont{
+	display: flex;
+	flex-direction: column;
+	color: "#AFD4E1";
+	position: absolute;
+	top: 460px;
+	left: 60.5%;
+	font-size: 35px;
+	font-weight: 500;
+	line-height: 1;
+}
+
 .arrow {
 	position: absolute;
 	left: 35%;
