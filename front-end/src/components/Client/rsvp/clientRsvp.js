@@ -337,7 +337,6 @@ class Rsvp extends Component {
                 message={<span>Questions Successfully Saved!</span>}
             />
         </div>
-        </div>
       );
     }
   }
