@@ -21,8 +21,8 @@ import couple1 from "./images/couple1.png";
 const PackageContainer = styled.div`
 	display: flex;
 	position: absolute;
-  right: 0;
-  top: 22%;
+  	right: 3%;
+  	top: 22%;
 	height: 500px;
 	width: 40%;
 	z-index: 500;

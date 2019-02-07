@@ -1,97 +1,146 @@
 @import url('https://fonts.googleapis.com/css?family=Dancing+Script');
-.container{
-    height: 1400px;
+.container-invite{
+
     width:100%;
 }
 
 .invite-cont{
-    position: absolute;
-    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    top:12%;
-    background: url(doors.jpg);
+    background: url(/static/media/doors.67c89041.jpg);
     background-size: 100% 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
 }
 
 .invite-main{
-    position: absolute;
-    top:50%;
+    position: relative;
+    
     display: flex;
     /* right:14.5%; */
-    right:-25%;
+    
 }
 
 .list{
     position: relative;
-    top:67%;
+    width: 50%;
     
 }
 
 .countdown{
-    display: 'flex';
+    display: flex;
     flex-direction: column;
     position: relative;
-    top:40%;
+    align-items: center;
     font-size: 55px;
     font-weight: bold;
-    color:#d0d2d1;
+    color: white;
     font-family: 'Dancing Script', cursive;
+    justify-content: center;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.486);
+    width: 50%;
 }
 
 .big-day{
-    position: absolute;
+    position: relative;
     display: flex;
     font-size:75px;
-    top:-205%;
-    left:-5%;
-    padding-bottom: 2%;
+    
 }
 
 .part-two{
-    height:1100px;
     width:100%;
-    /* background: #DCD0c0; */
     background: url(data:image/jpeg;base64,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);
     background-repeat: no-repeat;
-    padding-top: 40%;
+}
+
+.part-two-top{
+    display: flex;
+    background: beige;
+    margin-bottom: 15px;
+    justify-content: space-around;
+}
+
+.partner-name{
+    display: flex;
+    justify-content: center;
 }
 
 .part-three{
-    height:800px;
     width:100%;
     background: #F4F4F4;
-    padding-top: 0%;
     background: url(flowerrings.jpg);
     background-size: 100% 100%;
 }
 
 .header-name{
-    font-size: 135px;
+    font-size: 45px;
     font-weight: bold;
-    color:whitesmoke;
+    color: whitesmoke;
     font-family: 'Dancing Script', cursive;
-    position: absolute;
-    top:29%;
-    left:25%;
-    opacity:.95;
+    position: relative;
+    opacity: .95;
+    justify-content: center;
+    width: 100%;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
+    display: flex;
+    align-items: center;
+    height: 50%;
+}
+
+.couples-names{
+    font-size: 3.6em;
+    width: 100%;
+    padding: 15px 0;
+    background: rgba(0, 0, 0, 0.39);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.811);
+    display: flex;
+    justify-content: center;
 }
 
 .save-date{
     display: flex;
     flex-direction: column;
-    margin-top:22.5%;
-    margin-right:5%;
     font-size: 75px;
     font-weight: bold;
     color:whitesmoke;
     opacity:.9;
     font-family: 'Dancing Script', cursive;
 }
+.save-date-txt{
+    color: rgb(108, 192, 223);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
+    
+}
 
 .smaller-font{
-    font-size:40px;
-    margin-left:15%;
+    font-size: 40px;
+    text-align: center;
+    color: beige;
 }
+.save-address{
+    font-size: 25px;
+    text-align: center;
+    padding: 10px;
+    color: pink;
+
+}
+
+.hearts{
+    display: inline-block;
+
+}
+
+.partner-invite{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    align-items: center;
+}
+
 
 .location2{
     position: relative;
@@ -100,7 +149,6 @@
     /* color:whitesmoke; */
     color:#d0d2d1;
     font-family: 'Dancing Script', cursive;
-    top:-20%;
     opacity:.95;
 }
 
@@ -112,23 +160,23 @@
     font-weight: bold;
     color:whitesmoke;
     font-family: 'Dancing Script', cursive;
-    top:10%;
     opacity:.95;
+    align-items: center;
+    text-shadow: 1px 1px 1px black;
 }
 
 .paragraph{
     font-size:40px;
-    top:105%;
     line-height: 1.25;
-    position: absolute;
-    left:-20%;
+    position: relative;
+    text-align: center;
+    
 }
 
 .dialog{
     display: flex;
     justify-content: center;
     position: relative;
-    top:50%;
 }
 
 .wedding-party{
@@ -137,8 +185,8 @@ flex-direction: row;
 justify-content: center;
 align-items: center;
 justify-content: 'space-evenly';
-position: absolute;
-top:138%;
+position: relative;
+padding: 20px 0;
 }
 
 .bride{
@@ -154,43 +202,72 @@ position: relative;
 .heart-header{
     display: flex;
     flex-direction: column;
-    position: absolute;
-    top:110%;
+    position: relative;
     justify-content: center;
-    left:-7%;
 }
 
 .jeska{
-    position: absolute;
-    left:-15%;
-    top:0%;
+    position: relative;
     color:#d0d2d1;
     font-family: 'Dancing Script', cursive;
     font-size: 60px;
 }
 
-.jeska-descrip{
-    position: absolute;
-    left:-40%;
-    top:30%;
+.partner-descrip{
+    position: relative;
+    text-align: center;
     color:#d0d2d1;
     font-family: 'Dancing Script', cursive;
     font-size: 30px;
 }
 .andy{
-    position: absolute;
-    right:-15%;
-    top:0%;
+    position: relative;
     color:#d0d2d1;
     font-family: 'Dancing Script', cursive;
     font-size: 60px;
 }
 
 .andy-descrip{
-    position: absolute;
-    right:-43%;
-    top:30%;
+    position: relative;
     color:#d0d2d1;
     font-family: 'Dancing Script', cursive;
     font-size: 30px;
+}
+
+.invite-btn{
+    padding: 10px 55px;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    font-size: 25px;
+}
+
+a.invite-anchor::before{
+    all: unset;
+}
+
+.invite-anchor{
+    position: relative;
+    top: 50px;
+}
+
+@media only screen and (max-width: 900px){
+    .couples-names{
+        font-size: 100px;
+    }
+
+}
+
+@media only screen and (max-width: 420px){
+    .part-two-top{
+        flex-direction: column;
+    }
+    .story-title{
+
+    }
+    .couples-names{
+        font-size: 80px;
+    }
+    .wedding-party{
+        flex-direction: column;
+    }
 }

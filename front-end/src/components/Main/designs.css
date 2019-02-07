@@ -60,7 +60,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    
+    top:120px;
 }
 
 .designs-page-hdr{
@@ -72,9 +72,8 @@
     font-weight: 600;
     line-height: 1;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.548);
-    margin-bottom: 50px;
-    margin-top: 20px;
-
+    margin-top: 120px;
+    margin-bottom: -120px;
 }
 
 .cto-cont{
@@ -161,7 +160,7 @@
     position: relative;
     flex-direction: column;
     display: flex;
-    
+    top:120px;
 }
 
 .des-template.one{
