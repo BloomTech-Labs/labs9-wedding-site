@@ -53,8 +53,7 @@
 
 .part-two{
     width:100%;
-    background: url(data:image/jpeg;base64,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);
-    background-repeat: no-repeat;
+    
 }
 
 .part-two-top{
@@ -62,11 +61,20 @@
     background: beige;
     margin-bottom: 15px;
     justify-content: space-around;
+    padding: 12px;
 }
 
 .partner-name{
     display: flex;
     justify-content: center;
+    color: beige;
+    text-shadow: 1px 1px 1px black;
+    font-family: 'Dancing Script', cursive;
+    font-size: 80px;
+}
+
+.p-name{
+    
 }
 
 .part-three{
@@ -91,6 +99,10 @@
     height: 50%;
 }
 
+.amper{
+    margin: 0 20px;
+}
+
 .couples-names{
     font-size: 3.6em;
     width: 100%;
@@ -109,6 +121,7 @@
     color:whitesmoke;
     opacity:.9;
     font-family: 'Dancing Script', cursive;
+    text-align: center;
 }
 .save-date-txt{
     color: rgb(108, 192, 223);
@@ -163,13 +176,24 @@
     opacity:.95;
     align-items: center;
     text-shadow: 1px 1px 1px black;
+    text-align: center;
+}
+
+.story-title{
+    color: beige;
 }
 
 .paragraph{
-    font-size:40px;
+    font-size: 40px;
     line-height: 1.25;
     position: relative;
     text-align: center;
+    background: rgba(0, 0, 0, 0.418);
+    border-radius: 30px;
+    padding: 10px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.705);
+    border-bottom-right-radius: unset;
+    border-top-left-radius: unset;
     
 }
 
@@ -206,26 +230,16 @@ position: relative;
     justify-content: center;
 }
 
-.jeska{
-    position: relative;
-    color:#d0d2d1;
-    font-family: 'Dancing Script', cursive;
-    font-size: 60px;
-}
+
 
 .partner-descrip{
     position: relative;
     text-align: center;
-    color:#d0d2d1;
+    color:black;
     font-family: 'Dancing Script', cursive;
     font-size: 30px;
 }
-.andy{
-    position: relative;
-    color:#d0d2d1;
-    font-family: 'Dancing Script', cursive;
-    font-size: 60px;
-}
+
 
 .andy-descrip{
     position: relative;
@@ -258,16 +272,60 @@ a.invite-anchor::before{
 }
 
 @media only screen and (max-width: 420px){
+    .header-name{
+        height: 25%;
+    }
     .part-two-top{
         flex-direction: column;
     }
     .story-title{
-
+        font-size: 50px;
     }
     .couples-names{
-        font-size: 80px;
+        font-size: 48px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
     }
     .wedding-party{
         flex-direction: column;
     }
+    .save-date{
+        font-size: 40px;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
+    }
+    .invite-cont{
+        
+    }
+    .countdown{
+        width: 100%;
+
+    }
+    .big-day{
+        font-size: 35px;
+        color: pink;
+        text-shadow: 1px 1px 1px black;
+    }
+    .partner-invite{
+        width: 100%;
+    }
+
+    .partner-name{
+        font-size: 40px;
+    }
+    .hearts{
+        display: flex;
+        align-items: center;
+        margin: 20px 0;
+    }
+    .paragraph{
+        font-size: 20px;
+    }
+    .list{
+        display: none;
+    }
+    .partner-descript{
+        font-size: 25px;
+    }
+    
 }

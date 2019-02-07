@@ -88,7 +88,11 @@ class PublicInvite extends Component {
         <div className="invite-cont">
 
               <div className="header-name">
-                <div className="couples-names">{this.state.partner1.first_name} & {this.state.partner2.first_name}</div>
+                <div className="couples-names">
+                    <div className="pn">{this.state.partner1.first_name}</div> 
+                    <div className="pn amper">&</div>
+                    <div className="pn">{this.state.partner2.first_name}</div>
+                </div>
               </div>
 
               <div className="save-date">
@@ -123,7 +127,7 @@ class PublicInvite extends Component {
                   <Bride className='bride'/>
 
                   <div className="partner-name"> 
-                    <span className='jeska'>{this.state.partner1.first_name}</span> 
+                    <span className='p-name'>{this.state.partner1.first_name}</span> 
                   </div>
                 
                   <div className='partner-descrip'> Lorem ipsum dolor sit amet, consectetur elit, sed do
@@ -142,7 +146,7 @@ class PublicInvite extends Component {
                 <div className="partner-invite"> 
                   <Groom className='groom' /> 
                   <div className="partner-name"> 
-                    <span className='andy'>{this.state.partner2.first_name}</span>
+                    <span className='p-name'>{this.state.partner2.first_name}</span>
                   </div>
                   
                   <div className='partner-descrip'> Lorem ipsum dolor sit amet, consectetur elit, sed do
@@ -168,9 +172,7 @@ class PublicInvite extends Component {
                 </div>
               </div>
 
-              <div className='dialog'>
-              <Dialog weddingID={this.state.weddingID} /> 
-              </div>
+              
 
         </div>
       </div>
