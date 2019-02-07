@@ -77,13 +77,27 @@
 }
 
 .header-name{
-    font-size: 135px;
+    font-size: 45px;
     font-weight: bold;
-    color:whitesmoke;
+    color: whitesmoke;
     font-family: 'Dancing Script', cursive;
     position: relative;
-    opacity:.95;
-    margin-bottom: 150px;
+    opacity: .95;
+    justify-content: center;
+    width: 100%;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
+    display: flex;
+    align-items: center;
+    height: 50%;
+}
+
+.couple-names{
+    width: 100%;
+    padding: 15px 0;
+    background: rgba(0, 0, 0, 0.39);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.811);
+    display: flex;
+    justify-content: center;
 }
 
 .save-date{
@@ -95,15 +109,22 @@
     opacity:.9;
     font-family: 'Dancing Script', cursive;
 }
+.save-date-txt{
+    color: rgb(108, 192, 223);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
+    
+}
 
 .smaller-font{
     font-size: 40px;
     text-align: center;
+    color: beige;
 }
 .save-address{
     font-size: 25px;
     text-align: center;
     padding: 10px;
+    color: pink;
 
 }
 

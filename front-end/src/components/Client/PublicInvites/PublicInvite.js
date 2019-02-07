@@ -88,7 +88,7 @@ class PublicInvite extends Component {
         <div className="invite-cont">
 
               <div className="header-name">
-                <span>{this.state.partner1.first_name} & {this.state.partner2.first_name}</span>
+                <div className="couple-names">{this.state.partner1.first_name} & {this.state.partner2.first_name}</div>
               </div>
 
               <div className="save-date">
