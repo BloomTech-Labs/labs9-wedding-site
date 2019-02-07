@@ -15,7 +15,10 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
 
-const { formatStr } = require('../../../universal/helperFunctions')
+import { Redirect } from 'react-router'
+
+// const { formatStr } = require('../../../universal/helperFunctions')
+const formatStr = (str) => str.replace(' ', '_').toLowerCase()
 
 // define styles for material-ui components
 const styles = {
@@ -77,16 +80,6 @@ class PublicRsvp extends Component {
         this.getQuestions(w_id)
     }
 
-
-    // load user questions when component mounts
-    // componentDidMount() {
-
-    //     const { pathname } = this.props.location;
-    //     const w_id = pathname.substr(pathname.lastIndexOf('/') + 1);
-    //     console.log('wedding pathname', w_id)
-
-    // }
-
     getQuestions = (wed_id) => {
 
         axios.get(`${url}/${wed_id}/allquestions`)
@@ -145,13 +138,13 @@ class PublicRsvp extends Component {
                             onChange={this.handleChange(i)}
                             id="standard-name"
                         >
-                            {q.answer.split(",").map(option =>
+                            {q.answer ? q.answer.split(",").map(option =>
                                 <FormControlLabel
                                     control={<Radio />}
                                     value={option}
                                     label={option}
                                     labelPlacement="end"
-                                />)}
+                                />) : <div/>}
                         </RadioGroup>
                     </FormControl>
                 </CardContent>
@@ -275,10 +268,10 @@ class PublicRsvp extends Component {
                     {this.state.questions.map((question, i) => {
                         return this.renderCards(question, i)
                     })}
-                            <Button variant="outlined" 
+                            {/* <Button variant="outlined" 
                                 onClick={this.saveAnswers} 
                                 style={styles.button}
-                            >Save Answers</Button>
+                            >Save Answers</Button> */}
                     <Typography component="div" style={styles.buttonDiv}>
                     {this.state[emailIndex] && validateEmail(this.state[emailIndex]) ? (
                             <Button variant="outlined" 
@@ -288,7 +281,7 @@ class PublicRsvp extends Component {
                         ) : (
                         <div className="disabledBox">
                             <Box textAlign="center" m={1}>
-                                Please enter Email
+                                * Please enter Email
                             </Box>
                             <Button variant="outlined" disabled style={styles.button}>submit</Button>
                         </div>
@@ -298,6 +291,7 @@ class PublicRsvp extends Component {
                             <Box textAlign="center" m={1}>
                                 rsvp saved!
                             </Box>
+                            <Redirect to={`/${this.state.weddingId}/invite`} />
                         </div>
                     ) : (<div></div>)}
                     </Typography>

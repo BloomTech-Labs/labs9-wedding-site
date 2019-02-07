@@ -24,7 +24,7 @@
 .list{
     position: relative;
     top:67%;
-    left:1%;
+    
 }
 
 .countdown{
@@ -32,7 +32,6 @@
     flex-direction: column;
     position: relative;
     top:40%;
-    left:65%;
     font-size: 55px;
     font-weight: bold;
     color:#d0d2d1;
@@ -102,7 +101,6 @@
     color:#d0d2d1;
     font-family: 'Dancing Script', cursive;
     top:-20%;
-    left:33%;
     opacity:.95;
 }
 
@@ -115,7 +113,6 @@
     color:whitesmoke;
     font-family: 'Dancing Script', cursive;
     top:10%;
-    left:25%;
     opacity:.95;
 }
 
@@ -142,7 +139,6 @@ align-items: center;
 justify-content: 'space-evenly';
 position: absolute;
 top:138%;
-left:23%;
 }
 
 .bride{
