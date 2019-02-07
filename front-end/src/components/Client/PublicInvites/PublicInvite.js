@@ -114,37 +114,40 @@ class PublicInvite extends Component {
                   <div className="list">
                     <Details />
                   </div>  
-                   
+
               </div>
 
               <div className='wedding-party'>
 
-                <div className="partner1-invite">
+                <div className="partner-invite">
                   <Bride className='bride'/>
-                  <div> 
+
+                  <div className="partner-name"> 
                     <span className='jeska'>{this.state.partner1.first_name}</span> 
                   </div>
                 
-                  <div> <span className='jeska-descrip'> Lorem ipsum dolor sit amet, <br/> consectetur elit, sed do
-                      eiusmo <br/> tempor incididunt ut labore <br/> et dolore magna aliqua. </span> 
-                  </div>
+                  <div className='partner-descrip'> Lorem ipsum dolor sit amet, consectetur elit, sed do
+                      eiusmo tempor incididunt ut labore et dolore magna aliqua. 
+                  </div> 
+                  
+
                 </div>
-                  <div className="hearts">
+                
+                <div className="hearts">
                     <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIBAcOkIeGVef1xXUghK2KLTwZT-E3XpiE9c1sIkRaAF4sOAiq' height='50' width='50' className='hide'/>
                     <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIBAcOkIeGVef1xXUghK2KLTwZT-E3XpiE9c1sIkRaAF4sOAiq' height='140' width='140'/>
                     <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIBAcOkIeGVef1xXUghK2KLTwZT-E3XpiE9c1sIkRaAF4sOAiq' height='50' width='50' className='hide'/>
-                  </div>
-
-                  
-                <div className="partner2-invite"> 
+                </div>
+                 
+                <div className="partner-invite"> 
                   <Groom className='groom' /> 
-                  <div> 
+                  <div className="partner-name"> 
                     <span className='andy'>{this.state.partner2.first_name}</span>
                   </div>
                   
-                  <div> <span className='andy-descrip'> Lorem ipsum dolor sit amet, <br/> consectetur elit, sed do
-                      eiusmo <br/> tempor incididunt ut labore <br/> et dolore magna aliqua. </span> 
-                  </div>
+                  <div className='partner-descrip'> Lorem ipsum dolor sit amet, consectetur elit, sed do
+                      eiusmo tempor incididunt ut labore et dolore magna aliqua. 
+                  </div> 
                 </div> 
               </div>
           

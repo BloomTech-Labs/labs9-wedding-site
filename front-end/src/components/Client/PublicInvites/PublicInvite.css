@@ -64,6 +64,11 @@
     justify-content: space-around;
 }
 
+.partner-name{
+    display: flex;
+    justify-content: center;
+}
+
 .part-three{
     width:100%;
     background: #F4F4F4;
@@ -107,14 +112,13 @@
 
 }
 
-.partner1-invite{
+.partner-invite{
     display: flex;
     flex-direction: column;
+    width: 30%;
+    align-items: center;
 }
-.partner2-invite{
-    display: flex;
-    flex-direction: column;
-}
+
 
 .location2{
     position: relative;
@@ -158,6 +162,7 @@ justify-content: center;
 align-items: center;
 justify-content: 'space-evenly';
 position: relative;
+padding: 20px 0;
 }
 
 .bride{
@@ -184,8 +189,9 @@ position: relative;
     font-size: 60px;
 }
 
-.jeska-descrip{
+.partner-descrip{
     position: relative;
+    text-align: center;
     color:#d0d2d1;
     font-family: 'Dancing Script', cursive;
     font-size: 30px;
