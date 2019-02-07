@@ -162,6 +162,9 @@ server.get('/deleteall', async (req, res) => {
     }
 })
 
+const { generateDefaultQuestions } = require('./defaultQuestions')
+
+// console.log(generateDefaultQuestions( 168, 'Sally', 'Sam' ) )
 
 //THIS FUNCTION LOADS THE USER'S INFORMATION INTO THE MAINCONTENT COMPONENT AND IS CALLED INSIDE OF componentDidMount() IN THE DASHBOARD COMPONENT 
 server.post('/loaduser', async (req, res) => {
@@ -186,7 +189,7 @@ server.post('/loaduser', async (req, res) => {
 
             // gets rsvp results 
             let rsvpResults = await db('user').join('guests', { 'user.id': 'guests.guest_id' })
-                .where({ wedding_id: user.wedding_id, guest: true }).groupBy('attending');
+                .where({ wedding_id: user.wedding_id, guest: true })//.groupBy('attending');
 
             rsvpResults = rsvpResults.reduce( (rsvps, guest) => {
                 rsvps[guest.attending] = rsvps[guest.attending] ? rsvps[guest.attending] + 1 : 1
@@ -222,6 +225,9 @@ server.post('/loaduser', async (req, res) => {
             let guests = await db('user').where({ wedding_id, guest: true });
             let wedding_data = await db('weddings').where({id: wedding_id}).first()
 
+            const response = await asyncForEach(generateDefaultQuestions(wedding_id, first_name, p_firstname), asyncQuestions);
+
+            console.log(`Questions ${response ? '' : 'not'} added to db`, response);
             // gets rsvp results 
             let rsvpResults = await db('user').join('guests', { 'user.id': 'guests.guest_id' })
                 .where({ wedding_id, guest: true }).groupBy('attending');
@@ -248,20 +254,26 @@ server.post('/loaduser', async (req, res) => {
             let couple = await db('user').join('couples', { 'user.id': 'couples.user_id' }).where({ wedding_id: user.wedding_id });
             let guests = await db('user').join('guests', { 'user.id': 'guests.guest_id' }).where({ wedding_id: user.wedding_id, guest: true });
             let questions = await db('questions').where({ wedding_id: user.wedding_id })
-            
-            let rsvpResults = await db('user').join('guests', { 'user.id': 'guests.guest_id' })
-                .where({ wedding_id: user.wedding_id, guest: true }).groupBy('attending');
 
+
+            const response = await asyncForEach(generateDefaultQuestions(user.wedding_id, first_name, p_firstname), asyncQuestions);
+
+            console.log(`Questions ${response ? '' : 'not'} added to db`, response);
+                        // gets rsvp results 
+            let rsvpResults = await db('user').join('guests', { 'user.id': 'guests.guest_id' })
+                .where({ wedding_id: user.wedding_id, guest: true })//.groupBy('attending');
+        
             rsvpResults = rsvpResults.reduce( (rsvps, guest) => {
                 rsvps[guest.attending] = rsvps[guest.attending] ? rsvps[guest.attending] + 1 : 1
                 return rsvps
             }, {})
+        
             res.status(200).json({
                 couple,
                 guests,
                 questions,
-                wedding_data,
-                rsvpResults
+                rsvpResults,
+                wedding_data
             })
         }
 
@@ -595,43 +607,60 @@ server.delete('/users/:id', (req, res) => {
 })
 
 
+// const { asyncForEach } = require('../../front-end/src/universal/helperFunctions')
 
+// const { asyncForEach } = require('../../front-end/src/universal/helperFunctions')
+
+async function asyncForEach(array, callback) {
+    try {
+
+        for (let index = 0; index < array.length; index++) {
+            await callback(array[index], index, array);
+        }
+        return true
+    }
+    catch(error) {
+        console.log(error)
+        return false
+    }
+}
+
+async function asyncQuestions(currIndex, index, array) {
+    try {
+        const res = await db.table('questions').where({wedding_id: currIndex.wedding_id, category: currIndex.category, question: currIndex.question})
+        console.log("DBQuery",res)
+        if(!res.length){
+            console.log('NoRes')
+            try {
+                const successQuestion = await db.table('questions').insert(currIndex)
+                console.log(successQuestion)
+            }
+            catch (err) {
+                console.log(err)
+            }
+        }
+        else {
+            console.log('ResExists')
+        }
+    } 
+    catch (err) {
+         console.log(err)
+    }
+}
 
 //A FUNCTION TO POST QUESTIONS::LINE 360
 server.post('/questions', async (req, res) => {
     let { questions } = req.body;
-
-    async function asyncForEach(questions, callback) {
-        for (let index = 0; index < questions.length; index++) {
-          await callback(questions[index], index, questions);
-        }
-      }
-    
-    async function asyncQuestions(currIndex, index, array) {
-       try {
-        const res = await db.table('questions').where({question: currIndex.question, wedding_id: currIndex.wedding_id})
-        console.log("DBQuery",res)
-            if(!res.length){
-                console.log('NoRes')
-                try {
-                const successQuestion = await db.table('questions').insert(currIndex)
-                console.log(successQuestion)
-                }
-                catch (err) {
-                    console.log(err)
-                }
-               
-            }
-            else {
-                console.log('ResExists')
-            }
-       } 
-        catch (err) {
-            console.log(err)
-        }
+    try {
+        const response = await asyncForEach(questions, asyncQuestions);
+        
+        console.log('response', response)
+        res.status(200).json({response, message: 'Data Posted Successfully.'})
     }
-    const response = await asyncForEach(questions, asyncQuestions);
-    res.status(200).json({message: 'Data Posted Successfully.'})
+    catch(error) {
+        console.log(error)
+        res.status(500).json({ error, message: 'Server Error.' })
+    }
 })
 
 

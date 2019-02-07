@@ -17,7 +17,6 @@ import "./fonts.css";
 const Pricing = () => {
 	return (
 		<div className="separate">
-			{/* <StickyTop /> */}
 			<Prices />
 			<div className="separate_text">
 				<span className="font">Watch your invite</span>
@@ -89,7 +88,7 @@ const yellow3 = {
 	flexDirection: "column",
 	marginTop: 10,
 	position: "absolute",
-	left: "77.6%",
+	left: "82.5%",
 	top: 300,
 	zIndex: 400,
 	transition: "all 0.3s"
@@ -153,8 +152,8 @@ const red1 = {
 	flexDirection: "column",
 	marginTop: 10,
 	position: "absolute",
-	left: "88%",
-	top: 500,
+	left: "92%",
+	top: 520,
 	zIndex: 600,
 	transition: "all 0.3s"
 };

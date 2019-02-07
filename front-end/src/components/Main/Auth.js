@@ -30,7 +30,7 @@ export default class Auth extends React.Component {
     render() {
       return (
         <div className="auth-div" style={{background: 'radial-gradient(white, #AFD4E1)'}}>
-
+        <div className='discover-zen'>Discover The Zen Of Wedding Planning</div>
 
         <AuthModal loginbtn={this.props.loginbtn}/>
 

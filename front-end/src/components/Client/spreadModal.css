@@ -1,0 +1,7 @@
+.example-format{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    position: relative;
+    top:-30px;
+}

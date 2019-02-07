@@ -29,7 +29,7 @@
     flex-direction: column;
     position: relative;
     height: 100%;
-    
+    background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);
 
 }
 
@@ -38,11 +38,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    width: 80vw;
-    border-radius: 50%;
-    background: #AFD4E1;
-    
+    height: 90%;
+    width: 90%;
+    border-radius: 10;
+    background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);
 }
 
 @media only screen and (max-width: 532px) {

@@ -23,13 +23,13 @@
     border-radius: 50%;
 }
 
-.logo-wrap{
+/* .logo-wrap{
 
-}
+} */
 
 .logo-wrap > img{
     height: auto;
-        width: 95px;
+    width: 95px;
 }
 
 .auth-btn{
@@ -47,10 +47,5 @@
     font-weight: bold;
 }
 
-.discover-zen{
-    font-family: 'Montserrat';
-    font-weight: 600;
-    font-size: 20px;
-}
 
 

@@ -11,7 +11,8 @@ import Button from '@material-ui/core/Button';
 import Share from '@material-ui/icons/Share';
 import Add from '@material-ui/icons/Add';
 import Modal from '@material-ui/core/Modal';
-import ClientSelections from './ClientSelections'
+import ClientSelections from './ClientSelections';
+import Spread from './spreadModal';
 
 
 import './dashboard.css';
@@ -61,9 +62,9 @@ class Dashboard extends Component {
             registry: [],
             registering: false,
             rsvps: [0, 0, 0],
-            attending: 1,
-            notAttending: 1,
-            maybe: 1,
+            attending: 0,
+            notAttending: 0,
+            maybe: 0,
         }
     }
 
@@ -217,14 +218,16 @@ class Dashboard extends Component {
                 <Card className="invite-link">
                     <div className="invite-link-text">
                         Copy this link and share it with your friends and family so they can rsvp to your event!                    
-                        <Link to={`/${localStorage.getItem('weddingID')}/invite`}>
-                            {`https://www.vbeloved.com/${localStorage.getItem('weddingID')}/invite`}
+                        <Link to={`/${this.props.userData.weddingID}/invite`}>
+                            {`https://www.vbeloved.com/${this.props.userData.weddingID}/invite`}
                         </Link>
                     </div>
             </Card>
             <div className="cardDivTop">
                 <Card className="cardTopLeft" style={styles.cardTopLeft}>
                     Guest List
+                    <Spread />
+                    <div className='drag-drop'>
                     <ReactDropzone
                         accept=".csv"
                         onDrop={this.handleonDrop}>
@@ -235,6 +238,7 @@ class Dashboard extends Component {
                             </div>
                         )}
                     </ReactDropzone>
+                    </div>
                 </Card>
                 <Card className="cardTopRight">
                     RSVP

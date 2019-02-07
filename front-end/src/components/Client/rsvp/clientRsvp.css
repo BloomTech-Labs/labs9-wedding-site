@@ -26,10 +26,20 @@
     margin: 0 auto 30px;
 }
 
+.clientRsvp .buttonDiv .successMessage {
+    margin: 0 auto;
+}
+
+.successMessage {
+    color: green;
+    font-weight: 800;
+}
+
 .disabledBox {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    color: red;
 }
 
 .rsvpCard {

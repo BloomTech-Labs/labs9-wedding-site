@@ -4,9 +4,18 @@
     height: 100vh;
     position: fixed;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background: radial-gradient(white, #AFD4E1);
     
 
+}
+
+
+.discover-zen{
+    font-family: 'Montserrat';
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 28px;
 }
