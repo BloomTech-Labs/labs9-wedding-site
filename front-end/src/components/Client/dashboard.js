@@ -229,7 +229,7 @@ class Dashboard extends Component {
             <div className="cardDivTop">
                 <Card className="cardTopLeft" style={styles.cardTopLeft}>
                     Guest List
-                    <Spread />
+                    <div className='mobile-spread'><Spread /> </div>
                     <div className='drag-drop'>
                     <ReactDropzone
                         accept=".csv"

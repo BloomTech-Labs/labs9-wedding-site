@@ -18,11 +18,11 @@ import {
     TumblrIcon,
   } from 'react-share';
 
-  import {
-    FacebookShareCount,
-    PinterestShareCount,
-    TumblrShareCount,
-  } from 'react-share';
+//   import {
+//     FacebookShareCount,
+//     PinterestShareCount,
+//     TumblrShareCount,
+//   } from 'react-share';
 
   import './shareMe.css';
 

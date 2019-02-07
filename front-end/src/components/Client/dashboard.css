@@ -135,3 +135,10 @@ offscreen forever */
   top:-40px;
   height:200px;
 }
+
+.mobile-spread{
+  position: relative;
+  top:20px;
+  display: flex;
+  justify-content: center;
+}
