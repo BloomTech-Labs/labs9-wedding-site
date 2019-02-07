@@ -91,7 +91,8 @@
     height: 50%;
 }
 
-.couple-names{
+.couples-names{
+    font-size: 3.6em;
     width: 100%;
     padding: 15px 0;
     background: rgba(0, 0, 0, 0.39);
@@ -161,6 +162,7 @@
     font-family: 'Dancing Script', cursive;
     opacity:.95;
     align-items: center;
+    text-shadow: 1px 1px 1px black;
 }
 
 .paragraph{
@@ -168,6 +170,7 @@
     line-height: 1.25;
     position: relative;
     text-align: center;
+    
 }
 
 .dialog{
@@ -245,4 +248,26 @@ a.invite-anchor::before{
 .invite-anchor{
     position: relative;
     top: 50px;
+}
+
+@media only screen and (max-width: 900px){
+    .couples-names{
+        font-size: 100px;
+    }
+
+}
+
+@media only screen and (max-width: 420px){
+    .part-two-top{
+        flex-direction: column;
+    }
+    .story-title{
+
+    }
+    .couples-names{
+        font-size: 80px;
+    }
+    .wedding-party{
+        flex-direction: column;
+    }
 }
