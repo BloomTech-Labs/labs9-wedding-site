@@ -260,7 +260,8 @@ server.post('/loaduser', async (req, res) => {
                 couple,
                 guests,
                 questions,
-                wedding_data
+                wedding_data,
+                rsvpResults
             })
         }
 
