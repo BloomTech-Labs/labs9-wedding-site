@@ -14,6 +14,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Switch from '@material-ui/core/Switch';
 import Spread from '../Client/spreadsheet.jpg';
+import CSVButton from './csvButton';
+import './spreadModal.css';
 
 const styles = theme => ({
   form: {
@@ -59,8 +61,8 @@ class MaxWidthDialog extends React.Component {
 
     return (
       <React.Fragment>
-        <div variant="outlined" color="primary" onClick={this.handleClickOpen}>
-          CSV Example Format
+        <div variant="outlined" color="primary" onClick={this.handleClickOpen} className='example-format'>
+          <CSVButton className='csv-button'/>
         </div>
         <Dialog
           fullWidth={this.state.fullWidth}
