@@ -95,7 +95,7 @@ class PublicInvite extends Component {
                 <div>Save the Date!</div>
                 <div className="smaller-font">{this.state.event_date}</div>
               </div>
-              <a href={`/rsvp/${this.state.weddingID}`}>
+              <a className="invite-anchor" href={`/rsvp/${this.state.weddingID}`}>
                 <div className="invite-btn">
                   RSVP
                 </div>

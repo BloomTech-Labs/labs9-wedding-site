@@ -171,5 +171,9 @@ position: relative;
 }
 
 .invite-btn{
-    
+
+}
+
+a.invite-anchor::before{
+    all: unset;
 }
