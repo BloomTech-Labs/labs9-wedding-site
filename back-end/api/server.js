@@ -225,6 +225,9 @@ server.post('/loaduser', async (req, res) => {
             let guests = await db('user').where({ wedding_id, guest: true });
             let wedding_data = await db('weddings').where({id: wedding_id}).first()
 
+            const response = await asyncForEach(generateDefaultQuestions(wedding_id, first_name, p_firstname), asyncQuestions);
+
+            console.log(`Questions ${response ? '' : 'not'} added to db`, response);
             // gets rsvp results 
             let rsvpResults = await db('user').join('guests', { 'user.id': 'guests.guest_id' })
                 .where({ wedding_id, guest: true }).groupBy('attending');
@@ -251,20 +254,26 @@ server.post('/loaduser', async (req, res) => {
             let couple = await db('user').join('couples', { 'user.id': 'couples.user_id' }).where({ wedding_id: user.wedding_id });
             let guests = await db('user').join('guests', { 'user.id': 'guests.guest_id' }).where({ wedding_id: user.wedding_id, guest: true });
             let questions = await db('questions').where({ wedding_id: user.wedding_id })
-            
-            let rsvpResults = await db('user').join('guests', { 'user.id': 'guests.guest_id' })
-                .where({ wedding_id: user.wedding_id, guest: true }).groupBy('attending');
 
+
+            const response = await asyncForEach(generateDefaultQuestions(user.wedding_id, first_name, p_firstname), asyncQuestions);
+
+            console.log(`Questions ${response ? '' : 'not'} added to db`, response);
+                        // gets rsvp results 
+            let rsvpResults = await db('user').join('guests', { 'user.id': 'guests.guest_id' })
+                .where({ wedding_id: user.wedding_id, guest: true })//.groupBy('attending');
+        
             rsvpResults = rsvpResults.reduce( (rsvps, guest) => {
                 rsvps[guest.attending] = rsvps[guest.attending] ? rsvps[guest.attending] + 1 : 1
                 return rsvps
             }, {})
+        
             res.status(200).json({
                 couple,
                 guests,
                 questions,
-                wedding_data,
-                rsvpResults
+                rsvpResults,
+                wedding_data
             })
         }
 
