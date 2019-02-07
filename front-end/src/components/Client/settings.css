@@ -4,6 +4,10 @@
     
 }
 
+.userSettings .acct-info-title{
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+}
+
 .userSettings .settingsContainer {
     margin: 0 auto 50px;
     width: 80%;

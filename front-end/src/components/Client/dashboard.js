@@ -227,6 +227,7 @@ class Dashboard extends Component {
                 <Card className="cardTopLeft" style={styles.cardTopLeft}>
                     Guest List
                     <Spread />
+                    <div className='drag-drop'>
                     <ReactDropzone
                         accept=".csv"
                         onDrop={this.handleonDrop}>
@@ -237,6 +238,7 @@ class Dashboard extends Component {
                             </div>
                         )}
                     </ReactDropzone>
+                    </div>
                 </Card>
                 <Card className="cardTopRight">
                     RSVP

@@ -10,68 +10,68 @@ import styled from "styled-components";
 
 // import { Parallax, ParallaxLayer } from "react-spring/addons";
 const LandingPageDiv = styled.div`
-	top: 0;
-	height: 100vh;
-	width: 100%;
-	background-image: 
-		url(${props => props.img});
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: top;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  background-image: url(${props => props.img});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
 `;
 
 class LandingPage extends Component {
-	render() {
-		return (
-			<div className="scrollview">
-				<div className="containerLanding" id="home">
-					<LandingPageDiv
-						className="containerLanding_text"
-						img={beach}
-					>
-						<span className="firstfont">
-							Helping you <br />
-						</span>
-						<span className="secondfont"> Tie the Knot </span>
-					</LandingPageDiv>
-					<a
-						href={"#pricing"}
-						className="LandingCallForActionButton hover"
-					>
-						Let's get started
-					</a>
-					<img
-						className="LandingCallForActionImage hover2"
-						src={belovedmark}
-						alt="Beloved Logo"
-					/>
-				</div>
+  render() {
+    return (
+      <div className="scrollview">
+        <div className="containerLanding" id="home">
+          <LandingPageDiv className="containerLanding_text" img={beach}>
+            <span className="firstfont">
+              Helping you <br />
+            </span>
+            <span className="secondfont"> Tie the Knot </span>
+            <div className="cta-description">
+              <span className="thirdfont">
+                Choose a design,
+                <br />
+                Customize to your liking,
+								<br/>
+								Send to your friends.
+              </span>
+            </div>
+          </LandingPageDiv>
+          <a href={"#pricing"} className="LandingCallForActionButton hover">
+            Let's get started
+          </a>
+          <img
+            className="LandingCallForActionImage hover2"
+            src={belovedmark}
+            alt="Beloved Logo"
+          />
+        </div>
 
-				<div className="containerPricing" id="pricing">
-					<Pricing />
-					{/* <a href={"#designs"}>
+        <div className="containerPricing" id="pricing">
+          <Pricing />
+          {/* <a href={"#designs"}>
 						{" "}
 						<img src={arrow} alt="arrow" className="arrow" />
 						Check out our designs
 					</a> */}
-				</div>
+        </div>
 
-				<div className="containerDesign" id="designs">
-					<Design />
+        <div className="containerDesign" id="designs">
+          <Design />
 
-					<a href={"#home"}>Back to top</a>
-					
-
-				</div>
-			</div>
-		);
-	}
+          <a href={"#home"}>Back to top</a>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default LandingPage;
 
 {
-	/*
+  /*
   import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
 import './landing.css';
