@@ -53,6 +53,12 @@
     background-repeat: no-repeat;
 }
 
+.part-two-top{
+    display: flex;
+    background: beige;
+    margin-bottom: 15px;
+}
+
 .part-three{
     width:100%;
     background: #F4F4F4;
@@ -85,7 +91,24 @@
     text-align: center;
 }
 .save-address{
-    font-size: 35px;
+    font-size: 25px;
+    text-align: center;
+    padding: 10px;
+
+}
+
+.hearts{
+    display: inline-block;
+
+}
+
+.partner1-invite{
+    display: flex;
+    flex-direction: column;
+}
+.partner2-invite{
+    display: flex;
+    flex-direction: column;
 }
 
 .location2{
@@ -107,12 +130,14 @@
     color:whitesmoke;
     font-family: 'Dancing Script', cursive;
     opacity:.95;
+    align-items: center;
 }
 
 .paragraph{
     font-size:40px;
     line-height: 1.25;
     position: relative;
+    text-align: center;
 }
 
 .dialog{

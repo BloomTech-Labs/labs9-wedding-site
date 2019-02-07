@@ -104,40 +104,48 @@ class PublicInvite extends Component {
         </div>
 
         <div className="part-two">
-          
-              <div className="list">
-                <Details />
-              </div>
 
-              <div className="location2">
-                <span> Happy Couple </span>
-                <img src={heartheader} className='heart-header' height='70px' width='700px'/>
-              </div>
+              <div className="part-two-top">
 
-              <div className="countdown">
-                <span className='big-day'>The Big Day</span>
-                <CountdownComponent />
+                  <div className="countdown">
+                    <span className='big-day'>The Big Day</span>
+                    <CountdownComponent />
+                  </div>
+                  <div className="list">
+                    <Details />
+                  </div>  
+                   
               </div>
 
               <div className='wedding-party'>
-              <div> <span className='jeska'>{this.state.partner1.first_name}</span> </div>
-              
-              <div> <span className='jeska-descrip'> Lorem ipsum dolor sit amet, <br/> consectetur elit, sed do
-                  eiusmo <br/> tempor incididunt ut labore <br/> et dolore magna aliqua. </span> 
-              </div>
-              <Bride className='bride'/>
 
-              <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIBAcOkIeGVef1xXUghK2KLTwZT-E3XpiE9c1sIkRaAF4sOAiq' height='50' width='50' className='hide'/>
-              <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIBAcOkIeGVef1xXUghK2KLTwZT-E3XpiE9c1sIkRaAF4sOAiq' height='140' width='140'/>
-              <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIBAcOkIeGVef1xXUghK2KLTwZT-E3XpiE9c1sIkRaAF4sOAiq' height='50' width='50' className='hide'/>
-              
-              <Groom className='groom' /> 
-              <div> 
-                <span className='andy'>{this.state.partner2.first_name}</span>
-              </div>
-              
-              <div> <span className='andy-descrip'> Lorem ipsum dolor sit amet, <br/> consectetur elit, sed do
-                  eiusmo <br/> tempor incididunt ut labore <br/> et dolore magna aliqua. </span> </div>
+                <div className="partner1-invite">
+                  <Bride className='bride'/>
+                  <div> 
+                    <span className='jeska'>{this.state.partner1.first_name}</span> 
+                  </div>
+                
+                  <div> <span className='jeska-descrip'> Lorem ipsum dolor sit amet, <br/> consectetur elit, sed do
+                      eiusmo <br/> tempor incididunt ut labore <br/> et dolore magna aliqua. </span> 
+                  </div>
+                </div>
+                  <div className="hearts">
+                    <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIBAcOkIeGVef1xXUghK2KLTwZT-E3XpiE9c1sIkRaAF4sOAiq' height='50' width='50' className='hide'/>
+                    <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIBAcOkIeGVef1xXUghK2KLTwZT-E3XpiE9c1sIkRaAF4sOAiq' height='140' width='140'/>
+                    <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIBAcOkIeGVef1xXUghK2KLTwZT-E3XpiE9c1sIkRaAF4sOAiq' height='50' width='50' className='hide'/>
+                  </div>
+
+                  
+                <div className="partner2-invite"> 
+                  <Groom className='groom' /> 
+                  <div> 
+                    <span className='andy'>{this.state.partner2.first_name}</span>
+                  </div>
+                  
+                  <div> <span className='andy-descrip'> Lorem ipsum dolor sit amet, <br/> consectetur elit, sed do
+                      eiusmo <br/> tempor incididunt ut labore <br/> et dolore magna aliqua. </span> 
+                  </div>
+                </div> 
               </div>
           
         </div>
@@ -146,7 +154,7 @@ class PublicInvite extends Component {
 
               <div className="story">
                 <span>Our Love Story</span>
-                <span className='paragraph'>
+                <div className='paragraph'>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                   eiusmod tempor incididunt<br/> ut labore et dolore magna aliqua. Ut
                   enim ad minim veniam, quis nostrud exercitation <br/> ullamco laboris
@@ -154,7 +162,7 @@ class PublicInvite extends Component {
                   reprehenderit in voluptate velit esse cillum dolore eu fugiat
                   nulla pariatur.<br/> Excepteur sint occaecat cupidatat non proident,
                   sunt in culpa qui officia deserunt mollit anim id est <br/> laborum.
-                </span>
+                </div>
               </div>
 
               <div className='dialog'>
