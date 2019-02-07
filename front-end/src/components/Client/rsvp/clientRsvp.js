@@ -304,18 +304,7 @@ class Rsvp extends Component {
                     <Button variant="outlined" onClick={this.handleOpen} className="rsvpButton">Add Question</Button>
                     <Button variant="outlined" onClick={this.saveQuestions} className="rsvpButton">Save</Button>
                 </div>
-                <Modal
-                    open={this.state.modalOpen}
-                    onClose={this.handleClose}>
-                    <AddQuestion
-                    category={this.state.category}
-                    question={this.state.question}
-                    addQuestion={this.addQuestion}
-                    handleClose={this.handleClose}
-                    handleInputChange={this.inputHandler}/>
-                </Modal>
 
-            </div>
             <Modal
                 open={this.state.modalOpen}
                 onClose={this.handleClose}>
@@ -336,6 +325,7 @@ class Rsvp extends Component {
                 onClose={this.handleSnackbarClose}
                 message={<span>Questions Successfully Saved!</span>}
             />
+        </div>
         </div>
       );
     }
