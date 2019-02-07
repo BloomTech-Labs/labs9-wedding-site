@@ -75,7 +75,7 @@ class CheckoutForm extends Component {
         <div className="pricing-packages">
           <Card className="package">
             <CardContent>
-            <h4>The Forever Package | $9.99</h4>
+            <h4>The Forever Package | $15.99</h4>
             <p>30-person Guest List</p>
             <p>Unlimited Registries</p>
             <button onClick={this.submitForeverPackage}>Buy Forever Package</button>
@@ -83,7 +83,7 @@ class CheckoutForm extends Component {
           </Card>
           <Card className="package">
             <CardContent>
-            <h4>The Eternity Package | $19.99</h4>
+            <h4>The Eternity Package | $39.99</h4>
             <p>Unlimited Guest List</p>
             <p>Unlimited Registries</p>
             <button onClick={this.submitEternityPackage}>Buy Eternity Package</button>
