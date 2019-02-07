@@ -9,14 +9,14 @@ const generateDefaultQuestions = (
             wedding_id,
             category: 'First Name',
             multiple_choice: false,
-            question: 'First Name',
+            question: '',
             answer: ''
         },
         {
             wedding_id,
             category: 'Last Name',
             multiple_choice: false,
-            question: 'last Name',
+            question: '',
             answer: ''
         },
         {
