@@ -11,7 +11,8 @@ import Button from '@material-ui/core/Button';
 import Share from '@material-ui/icons/Share';
 import Add from '@material-ui/icons/Add';
 import Modal from '@material-ui/core/Modal';
-import ClientSelections from './ClientSelections'
+import ClientSelections from './ClientSelections';
+import Spread from './spreadModal';
 
 
 import './dashboard.css';
@@ -225,6 +226,7 @@ class Dashboard extends Component {
             <div className="cardDivTop">
                 <Card className="cardTopLeft" style={styles.cardTopLeft}>
                     Guest List
+                    <Spread />
                     <ReactDropzone
                         accept=".csv"
                         onDrop={this.handleonDrop}>
