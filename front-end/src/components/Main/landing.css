@@ -144,5 +144,11 @@
 		font-size: 50px;
 		width: 100%;
 		text-shadow: 1px 1px 12px white;
+		line-height: .5;
+	}
+	.thirdfont{
+	font-size:20px;
+	left: 52.5%;
+	top:56%;
 	}
 }
