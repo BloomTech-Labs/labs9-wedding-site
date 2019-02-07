@@ -800,7 +800,7 @@ server.post("/chargeforever", async (req, res) => {
     console.log("req.body", req.body)
     try {
         let { status } = await stripe.charges.create({
-            amount: 999,
+            amount: 1599,
             currency: "usd",
             description: "The forever package",
             source: req.body.token
@@ -815,7 +815,7 @@ server.post("/chargeforever", async (req, res) => {
 server.post("/chargeeternity", async (req, res) => {
     try {
         let { status } = await stripe.charges.create({
-            amount: 1999,
+            amount: 3999,
             currency: "usd",
             description: "The eternity package",
             source: req.body.token
