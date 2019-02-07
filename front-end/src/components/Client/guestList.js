@@ -154,8 +154,8 @@ class GuestList extends Component {
                     <TableRow
                     key={index}
                     className={
-                        index > 5 && this.state.pricing_package < 1 ? 'blurry-text' :
-                        index > 10 && this.state.pricing_package < 2 ? 'blurry-text' :
+                        index > 4 && this.state.pricing_package < 1 ? 'blurry-text' :
+                        index > 9 && this.state.pricing_package < 2 ? 'blurry-text' :
                         null
                     }>
                         <TableCell align="right">{guest.first_name}</TableCell>
