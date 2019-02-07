@@ -56,7 +56,8 @@ class MainContent extends Component {
         this.setState({
             loginbtn: true
         })
-        
+        localStorage.removeItem('vbtoken');
+        localStorage.removeItem('weddingID')
     }
 
     signupbtn = () => {
@@ -64,6 +65,7 @@ class MainContent extends Component {
             loginbtn: false
         })
         localStorage.removeItem('vbtoken');
+        localStorage.removeItem('weddingID')
     }
 
 

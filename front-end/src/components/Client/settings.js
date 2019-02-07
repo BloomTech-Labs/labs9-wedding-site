@@ -251,7 +251,10 @@ class Settings extends React.Component {
                             {!this.state.edit ?
                                     <div className="choice">
                                     <div className="choice-name">Design {this.state.design_template}</div>
-                                    <div className="choice-img settings" style={{background: `url(${this.state.design_template ? photos[this.state.design_template-1].src : null})`}}>
+                                    <div className="choice-img settings" 
+                                            style={{
+                                                background: `url(${this.state.design_template ? photos[this.state.design_template-1].src : ''})`,
+                                                backgroundPosition: "top"}}>
                                     {this.state.design_template}
                                     </div>
                                 </div> :

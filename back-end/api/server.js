@@ -178,7 +178,7 @@ server.post('/loaduser', async (req, res) => {
         const user = await db.table('user').join('oauth_ids', { 'user.id': "oauth_ids.user_id" }).where({ oauth_id }).first();
         
         
-        if(vbtoken){
+        if(vbtoken){ console.log('VB')
 
             let wedding_data = await db('weddings').where({id: user.wedding_id}).first()
             let couple = await db('user').join('couples', { 'user.id': 'couples.user_id' }).where({ wedding_id: user.wedding_id });
@@ -205,7 +205,7 @@ server.post('/loaduser', async (req, res) => {
             })
         }
         
-        else if(!user){
+        else if(!user){ console.log('NewUser')
             
             
             const wedding_id = await db.table('weddings').insert({ event_date, event_address, design_template });
@@ -224,7 +224,7 @@ server.post('/loaduser', async (req, res) => {
 
             // gets rsvp results 
             let rsvpResults = await db('user').join('guests', { 'user.id': 'guests.guest_id' })
-                .where({ wedding_id: user.wedding_id, guest: true }).groupBy('attending');
+                .where({ wedding_id, guest: true }).groupBy('attending');
 
             rsvpResults = rsvpResults.reduce( (rsvps, guest) => {
                 rsvps[guest.attending] = rsvps[guest.attending] ? rsvps[guest.attending] + 1 : 1
@@ -248,12 +248,20 @@ server.post('/loaduser', async (req, res) => {
             let couple = await db('user').join('couples', { 'user.id': 'couples.user_id' }).where({ wedding_id: user.wedding_id });
             let guests = await db('user').join('guests', { 'user.id': 'guests.guest_id' }).where({ wedding_id: user.wedding_id, guest: true });
             let questions = await db('questions').where({ wedding_id: user.wedding_id })
+            
+            let rsvpResults = await db('user').join('guests', { 'user.id': 'guests.guest_id' })
+                .where({ wedding_id: user.wedding_id, guest: true }).groupBy('attending');
 
+            rsvpResults = rsvpResults.reduce( (rsvps, guest) => {
+                rsvps[guest.attending] = rsvps[guest.attending] ? rsvps[guest.attending] + 1 : 1
+                return rsvps
+            }, {})
             res.status(200).json({
                 couple,
                 guests,
                 questions,
-                wedding_data
+                wedding_data,
+                rsvpResults
             })
         }
 
