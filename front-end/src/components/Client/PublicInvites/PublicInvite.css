@@ -26,18 +26,22 @@
 
 .list{
     position: relative;
-    
+    width: 50%;
     
 }
 
 .countdown{
-    display: 'flex';
+    display: flex;
     flex-direction: column;
     position: relative;
+    align-items: center;
     font-size: 55px;
     font-weight: bold;
-    color:#d0d2d1;
+    color: white;
     font-family: 'Dancing Script', cursive;
+    justify-content: center;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.486);
+    width: 50%;
 }
 
 .big-day{
@@ -57,6 +61,7 @@
     display: flex;
     background: beige;
     margin-bottom: 15px;
+    justify-content: space-around;
 }
 
 .part-three{
