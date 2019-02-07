@@ -92,8 +92,9 @@ class PublicInvite extends Component {
               </div>
 
               <div className="save-date">
-                <div>Save the Date!</div>
+                <div className="save-date-txt">Save the Date!</div>
                 <div className="smaller-font">{this.state.event_date}</div>
+                <div className="save-address">{this.state.event_address}</div>
               </div>
               <a className="invite-anchor" href={`/rsvp/${this.state.weddingID}`}>
                 <div className="invite-btn">
@@ -114,7 +115,6 @@ class PublicInvite extends Component {
               </div>
 
               <div className="countdown">
-                <span>{this.state.event_address}</span>
                 <span className='big-day'>The Big Day</span>
                 <CountdownComponent />
               </div>
