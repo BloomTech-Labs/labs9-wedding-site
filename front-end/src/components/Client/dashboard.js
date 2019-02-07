@@ -1,18 +1,20 @@
 
 import React, { Component, Fragment } from 'react';
 import { Pie } from 'react-chartjs-2';
+import {Link} from 'react-router-dom';
 import ReactDropzone from "react-dropzone";
 import AddRegistry from './addRegistry';
-import {Link} from 'react-router-dom';
+import ClientSelections from './ClientSelections';
+import Spread from './spreadModal';
+import ShareMe from './shareMe';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import Share from '@material-ui/icons/Share';
+// import Share from '@material-ui/icons/Share';
 import Add from '@material-ui/icons/Add';
 import Modal from '@material-ui/core/Modal';
-import ClientSelections from './ClientSelections';
-import Spread from './spreadModal';
+
 
 
 import './dashboard.css';
@@ -211,7 +213,8 @@ class Dashboard extends Component {
                         <h1>{`${first_name ? first_name : "---"}`} &amp; {`${p_firstname ? p_firstname : "---"}'s`} Wedding<br />{`${event_date}`}</h1>
                     </div>
                     <div className="location">
-                        <Share />
+                        {/* <Share /> */}
+                        <ShareMe userData={this.props.userData}/>
                         <p style={{fontWeight: "bold"}}>{event_address}</p>
                     </div>
                 </div>
@@ -226,7 +229,7 @@ class Dashboard extends Component {
             <div className="cardDivTop">
                 <Card className="cardTopLeft" style={styles.cardTopLeft}>
                     Guest List
-                    <Spread />
+                    <div className='mobile-spread'><Spread /> </div>
                     <div className='drag-drop'>
                     <ReactDropzone
                         accept=".csv"

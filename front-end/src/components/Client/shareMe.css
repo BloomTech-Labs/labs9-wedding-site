@@ -1,0 +1,21 @@
+.share-buttons{
+    display: flex;
+    flex-direction: row;
+}
+
+.share-buttons:hover{
+    cursor: pointer;
+}
+
+.button{
+    padding-right: 10px;
+}
+
+@media(max-width:600px){
+
+.share-buttons{
+    justify-content: center;
+}
+}
+
+
