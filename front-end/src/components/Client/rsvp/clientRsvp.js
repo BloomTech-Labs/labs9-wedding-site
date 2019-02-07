@@ -72,14 +72,14 @@ class Rsvp extends Component {
                 wedding_id: localStorage.getItem('weddingID'),
                 category: 'First Name',
                 multiple_choice: false,
-                question: 'First Name',
+                question: '',
                 answer: ''
             },
             {
                 wedding_id: localStorage.getItem('weddingID'),
                 category: 'Last Name',
                 multiple_choice: false,
-                question: 'Last Name',
+                question: '',
                 answer: ''
             },
             {
