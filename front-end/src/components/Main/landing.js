@@ -17,6 +17,9 @@ const LandingPageDiv = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 `;
 
 class LandingPage extends Component {
@@ -25,18 +28,26 @@ class LandingPage extends Component {
       <div className="scrollview">
         <div className="containerLanding" id="home">
           <LandingPageDiv className="containerLanding_text" img={beach}>
-            <span className="firstfont">
-              Helping you <br />
-            </span>
-            <span className="secondfont"> Tie the Knot </span>
-            <div className="cta-description">
-              <span className="thirdfont">
-                Choose a design,
-                <br />
-                Customize to your liking,
-								<br/>
-								Send to your friends.
-              </span>
+
+            <div className="home-top-content">
+
+                <div className="landing-slogan">
+                  <div className="firstfont">
+                    Helping you 
+                  </div>
+                  <div className="secondfont"> Tie the Knot </div>
+                </div>
+
+                <div className="cta-description">
+                  <span className="thirdfont">
+                    Choose a design,
+                    <br />
+                    Customize to your liking,
+                    <br/>
+                    Send to your friends.
+                  </span>
+                </div>
+
             </div>
           </LandingPageDiv>
           <a href={"#pricing"} className="LandingCallForActionButton hover">
