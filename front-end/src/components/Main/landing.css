@@ -151,6 +151,9 @@
 	left: 52.5%;
 	top:56%;
 	}
+	.cta-description{
+		display: none;
+	}
 }
 
 @media (max-width: 400){

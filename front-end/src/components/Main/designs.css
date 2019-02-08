@@ -249,3 +249,9 @@ a.designs-auth-btn{
     }
 }
 
+@media (max-width: 350px){
+    .designs-page-hdr{
+        font-size: 48px;
+    }
+}
+
