@@ -3,20 +3,21 @@ const generateDefaultQuestions = (
         first_name,
         p_firstname
     ) => {
-    
+    wedding_id = wedding_id[0]
+    // console.log(wedding_id, first_name, p_firstname)
     return [
         {
             wedding_id,
             category: 'First Name',
             multiple_choice: false,
-            question: 'First Name',
+            question: '',
             answer: ''
         },
         {
             wedding_id,
             category: 'Last Name',
             multiple_choice: false,
-            question: 'last Name',
+            question: '',
             answer: ''
         },
         {
