@@ -13,6 +13,16 @@ class Billing extends Component {
     }
 
     componentDidMount() {
+        
+        axios
+        .get(`${process.env.REACT_APP_LOCAL_URL}/invite/${localStorage.getItem('weddingID')}`)
+        .then(res => {
+          console.log(res.data.weddingDetails.pricing_package)
+          this.setState({
+            pricingPackage: res.data.weddingDetails.pricing_package
+          })
+        })
+        
         let vbtoken = localStorage.getItem('vbtoken');
         let oauth_id = localStorage.getItem('vbtoken');
 
@@ -40,7 +50,7 @@ class Billing extends Component {
                 <div className="billingContainer">
                     <StripeProvider apiKey={process.env.REACT_APP_STRIPE_API_KEY}>
                         <Elements>
-                            <CheckoutForm user={this.state.user1}/>
+                            <CheckoutForm user={this.state.user1} pricingPackage={this.state.pricingPackage}/>
                         </Elements>
                     </StripeProvider>
                 </div>
