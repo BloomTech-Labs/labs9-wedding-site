@@ -155,3 +155,7 @@ Platform that handles secure user payments. | https://stripe.com/
 ### Google OAuth
 
 Authentication through Google OAuth 2.0 | https://developers.google.com/identity/protocols/OAuth2
+
+## Media
+
+Images through https://www.pexels.com/, and https://unsplash.com/
