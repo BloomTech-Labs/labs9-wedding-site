@@ -10,27 +10,12 @@ import CardContent from '@material-ui/core/CardContent';
 import "./cardSection.css";
 import axios from 'axios';
 
-
-
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      complete: false,
-      pricingPackage: null
+      complete: false
     };
-  }
-
-  componentDidMount() {
-    console.log('componentDidMount')
-    axios
-    .get(`${process.env.REACT_APP_LOCAL_URL}/invite/${localStorage.getItem('weddingID')}`)
-    .then(res => {
-      console.log(res.data.weddingDetails.pricing_package)
-      this.setState({
-        pricingPackage: res.data.weddingDetails.pricing_package
-      })
-    })
   }
 
   submitAlwaysPackage = async (e) => {
@@ -107,41 +92,39 @@ class CheckoutForm extends Component {
       <div className="checkout">
         <CardElement />
         <div className="pricing-packages">
-
-          <Card className={`package ${this.state.pricingPackage === 0 ? 'active' : ''}`}>
+          <Card className={`package ${this.props.pricingPackage === 0 ? 'active' : ''}`}>
             <CardContent>
             <h4>The Always Package</h4>
             <h4>Free</h4>
             <p>15-person Guest List</p>
             <p>Unlimited Registries</p>
-            ${this.state.pricingPackage === 0 ? (
+            ${this.props.pricingPackage === 0 ? (
               <button className="disabled">Always Package</button>
             ) : (
               <button onClick={this.submitAlwaysPackage}>Buy Always Package</button>
             )}
             </CardContent>
           </Card>
-
-          <Card className={`package ${this.state.pricingPackage === 1 ? 'active' : ''}`}>
+          <Card className={`package ${this.props.pricingPackage === 1 ? 'active' : ''}`}>
             <CardContent>
             <h4>The Forever Package</h4>
             <h4>$15.99</h4>
             <p>30-person Guest List</p>
             <p>Unlimited Registries</p>
-            ${this.state.pricingPackage === 1 ? (
+            ${this.props.pricingPackage === 1 ? (
               <button className="disabled">Forever Package</button>
             ) : (
               <button onClick={this.submitForeverPackage}>Buy Forever Package</button>
             )}            
             </CardContent>
           </Card>
-          <Card className={`package ${this.state.pricingPackage === 2 ? 'active' : ''}`}>
+          <Card className={`package ${this.props.pricingPackage === 2 ? 'active' : ''}`}>
             <CardContent>
             <h4>The Eternity Package</h4>
             <h4>$39.99</h4>
             <p>Unlimited Guest List</p>
             <p>Unlimited Registries</p>
-            ${this.state.pricingPackage === 2 ? (
+            ${this.props.pricingPackage === 2 ? (
               <button className="disabled">Eternity Package</button>
             ) : (
               <button onClick={this.submitEternityPackage}>Buy Eternity Package</button>
