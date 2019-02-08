@@ -3,11 +3,6 @@
 	display: flex;
 	flex-direction: column;
 	font-family: "Pinyon Script", cursive;
-	color: "#AFD4E1";
-	position: absolute;
-	top: 220px;
-	left: 4.5%;
-	font-size: 85px;
 	font-weight: 500;
 	line-height: 1;
 }
@@ -16,25 +11,14 @@
 	display: flex;
 	flex-direction: column;
 	font-family: "Pinyon Script", cursive;
-	color: "#AFD4E1";
-	position: absolute;
-	top: 320px;
-	left: 4.5%;
-	font-size: 85px;
 	font-weight: 500;
-	line-height: 1;
 }
 
 .thirdfont{
 	display: flex;
 	flex-direction: column;
-	color: "#AFD4E1";
-	position: absolute;
-	top: 460px;
-	left: 60.5%;
 	font-size: 35px;
-	font-weight: 500;
-	line-height: 1;
+	
 }
 
 .arrow {
@@ -83,6 +67,7 @@
 	text-transform: uppercase;
 	transition: color 0.1s, background-color 0.1s;
 	color: #000;
+	font-weight: bolder;
 	transition: all 0.3s;
 	padding: 0;
 	margin: auto;
@@ -138,18 +123,43 @@
 	height: 100%;
 	background-image: linear-gradient(black, transparent);
 }
+.home-top-content{
+	display: flex;
+    width: 80%;
+    height: 45%;
+	flex-direction: column;
+    justify-content: space-between;
+	color: white;
+	max-width: 1158px;
+}
+.landing-slogan{
+	display: flex;
+    flex-direction: column;
+	font-size: 100px;
+	text-shadow: 1px 1px 1px rgba(0,0,0,.45);
+    font-weight: bold;
+}
+.cta-description{
+	align-self: flex-end;
+	font-weight: bolder;
+}
+
+
 @media (max-width: 600px) {
-	.firstfont,
-	.secondfont {
-		font-size: 50px;
-		width: 100%;
-		text-shadow: 1px 1px 12px white;
-		line-height: .5;
+	
+	
+	.cta-description{
+		display: none;
 	}
-	.thirdfont{
-	font-size:20px;
-	left: 52.5%;
-	top:56%;
+	.home-top-content{
+		width: 100%;
+    	align-items: center;
+		justify-content: center;
+	}
+	.landing-slogan{
+		font-size: 60px;
+    	text-shadow: 1px 1px 1px rgba(0,0,0,.65);
+		
 	}
 }
 
@@ -157,5 +167,11 @@
 	.bottom-btn{
 		top: 150px;
 		position: relative;
+	}
+}
+
+@media(min-width: 1240px){
+	#designs{
+		height: 100vh;
 	}
 }

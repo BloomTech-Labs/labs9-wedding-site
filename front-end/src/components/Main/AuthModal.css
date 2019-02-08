@@ -8,9 +8,19 @@
     background: rgba(255, 255, 255, 0.932);
     align-items: center;
     border-radius: 12px;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.349);
-    
-    
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.349);  
+}
+
+@media (max-width: 500px){    
+    .modal-div{
+        width: 90%;
+    }
+}
+
+@media (min-width: 501px){
+    .modal-div{
+        width: 450px;
+    }
 }
 
 .logo-cont{

@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Dancing+Script');
 .container-invite{
-
     width:100%;
 }
 
@@ -9,7 +8,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    background: url(/static/media/doors.67c89041.jpg);
+    background: url('https://images.pexels.com/photos/169191/pexels-photo-169191.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
     background-size: cover;
     height: 100vh;
     justify-content: center;
@@ -18,16 +17,12 @@
 
 .invite-main{
     position: relative;
-    
     display: flex;
-    /* right:14.5%; */
-    
 }
 
 .list{
     position: relative;
-    width: 50%;
-    
+    width: 50%;   
 }
 
 .countdown{
@@ -48,7 +43,6 @@
     position: relative;
     display: flex;
     font-size:75px;
-    
 }
 
 .part-two{
@@ -131,12 +125,12 @@
 }
 
 .smaller-font{
-    font-size: 40px;
+    font-size: 70px;
     text-align: center;
     color: beige;
 }
 .save-address{
-    font-size: 25px;
+    font-size: 45px;
     text-align: center;
     padding: 10px;
     color: pink;
@@ -264,7 +258,7 @@ a.invite-anchor::before{
 
 .invite-anchor{
     position: relative;
-    top: 50px;
+    
 }
 
 @media only screen and (max-width: 900px){
@@ -277,6 +271,7 @@ a.invite-anchor::before{
 @media only screen and (max-width: 420px){
     .header-name{
         height: 25%;
+        margin-top: 55px;
     }
     .part-two-top{
         flex-direction: column;
@@ -296,6 +291,13 @@ a.invite-anchor::before{
     .save-date{
         font-size: 40px;
         text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
+        margin-top: 30px;
+    }
+    .smaller-font{
+        font-size: 40px;
+    }
+    .save-address{
+        font-size: 25px;
     }
     .invite-cont{
         
