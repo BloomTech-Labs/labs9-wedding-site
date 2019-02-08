@@ -69,7 +69,9 @@ function Prices(props) {
 						</div>
 						<div class="bontent-details fadeIn-top">
 							<h3>Always</h3>
-							<p>This is a short description</p>
+							<h4>The Always Package <br/> $0</h4>
+            				<p>15-person Guest List</p>
+            				<p>Unlimited Registries</p>
 						</div>
 					</div>
 				</CardActionArea>
@@ -89,7 +91,9 @@ function Prices(props) {
 						</div>
 						<div class="bontent-details fadeIn-top">
 							<h3>Forever</h3>
-							<p>This is a short description</p>
+							<h4>The Forever Package <br/> $15.99</h4>
+            				<p>30-person Guest List</p>
+            				<p>Unlimited Registries</p>
 						</div>
 					</div>
 				</CardActionArea>
@@ -109,7 +113,9 @@ function Prices(props) {
 						</div>
 						<div class="bontent-details fadeIn-top">
 							<h3>Eternity</h3>
-							<p>This is a short description</p>
+							<h4>The Eternity Package <br/> $39.99</h4>
+            				<p>Unlimited Guest List</p>
+            				<p>Unlimited Registries</p>
 						</div>
 					</div>
 				</CardActionArea>
