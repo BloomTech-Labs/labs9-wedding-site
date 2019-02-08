@@ -796,6 +796,23 @@ server.post('/upload', upload.single('file'), (req, res) => {
 
 
 // STRIPE PAYMENT ENDPOINTS
+
+server.post("/chargealways", async (req, res) => {
+    console.log("req.body", req.body)
+    try {
+        let { status } = await stripe.charges.create({
+            amount: 999,
+            currency: "usd",
+            description: "The always package",
+            source: req.body.token
+        });
+        let package = await db.table('weddings').where({id: req.body.wedding_id}).update({pricing_package: 0})
+        res.json({ status, package });
+    } catch (err) {
+        res.status(500).end();
+    }
+});
+
 server.post("/chargeforever", async (req, res) => {
     console.log("req.body", req.body)
     try {

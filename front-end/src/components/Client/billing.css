@@ -6,7 +6,7 @@
 .billing .billingContainer {
     margin: 0 auto 50px;
     width: 80%;
-    padding: 0 10%;
+    /* padding: 0 10%; */
 }
 
 .billing .clientNavSidebar {
