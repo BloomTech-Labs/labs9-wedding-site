@@ -200,12 +200,6 @@ class Dashboard extends Component {
                 <Sidebar />    
                 <div className="dashboardContainer">
 
-                <a className="chg-design" href="/vb/settings">
-                    <Button>
-                    Change Design
-                    </Button>
-                </a>
-
                 <div className="weddingInfo">
                     <div className="userInfo">
                         <h1>{`${first_name ? first_name : "---"}`} &amp; {`${p_firstname ? p_firstname : "---"}'s`} Wedding<br />{`${event_date}`}</h1>
@@ -216,13 +210,18 @@ class Dashboard extends Component {
                     </div>
                 </div>
                 <Card className="invite-link">
-                    <div className="invite-link-text">
-                        Copy this link and share it with your friends and family so they can rsvp to your event!                    
                         <Link to={`/${this.props.userData.weddingID}/invite`}>
+                    <div className="invite-link-text">
+                        This is a unique link to your wedding invitation. <br/> Share it with your friends and family so they can rsvp to your event!                    
+
+                    </div>
                             {`https://www.vbeloved.com/${this.props.userData.weddingID}/invite`}
                         </Link>
-                    </div>
+
+
             </Card>
+
+
             <div className="cardDivTop">
                 <Card className="cardTopLeft" style={styles.cardTopLeft}>
                     Guest List
